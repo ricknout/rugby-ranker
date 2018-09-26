@@ -31,6 +31,6 @@ class WorldRugbyRankingListAdapter : ListAdapter<WorldRugbyRanking, WorldRugbyRa
 class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyRanking: WorldRugbyRanking) {
-        itemView.textView.text = "${worldRugbyRanking.position} ${worldRugbyRanking.teamName} ${worldRugbyRanking.points}"
+        itemView.textView.text = "${worldRugbyRanking.position} (${worldRugbyRanking.previousPosition}) ${worldRugbyRanking.teamName} ${worldRugbyRanking.points} (${worldRugbyRanking.previousPoints})"
     }
 }

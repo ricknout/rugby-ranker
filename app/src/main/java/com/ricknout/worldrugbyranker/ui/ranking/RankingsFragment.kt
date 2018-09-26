@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.ricknout.worldrugbyranker.R
 import com.ricknout.worldrugbyranker.ui.common.WorldRugbyRankingListAdapter
+import com.ricknout.worldrugbyranker.vo.MatchResult
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import javax.inject.Inject
@@ -36,9 +37,18 @@ class RankingsFragment : Fragment() {
         viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
             adapter.submitList(mensWorldRugbyRankings)
         })
-        /*viewModel.womensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
-            adapter.submitList(mensWorldRugbyRankings)
-        })*/
+        viewModel.isCalculating.observe(this, Observer { isCalculating ->
+            calculateButton.isEnabled = !isCalculating
+            resetButton.isEnabled = isCalculating
+        })
+        // Testing calculate
+        calculateButton.setOnClickListener {
+            val matchResult = MatchResult(37, 39, 20, 10, false, false)
+            viewModel.calculateMens(matchResult)
+        }
+        resetButton.setOnClickListener {
+            viewModel.resetMens()
+        }
     }
 
     companion object {
