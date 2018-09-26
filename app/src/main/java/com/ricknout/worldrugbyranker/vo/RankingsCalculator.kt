@@ -1,5 +1,9 @@
 package com.ricknout.worldrugbyranker.vo
 
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
+
 object RankingsCalculator {
 
     fun allocatePointsForMatchResult(
@@ -32,6 +36,16 @@ object RankingsCalculator {
             awayTeam: WorldRugbyRanking,
             matchResult: MatchResult
     ): Float {
-        return 1f // TODO: Implement actual World Rugby formula
+        val homeTeamPoints = if (!matchResult.noHomeAdvantage) homeTeam.points + 3f else homeTeam.points
+        val pointsDifference = min(10f, max(-10f, homeTeamPoints - awayTeam.points))
+        val drawDifference = pointsDifference / 10f
+        var multiplier = 1f
+        if (abs(matchResult.homeTeamScore - matchResult.awayTeamScore) > 15) multiplier *= 1.5f
+        if (matchResult.rugbyWorldCup) multiplier *= 2f
+        return (when {
+            matchResult.homeTeamScore > matchResult.awayTeamScore -> 1f
+            matchResult.awayTeamScore > matchResult.homeTeamScore -> -1f
+            else -> 0f
+        } - drawDifference) * multiplier
     }
 }

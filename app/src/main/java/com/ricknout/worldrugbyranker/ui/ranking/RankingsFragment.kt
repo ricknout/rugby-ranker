@@ -43,7 +43,7 @@ class RankingsFragment : Fragment() {
         })
         // Testing calculate
         calculateButton.setOnClickListener {
-            val matchResult = MatchResult(37, 39, 20, 10, false, false)
+            val matchResult = MatchResult(37, 39, 10, 26, false, false)
             viewModel.calculateMens(matchResult)
         }
         resetButton.setOnClickListener {
