@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 abstract class WorldRugbyRanking {
+
         abstract val teamId: Long
         abstract val teamName: String
         abstract val teamAbbreviation: String
@@ -13,6 +14,10 @@ abstract class WorldRugbyRanking {
         abstract val points: Float
         abstract val previousPoints: Float
         abstract val matches: Int
+
+        abstract fun allocatePoints(points: Float): WorldRugbyRanking
+
+        abstract fun updatePosition(position: Int): WorldRugbyRanking
 }
 
 @Entity(tableName = "mens_world_rugby_rankings")
@@ -34,7 +39,12 @@ data class MensWorldRugbyRanking(
         override val previousPoints: Float,
         @field:SerializedName("matches")
         override val matches: Int
-) : WorldRugbyRanking()
+) : WorldRugbyRanking() {
+
+        override fun allocatePoints(points: Float) = copy(previousPoints = this.points, points = this.points + points)
+
+        override fun updatePosition(position: Int) = copy(previousPosition = this.position, position = position)
+}
 
 @Entity(tableName = "womens_world_rugby_rankings")
 data class WomensWorldRugbyRanking(
@@ -55,4 +65,9 @@ data class WomensWorldRugbyRanking(
         override val previousPoints: Float,
         @field:SerializedName("matches")
         override val matches: Int
-) : WorldRugbyRanking()
+) : WorldRugbyRanking() {
+
+        override fun allocatePoints(points: Float) = copy(previousPoints = this.points, points = this.points + points)
+
+        override fun updatePosition(position: Int) = copy(previousPosition = this.position, position = position)
+}
