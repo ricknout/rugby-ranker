@@ -38,7 +38,6 @@ class RankingsFragment : Fragment() {
             adapter.submitList(mensWorldRugbyRankings)
         })
         viewModel.isCalculating.observe(this, Observer { isCalculating ->
-            calculateButton.isEnabled = !isCalculating
             resetButton.isEnabled = isCalculating
         })
         // Testing calculate

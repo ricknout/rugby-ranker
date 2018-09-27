@@ -30,10 +30,10 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
     }
 
     fun calculateMens(matchResult: MatchResult) {
-        val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return
+        val currentMensWorldRugbyRankings = calculatedMensWorldRugbyRankings.value ?: latestMensWorldRugbyRankings.value ?: return
         _isCalculating.value = true
         calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResult(
-                worldRugbyRankings = latestMensWorldRugbyRankings,
+                worldRugbyRankings = currentMensWorldRugbyRankings,
                 matchResult = matchResult
         )
     }
@@ -56,10 +56,10 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
     }
 
     fun calculateWomens(matchResult: MatchResult) {
-        val latestWomensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return
+        val currentWomensWorldRugbyRankings = calculatedWomensWorldRugbyRankings.value ?: latestWomensWorldRugbyRankings.value ?: return
         _isCalculating.value = true
         calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResult(
-                worldRugbyRankings = latestWomensWorldRugbyRankings,
+                worldRugbyRankings = currentWomensWorldRugbyRankings,
                 matchResult = matchResult
         )
     }
