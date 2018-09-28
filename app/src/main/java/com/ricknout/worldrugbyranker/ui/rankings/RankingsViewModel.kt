@@ -1,4 +1,4 @@
-package com.ricknout.worldrugbyranker.ui.ranking
+package com.ricknout.worldrugbyranker.ui.rankings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

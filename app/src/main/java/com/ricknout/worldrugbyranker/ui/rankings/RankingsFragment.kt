@@ -1,4 +1,4 @@
-package com.ricknout.worldrugbyranker.ui.ranking
+package com.ricknout.worldrugbyranker.ui.rankings
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -2,7 +2,7 @@ package com.ricknout.worldrugbyranker.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ricknout.worldrugbyranker.ui.ranking.RankingsViewModel
+import com.ricknout.worldrugbyranker.ui.rankings.RankingsViewModel
 import com.ricknout.worldrugbyranker.viewmodel.WorldRugbyRankerViewModelFactory
 import dagger.Binds
 import dagger.Module
