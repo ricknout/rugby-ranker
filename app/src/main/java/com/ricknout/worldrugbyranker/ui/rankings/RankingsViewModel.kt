@@ -18,6 +18,10 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
 
     private fun isCalculatingMens() = _isCalculatingMens.value == true
 
+    private val _mensMatches = MutableLiveData<List<MatchResult>>()
+    val mensMatches: LiveData<List<MatchResult>>
+        get() = _mensMatches
+
     private val latestMensWorldRugbyRankings = worldRugbyRankerRepository.getLatestMensWorldRugbyRankings()
     private val calculatedMensWorldRugbyRankings = MutableLiveData<List<WorldRugbyRanking>>()
     val mensWorldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
@@ -36,10 +40,14 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
                 worldRugbyRankings = currentMensWorldRugbyRankings,
                 matchResult = matchResult
         )
+        val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
+        currentMensMatches.add(matchResult)
+        _mensMatches.value = currentMensMatches
     }
 
     fun resetMens() {
         _isCalculatingMens.value = false
+        _mensMatches.value = null
         calculatedMensWorldRugbyRankings.value = null
         mensWorldRugbyRankings.value = latestMensWorldRugbyRankings.value
     }
@@ -49,6 +57,10 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         get() = _isCalculatingWomens
 
     private fun isCalculatingWomens() = _isCalculatingWomens.value == true
+
+    private val _womensMatches = MutableLiveData<List<MatchResult>>()
+    val womensMatches: LiveData<List<MatchResult>>
+        get() = _womensMatches
 
     private val latestWomensWorldRugbyRankings = worldRugbyRankerRepository.getLatestWomensWorldRugbyRankings()
     private val calculatedWomensWorldRugbyRankings = MutableLiveData<List<WorldRugbyRanking>>()
@@ -68,10 +80,14 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
                 worldRugbyRankings = currentWomensWorldRugbyRankings,
                 matchResult = matchResult
         )
+        val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
+        currentWomensMatches.add(matchResult)
+        _womensMatches.value = currentWomensMatches
     }
 
     fun resetWomens() {
         _isCalculatingWomens.value = false
+        _womensMatches.value = null
         calculatedWomensWorldRugbyRankings.value = null
         womensWorldRugbyRankings.value = latestWomensWorldRugbyRankings.value
     }

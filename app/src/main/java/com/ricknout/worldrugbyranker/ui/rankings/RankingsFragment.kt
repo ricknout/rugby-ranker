@@ -1,6 +1,7 @@
 package com.ricknout.worldrugbyranker.ui.rankings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,9 @@ class RankingsFragment : DaggerFragment() {
                 viewModel.isCalculatingMens.observe(this, Observer { isCalculatingMens ->
                     resetButton.isEnabled = isCalculatingMens
                 })
+                viewModel.mensMatches.observe(this, Observer { mensMatches ->
+                    Log.d(TAG, mensMatches?.toString() ?: "No mens matches")
+                })
                 // Testing calculate
                 calculateButton.setOnClickListener {
                     val matchResult = MatchResult(
@@ -65,6 +69,9 @@ class RankingsFragment : DaggerFragment() {
                 })
                 viewModel.isCalculatingWomens.observe(this, Observer { isCalculatingWomens ->
                     resetButton.isEnabled = isCalculatingWomens
+                })
+                viewModel.womensMatches.observe(this, Observer { womensMatches ->
+                    Log.d(TAG, womensMatches?.toString() ?: "No womens matches")
                 })
                 // Testing calculate
                 calculateButton.setOnClickListener {
