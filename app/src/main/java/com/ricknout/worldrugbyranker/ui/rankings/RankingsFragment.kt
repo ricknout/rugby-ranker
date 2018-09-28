@@ -38,6 +38,8 @@ class RankingsFragment : DaggerFragment() {
             TYPE_MENS -> {
                 viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
                     adapter.submitList(mensWorldRugbyRankings)
+                    val isEmpty = mensWorldRugbyRankings?.isEmpty() ?: true
+                    calculateButton.isEnabled = !isEmpty
                 })
                 viewModel.isCalculatingMens.observe(this, Observer { isCalculatingMens ->
                     resetButton.isEnabled = isCalculatingMens
@@ -66,6 +68,8 @@ class RankingsFragment : DaggerFragment() {
             TYPE_WOMENS -> {
                 viewModel.womensWorldRugbyRankings.observe(this, Observer { womensWorldRugbyRankings ->
                     adapter.submitList(womensWorldRugbyRankings)
+                    val isEmpty = womensWorldRugbyRankings?.isEmpty() ?: true
+                    calculateButton.isEnabled = !isEmpty
                 })
                 viewModel.isCalculatingWomens.observe(this, Observer { isCalculatingWomens ->
                     resetButton.isEnabled = isCalculatingWomens
