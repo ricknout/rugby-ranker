@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/list_item_world_rugby_ranking" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toStartOf="@id/resetButton"
         app:layout_constraintHorizontal_chainStyle="packed" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
