@@ -8,10 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.ricknout.worldrugbyranker.R
+import com.ricknout.worldrugbyranker.ui.common.MatchResultListAdapter
 import com.ricknout.worldrugbyranker.ui.common.WorldRugbyRankingListAdapter
 import com.ricknout.worldrugbyranker.vo.MatchResult
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_rankings.*
+import java.util.Random
 import javax.inject.Inject
 
 class RankingsFragment : DaggerFragment() {
@@ -21,7 +23,8 @@ class RankingsFragment : DaggerFragment() {
 
     private lateinit var viewModel: RankingsViewModel
 
-    private val adapter = WorldRugbyRankingListAdapter()
+    private val rankingsAdapter = WorldRugbyRankingListAdapter()
+    private val matchesAdapter = MatchResultListAdapter()
 
     private var type: Int = TYPE_NONE
 
@@ -29,32 +32,33 @@ class RankingsFragment : DaggerFragment() {
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recyclerView.adapter = adapter
+        rankingsRecyclerView.adapter = rankingsAdapter
+        matchesRecyclerView.adapter = matchesAdapter
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
                 .get(RankingsViewModel::class.java)
         type = RankingsFragmentArgs.fromBundle(arguments).type
         when (type) {
             TYPE_MENS -> {
                 viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
-                    adapter.submitList(mensWorldRugbyRankings)
+                    rankingsAdapter.submitList(mensWorldRugbyRankings)
                     val isEmpty = mensWorldRugbyRankings?.isEmpty() ?: true
                     calculateButton.isEnabled = !isEmpty
                 })
                 viewModel.isCalculatingMens.observe(this, Observer { isCalculatingMens ->
                     resetButton.isEnabled = isCalculatingMens
                 })
-                /*viewModel.mensMatches.observe(this, Observer { mensMatches ->
-                    Log.d(TAG, mensMatches?.toString() ?: "No mens matches")
-                })*/
+                viewModel.mensMatches.observe(this, Observer { mensMatches ->
+                    matchesAdapter.submitList(mensMatches)
+                })
                 // Testing calculate
                 calculateButton.setOnClickListener {
                     val matchResult = MatchResult(
                             homeTeamId = 37,
                             homeTeamAbbreviation = "NZL",
-                            homeTeamScore = 10,
+                            homeTeamScore = Random().nextInt(100),
                             awayTeamId = 39,
                             awayTeamAbbreviation = "RSA",
-                            awayTeamScore = 26,
+                            awayTeamScore = Random().nextInt(100),
                             noHomeAdvantage = false,
                             rugbyWorldCup = false
                     )
@@ -66,25 +70,25 @@ class RankingsFragment : DaggerFragment() {
             }
             TYPE_WOMENS -> {
                 viewModel.womensWorldRugbyRankings.observe(this, Observer { womensWorldRugbyRankings ->
-                    adapter.submitList(womensWorldRugbyRankings)
+                    rankingsAdapter.submitList(womensWorldRugbyRankings)
                     val isEmpty = womensWorldRugbyRankings?.isEmpty() ?: true
                     calculateButton.isEnabled = !isEmpty
                 })
                 viewModel.isCalculatingWomens.observe(this, Observer { isCalculatingWomens ->
                     resetButton.isEnabled = isCalculatingWomens
                 })
-                /*viewModel.womensMatches.observe(this, Observer { womensMatches ->
-                    Log.d(TAG, womensMatches?.toString() ?: "No womens matches")
-                })*/
+                viewModel.womensMatches.observe(this, Observer { womensMatches ->
+                    matchesAdapter.submitList(womensMatches)
+                })
                 // Testing calculate
                 calculateButton.setOnClickListener {
                     val matchResult = MatchResult(
                             homeTeamId = 2580,
                             homeTeamAbbreviation = "NZL",
-                            homeTeamScore = 10,
+                            homeTeamScore = Random().nextInt(100),
                             awayTeamId = 2582,
                             awayTeamAbbreviation = "RSA",
-                            awayTeamScore = 26,
+                            awayTeamScore = Random().nextInt(100),
                             noHomeAdvantage = false,
                             rugbyWorldCup = false
                     )

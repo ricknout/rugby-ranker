@@ -16,8 +16,8 @@ class WorldRugbyRankingListAdapter : ListAdapter<WorldRugbyRanking, WorldRugbyRa
             = WorldRugbyRankingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_ranking, parent, false))
 
     override fun onBindViewHolder(holder: WorldRugbyRankingViewHolder, position: Int) {
-        val entry = getItem(position)
-        holder.bind(entry)
+        val worldRugbyRanking = getItem(position)
+        holder.bind(worldRugbyRanking)
     }
 
     companion object {

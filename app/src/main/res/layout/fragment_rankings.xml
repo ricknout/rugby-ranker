@@ -7,15 +7,15 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/rankingsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         android:paddingBottom="80dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/matchesRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/list_item_world_rugby_ranking" />
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Calculate"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/matchesRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/resetButton"
         app:layout_constraintHorizontal_chainStyle="packed" />
@@ -37,8 +37,19 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Reset"
+        app:layout_constraintBottom_toTopOf="@id/matchesRecyclerView"
         app:layout_constraintStart_toEndOf="@id/calculateButton"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/matchesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/list_item_match_result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
