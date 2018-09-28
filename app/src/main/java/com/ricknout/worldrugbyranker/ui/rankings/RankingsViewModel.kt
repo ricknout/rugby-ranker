@@ -48,7 +48,7 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
     val isCalculatingWomens: LiveData<Boolean>
         get() = _isCalculatingWomens
 
-    private fun isCalculatingWomens() = _isCalculatingMens.value == true
+    private fun isCalculatingWomens() = _isCalculatingWomens.value == true
 
     private val latestWomensWorldRugbyRankings = worldRugbyRankerRepository.getLatestWomensWorldRugbyRankings()
     private val calculatedWomensWorldRugbyRankings = MutableLiveData<List<WorldRugbyRanking>>()

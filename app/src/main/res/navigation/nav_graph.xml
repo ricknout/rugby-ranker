@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mensRankingsFragments">
+    app:startDestination="@id/mensRankingsFragment">
 
     <fragment
-        android:id="@+id/mensRankingsFragments"
+        android:id="@+id/mensRankingsFragment"
         android:name="com.ricknout.worldrugbyranker.ui.rankings.RankingsFragment"
         android:label="MensRankingsFragment"
         tools:layout="@layout/fragment_rankings">
@@ -15,7 +15,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/womensRankingsFragments"
+        android:id="@+id/womensRankingsFragment"
         android:name="com.ricknout.worldrugbyranker.ui.rankings.RankingsFragment"
         android:label="WomensRankingsFragment"
         tools:layout="@layout/fragment_rankings">
