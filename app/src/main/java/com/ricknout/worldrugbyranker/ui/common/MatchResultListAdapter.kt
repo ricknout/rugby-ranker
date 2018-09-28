@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.worldrugbyranker.R
 import com.ricknout.worldrugbyranker.vo.MatchResult
-import kotlinx.android.synthetic.main.list_item_world_rugby_ranking.view.*
+import kotlinx.android.synthetic.main.list_item_match_result.view.*
 
 class MatchResultListAdapter : ListAdapter<MatchResult, MatchResultViewHolder>(DIFF_CALLBACK) {
 
