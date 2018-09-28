@@ -23,6 +23,8 @@ class RankingsFragment : DaggerFragment() {
 
     private val adapter = WorldRugbyRankingListAdapter()
 
+    private var type: Int = TYPE_NONE
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
@@ -30,33 +32,65 @@ class RankingsFragment : DaggerFragment() {
         recyclerView.adapter = adapter
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
                 .get(RankingsViewModel::class.java)
-        viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
-            adapter.submitList(mensWorldRugbyRankings)
-        })
-        viewModel.isCalculatingMens.observe(this, Observer { isCalculatingMens ->
-            resetButton.isEnabled = isCalculatingMens
-        })
-        // Testing calculate
-        calculateButton.setOnClickListener {
-            val matchResult = MatchResult(
-                    homeTeamId = 37,
-                    homeTeamAbbreviation = "NZL",
-                    homeTeamScore = 10,
-                    awayTeamId = 39,
-                    awayTeamAbbreviation = "RSA",
-                    awayTeamScore = 26,
-                    noHomeAdvantage = false,
-                    rugbyWorldCup = false
-            )
-            viewModel.calculateMens(matchResult)
-        }
-        resetButton.setOnClickListener {
-            viewModel.resetMens()
+        type = RankingsFragmentArgs.fromBundle(arguments).type
+        when (type) {
+            TYPE_MENS -> {
+                viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
+                    adapter.submitList(mensWorldRugbyRankings)
+                })
+                viewModel.isCalculatingMens.observe(this, Observer { isCalculatingMens ->
+                    resetButton.isEnabled = isCalculatingMens
+                })
+                // Testing calculate
+                calculateButton.setOnClickListener {
+                    val matchResult = MatchResult(
+                            homeTeamId = 37,
+                            homeTeamAbbreviation = "NZL",
+                            homeTeamScore = 10,
+                            awayTeamId = 39,
+                            awayTeamAbbreviation = "RSA",
+                            awayTeamScore = 26,
+                            noHomeAdvantage = false,
+                            rugbyWorldCup = false
+                    )
+                    viewModel.calculateMens(matchResult)
+                }
+                resetButton.setOnClickListener {
+                    viewModel.resetMens()
+                }
+            }
+            TYPE_WOMENS -> {
+                viewModel.womensWorldRugbyRankings.observe(this, Observer { womensWorldRugbyRankings ->
+                    adapter.submitList(womensWorldRugbyRankings)
+                })
+                viewModel.isCalculatingWomens.observe(this, Observer { isCalculatingWomens ->
+                    resetButton.isEnabled = isCalculatingWomens
+                })
+                // Testing calculate
+                calculateButton.setOnClickListener {
+                    val matchResult = MatchResult(
+                            homeTeamId = 37,
+                            homeTeamAbbreviation = "NZL",
+                            homeTeamScore = 10,
+                            awayTeamId = 39,
+                            awayTeamAbbreviation = "RSA",
+                            awayTeamScore = 26,
+                            noHomeAdvantage = false,
+                            rugbyWorldCup = false
+                    )
+                    viewModel.calculateWomens(matchResult)
+                }
+                resetButton.setOnClickListener {
+                    viewModel.resetWomens()
+                }
+            }
         }
     }
 
     companion object {
         const val TAG = "RankingsFragment"
-        fun newInstance() = RankingsFragment()
+        private const val TYPE_NONE = -1
+        private const val TYPE_MENS = 0
+        private const val TYPE_WOMENS = 1
     }
 }
