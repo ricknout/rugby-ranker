@@ -42,7 +42,16 @@ class RankingsFragment : Fragment() {
         })
         // Testing calculate
         calculateButton.setOnClickListener {
-            val matchResult = MatchResult(37, 39, 10, 26, false, false)
+            val matchResult = MatchResult(
+                    homeTeamId = 37,
+                    homeTeamAbbreviation = "NZL",
+                    homeTeamScore = 10,
+                    awayTeamId = 39,
+                    awayTeamAbbreviation = "RSA",
+                    awayTeamScore = 26,
+                    noHomeAdvantage = false,
+                    rugbyWorldCup = false
+            )
             viewModel.calculateMens(matchResult)
         }
         resetButton.setOnClickListener {
