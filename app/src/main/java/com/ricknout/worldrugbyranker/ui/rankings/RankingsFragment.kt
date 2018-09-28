@@ -79,10 +79,10 @@ class RankingsFragment : DaggerFragment() {
                 // Testing calculate
                 calculateButton.setOnClickListener {
                     val matchResult = MatchResult(
-                            homeTeamId = 37,
+                            homeTeamId = 2580,
                             homeTeamAbbreviation = "NZL",
                             homeTeamScore = 10,
-                            awayTeamId = 39,
+                            awayTeamId = 2582,
                             awayTeamAbbreviation = "RSA",
                             awayTeamScore = 26,
                             noHomeAdvantage = false,
