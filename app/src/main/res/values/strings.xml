@@ -1,3 +1,8 @@
 <resources>
+
     <string name="app_name">World Rugby Ranker</string>
+
+    <string name="title_mens">Men\'s</string>
+    <string name="title_womens">Women\'s</string>
+
 </resources>

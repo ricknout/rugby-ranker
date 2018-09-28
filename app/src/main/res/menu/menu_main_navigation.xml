@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@id/mensRankingsFragment"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="@string/title_mens" />
+
+    <item
+        android:id="@id/womensRankingsFragment"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="@string/title_womens" />
+
+</menu>
