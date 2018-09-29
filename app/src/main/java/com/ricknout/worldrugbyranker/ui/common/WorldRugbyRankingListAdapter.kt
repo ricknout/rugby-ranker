@@ -31,6 +31,16 @@ class WorldRugbyRankingListAdapter : ListAdapter<WorldRugbyRanking, WorldRugbyRa
 class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyRanking: WorldRugbyRanking) {
-        itemView.textView.text = "${worldRugbyRanking.position} (${worldRugbyRanking.previousPosition}) ${worldRugbyRanking.teamName} ${worldRugbyRanking.points} (${worldRugbyRanking.previousPoints})"
+        val previousPosition = if (worldRugbyRanking.position != worldRugbyRanking.previousPosition) {
+            " (${worldRugbyRanking.previousPosition})"
+        } else {
+            ""
+        }
+        val previousPoints = if (worldRugbyRanking.points != worldRugbyRanking.previousPoints) {
+            " (${worldRugbyRanking.previousPoints})"
+        } else {
+            ""
+        }
+        itemView.textView.text = "${worldRugbyRanking.position}$previousPosition ${worldRugbyRanking.teamName} ${worldRugbyRanking.points}$previousPoints"
     }
 }
