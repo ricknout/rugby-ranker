@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#2d8626</color>
-    <color name="colorPrimaryLight">#61b754</color>
-    <color name="colorPrimaryDark">#005800</color>
-    <color name="colorSecondary">#2a3c81</color>
-    <color name="colorSecondaryLight">#5c66b1</color>
-    <color name="colorSecondaryDark">#001754</color>
+    <color name="color_primary">@color/world_rugby_green</color>
+    <color name="color_primary_light">@color/world_rugby_green_light</color>
+    <color name="color_primary_dark">@color/world_rugby_green_dark</color>
+    <color name="color_secondary">@color/world_rugby_blue</color>
+    <color name="color_secondary_light">@color/world_rugby_blue_light</color>
+    <color name="color_secondary_dark">@color/world_rugby_blue_dark</color>
 
+    <color name="world_rugby_green">#2d8626</color>
+    <color name="world_rugby_green_light">#61b754</color>
+    <color name="world_rugby_green_dark">#005800</color>
+    <color name="world_rugby_blue">#2a3c81</color>
+    <color name="world_rugby_blue_light">#5c66b1</color>
+    <color name="world_rugby_blue_dark">#001754</color>
     <color name="white">#ffffff</color>
 
 </resources>
