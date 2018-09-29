@@ -31,6 +31,6 @@ class MatchResultListAdapter : ListAdapter<MatchResult, MatchResultViewHolder>(D
 class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(matchResult: MatchResult) {
-        itemView.textView.text = "(${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation})"
+        itemView.textView.text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
     }
 }

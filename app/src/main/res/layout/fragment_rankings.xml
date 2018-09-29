@@ -71,6 +71,8 @@
             android:id="@+id/matchesRecyclerView"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_matches"
+            android:paddingEnd="@dimen/spacing_match_result"
+            android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
