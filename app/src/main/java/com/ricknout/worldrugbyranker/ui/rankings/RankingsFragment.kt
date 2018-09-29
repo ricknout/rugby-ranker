@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.worldrugbyranker.R
 import com.ricknout.worldrugbyranker.ui.common.MatchResultListAdapter
 import com.ricknout.worldrugbyranker.ui.common.WorldRugbyRankingListAdapter
@@ -28,12 +29,30 @@ class RankingsFragment : DaggerFragment() {
 
     private var type: Int = TYPE_NONE
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private var bottomSheetState = BOTTOM_SHEET_STATE_NONE
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
+    @SuppressWarnings("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         rankingsRecyclerView.adapter = rankingsAdapter
         matchesRecyclerView.adapter = matchesAdapter
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                updateAlphaForBottomSheetSlide(slideOffset)
+            }
+            override fun onStateChanged(bottomSheet: View, state: Int) {
+                bottomSheetState = state
+            }
+        })
+        bottomSheetState = savedInstanceState?.getInt(KEY_BOTTOM_SHEET_STATE, BOTTOM_SHEET_STATE_NONE) ?: BOTTOM_SHEET_STATE_NONE
+        if (bottomSheetState != BOTTOM_SHEET_STATE_NONE) bottomSheetBehavior.state = bottomSheetState
+        floatingActionButton.setOnClickListener {
+            showBottomSheet()
+        }
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
                 .get(RankingsViewModel::class.java)
         type = RankingsFragmentArgs.fromBundle(arguments).type
@@ -49,6 +68,8 @@ class RankingsFragment : DaggerFragment() {
                 })
                 viewModel.mensMatches.observe(this, Observer { mensMatches ->
                     matchesAdapter.submitList(mensMatches)
+                    val isEmpty = mensMatches?.isEmpty() ?: true
+                    updateBottomSheet(!isEmpty)
                 })
                 // Testing calculate
                 calculateButton.setOnClickListener {
@@ -63,9 +84,11 @@ class RankingsFragment : DaggerFragment() {
                             rugbyWorldCup = false
                     )
                     viewModel.calculateMens(matchResult)
+                    hideBottomSheet()
                 }
                 resetButton.setOnClickListener {
                     viewModel.resetMens()
+                    hideBottomSheet()
                 }
             }
             TYPE_WOMENS -> {
@@ -79,6 +102,8 @@ class RankingsFragment : DaggerFragment() {
                 })
                 viewModel.womensMatches.observe(this, Observer { womensMatches ->
                     matchesAdapter.submitList(womensMatches)
+                    val isEmpty = womensMatches?.isEmpty() ?: true
+                    updateBottomSheet(!isEmpty)
                 })
                 // Testing calculate
                 calculateButton.setOnClickListener {
@@ -93,12 +118,50 @@ class RankingsFragment : DaggerFragment() {
                             rugbyWorldCup = false
                     )
                     viewModel.calculateWomens(matchResult)
+                    hideBottomSheet()
                 }
                 resetButton.setOnClickListener {
                     viewModel.resetWomens()
+                    hideBottomSheet()
                 }
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_BOTTOM_SHEET_STATE, bottomSheetState)
+    }
+
+    private fun updateBottomSheet(hasMatches: Boolean) {
+        bottomSheetBehavior.isHideable = !hasMatches
+        bottomSheetBehavior.skipCollapsed = !hasMatches
+        if (!hasMatches && bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+        if (hasMatches) floatingActionButton.hide() else floatingActionButton.show()
+    }
+
+    private fun showBottomSheet() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun hideBottomSheet() {
+        bottomSheetBehavior.state = if (bottomSheetBehavior.skipCollapsed) {
+            BottomSheetBehavior.STATE_HIDDEN
+        } else {
+            BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
+    private fun updateAlphaForBottomSheetSlide(slideOffset: Float) {
+        matchesRecyclerView.alpha = offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES)
+        calculateButton.alpha = offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_CALCULATE)
+        resetButton.alpha = offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_CALCULATE)
+    }
+
+    private fun offsetToAlpha(value: Float, rangeMin: Float, rangeMax: Float): Float {
+        return ((value - rangeMin) / (rangeMax - rangeMin)).coerceIn(0f, 1f)
     }
 
     companion object {
@@ -106,5 +169,10 @@ class RankingsFragment : DaggerFragment() {
         private const val TYPE_NONE = -1
         private const val TYPE_MENS = 0
         private const val TYPE_WOMENS = 1
+        private const val KEY_BOTTOM_SHEET_STATE = "bottom_sheet_state"
+        private const val BOTTOM_SHEET_STATE_NONE = -1
+        private const val ALPHA_CHANGE_OVER = 0.33f
+        private const val ALPHA_MAX_MATCHES = 0f
+        private const val ALPHA_MAX_CALCULATE = 0.67f
     }
 }

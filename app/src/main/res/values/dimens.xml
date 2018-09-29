@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="height_matches">48dp</dimen>
+
+    <dimen name="padding_bottom_rankings">88dp</dimen>
+
+    <dimen name="margin_fab">16dp</dimen>
+
+    <dimen name="elevation_bottom_sheet">8dp</dimen>
+
+    <dimen name="corner_radius_bottom_sheet">16dp</dimen>
+
+</resources>
