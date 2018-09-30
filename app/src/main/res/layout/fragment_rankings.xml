@@ -129,25 +129,111 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/spacing_double" />
 
-        <include
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/homeTeamMatchResult"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_standard"
-            layout="@layout/include_match_result_team"
             app:layout_constraintTop_toBottomOf="@id/peekGuideline"
             app:layout_constraintStart_toStartOf="@id/teamsStartGuideline"
-            app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline" />
+            app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline">
 
-        <include
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/homeTeamTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:hint="@string/hint_home_team"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/homePointsTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/homeTeamEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:cursorVisible="false"
+                    android:focusableInTouchMode="false"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
+                    android:drawablePadding="@dimen/spacing_standard" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/homePointsTextInputLayout"
+                android:layout_width="@dimen/width_points"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_points"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/homePointsEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/awayTeamMatchResult"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_standard"
-            layout="@layout/include_match_result_team"
             app:layout_constraintTop_toBottomOf="@id/homeTeamMatchResult"
             app:layout_constraintStart_toStartOf="@id/teamsStartGuideline"
-            app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline" />
+            app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/awayTeamTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:hint="@string/hint_away_team"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/awayPointsTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/awayTeamEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:cursorVisible="false"
+                    android:focusableInTouchMode="false"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
+                    android:drawablePadding="@dimen/spacing_standard" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/awayPointsTextInputLayout"
+                android:layout_width="@dimen/width_points"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_points"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/awayPointsEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <CheckBox
             android:id="@+id/nhaCheckBox"

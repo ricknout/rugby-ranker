@@ -22,7 +22,7 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
     val mensMatches: LiveData<List<MatchResult>>
         get() = _mensMatches
 
-    private val latestMensWorldRugbyRankings = worldRugbyRankerRepository.getLatestMensWorldRugbyRankings()
+    val latestMensWorldRugbyRankings = worldRugbyRankerRepository.getLatestMensWorldRugbyRankings()
     private val calculatedMensWorldRugbyRankings = MutableLiveData<List<WorldRugbyRanking>>()
     val mensWorldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestMensWorldRugbyRankings) { mensWorldRugbyRankings ->
@@ -62,7 +62,7 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
     val womensMatches: LiveData<List<MatchResult>>
         get() = _womensMatches
 
-    private val latestWomensWorldRugbyRankings = worldRugbyRankerRepository.getLatestWomensWorldRugbyRankings()
+    val latestWomensWorldRugbyRankings = worldRugbyRankerRepository.getLatestWomensWorldRugbyRankings()
     private val calculatedWomensWorldRugbyRankings = MutableLiveData<List<WorldRugbyRanking>>()
     val womensWorldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestWomensWorldRugbyRankings) { womensWorldRugbyRankings ->
