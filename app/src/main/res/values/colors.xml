@@ -21,6 +21,6 @@
     <color name="white">#ffffff</color>
     <color name="black_alpha_30">#4d000000</color>
     <color name="dark_gray">#808080</color>
-    <color name="light_grey">#f2f3f5</color>
+    <color name="light_grey">#eeeff1</color>
 
 </resources>
