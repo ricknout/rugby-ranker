@@ -4,8 +4,12 @@
     <dimen name="height_matches">48dp</dimen>
     <dimen name="height_match_result">32dp</dimen>
 
+    <dimen name="length_fading_edge">8dp</dimen>
+
     <dimen name="padding_bottom_rankings">88dp</dimen>
     <dimen name="padding_horizontal_match_result">16dp</dimen>
+    <dimen name="padding_horizontal_reset_matches">12dp</dimen>
+    <dimen name="padding_end_matches">48dp</dimen>
 
     <dimen name="margin_fab">16dp</dimen>
 

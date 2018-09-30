@@ -63,11 +63,11 @@
         app:behavior_skipCollapsed="true">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/calculateButton"
+            android:id="@+id/addMatchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Calculate"
+            android:text="Add match"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/resetButton"
@@ -80,22 +80,38 @@
             android:layout_margin="16dp"
             android:text="Reset"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/calculateButton"
+            app:layout_constraintStart_toEndOf="@id/addMatchButton"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/matchesRecyclerView"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_matches"
-            android:paddingEnd="@dimen/spacing_match_result"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
+            android:requiresFadingEdge="horizontal"
+            android:fadingEdgeLength="@dimen/length_fading_edge"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/calculateButton"
+            app:layout_constraintBottom_toTopOf="@id/addMatchButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/resetMatchesButton"
             tools:listitem="@layout/list_item_match_result" />
+
+        <ImageButton
+            android:id="@+id/resetMatchesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel_black_24dp"
+            android:tint="@color/dark_gray"
+            android:paddingEnd="@dimen/padding_horizontal_reset_matches"
+            android:paddingStart="@dimen/padding_horizontal_reset_matches"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_description_reset_matches"
+            app:layout_constraintTop_toTopOf="@id/matchesRecyclerView"
+            app:layout_constraintBottom_toBottomOf="@id/matchesRecyclerView"
+            app:layout_constraintStart_toEndOf="@id/matchesRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
