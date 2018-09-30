@@ -77,7 +77,7 @@ class RankingsFragment : DaggerFragment() {
                 viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
                     rankingsAdapter.submitList(mensWorldRugbyRankings)
                     val isEmpty = mensWorldRugbyRankings?.isEmpty() ?: true
-                    addMatchButton.isEnabled = !isEmpty
+                    addButton.isEnabled = !isEmpty
                 })
                 viewModel.isCalculatingMens.observe(this, Observer { isCalculatingMens ->
                     resetButton.isEnabled = isCalculatingMens
@@ -88,8 +88,8 @@ class RankingsFragment : DaggerFragment() {
                     val isEmpty = mensMatches?.isEmpty() ?: true
                     updateUiForMatches(!isEmpty)
                 })
-                // Testing calculate
-                addMatchButton.setOnClickListener {
+                // Testing add
+                addButton.setOnClickListener {
                     val matchResult = MatchResult(
                             homeTeamId = 37,
                             homeTeamAbbreviation = "NZL",
@@ -117,7 +117,7 @@ class RankingsFragment : DaggerFragment() {
                 viewModel.womensWorldRugbyRankings.observe(this, Observer { womensWorldRugbyRankings ->
                     rankingsAdapter.submitList(womensWorldRugbyRankings)
                     val isEmpty = womensWorldRugbyRankings?.isEmpty() ?: true
-                    addMatchButton.isEnabled = !isEmpty
+                    addButton.isEnabled = !isEmpty
                 })
                 viewModel.isCalculatingWomens.observe(this, Observer { isCalculatingWomens ->
                     resetButton.isEnabled = isCalculatingWomens
@@ -128,8 +128,8 @@ class RankingsFragment : DaggerFragment() {
                     val isEmpty = womensMatches?.isEmpty() ?: true
                     updateUiForMatches(!isEmpty)
                 })
-                // Testing calculate
-                addMatchButton.setOnClickListener {
+                // Testing add
+                addButton.setOnClickListener {
                     val matchResult = MatchResult(
                             homeTeamId = 2580,
                             homeTeamAbbreviation = "NZL",
@@ -195,7 +195,7 @@ class RankingsFragment : DaggerFragment() {
             0f
         })
         setAlphaAndVisibility(addMatchTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(addMatchButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
+        setAlphaAndVisibility(addButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
         setAlphaAndVisibility(resetButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
         setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
     }
