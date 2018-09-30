@@ -59,18 +59,15 @@
         android:background="@drawable/bg_bottom_sheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="@dimen/height_matches"
+        app:behavior_peekHeight="@dimen/height_peek"
         app:behavior_skipCollapsed="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/addMatchButton"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/peekGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Add match"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/height_peek" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/resetButton"
@@ -79,19 +76,57 @@
             android:text="@string/button_reset"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/addMatchTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/title_add_match" />
+
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:tint="@color/dark_gray"
+            android:paddingStart="@dimen/padding_horizontal_close"
+            android:paddingEnd="@dimen/padding_horizontal_close"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_description_close"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addMatchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Add match"
+            app:layout_constraintTop_toBottomOf="@id/peekGuideline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/matchesRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/height_matches"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             android:requiresFadingEdge="horizontal"
             android:fadingEdgeLength="@dimen/length_fading_edge"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/addMatchButton"
+            app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/resetMatchesButton"
             tools:listitem="@layout/list_item_match_result" />
@@ -106,21 +141,9 @@
             android:paddingEnd="@dimen/padding_horizontal_reset_matches"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/content_description_reset_matches"
-            app:layout_constraintTop_toTopOf="@id/matchesRecyclerView"
-            app:layout_constraintBottom_toBottomOf="@id/matchesRecyclerView"
-            app:layout_constraintStart_toEndOf="@id/matchesRecyclerView"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageButton
-            android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-            android:tint="@color/dark_gray"
-            android:padding="@dimen/padding_close"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/content_description_close"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
+            app:layout_constraintStart_toEndOf="@id/matchesRecyclerView"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
