@@ -39,6 +39,9 @@ class RankingsFragment : DaggerFragment() {
 
     @SuppressWarnings("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
+                .get(RankingsViewModel::class.java)
+        type = RankingsFragmentArgs.fromBundle(arguments).type
         rankingsRecyclerView.adapter = rankingsAdapter
         matchesRecyclerView.adapter = matchesAdapter
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
@@ -68,9 +71,6 @@ class RankingsFragment : DaggerFragment() {
         closeButton.setOnClickListener {
             hideBottomSheet()
         }
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
-                .get(RankingsViewModel::class.java)
-        type = RankingsFragmentArgs.fromBundle(arguments).type
         when (type) {
             TYPE_MENS -> {
                 titleTextView.setText(R.string.title_mens_rankings)
