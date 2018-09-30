@@ -7,6 +7,9 @@
     <color name="color_secondary">@color/world_rugby_blue</color>
     <color name="color_secondary_light">@color/world_rugby_blue_light</color>
     <color name="color_secondary_dark">@color/world_rugby_blue_dark</color>
+    <color name="color_window_background">@color/white</color>
+    <color name="color_status_bar">@color/black_alpha_30</color>
+    <color name="color_navigation_bar">@color/color_primary_dark</color>
 
     <color name="world_rugby_green">#2d8626</color>
     <color name="world_rugby_green_light">#61b754</color>
@@ -15,5 +18,6 @@
     <color name="world_rugby_blue_light">#5c66b1</color>
     <color name="world_rugby_blue_dark">#001754</color>
     <color name="white">#ffffff</color>
+    <color name="black_alpha_30">#4d000000</color>
 
 </resources>
