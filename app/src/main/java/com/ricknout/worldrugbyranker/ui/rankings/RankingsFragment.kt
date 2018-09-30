@@ -58,6 +58,7 @@ class RankingsFragment : DaggerFragment() {
         type = RankingsFragmentArgs.fromBundle(arguments).type
         when (type) {
             TYPE_MENS -> {
+                titleTextView.setText(R.string.title_mens_rankings)
                 viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
                     rankingsAdapter.submitList(mensWorldRugbyRankings)
                     val isEmpty = mensWorldRugbyRankings?.isEmpty() ?: true
@@ -92,6 +93,7 @@ class RankingsFragment : DaggerFragment() {
                 }
             }
             TYPE_WOMENS -> {
+                titleTextView.setText(R.string.title_womens_rankings)
                 viewModel.womensWorldRugbyRankings.observe(this, Observer { womensWorldRugbyRankings ->
                     rankingsAdapter.submitList(womensWorldRugbyRankings)
                     val isEmpty = womensWorldRugbyRankings?.isEmpty() ?: true

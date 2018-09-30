@@ -4,5 +4,7 @@
 
     <string name="title_mens">Men\'s</string>
     <string name="title_womens">Women\'s</string>
+    <string name="title_mens_rankings">Men\'s Rankings</string>
+    <string name="title_womens_rankings">Women\'s Rankings</string>
 
 </resources>
