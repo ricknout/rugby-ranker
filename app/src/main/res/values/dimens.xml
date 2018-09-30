@@ -18,6 +18,7 @@
 
     <dimen name="spacing_match_result">8dp</dimen>
     <dimen name="spacing_teams">16dp</dimen>
+    <dimen name="spacing_header">8dp</dimen>
 
     <dimen name="elevation_bottom_sheet">16dp</dimen>
 

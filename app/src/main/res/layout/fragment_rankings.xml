@@ -29,6 +29,11 @@
 
         </FrameLayout>
 
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/include_rankings_header" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -130,7 +135,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_teams"
             android:text="@string/title_home_team"
-            android:textAllCaps="true"
+            style="@style/WorldRugbyRankerTextAppearance.Label"
+            android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintTop_toBottomOf="@id/peekGuideline"
             app:layout_constraintStart_toStartOf="@id/teamsStartGuideline" />
 
@@ -148,7 +154,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_away_team"
-            android:textAllCaps="true"
+            style="@style/WorldRugbyRankerTextAppearance.Label"
+            android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintTop_toBottomOf="@id/homeTeamMatchResult"
             app:layout_constraintStart_toStartOf="@id/teamsStartGuideline" />
 
