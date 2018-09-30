@@ -19,6 +19,9 @@
     <string name="hint_away_team">Away team</string>
     <string name="hint_points">Points</string>
 
+    <string name="check_box_no_home_advantage">No home advantage</string>
+    <string name="check_box_rugby_world_cup">Rugby World Cup</string>
+
     <string name="tooltip_add_match">Add match</string>
 
     <string name="content_description_reset_matches">Reset matches</string>
