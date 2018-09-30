@@ -7,6 +7,8 @@
     <string name="title_mens_rankings">Men\'s Rankings</string>
     <string name="title_womens_rankings">Women\'s Rankings</string>
 
+    <string name="button_reset">Reset</string>
+
     <string name="tooltip_add_match">Add match</string>
 
     <string name="content_description_reset_matches">Reset matches</string>
