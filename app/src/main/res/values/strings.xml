@@ -7,8 +7,6 @@
     <string name="title_mens_rankings">Men\'s Rankings</string>
     <string name="title_womens_rankings">Women\'s Rankings</string>
     <string name="title_add_match">Add match</string>
-    <string name="title_home_team">Home team</string>
-    <string name="title_away_team">Away team</string>
 
     <string name="subtitle_position">#</string>
     <string name="subtitle_team">Team</string>
@@ -17,6 +15,8 @@
     <string name="button_reset">Reset</string>
     <string name="button_add">Add</string>
 
+    <string name="hint_home_team">Home team</string>
+    <string name="hint_away_team">Away team</string>
     <string name="hint_points">Points</string>
 
     <string name="tooltip_add_match">Add match</string>

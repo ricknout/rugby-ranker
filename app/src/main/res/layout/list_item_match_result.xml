@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height_match_result"
-        android:layout_marginStart="@dimen/spacing_match_result"
+        android:layout_marginStart="@dimen/spacing_standard"
         android:background="@drawable/bg_match_result"
         android:textColor="@color/white"
         android:gravity="center"

@@ -16,6 +16,7 @@ import com.ricknout.worldrugbyranker.ui.common.WorldRugbyRankingListAdapter
 import com.ricknout.worldrugbyranker.vo.MatchResult
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_rankings.*
+import kotlinx.android.synthetic.main.include_match_result_team.view.*
 import java.util.Random
 import javax.inject.Inject
 
@@ -44,6 +45,8 @@ class RankingsFragment : DaggerFragment() {
         type = RankingsFragmentArgs.fromBundle(arguments).type
         rankingsRecyclerView.adapter = rankingsAdapter
         matchesRecyclerView.adapter = matchesAdapter
+        homeTeamMatchResult.teamTextInputLayout.hint = getString(R.string.hint_home_team)
+        awayTeamMatchResult.teamTextInputLayout.hint = getString(R.string.hint_away_team)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {

@@ -81,8 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="0dp"
-            android:paddingStart="@dimen/spacing_teams"
-            android:paddingEnd="@dimen/spacing_teams"
+            android:paddingStart="@dimen/spacing_double"
+            android:paddingEnd="@dimen/spacing_double"
             android:text="@string/button_reset"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintTop_toTopOf="parent"
@@ -120,59 +120,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/spacing_teams" />
+            app:layout_constraintGuide_begin="@dimen/spacing_double" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/teamsEndGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/spacing_teams" />
-
-        <TextView
-            android:id="@+id/homeTeamTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_teams"
-            android:text="@string/title_home_team"
-            style="@style/WorldRugbyRankerTextAppearance.Label"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintTop_toBottomOf="@id/peekGuideline"
-            app:layout_constraintStart_toStartOf="@id/teamsStartGuideline" />
+            app:layout_constraintGuide_end="@dimen/spacing_double" />
 
         <include
             android:id="@+id/homeTeamMatchResult"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_standard"
             layout="@layout/include_match_result_team"
-            app:layout_constraintTop_toBottomOf="@id/homeTeamTextView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/peekGuideline"
+            app:layout_constraintStart_toStartOf="@id/teamsStartGuideline"
             app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline" />
-
-        <TextView
-            android:id="@+id/awayTeamTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_away_team"
-            style="@style/WorldRugbyRankerTextAppearance.Label"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintTop_toBottomOf="@id/homeTeamMatchResult"
-            app:layout_constraintStart_toStartOf="@id/teamsStartGuideline" />
 
         <include
             android:id="@+id/awayTeamMatchResult"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_standard"
             layout="@layout/include_match_result_team"
-            app:layout_constraintTop_toBottomOf="@id/awayTeamTextView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homeTeamMatchResult"
+            app:layout_constraintStart_toStartOf="@id/teamsStartGuideline"
             app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_teams"
+            android:layout_marginTop="@dimen/spacing_standard"
+            android:layout_marginBottom="@dimen/spacing_double"
             android:text="@string/button_add"
             app:layout_constraintTop_toBottomOf="@id/awayTeamMatchResult"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -5,46 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/light_grey"
-    android:paddingStart="@dimen/spacing_header"
-    android:paddingEnd="@dimen/spacing_header">
+    android:paddingStart="@dimen/spacing_standard"
+    android:paddingEnd="@dimen/spacing_standard">
 
     <TextView
         android:id="@+id/positionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_header"
+        android:layout_margin="@dimen/spacing_standard"
         android:text="@string/subtitle_position"
         style="@style/WorldRugbyRankerTextAppearance.Label"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/teamTextView"
-        app:layout_constraintHorizontal_weight="1"/>
+        app:layout_constraintHorizontal_weight="1" />
 
     <TextView
         android:id="@+id/teamTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_header"
+        android:layout_margin="@dimen/spacing_standard"
         android:text="@string/subtitle_team"
         style="@style/WorldRugbyRankerTextAppearance.Label"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/positionTextView"
         app:layout_constraintEnd_toStartOf="@id/pointsTextView"
-        app:layout_constraintHorizontal_weight="5"/>
+        app:layout_constraintHorizontal_weight="5" />
 
     <TextView
         android:id="@+id/pointsTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_header"
+        android:layout_margin="@dimen/spacing_standard"
         android:text="@string/subtitle_points"
         style="@style/WorldRugbyRankerTextAppearance.Label"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/teamTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="2"/>
+        app:layout_constraintHorizontal_weight="2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
