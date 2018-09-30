@@ -44,7 +44,7 @@ class RankingsFragment : DaggerFragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                updateAlphaForBottomSheetSlide(slideOffset)
+                updateAlphaForBottomSheetSlide(slideOffset, isCalculating())
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 bottomSheetState = state
@@ -57,7 +57,7 @@ class RankingsFragment : DaggerFragment() {
             BottomSheetBehavior.STATE_COLLAPSED -> 0f
             else -> -1f
         }
-        updateAlphaForBottomSheetSlide(slideOffset)
+        updateAlphaForBottomSheetSlide(slideOffset, isCalculating())
         addMatchFab.setOnClickListener {
             showBottomSheet()
         }
@@ -65,6 +65,9 @@ class RankingsFragment : DaggerFragment() {
         matchesRecyclerView.addOnItemTouchListener(OnClickItemTouchListener(requireContext()) {
             showBottomSheet()
         })
+        closeButton.setOnClickListener {
+            hideBottomSheet()
+        }
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
                 .get(RankingsViewModel::class.java)
         type = RankingsFragmentArgs.fromBundle(arguments).type
@@ -157,6 +160,12 @@ class RankingsFragment : DaggerFragment() {
         outState.putInt(KEY_BOTTOM_SHEET_STATE, bottomSheetState)
     }
 
+    private fun isCalculating() = when (type) {
+        TYPE_MENS -> viewModel.isCalculatingMens()
+        TYPE_WOMENS -> viewModel.isCalculatingWomens()
+        else -> false
+    }
+
     private fun updateUiForMatches(hasMatches: Boolean) {
         bottomSheetBehavior.isHideable = !hasMatches
         bottomSheetBehavior.skipCollapsed = !hasMatches
@@ -178,11 +187,16 @@ class RankingsFragment : DaggerFragment() {
         }
     }
 
-    private fun updateAlphaForBottomSheetSlide(slideOffset: Float) {
+    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, icCalculating: Boolean) {
         setAlphaAndVisibility(matchesRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES))
-        setAlphaAndVisibility(resetMatchesButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES))
+        setAlphaAndVisibility(resetMatchesButton, if (icCalculating) {
+            offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES)
+        } else {
+            0f
+        })
         setAlphaAndVisibility(addMatchButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
         setAlphaAndVisibility(resetButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
+        setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
     }
 
     private fun offsetToAlpha(value: Float, rangeMin: Float, rangeMax: Float): Float {

@@ -10,5 +10,6 @@
     <string name="tooltip_add_match">Add match</string>
 
     <string name="content_description_reset_matches">Reset matches</string>
+    <string name="content_description_close">Close</string>
 
 </resources>
