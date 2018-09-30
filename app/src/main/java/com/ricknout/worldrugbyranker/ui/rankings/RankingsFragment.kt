@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.TooltipCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -50,9 +51,10 @@ class RankingsFragment : DaggerFragment() {
         })
         bottomSheetState = savedInstanceState?.getInt(KEY_BOTTOM_SHEET_STATE, BOTTOM_SHEET_STATE_NONE) ?: BOTTOM_SHEET_STATE_NONE
         if (bottomSheetState != BOTTOM_SHEET_STATE_NONE) bottomSheetBehavior.state = bottomSheetState
-        floatingActionButton.setOnClickListener {
+        addMatchFab.setOnClickListener {
             showBottomSheet()
         }
+        TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match))
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
                 .get(RankingsViewModel::class.java)
         type = RankingsFragmentArgs.fromBundle(arguments).type
@@ -70,7 +72,7 @@ class RankingsFragment : DaggerFragment() {
                 viewModel.mensMatches.observe(this, Observer { mensMatches ->
                     matchesAdapter.submitList(mensMatches)
                     val isEmpty = mensMatches?.isEmpty() ?: true
-                    updateBottomSheet(!isEmpty)
+                    updateUiForMatches(!isEmpty)
                 })
                 // Testing calculate
                 calculateButton.setOnClickListener {
@@ -105,7 +107,7 @@ class RankingsFragment : DaggerFragment() {
                 viewModel.womensMatches.observe(this, Observer { womensMatches ->
                     matchesAdapter.submitList(womensMatches)
                     val isEmpty = womensMatches?.isEmpty() ?: true
-                    updateBottomSheet(!isEmpty)
+                    updateUiForMatches(!isEmpty)
                 })
                 // Testing calculate
                 calculateButton.setOnClickListener {
@@ -135,13 +137,13 @@ class RankingsFragment : DaggerFragment() {
         outState.putInt(KEY_BOTTOM_SHEET_STATE, bottomSheetState)
     }
 
-    private fun updateBottomSheet(hasMatches: Boolean) {
+    private fun updateUiForMatches(hasMatches: Boolean) {
         bottomSheetBehavior.isHideable = !hasMatches
         bottomSheetBehavior.skipCollapsed = !hasMatches
         if (!hasMatches && bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        if (hasMatches) floatingActionButton.hide() else floatingActionButton.show()
+        if (hasMatches) addMatchFab.hide() else addMatchFab.show()
     }
 
     private fun showBottomSheet() {

@@ -43,11 +43,13 @@
         tools:listitem="@layout/list_item_world_rugby_ranking" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/addMatchFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_fab"
+        android:src="@drawable/ic_add_match_black_24dp"
+        android:tint="@color/white"
         app:fabSize="normal" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

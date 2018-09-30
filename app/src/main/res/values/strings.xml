@@ -7,4 +7,6 @@
     <string name="title_mens_rankings">Men\'s Rankings</string>
     <string name="title_womens_rankings">Women\'s Rankings</string>
 
+    <string name="tooltip_add_match">Add match</string>
+
 </resources>
