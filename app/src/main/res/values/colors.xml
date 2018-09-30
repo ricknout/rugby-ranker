@@ -10,6 +10,7 @@
     <color name="color_window_background">@color/white</color>
     <color name="color_status_bar">@color/black_alpha_30</color>
     <color name="color_navigation_bar">@color/color_primary_dark</color>
+    <color name="color_fab_tint">@color/white</color>
 
     <color name="world_rugby_green">#2d8626</color>
     <color name="world_rugby_green_light">#61b754</color>

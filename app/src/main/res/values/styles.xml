@@ -6,8 +6,10 @@
         <item name="colorAccent">@color/color_secondary</item>
         <item name="android:windowBackground">@color/color_window_background</item>
         <item name="android:statusBarColor">@color/color_status_bar</item>
-        <item name="bottomNavigationStyle">@style/WorldRugbyRankerBottomNavigationView</item>
         <item name="android:navigationBarColor">@color/color_navigation_bar</item>
+        <item name="bottomNavigationStyle">@style/WorldRugbyRankerBottomNavigationView</item>
+        <item name="materialButtonStyle">@style/WorldRugbyRankerMaterialButton</item>
+        <item name="floatingActionButtonStyle">@style/WorldRugbyRankerFloatingActionButton</item>
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
     </style>
@@ -15,5 +17,13 @@
     <style name="WorldRugbyRankerBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
 
     <style name="WorldRugbyRankerTextAppearance.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+    <style name="WorldRugbyRankerMaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="WorldRugbyRankerFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:tint">@color/color_fab_tint</item>
+    </style>
 
 </resources>

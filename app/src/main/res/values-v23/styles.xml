@@ -7,8 +7,10 @@
         <item name="android:windowBackground">@color/color_window_background</item>
         <item name="android:statusBarColor">@color/color_status_bar</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="bottomNavigationStyle">@style/WorldRugbyRankerBottomNavigationView</item>
         <item name="android:navigationBarColor">@color/color_navigation_bar</item>
+        <item name="bottomNavigationStyle">@style/WorldRugbyRankerBottomNavigationView</item>
+        <item name="materialButtonStyle">@style/WorldRugbyRankerMaterialButton</item>
+        <item name="floatingActionButtonStyle">@style/WorldRugbyRankerFloatingActionButton</item>
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
     </style>
