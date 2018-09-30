@@ -22,6 +22,9 @@
             android:id="@+id/teamEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
             android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
             android:drawablePadding="@dimen/spacing_standard" />
 
