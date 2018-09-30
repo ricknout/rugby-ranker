@@ -13,5 +13,9 @@ class MainActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navController = findNavController(R.id.navHostFragment)
         bottomNavigationView.setupWithNavController(navController)
+        bottomNavigationView.setOnNavigationItemReselectedListener {
+            // Do nothing to prevent recreating of Fragments on reselect
+            // TODO: Implement ViewModel event to scroll to top?
+        }
     }
 }
