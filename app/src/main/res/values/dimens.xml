@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="width_points">96dp</dimen>
+
     <dimen name="height_peek">48dp</dimen>
     <dimen name="height_match_result">32dp</dimen>
 
@@ -15,6 +17,7 @@
     <dimen name="margin_fab">16dp</dimen>
 
     <dimen name="spacing_match_result">8dp</dimen>
+    <dimen name="spacing_teams">16dp</dimen>
 
     <dimen name="elevation_bottom_sheet">16dp</dimen>
 

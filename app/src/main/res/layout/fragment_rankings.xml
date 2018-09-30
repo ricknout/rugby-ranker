@@ -57,6 +57,8 @@
         android:layout_height="wrap_content"
         android:elevation="@dimen/elevation_bottom_sheet"
         android:background="@drawable/bg_bottom_sheet"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:behavior_hideable="true"
         app:behavior_peekHeight="@dimen/height_peek"
@@ -73,6 +75,9 @@
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:paddingStart="@dimen/spacing_teams"
+            android:paddingEnd="@dimen/spacing_teams"
             android:text="@string/button_reset"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintTop_toTopOf="parent"
@@ -105,13 +110,64 @@
             app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/teamsStartGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing_teams" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/teamsEndGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing_teams" />
+
+        <TextView
+            android:id="@+id/homeTeamTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_teams"
+            android:text="@string/title_home_team"
+            android:textAllCaps="true"
+            app:layout_constraintTop_toBottomOf="@id/peekGuideline"
+            app:layout_constraintStart_toStartOf="@id/teamsStartGuideline" />
+
+        <include
+            android:id="@+id/homeTeamMatchResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            layout="@layout/include_match_result_team"
+            app:layout_constraintTop_toBottomOf="@id/homeTeamTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline" />
+
+        <TextView
+            android:id="@+id/awayTeamTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_away_team"
+            android:textAllCaps="true"
+            app:layout_constraintTop_toBottomOf="@id/homeTeamMatchResult"
+            app:layout_constraintStart_toStartOf="@id/teamsStartGuideline" />
+
+        <include
+            android:id="@+id/awayTeamMatchResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            layout="@layout/include_match_result_team"
+            app:layout_constraintTop_toBottomOf="@id/awayTeamTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/teamsEndGuideline" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/spacing_teams"
             android:text="@string/button_add"
-            app:layout_constraintTop_toBottomOf="@id/peekGuideline"
+            app:layout_constraintTop_toBottomOf="@id/awayTeamMatchResult"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
