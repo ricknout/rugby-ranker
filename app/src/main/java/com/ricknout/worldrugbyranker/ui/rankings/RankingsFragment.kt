@@ -400,18 +400,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         rwcCheckBox.isChecked = false
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        (context as? OnBackPressedProvider ?: throw ClassCastException("$context must implement OnBackPressedProvider"))
-                .setOnBackPressedListener(this)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (context as? OnBackPressedProvider ?: throw ClassCastException("$context must implement OnBackPressedProvider"))
-                .setOnBackPressedListener(null)
-    }
-
     override fun onBackPressed(): Boolean {
         if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
@@ -422,6 +410,12 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             return true
         }
         return super.onBackPressed()
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        (context as? OnBackPressedProvider ?: throw ClassCastException("$context must implement OnBackPressedProvider"))
+                .setOnBackPressedListener(this)
     }
 
     private fun hideSoftInput() {

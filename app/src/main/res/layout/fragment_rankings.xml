@@ -20,7 +20,6 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:minHeight="?actionBarSize"
@@ -83,14 +82,11 @@
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="0dp"
-            android:paddingStart="@dimen/spacing_double"
-            android:paddingEnd="@dimen/spacing_double"
             android:text="@string/button_reset"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/addMatchTitleTextView"

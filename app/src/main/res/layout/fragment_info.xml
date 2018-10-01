@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:minHeight="?actionBarSize"
+                android:textAppearance="@style/WorldRugbyRankerTextAppearance.ToolbarTitle"
+                android:text="@string/title_info" />
+
+        </FrameLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/howAreWorldRugbyRankingsCalculatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
+                android:text="@string/button_how_are_world_rugby_rankings_calculated" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shareThisAppButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
+                android:text="@string/button_share_this_app" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewSourceCodeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
+                android:text="@string/button_view_source_code" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/openSourceLicensesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
+                android:text="@string/button_open_source_licenses" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

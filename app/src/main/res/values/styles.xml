@@ -17,12 +17,15 @@
     <style name="WorldRugbyRankerBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
 
     <style name="WorldRugbyRankerTextAppearance.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
-    <style name="WorldRugbyRankerTextAppearance.Label" parent="@style/TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:textAllCaps">true</item>
-    </style>
 
     <style name="WorldRugbyRankerMaterialButton" parent="Widget.MaterialComponents.Button">
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="WorldRugbyRankerMaterialButton.TextButton.DoublePadding" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingStart">@dimen/spacing_double</item>
+        <item name="android:paddingEnd">@dimen/spacing_double</item>
     </style>
 
     <style name="WorldRugbyRankerFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
