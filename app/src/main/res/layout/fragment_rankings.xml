@@ -53,8 +53,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_fab"
+        app:fabSize="auto"
+        app:hoveredFocusedTranslationZ="0dp"
+        app:pressedTranslationZ="0dp"
         android:src="@drawable/ic_add_match_black_24dp"
-        app:fabSize="normal" />
+        android:contentDescription="@string/content_description_add_match" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheet"
