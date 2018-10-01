@@ -32,5 +32,10 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
     fun bind(matchResult: MatchResult) {
         itemView.textView.text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
+        when {
+            matchResult.rugbyWorldCup -> itemView.imageView.setImageResource(R.drawable.ic_rwc_black_24dp)
+            matchResult.noHomeAdvantage -> itemView.imageView.setImageResource(R.drawable.ic_nha_black_24dp)
+            else -> itemView.imageView.setImageDrawable(null)
+        }
     }
 }

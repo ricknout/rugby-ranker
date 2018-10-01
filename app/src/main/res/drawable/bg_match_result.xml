@@ -4,7 +4,4 @@
     android:shape="rectangle">
     <corners android:radius="@dimen/corner_radius_match_result" />
     <solid android:color="?attr/colorAccent" />
-    <padding
-        android:left="@dimen/padding_horizontal_match_result"
-        android:right="@dimen/padding_horizontal_match_result" />
 </shape>
