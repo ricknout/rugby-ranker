@@ -40,7 +40,8 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         _isCalculatingMens.value = true
         calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResult(
                 worldRugbyRankings = currentMensWorldRugbyRankings,
-                matchResult = matchResult
+                matchResult = matchResult,
+                resetPoints = _mensMatches.value == null
         )
         val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
         currentMensMatches.add(matchResult)
@@ -100,7 +101,8 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         _isCalculatingWomens.value = true
         calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResult(
                 worldRugbyRankings = currentWomensWorldRugbyRankings,
-                matchResult = matchResult
+                matchResult = matchResult,
+                resetPoints = _womensMatches.value == null
         )
         val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
         currentWomensMatches.add(matchResult)

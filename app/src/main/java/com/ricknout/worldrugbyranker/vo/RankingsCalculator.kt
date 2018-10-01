@@ -8,7 +8,8 @@ object RankingsCalculator {
 
     fun allocatePointsForMatchResult(
             worldRugbyRankings: List<WorldRugbyRanking>,
-            matchResult: MatchResult
+            matchResult: MatchResult,
+            resetPoints: Boolean
     ): List<WorldRugbyRanking> {
         val homeTeam = worldRugbyRankings.find { worldRugbyRanking ->
             worldRugbyRanking.teamId == matchResult.homeTeamId
@@ -21,7 +22,7 @@ object RankingsCalculator {
             when (worldRugbyRanking.teamId) {
                 matchResult.homeTeamId -> worldRugbyRanking.allocatePoints(points)
                 matchResult.awayTeamId -> worldRugbyRanking.allocatePoints(-points)
-                else -> worldRugbyRanking
+                else -> if (resetPoints) worldRugbyRanking.allocatePoints(0f) else worldRugbyRanking
             }
         }.sortedByDescending { worldRugbyRanking ->
             worldRugbyRanking.points
