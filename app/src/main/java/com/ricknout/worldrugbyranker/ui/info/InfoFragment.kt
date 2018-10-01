@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ricknout.worldrugbyranker.R
 import kotlinx.android.synthetic.main.fragment_info.*
+import android.content.Intent
+import android.net.Uri
 
 class InfoFragment : Fragment() {
 
@@ -15,7 +17,8 @@ class InfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         howAreWorldRugbyRankingsCalculatedButton.setOnClickListener {
-            // TODO
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(RANKINGS_EXPLANATION_URL))
+            startActivity(intent)
         }
         shareThisAppButton.setOnClickListener {
             // TODO
@@ -30,5 +33,6 @@ class InfoFragment : Fragment() {
 
     companion object {
         const val TAG = "InfoFragment"
+        private const val RANKINGS_EXPLANATION_URL = "https://www.world.rugby/rankings/explanation"
     }
 }
