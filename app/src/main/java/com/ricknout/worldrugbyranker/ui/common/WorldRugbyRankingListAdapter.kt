@@ -34,19 +34,37 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
 
     fun bind(worldRugbyRanking: WorldRugbyRanking) {
         itemView.positionTextView.text = "${worldRugbyRanking.position}"
-        itemView.previousPositionTextView.text = if (worldRugbyRanking.position != worldRugbyRanking.previousPosition) {
-            "(${worldRugbyRanking.previousPosition})"
-        } else {
-            ""
+        val previousPosition = "(${worldRugbyRanking.previousPosition})"
+        when {
+            worldRugbyRanking.position > worldRugbyRanking.previousPosition -> {
+                itemView.previousPositionTextView.text = previousPosition
+                itemView.previousPositionTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_green))
+            }
+            worldRugbyRanking.position < worldRugbyRanking.previousPosition -> {
+                itemView.previousPositionTextView.text = previousPosition
+                itemView.previousPositionTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_red))
+            }
+            else -> {
+                itemView.previousPositionTextView.text = ""
+            }
         }
         itemView.flagTextView.text = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation)
         itemView.teamTextView.text = worldRugbyRanking.teamName
         val pointsFormat = "%.2f"
         itemView.pointsTextView.text = pointsFormat.format(worldRugbyRanking.points)
-        itemView.previousPointsTextView.text = if (worldRugbyRanking.points != worldRugbyRanking.previousPoints) {
-            "(${pointsFormat.format(worldRugbyRanking.previousPoints)})"
-        } else {
-            ""
+        val previousPoints = "(${pointsFormat.format(worldRugbyRanking.previousPoints)})"
+        when {
+            worldRugbyRanking.points > worldRugbyRanking.previousPoints -> {
+                itemView.previousPointsTextView.text = previousPoints
+                itemView.previousPointsTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_green))
+            }
+            worldRugbyRanking.points < worldRugbyRanking.previousPoints -> {
+                itemView.previousPointsTextView.text = previousPoints
+                itemView.previousPointsTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_red))
+            }
+            else -> {
+                itemView.previousPointsTextView.text = ""
+            }
         }
         val backgroundColor = if (adapterPosition == 0 || adapterPosition % 2 == 0) {
             ContextCompat.getColor(itemView.context, R.color.light_grey)
