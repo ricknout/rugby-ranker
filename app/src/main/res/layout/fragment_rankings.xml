@@ -31,7 +31,7 @@
 
         <include
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             layout="@layout/include_rankings_header" />
 
     </com.google.android.material.appbar.AppBarLayout>
