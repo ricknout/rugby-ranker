@@ -4,8 +4,8 @@
 
     <string name="title_mens">Men\'s</string>
     <string name="title_womens">Women\'s</string>
-    <string name="title_mens_rankings">Men\'s Rankings</string>
-    <string name="title_womens_rankings">Women\'s Rankings</string>
+    <string name="title_mens_rugby_rankings">Men\'s Rugby Rankings</string>
+    <string name="title_womens_rugby_rankings">Women\'s Rugby Rankings</string>
     <string name="title_add_match">Add match</string>
 
     <string name="subtitle_position">#</string>
