@@ -19,7 +19,7 @@
     <dimen name="spacing_standard">8dp</dimen>
     <dimen name="spacing_double">16dp</dimen>
 
-    <dimen name="elevation_bottom_sheet">16dp</dimen>
+    <dimen name="elevation_bottom_sheet">8dp</dimen>
 
     <dimen name="corner_radius_bottom_sheet">8dp</dimen>
     <dimen name="corner_radius_match_result">16dp</dimen>
