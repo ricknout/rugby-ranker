@@ -32,17 +32,20 @@ class WorldRugbyRankingListAdapter : ListAdapter<WorldRugbyRanking, WorldRugbyRa
 class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyRanking: WorldRugbyRanking) {
-        val previousPosition = if (worldRugbyRanking.position != worldRugbyRanking.previousPosition) {
-            " (${worldRugbyRanking.previousPosition})"
+        itemView.positionTextView.text = "${worldRugbyRanking.position}"
+        itemView.previousPositionTextView.text = if (worldRugbyRanking.position != worldRugbyRanking.previousPosition) {
+            "(${worldRugbyRanking.previousPosition})"
         } else {
             ""
         }
-        val previousPoints = if (worldRugbyRanking.points != worldRugbyRanking.previousPoints) {
-            " (${worldRugbyRanking.previousPoints})"
+        itemView.teamTextView.text = worldRugbyRanking.teamName
+        val pointsFormat = "%.2f"
+        itemView.pointsTextView.text = pointsFormat.format(worldRugbyRanking.points)
+        itemView.previousPointsTextView.text = if (worldRugbyRanking.points != worldRugbyRanking.previousPoints) {
+            "(${pointsFormat.format(worldRugbyRanking.previousPoints)})"
         } else {
             ""
         }
-        itemView.textView.text = "${worldRugbyRanking.position}$previousPosition ${worldRugbyRanking.teamName} ${worldRugbyRanking.points}$previousPoints"
         val backgroundColor = if (adapterPosition == 0 || adapterPosition % 2 == 0) {
             ContextCompat.getColor(itemView.context, R.color.light_grey)
         } else {

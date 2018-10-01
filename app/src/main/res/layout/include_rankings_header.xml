@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/teamTextView"
-        app:layout_constraintHorizontal_weight="1" />
+        app:layout_constraintHorizontal_weight="@integer/weight_position" />
 
     <TextView
         android:id="@+id/teamTextView"
@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/positionTextView"
         app:layout_constraintEnd_toStartOf="@id/pointsTextView"
-        app:layout_constraintHorizontal_weight="5" />
+        app:layout_constraintHorizontal_weight="@integer/weight_team" />
 
     <TextView
         android:id="@+id/pointsTextView"
@@ -44,6 +44,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/teamTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="2" />
+        app:layout_constraintHorizontal_weight="@integer/weight_points" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
