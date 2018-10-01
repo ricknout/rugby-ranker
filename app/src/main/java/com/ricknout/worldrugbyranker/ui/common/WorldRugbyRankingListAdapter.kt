@@ -3,6 +3,7 @@ package com.ricknout.worldrugbyranker.ui.common
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -42,5 +43,11 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             ""
         }
         itemView.textView.text = "${worldRugbyRanking.position}$previousPosition ${worldRugbyRanking.teamName} ${worldRugbyRanking.points}$previousPoints"
+        val backgroundColor = if (adapterPosition == 0 || adapterPosition % 2 == 0) {
+            ContextCompat.getColor(itemView.context, R.color.light_grey)
+        } else {
+            ContextCompat.getColor(itemView.context, R.color.white)
+        }
+        itemView.backgroundView.setBackgroundColor(backgroundColor)
     }
 }
