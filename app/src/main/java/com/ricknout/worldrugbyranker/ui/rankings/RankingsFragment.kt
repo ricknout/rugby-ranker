@@ -1,5 +1,6 @@
 package com.ricknout.worldrugbyranker.ui.rankings
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -17,13 +18,15 @@ import com.ricknout.worldrugbyranker.R
 import com.ricknout.worldrugbyranker.ui.common.MatchResultListAdapter
 import com.ricknout.worldrugbyranker.ui.common.OnClickItemTouchListener
 import com.ricknout.worldrugbyranker.ui.common.WorldRugbyRankingListAdapter
+import com.ricknout.worldrugbyranker.ui.common.OnBackPressedListener
+import com.ricknout.worldrugbyranker.ui.common.OnBackPressedProvider
 import com.ricknout.worldrugbyranker.vo.MatchResult
 import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import javax.inject.Inject
 
-class RankingsFragment : DaggerFragment() {
+class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -391,6 +394,24 @@ class RankingsFragment : DaggerFragment() {
         awayPointsEditText.text?.clear()
         nhaCheckBox.isChecked = false
         rwcCheckBox.isChecked = false
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        (context as? OnBackPressedProvider ?: throw ClassCastException("$context must implement OnBackPressedProvider"))
+                .setOnBackPressedListener(this)
+    }
+
+    override fun onBackPressed(): Boolean {
+        if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            } else {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            return true
+        }
+        return super.onBackPressed()
     }
 
     companion object {
