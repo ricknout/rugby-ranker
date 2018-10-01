@@ -406,6 +406,12 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                 .setOnBackPressedListener(this)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        (context as? OnBackPressedProvider ?: throw ClassCastException("$context must implement OnBackPressedProvider"))
+                .setOnBackPressedListener(null)
+    }
+
     override fun onBackPressed(): Boolean {
         if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {

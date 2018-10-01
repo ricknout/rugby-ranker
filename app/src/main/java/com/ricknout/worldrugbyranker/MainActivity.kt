@@ -31,9 +31,4 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
         val onBackPressedHandled = onBackPressedListener?.onBackPressed() ?: false
         if (!onBackPressedHandled) super.onBackPressed()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        onBackPressedListener = null
-    }
 }

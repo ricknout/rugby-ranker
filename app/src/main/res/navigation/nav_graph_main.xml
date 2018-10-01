@@ -22,4 +22,10 @@
         <argument android:name="type" android:defaultValue="1" app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.ricknout.worldrugbyranker.ui.info.InfoFragment"
+        android:label="InfoFragment"
+        tools:layout="@layout/fragment_info" />
+
 </navigation>

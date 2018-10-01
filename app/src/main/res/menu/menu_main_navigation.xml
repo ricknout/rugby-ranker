@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_gender_female_black_24dp"
         android:title="@string/title_womens" />
 
+    <item
+        android:id="@id/infoFragment"
+        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:title="@string/title_info" />
+
 </menu>
