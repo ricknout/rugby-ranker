@@ -38,11 +38,11 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         when {
             worldRugbyRanking.position > worldRugbyRanking.previousPosition -> {
                 itemView.previousPositionTextView.text = previousPosition
-                itemView.previousPositionTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_green))
+                itemView.previousPositionTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_red))
             }
             worldRugbyRanking.position < worldRugbyRanking.previousPosition -> {
                 itemView.previousPositionTextView.text = previousPosition
-                itemView.previousPositionTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_red))
+                itemView.previousPositionTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_green))
             }
             else -> {
                 itemView.previousPositionTextView.text = ""
