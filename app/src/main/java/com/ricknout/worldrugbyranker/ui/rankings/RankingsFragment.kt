@@ -25,6 +25,7 @@ import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import javax.inject.Inject
+import android.view.inputmethod.InputMethodManager
 
 class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
@@ -163,9 +164,12 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 bottomSheetState = state
-                if ((state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) && clearAddMatchInput) {
-                    clearAddMatchInput()
-                    clearAddMatchInput = false
+                if (state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) {
+                    if (clearAddMatchInput) {
+                        clearAddMatchInput()
+                        clearAddMatchInput = false
+                    }
+                    hideSoftInput()
                 }
             }
         })
@@ -412,6 +416,16 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             return true
         }
         return super.onBackPressed()
+    }
+
+    private fun hideSoftInput() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.rootView?.windowToken, 0)
+    }
+
+    override fun onDestroyView() {
+        hideSoftInput()
+        super.onDestroyView()
     }
 
     companion object {
