@@ -2,6 +2,8 @@ package com.ricknout.worldrugbyranker.ui.rankings
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,11 +87,71 @@ class RankingsFragment : DaggerFragment() {
                 true
             }
         }
-        homeTeamEditText.setOnClickListener {
-            homeTeamPopupMenu.show()
+        homeTeamEditText.apply {
+            setOnClickListener {
+                homeTeamPopupMenu.show()
+            }
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val valid = !s.isNullOrEmpty()
+                    when (type) {
+                        TYPE_MENS -> viewModel.mensHomeTeamInputValid.value = valid
+                        TYPE_WOMENS -> viewModel.womensHomeTeamInputValid.value = valid
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
         }
-        awayTeamEditText.setOnClickListener {
-            awayTeamPopupMenu.show()
+        homePointsEditText.apply {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val valid = !s.isNullOrEmpty()
+                    when (type) {
+                        TYPE_MENS -> viewModel.mensHomePointsInputValid.value = valid
+                        TYPE_WOMENS -> viewModel.womensHomePointsInputValid.value = valid
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
+        }
+        awayTeamEditText.apply {
+            setOnClickListener {
+                awayTeamPopupMenu.show()
+            }
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val valid = !s.isNullOrEmpty()
+                    when (type) {
+                        TYPE_MENS -> viewModel.mensAwayTeamInputValid.value = valid
+                        TYPE_WOMENS -> viewModel.womensAwayTeamInputValid.value = valid
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
+        }
+        awayPointsEditText.apply {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val valid = !s.isNullOrEmpty()
+                    when (type) {
+                        TYPE_MENS -> viewModel.mensAwayPointsInputValid.value = valid
+                        TYPE_WOMENS -> viewModel.womensAwayPointsInputValid.value = valid
+                    }
+                }
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
         }
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
@@ -98,7 +160,7 @@ class RankingsFragment : DaggerFragment() {
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 bottomSheetState = state
-                if (state == BottomSheetBehavior.STATE_COLLAPSED && clearAddMatchInput) {
+                if ((state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) && clearAddMatchInput) {
                     clearAddMatchInput()
                     clearAddMatchInput = false
                 }
@@ -132,7 +194,7 @@ class RankingsFragment : DaggerFragment() {
                 viewModel.mensWorldRugbyRankings.observe(this, Observer { mensWorldRugbyRankings ->
                     rankingsAdapter.submitList(mensWorldRugbyRankings)
                     val isEmpty = mensWorldRugbyRankings?.isEmpty() ?: true
-                    addButton.isEnabled = !isEmpty
+                    addMatchFab.isEnabled = !isEmpty
                 })
                 viewModel.latestMensWorldRugbyRankings.observe(this, Observer { latestMensWorldRugbyRankings ->
                     assignWorldRugbyRankingsToTeamPopupMenus(latestMensWorldRugbyRankings)
@@ -145,6 +207,9 @@ class RankingsFragment : DaggerFragment() {
                     matchesAdapter.submitList(mensMatches)
                     val isEmpty = mensMatches?.isEmpty() ?: true
                     updateUiForMatches(!isEmpty)
+                })
+                viewModel.mensAddMatchInputValid.observe(this, Observer { mensAddMatchInputValid ->
+                    addButton.isEnabled = mensAddMatchInputValid
                 })
                 resetButton.setOnClickListener {
                     viewModel.resetMens()
@@ -160,7 +225,7 @@ class RankingsFragment : DaggerFragment() {
                 viewModel.womensWorldRugbyRankings.observe(this, Observer { womensWorldRugbyRankings ->
                     rankingsAdapter.submitList(womensWorldRugbyRankings)
                     val isEmpty = womensWorldRugbyRankings?.isEmpty() ?: true
-                    addButton.isEnabled = !isEmpty
+                    addMatchFab.isEnabled = !isEmpty
                 })
                 viewModel.latestWomensWorldRugbyRankings.observe(this, Observer { latestWomensWorldRugbyRankings ->
                     assignWorldRugbyRankingsToTeamPopupMenus(latestWomensWorldRugbyRankings)
@@ -173,6 +238,9 @@ class RankingsFragment : DaggerFragment() {
                     matchesAdapter.submitList(womensMatches)
                     val isEmpty = womensMatches?.isEmpty() ?: true
                     updateUiForMatches(!isEmpty)
+                })
+                viewModel.womensAddMatchInputValid.observe(this, Observer { womensAddMatchInputValid ->
+                    addButton.isEnabled = womensAddMatchInputValid
                 })
                 resetButton.setOnClickListener {
                     viewModel.resetWomens()
@@ -267,7 +335,6 @@ class RankingsFragment : DaggerFragment() {
         }
     }
 
-    // TODO: Use TextWatchers to validate and enable/disable add button
     private fun getMatchResultAndCalculate(): Boolean {
         val homeTeamId = homeTeamId ?: return false
         val homeTeamAbbreviation = homeTeamAbbreviation ?: return false
