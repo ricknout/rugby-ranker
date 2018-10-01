@@ -4,7 +4,7 @@ import android.util.Log
 
 object FlagUtils {
 
-    fun getFlagEmojiForTeamAbbreviation(teamAbbreviation: String): String = when (teamAbbreviation) {
+    fun getFlagEmojiForTeamAbbreviation(teamAbbreviation: String) = when (teamAbbreviation) {
         "NZL" -> "\uD83C\uDDF3\uD83C\uDDFF" // New Zealand
         "IRE" -> "\uD83C\uDDEE\uD83C\uDDEA" // Ireland
         "WAL" -> "\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73\uDB40\uDC7F" // Wales
