@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.worldrugbyranker.R
+import com.ricknout.worldrugbyranker.util.FlagUtils
 import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 import kotlinx.android.synthetic.main.list_item_world_rugby_ranking.view.*
 
@@ -38,6 +39,7 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         } else {
             ""
         }
+        itemView.flagTextView.text = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation)
         itemView.teamTextView.text = worldRugbyRanking.teamName
         val pointsFormat = "%.2f"
         itemView.pointsTextView.text = pointsFormat.format(worldRugbyRanking.points)
