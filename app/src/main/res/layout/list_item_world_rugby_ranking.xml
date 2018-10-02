@@ -32,11 +32,14 @@
 
         <TextView
             android:id="@+id/previousPositionTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/positionTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:lines="1"
+            android:ellipsize="end"
             android:layout_marginStart="@dimen/spacing_standard"
             tools:text="(100)" />
 
@@ -65,14 +68,17 @@
 
         <TextView
             android:id="@+id/teamTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/flagTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:lines="1"
+            android:ellipsize="end"
             android:layout_marginStart="@dimen/spacing_standard"
-            tools:text="St Vincent and Grenadines" />
+            tools:text="St Vincent and the Grenadines" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,11 +105,14 @@
 
         <TextView
             android:id="@+id/previousPointsTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/pointsTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:lines="1"
+            android:ellipsize="end"
             android:layout_marginStart="@dimen/spacing_standard"
             tools:text="(99.99)" />
 
