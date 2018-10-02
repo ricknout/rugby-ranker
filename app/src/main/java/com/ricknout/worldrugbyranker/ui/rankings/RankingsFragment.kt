@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.TooltipCompat
 import androidx.lifecycle.Observer
@@ -194,6 +195,15 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             if (getMatchResultAndCalculate()) {
                 hideBottomSheetAndClearAddMatchInput()
             }
+        }
+        awayPointsEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (getMatchResultAndCalculate()) {
+                    hideBottomSheetAndClearAddMatchInput()
+                    return@setOnEditorActionListener true
+                }
+            }
+            false
         }
         when (type) {
             TYPE_MENS -> {
