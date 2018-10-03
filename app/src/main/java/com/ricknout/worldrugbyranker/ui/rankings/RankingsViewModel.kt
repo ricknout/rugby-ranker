@@ -81,7 +81,7 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
     private fun isMensAddMatchInputValid() = mensHomeTeamInputValid.value == true && mensHomePointsInputValid.value == true
                     && mensAwayTeamInputValid.value == true && mensAwayPointsInputValid.value == true
 
-    fun hasWomensMatches() = !(_mensMatches.value?.isEmpty() ?: true)
+    fun hasWomensMatches() = !(_womensMatches.value?.isEmpty() ?: true)
 
     private val _womensMatches = MutableLiveData<List<MatchResult>>().apply { value = null }
     val womensMatches: LiveData<List<MatchResult>>
