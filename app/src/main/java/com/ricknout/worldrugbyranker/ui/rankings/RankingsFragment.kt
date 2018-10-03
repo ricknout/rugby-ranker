@@ -383,11 +383,11 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         )
         return when (type) {
             TYPE_MENS -> {
-                viewModel.calculateMens(matchResult)
+                viewModel.addMensMatchResult(matchResult)
                 true
             }
             TYPE_WOMENS -> {
-                viewModel.calculateWomens(matchResult)
+                viewModel.addWomensMatchResult(matchResult)
                 true
             }
             else -> false

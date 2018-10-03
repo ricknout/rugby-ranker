@@ -6,30 +6,31 @@ import kotlin.math.min
 
 object RankingsCalculator {
 
-    fun allocatePointsForMatchResult(
+    fun allocatePointsForMatchResults(
             worldRugbyRankings: List<WorldRugbyRanking>,
-            matchResult: MatchResult,
-            resetPoints: Boolean
+            matchResults: List<MatchResult>
     ): List<WorldRugbyRanking> {
-        val homeTeam = worldRugbyRankings.find { worldRugbyRanking ->
-            worldRugbyRanking.teamId == matchResult.homeTeamId
-        } ?: throw IllegalArgumentException("Cannot find home team with ID = ${matchResult.homeTeamId}")
-        val awayTeam = worldRugbyRankings.find { worldRugbyRanking ->
-            worldRugbyRanking.teamId == matchResult.awayTeamId
-        } ?: throw IllegalArgumentException("Cannot find away team with ID = ${matchResult.awayTeamId}")
-        val points = pointsForMatchResult(homeTeam, awayTeam, matchResult)
-        return worldRugbyRankings.map { worldRugbyRanking ->
-            when (worldRugbyRanking.teamId) {
-                matchResult.homeTeamId -> worldRugbyRanking.allocatePoints(points)
-                matchResult.awayTeamId -> worldRugbyRanking.allocatePoints(-points)
-                else -> if (resetPoints) worldRugbyRanking.allocatePoints(0f) else worldRugbyRanking
-            }
-        }.sortedByDescending { worldRugbyRanking ->
+        if (matchResults.isEmpty()) return worldRugbyRankings
+        val mutableWorldRugbyRankings = worldRugbyRankings.map { worldRugbyRanking ->
+            worldRugbyRanking.allocatePoints(0f) // Reset previous points initially
+        }.toMutableList()
+        matchResults.forEach { matchResult ->
+            val homeTeam = worldRugbyRankings.find { worldRugbyRanking ->
+                worldRugbyRanking.teamId == matchResult.homeTeamId
+            } ?: throw IllegalArgumentException("Cannot find home team with ID = ${matchResult.homeTeamId}")
+            val awayTeam = worldRugbyRankings.find { worldRugbyRanking ->
+                worldRugbyRanking.teamId == matchResult.awayTeamId
+            } ?: throw IllegalArgumentException("Cannot find away team with ID = ${matchResult.awayTeamId}")
+            val points = pointsForMatchResult(homeTeam, awayTeam, matchResult)
+            mutableWorldRugbyRankings[worldRugbyRankings.indexOf(homeTeam)] = homeTeam.allocatePoints(points)
+            mutableWorldRugbyRankings[worldRugbyRankings.indexOf(awayTeam)] = awayTeam.allocatePoints(-points)
+        }
+        return mutableWorldRugbyRankings.asSequence().sortedByDescending { worldRugbyRanking ->
             worldRugbyRanking.points
         }.mapIndexed { index, worldRugbyRanking ->
             val position = index.inc()
             worldRugbyRanking.updatePosition(position)
-        }
+        }.toList()
     }
 
     private fun pointsForMatchResult(
