@@ -10,14 +10,16 @@ import com.ricknout.worldrugbyranker.R
 import com.ricknout.worldrugbyranker.vo.MatchResult
 import kotlinx.android.synthetic.main.list_item_match_result.view.*
 
-class MatchResultListAdapter : ListAdapter<MatchResult, MatchResultViewHolder>(DIFF_CALLBACK) {
+class MatchResultListAdapter(
+        private val onItemCloseIconClick: (matchResult: MatchResult) -> Unit
+) : ListAdapter<MatchResult, MatchResultViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchResultViewHolder
             = MatchResultViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_match_result, parent, false))
 
     override fun onBindViewHolder(holder: MatchResultViewHolder, position: Int) {
         val matchResult = getItem(position)
-        holder.bind(matchResult)
+        holder.bind(matchResult, onItemCloseIconClick)
     }
 
     companion object {
@@ -30,7 +32,7 @@ class MatchResultListAdapter : ListAdapter<MatchResult, MatchResultViewHolder>(D
 
 class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(matchResult: MatchResult) {
+    fun bind(matchResult: MatchResult, onItemCloseIconClick: (matchResult: MatchResult) -> Unit) {
         itemView.chip.apply {
             when {
                 matchResult.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_white_24dp)
@@ -42,7 +44,7 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 // TODO: Populate bottom sheet with match result details for editing
             }
             setOnCloseIconClickListener {
-                // TODO: Remove match result from matches and recalculate rankings
+                onItemCloseIconClick(matchResult)
             }
         }
     }

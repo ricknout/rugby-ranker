@@ -16,6 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/WorldRugbyRankerChip"
+        app:closeIconEnabled="true"
+        app:closeIconTint="@color/white"
         tools:text="NZL 100 - 100 RSA"
         tools:chipIcon="@drawable/ic_rwc_black_24dp"
         tools:chipIconTint="@color/white" />

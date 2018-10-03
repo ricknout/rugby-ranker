@@ -36,7 +36,12 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     private lateinit var viewModel: RankingsViewModel
 
     private val rankingsAdapter = WorldRugbyRankingListAdapter()
-    private val matchesAdapter = MatchResultListAdapter()
+    private val matchesAdapter = MatchResultListAdapter { matchResult ->
+        when (type) {
+            TYPE_MENS -> { viewModel.removeMensMatchResult(matchResult) }
+            TYPE_WOMENS -> { viewModel.removeWomensMatchResult(matchResult) }
+        }
+    }
 
     private lateinit var homeTeamPopupMenu: PopupMenu
     private lateinit var awayTeamPopupMenu: PopupMenu
@@ -161,7 +166,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                updateAlphaForBottomSheetSlide(slideOffset, isCalculating())
+                updateAlphaForBottomSheetSlide(slideOffset, hasMatches())
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 bottomSheetState = state
@@ -180,7 +185,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             BottomSheetBehavior.STATE_COLLAPSED -> 0f
             else -> -1f
         }
-        updateAlphaForBottomSheetSlide(slideOffset, isCalculating())
+        updateAlphaForBottomSheetSlide(slideOffset, hasMatches())
         addMatchFab.setOnClickListener {
             showBottomSheet()
         }
@@ -192,13 +197,13 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             hideBottomSheet()
         }
         addButton.setOnClickListener {
-            if (getMatchResultAndCalculate()) {
+            if (addMatchResultFromInput()) {
                 hideBottomSheetAndClearAddMatchInput()
             }
         }
         awayPointsEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (getMatchResultAndCalculate()) {
+                if (addMatchResultFromInput()) {
                     hideBottomSheetAndClearAddMatchInput()
                     return@setOnEditorActionListener true
                 }
@@ -216,10 +221,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                 })
                 viewModel.latestMensWorldRugbyRankings.observe(this, Observer { latestMensWorldRugbyRankings ->
                     assignWorldRugbyRankingsToTeamPopupMenus(latestMensWorldRugbyRankings)
-                })
-                viewModel.isCalculatingMens.observe(this, Observer { isCalculatingMens ->
-                    resetButton.isEnabled = isCalculatingMens
-                    resetMatchesButton.isEnabled = isCalculatingMens
                 })
                 viewModel.mensMatches.observe(this, Observer { mensMatches ->
                     matchesAdapter.submitList(mensMatches)
@@ -248,10 +249,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                 })
                 viewModel.latestWomensWorldRugbyRankings.observe(this, Observer { latestWomensWorldRugbyRankings ->
                     assignWorldRugbyRankingsToTeamPopupMenus(latestWomensWorldRugbyRankings)
-                })
-                viewModel.isCalculatingWomens.observe(this, Observer { isCalculatingWomens ->
-                    resetButton.isEnabled = isCalculatingWomens
-                    resetMatchesButton.isEnabled = isCalculatingWomens
                 })
                 viewModel.womensMatches.observe(this, Observer { womensMatches ->
                     matchesAdapter.submitList(womensMatches)
@@ -286,9 +283,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         outState.putString(KEY_AWAY_TEAM_ABBREVIATION, awayTeamAbbreviation)
     }
 
-    private fun isCalculating() = when (type) {
-        TYPE_MENS -> viewModel.isCalculatingMens()
-        TYPE_WOMENS -> viewModel.isCalculatingWomens()
+    private fun hasMatches() = when (type) {
+        TYPE_MENS -> viewModel.hasMensMatches()
+        TYPE_WOMENS -> viewModel.hasWomensMatches()
         else -> false
     }
 
@@ -299,6 +296,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
         if (hasMatches) addMatchFab.hide() else addMatchFab.show()
+        resetButton.isEnabled = hasMatches
+        resetMatchesButton.isEnabled = hasMatches
     }
 
     private fun showBottomSheet() {
@@ -313,9 +312,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, icCalculating: Boolean) {
+    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatches: Boolean) {
         setAlphaAndVisibility(matchesRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES))
-        setAlphaAndVisibility(resetMatchesButton, if (icCalculating) {
+        setAlphaAndVisibility(resetMatchesButton, if (hasMatches) {
             offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES)
         } else {
             0f
@@ -354,7 +353,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun getMatchResultAndCalculate(): Boolean {
+    private fun addMatchResultFromInput(): Boolean {
         val homeTeamId = homeTeamId ?: return false
         val homeTeamAbbreviation = homeTeamAbbreviation ?: return false
         val homeTeamScore = if (!homePointsEditText.text.isNullOrEmpty()) {
