@@ -3,30 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<font
-        android:fontStyle="normal"
-        android:fontWeight="300"
-        android:font="@font/rajdhani_light"
-        app:fontStyle="normal"
-        app:fontWeight="300"
-        app:font="@font/rajdhani_light" />
-
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="400"
-        android:font="@font/rajdhani_regular"
-        app:fontStyle="normal"
-        app:fontWeight="400"
-        app:font="@font/rajdhani_regular" />
-
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="500"
-        android:font="@font/rajdhani_medium"
-        app:fontStyle="normal"
-        app:fontWeight="500"
-        app:font="@font/rajdhani_medium" />-->
-
     <font
         android:fontStyle="normal"
         android:fontWeight="600"
