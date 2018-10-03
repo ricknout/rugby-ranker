@@ -6,11 +6,11 @@ import android.view.MotionEvent
 import androidx.core.view.GestureDetectorCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class OnClickItemTouchListener(context: Context, onClick: () -> Unit) : RecyclerView.OnItemTouchListener {
+class OnBackgroundClickItemTouchListener(context: Context, onBackgroundClick: () -> Unit) : RecyclerView.OnItemTouchListener {
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
-            onClick()
+            onBackgroundClick()
             return super.onSingleTapUp(e)
         }
     }
@@ -18,7 +18,9 @@ class OnClickItemTouchListener(context: Context, onClick: () -> Unit) : Recycler
     private val gestureDetector = GestureDetectorCompat(context, gestureListener)
 
     override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-        gestureDetector.onTouchEvent(e)
+        if (rv.findChildViewUnder(e.x, e.y) == null) {
+            gestureDetector.onTouchEvent(e)
+        }
         return false
     }
 

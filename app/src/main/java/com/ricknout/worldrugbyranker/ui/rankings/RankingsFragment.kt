@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.worldrugbyranker.R
 import com.ricknout.worldrugbyranker.ui.common.MatchResultListAdapter
-import com.ricknout.worldrugbyranker.ui.common.OnClickItemTouchListener
+import com.ricknout.worldrugbyranker.ui.common.OnBackgroundClickItemTouchListener
 import com.ricknout.worldrugbyranker.ui.common.WorldRugbyRankingListAdapter
 import com.ricknout.worldrugbyranker.ui.common.OnBackPressedListener
 import com.ricknout.worldrugbyranker.ui.common.OnBackPressedProvider
@@ -185,7 +185,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             showBottomSheet()
         }
         TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match))
-        matchesRecyclerView.addOnItemTouchListener(OnClickItemTouchListener(requireContext()) {
+        matchesRecyclerView.addOnItemTouchListener(OnBackgroundClickItemTouchListener(requireContext()) {
             showBottomSheet()
         })
         closeButton.setOnClickListener {
