@@ -32,20 +32,12 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
     fun bind(matchResult: MatchResult) {
         itemView.chip.apply {
-            text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
             when {
-                matchResult.rugbyWorldCup -> {
-                    isChipIconVisible = true
-                    setChipIconResource(R.drawable.ic_rwc_black_24dp)
-                    setChipIconTintResource(R.color.white)
-                }
-                matchResult.noHomeAdvantage -> {
-                    isChipIconVisible = true
-                    setChipIconResource(R.drawable.ic_nha_black_24dp)
-                    setChipIconTintResource(R.color.white)
-                }
-                else -> isChipIconVisible = false
+                matchResult.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_white_24dp)
+                matchResult.noHomeAdvantage -> setChipIconResource(R.drawable.ic_nha_white_24dp)
+                else -> chipIcon = null
             }
+            text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
             setOnClickListener {
                 // TODO: Populate bottom sheet with match result details for editing
             }
