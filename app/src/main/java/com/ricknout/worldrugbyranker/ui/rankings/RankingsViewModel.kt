@@ -35,22 +35,26 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return
         val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
         currentMensMatches.add(matchResult)
+        _mensMatches.value = currentMensMatches
         calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
                 worldRugbyRankings = latestMensWorldRugbyRankings,
                 matchResults = currentMensMatches
         )
-        _mensMatches.value = currentMensMatches
     }
 
     fun removeMensMatchResult(matchResult: MatchResult) {
         val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return
         val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
         currentMensMatches.remove(matchResult)
+        if (currentMensMatches.isEmpty()) {
+            resetMens()
+            return
+        }
+        _mensMatches.value = currentMensMatches
         calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
                 worldRugbyRankings = latestMensWorldRugbyRankings,
                 matchResults = currentMensMatches
         )
-        _mensMatches.value = currentMensMatches
     }
 
     fun resetMens() {
@@ -100,22 +104,26 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return
         val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
         currentWomensMatches.add(matchResult)
+        _womensMatches.value = currentWomensMatches
         calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
                 worldRugbyRankings = latestWomensWorldRugbyRankings,
                 matchResults = currentWomensMatches
         )
-        _womensMatches.value = currentWomensMatches
     }
 
     fun removeWomensMatchResult(matchResult: MatchResult) {
         val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return
         val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
         currentWomensMatches.remove(matchResult)
+        if (currentWomensMatches.isEmpty()) {
+            resetWomens()
+            return
+        }
+        _womensMatches.value = currentWomensMatches
         calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
                 worldRugbyRankings = latestWomensWorldRugbyRankings,
                 matchResults = currentWomensMatches
         )
-        _womensMatches.value = currentWomensMatches
     }
 
     fun resetWomens() {
