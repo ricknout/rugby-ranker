@@ -212,6 +212,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     rankingsAdapter.submitList(mensWorldRugbyRankings)
                     val isEmpty = mensWorldRugbyRankings?.isEmpty() ?: true
                     addMatchFab.isEnabled = !isEmpty
+                    progressBar.visibility = if (isEmpty) View.VISIBLE else View.GONE
                 })
                 viewModel.latestMensWorldRugbyRankings.observe(this, Observer { latestMensWorldRugbyRankings ->
                     assignWorldRugbyRankingsToTeamPopupMenus(latestMensWorldRugbyRankings)
@@ -243,6 +244,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     rankingsAdapter.submitList(womensWorldRugbyRankings)
                     val isEmpty = womensWorldRugbyRankings?.isEmpty() ?: true
                     addMatchFab.isEnabled = !isEmpty
+                    progressBar.visibility = if (isEmpty) View.VISIBLE else View.GONE
                 })
                 viewModel.latestWomensWorldRugbyRankings.observe(this, Observer { latestWomensWorldRugbyRankings ->
                     assignWorldRugbyRankingsToTeamPopupMenus(latestWomensWorldRugbyRankings)
