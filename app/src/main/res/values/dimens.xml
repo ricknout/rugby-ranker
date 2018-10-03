@@ -16,9 +16,7 @@
 
     <dimen name="margin_fab">16dp</dimen>
 
-    <dimen name="spacing_half">4dp</dimen>
     <dimen name="spacing_standard">8dp</dimen>
-    <dimen name="spacing_three_quarter">12dp</dimen>
     <dimen name="spacing_double">16dp</dimen>
 
     <dimen name="elevation_bottom_sheet">8dp</dimen>

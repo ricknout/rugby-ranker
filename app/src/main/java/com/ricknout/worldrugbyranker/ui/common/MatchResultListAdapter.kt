@@ -31,11 +31,27 @@ class MatchResultListAdapter : ListAdapter<MatchResult, MatchResultViewHolder>(D
 class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(matchResult: MatchResult) {
-        itemView.textView.text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
-        when {
-            matchResult.rugbyWorldCup -> itemView.imageView.setImageResource(R.drawable.ic_rwc_black_24dp)
-            matchResult.noHomeAdvantage -> itemView.imageView.setImageResource(R.drawable.ic_nha_black_24dp)
-            else -> itemView.imageView.setImageDrawable(null)
+        itemView.chip.apply {
+            text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
+            when {
+                matchResult.rugbyWorldCup -> {
+                    isChipIconVisible = true
+                    setChipIconResource(R.drawable.ic_rwc_black_24dp)
+                    setChipIconTintResource(R.color.white)
+                }
+                matchResult.noHomeAdvantage -> {
+                    isChipIconVisible = true
+                    setChipIconResource(R.drawable.ic_nha_black_24dp)
+                    setChipIconTintResource(R.color.white)
+                }
+                else -> isChipIconVisible = false
+            }
+            setOnClickListener {
+                // TODO: Populate bottom sheet with match result details for editing
+            }
+            setOnCloseIconClickListener {
+                // TODO: Remove match result from matches and recalculate rankings
+            }
         }
     }
 }
