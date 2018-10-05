@@ -8,6 +8,8 @@ buildscript {
     ext.room_version = "2.0.0"
     ext.navigation_version = "1.0.0-alpha06"
     ext.dagger_version = '2.16'
+    ext.oss_licenses_plugin_version = "0.9.3"
+    ext.play_services_oss_licenses_version = "16.0.1"
     repositories {
         google()
         jcenter()
@@ -16,6 +18,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradle_build_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
+        classpath "com.google.android.gms:oss-licenses-plugin:$oss_licenses_plugin_version"
     }
 }
 

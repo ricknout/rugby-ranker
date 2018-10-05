@@ -9,6 +9,7 @@ import com.ricknout.worldrugbyranker.R
 import kotlinx.android.synthetic.main.fragment_info.*
 import android.content.Intent
 import android.net.Uri
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 class InfoFragment : Fragment() {
 
@@ -27,7 +28,8 @@ class InfoFragment : Fragment() {
             // TODO: Once app is open sourced on GitHub
         }
         openSourceLicensesButton.setOnClickListener {
-            // TODO
+            val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
+            startActivity(intent)
         }
     }
 
