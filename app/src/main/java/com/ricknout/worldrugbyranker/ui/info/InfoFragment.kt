@@ -21,10 +21,10 @@ class InfoFragment : Fragment() {
             startActivity(intent)
         }
         shareThisAppButton.setOnClickListener {
-            // TODO
+            // TODO: Once app is available on Play Store
         }
         viewSourceCodeButton.setOnClickListener {
-            // TODO
+            // TODO: Once app is open sourced on GitHub
         }
         openSourceLicensesButton.setOnClickListener {
             // TODO
