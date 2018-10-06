@@ -40,9 +40,6 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 else -> chipIcon = null
             }
             text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
-            setOnClickListener {
-                // TODO: Populate bottom sheet with match result details for editing
-            }
             setOnCloseIconClickListener {
                 onItemCloseIconClick(matchResult)
             }
