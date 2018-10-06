@@ -7,6 +7,7 @@ import com.ricknout.worldrugbyranker.ui.common.OnBackPressedListener
 import com.ricknout.worldrugbyranker.ui.common.OnBackPressedProvider
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import me.saket.fluidresize.sample.FluidContentResizer
 
 class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
 
@@ -21,6 +22,7 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
             // Do nothing to prevent recreating of Fragments on reselect
             // TODO: Implement ViewModel event to scroll to top?
         }
+        FluidContentResizer.listen(this)
     }
 
     override fun setOnBackPressedListener(onBackPressedListener: OnBackPressedListener?) {
