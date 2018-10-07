@@ -283,14 +283,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/resetMatchesButton"
+            app:layout_constraintEnd_toStartOf="@id/addMatchButton"
             tools:listitem="@layout/list_item_match_result" />
 
         <ImageButton
-            android:id="@+id/resetMatchesButton"
+            android:id="@+id/addMatchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel_outline_black_24dp"
+            android:src="@drawable/ic_add_match_black_24dp"
             android:tint="@color/dark_grey"
             android:paddingStart="@dimen/padding_horizontal_reset_matches"
             android:paddingEnd="@dimen/padding_horizontal_reset_matches"

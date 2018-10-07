@@ -215,6 +215,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         addMatchFab.setOnClickListener {
             showBottomSheet()
         }
+        addMatchButton.setOnClickListener {
+            showBottomSheet()
+        }
         TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match))
         matchesRecyclerView.addOnItemTouchListener(OnBackgroundClickItemTouchListener(requireContext()) {
             clearAddOrEditMatchInput()
@@ -266,10 +269,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
                     addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
                 })
-                resetMatchesButton.setOnClickListener {
-                    viewModel.resetMens()
-                    hideBottomSheetAndClearAddOrEditMatchInput()
-                }
             }
             TYPE_WOMENS -> {
                 titleTextView.setText(R.string.title_womens_rugby_rankings)
@@ -296,10 +295,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
                     addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
                 })
-                resetMatchesButton.setOnClickListener {
-                    viewModel.resetWomens()
-                    hideBottomSheetAndClearAddOrEditMatchInput()
-                }
             }
         }
     }
@@ -338,7 +333,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
         if (hasMatches) addMatchFab.hide() else addMatchFab.show()
-        resetMatchesButton.isEnabled = hasMatches
+        addMatchButton.isEnabled = hasMatches
     }
 
     private fun showBottomSheet() {
@@ -355,7 +350,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatches: Boolean, isEditing: Boolean) {
         setAlphaAndVisibility(matchesRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES))
-        setAlphaAndVisibility(resetMatchesButton, if (hasMatches) {
+        setAlphaAndVisibility(addMatchButton, if (hasMatches) {
             offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES)
         } else {
             0f
