@@ -360,18 +360,18 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         } else {
             0f
         })
-        setAlphaAndVisibility(addOrEditMatchTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(addOrEditButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
+        setAlphaAndVisibility(addOrEditMatchTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(addOrEditButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
         setAlphaAndVisibility(cancelButton, if (isEditing) {
-            offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH)
+            offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH)
         } else {
             0f
         })
-        setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(homeTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(awayTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(nhaCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(rwcCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
+        setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(homeTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(awayTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(nhaCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(rwcCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
     }
 
     private fun offsetToAlpha(value: Float, rangeMin: Float, rangeMax: Float): Float {
@@ -544,6 +544,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         private const val BOTTOM_SHEET_STATE_NONE = -1
         private const val ALPHA_CHANGE_OVER = 0.33f
         private const val ALPHA_MAX_MATCHES = 0f
-        private const val ALPHA_MAX_ADD_MATCH = 0.67f
+        private const val ALPHA_MAX_ADD_OR_EDIT_MATCH = 0.67f
     }
 }
