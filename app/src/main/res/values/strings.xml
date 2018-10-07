@@ -8,6 +8,7 @@
     <string name="title_mens_rugby_rankings">Men\'s Rugby Rankings</string>
     <string name="title_womens_rugby_rankings">Women\'s Rugby Rankings</string>
     <string name="title_add_match">Add match</string>
+    <string name="title_edit_match">Edit match</string>
     <string name="title_send_to">Send to</string>
 
     <string name="subtitle_position">#</string>
@@ -15,7 +16,9 @@
     <string name="subtitle_points">Points</string>
 
     <string name="button_reset">Reset</string>
+    <string name="button_cancel">Cancel</string>
     <string name="button_add">Add</string>
+    <string name="button_edit">Edit</string>
     <string name="button_how_are_world_rugby_rankings_calculated">How are World Rugby Rankings calculated?</string>
     <string name="button_share_this_app">Share this app&#8230;</string>
     <string name="button_view_source_code">View source code</string>

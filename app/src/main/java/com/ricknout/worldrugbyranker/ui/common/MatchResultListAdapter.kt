@@ -11,6 +11,7 @@ import com.ricknout.worldrugbyranker.vo.MatchResult
 import kotlinx.android.synthetic.main.list_item_match_result.view.*
 
 class MatchResultListAdapter(
+        private val onItemClick: (matchResult: MatchResult) -> Unit,
         private val onItemCloseIconClick: (matchResult: MatchResult) -> Unit
 ) : ListAdapter<MatchResult, MatchResultViewHolder>(DIFF_CALLBACK) {
 
@@ -19,12 +20,12 @@ class MatchResultListAdapter(
 
     override fun onBindViewHolder(holder: MatchResultViewHolder, position: Int) {
         val matchResult = getItem(position)
-        holder.bind(matchResult, onItemCloseIconClick)
+        holder.bind(matchResult, onItemClick, onItemCloseIconClick)
     }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MatchResult>() {
-            override fun areItemsTheSame(oldItem: MatchResult, newItem: MatchResult) = oldItem == newItem
+            override fun areItemsTheSame(oldItem: MatchResult, newItem: MatchResult) = oldItem.id == newItem.id
             override fun areContentsTheSame(oldItem: MatchResult, newItem: MatchResult) = oldItem == newItem
         }
     }
@@ -32,7 +33,7 @@ class MatchResultListAdapter(
 
 class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(matchResult: MatchResult, onItemCloseIconClick: (matchResult: MatchResult) -> Unit) {
+    fun bind(matchResult: MatchResult, onItemClick: (matchResult: MatchResult) -> Unit, onItemCloseIconClick: (matchResult: MatchResult) -> Unit) {
         itemView.chip.apply {
             when {
                 matchResult.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_white_24dp)
@@ -40,6 +41,9 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 else -> chipIcon = null
             }
             text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
+            setOnClickListener {
+                onItemClick(matchResult)
+            }
             setOnCloseIconClickListener {
                 onItemCloseIconClick(matchResult)
             }
