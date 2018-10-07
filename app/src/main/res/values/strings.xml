@@ -28,6 +28,8 @@
     <string name="check_box_no_home_advantage">No home advantage</string>
     <string name="check_box_rugby_world_cup">Rugby World Cup</string>
 
+    <string name="chip_match_result">%1$s %2$d - %3$d %4$s</string>
+
     <string name="tooltip_add_match">Add match</string>
 
     <string name="content_description_add_match">Add match</string>
