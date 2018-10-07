@@ -13,7 +13,8 @@ data class MatchResult(
         val awayTeamAbbreviation: String,
         val awayTeamScore: Int,
         val noHomeAdvantage: Boolean,
-        val rugbyWorldCup: Boolean
+        val rugbyWorldCup: Boolean,
+        val isEditing: Boolean = false
 ) {
     companion object {
         fun generateId() = UUID.randomUUID().toString()

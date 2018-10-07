@@ -50,10 +50,19 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
 
     fun beginEditMensMatchResult(matchResult: MatchResult) {
         _editingMensMatchResult.value = matchResult
+        val currentMensMatches = _mensMatches.value!!.map { mensMatchResult ->
+            mensMatchResult.copy(isEditing = mensMatchResult.id == matchResult.id)
+        }
+        _mensMatches.value = currentMensMatches
     }
 
     fun endEditMensMatchResult() {
+        if (_editingMensMatchResult.value == null) return
         _editingMensMatchResult.value = null
+        val currentMensMatches = _mensMatches.value!!.map { mensMatchResult ->
+            mensMatchResult.copy(isEditing = false)
+        }
+        _mensMatches.value = currentMensMatches
     }
 
     fun editMensMatchResult(matchResult: MatchResult) {
@@ -154,10 +163,19 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
 
     fun beginEditWomensMatchResult(matchResult: MatchResult) {
         _editingWomensMatchResult.value = matchResult
+        val currentWomensMatches = _womensMatches.value!!.map { womensMatchResult ->
+            womensMatchResult.copy(isEditing = womensMatchResult.id == matchResult.id)
+        }
+        _womensMatches.value = currentWomensMatches
     }
 
     fun endEditWomensMatchResult() {
+        if (_editingWomensMatchResult.value == null) return
         _editingWomensMatchResult.value = null
+        val currentWomensMatches = _womensMatches.value!!.map { womensMatchResult ->
+            womensMatchResult.copy(isEditing = false)
+        }
+        _womensMatches.value = currentWomensMatches
     }
 
     fun editWomensMatchResult(matchResult: MatchResult) {
