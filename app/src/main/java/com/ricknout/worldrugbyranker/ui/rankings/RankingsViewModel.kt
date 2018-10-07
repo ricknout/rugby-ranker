@@ -99,7 +99,7 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         return removedEditingMensMatchResult
     }
 
-    fun resetMens() {
+    private fun resetMens() {
         _mensMatches.value = null
         _editingMensMatchResult.value = null
         calculatedMensWorldRugbyRankings.value = null
@@ -215,7 +215,7 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         return removedEditingWomensMatchResult
     }
 
-    fun resetWomens() {
+    private fun resetWomens() {
         _womensMatches.value = null
         _editingWomensMatchResult.value = null
         calculatedWomensWorldRugbyRankings.value = null
