@@ -37,6 +37,7 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     fun bind(matchResult: MatchResult, onItemClick: (matchResult: MatchResult) -> Unit, onItemCloseIconClick: (matchResult: MatchResult) -> Unit) {
         itemView.chip.apply {
             when {
+                matchResult.isEditing -> setChipIconResource(R.drawable.ic_edit_white_24dp)
                 matchResult.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_white_24dp)
                 matchResult.noHomeAdvantage -> setChipIconResource(R.drawable.ic_nha_white_24dp)
                 else -> chipIcon = null
