@@ -290,7 +290,7 @@
             android:id="@+id/addMatchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_match_black_24dp"
+            android:src="@drawable/ic_add_black_24dp"
             android:tint="@color/dark_grey"
             android:paddingStart="@dimen/padding_horizontal_reset_matches"
             android:paddingEnd="@dimen/padding_horizontal_reset_matches"
