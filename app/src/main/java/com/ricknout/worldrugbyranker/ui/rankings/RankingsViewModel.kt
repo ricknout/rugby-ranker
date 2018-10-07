@@ -81,19 +81,22 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         )
     }
 
-    fun removeMensMatchResult(matchResult: MatchResult) {
-        val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return
+    fun removeMensMatchResult(matchResult: MatchResult): Boolean {
+        val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return false
+        val removedEditingMensMatchResult = _editingMensMatchResult.value?.id == matchResult.id
         val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
         currentMensMatches.remove(matchResult)
         if (currentMensMatches.isEmpty()) {
             resetMens()
-            return
+            return removedEditingMensMatchResult
         }
         _mensMatches.value = currentMensMatches
         calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
                 worldRugbyRankings = latestMensWorldRugbyRankings,
                 matchResults = currentMensMatches
         )
+        if (removedEditingMensMatchResult) _editingMensMatchResult.value = null
+        return removedEditingMensMatchResult
     }
 
     fun resetMens() {
@@ -194,19 +197,22 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
         )
     }
 
-    fun removeWomensMatchResult(matchResult: MatchResult) {
-        val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return
+    fun removeWomensMatchResult(matchResult: MatchResult): Boolean {
+        val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return false
+        val removedEditingWomensMatchResult = _editingWomensMatchResult.value?.id == matchResult.id
         val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
         currentWomensMatches.remove(matchResult)
         if (currentWomensMatches.isEmpty()) {
             resetWomens()
-            return
+            return removedEditingWomensMatchResult
         }
         _womensMatches.value = currentWomensMatches
         calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
                 worldRugbyRankings = latestWomensWorldRugbyRankings,
                 matchResults = currentWomensMatches
         )
+        if (removedEditingWomensMatchResult) _editingWomensMatchResult.value = null
+        return removedEditingWomensMatchResult
     }
 
     fun resetWomens() {

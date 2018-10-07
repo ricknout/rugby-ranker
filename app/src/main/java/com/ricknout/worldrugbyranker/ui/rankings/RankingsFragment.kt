@@ -45,8 +45,18 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         showBottomSheet()
     }, { matchResult ->
         when (type) {
-            TYPE_MENS -> { viewModel.removeMensMatchResult(matchResult) }
-            TYPE_WOMENS -> { viewModel.removeWomensMatchResult(matchResult) }
+            TYPE_MENS -> {
+                val removedEditingMensMatchResult = viewModel.removeMensMatchResult(matchResult)
+                if (removedEditingMensMatchResult) {
+                    clearAddOrEditMatchInput()
+                }
+            }
+            TYPE_WOMENS -> {
+                val removedEditingWomensMatchResult = viewModel.removeWomensMatchResult(matchResult)
+                if (removedEditingWomensMatchResult) {
+                    clearAddOrEditMatchInput()
+                }
+            }
         }
     })
 
