@@ -190,6 +190,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         addMatchFab.setOnClickListener {
             showBottomSheet()
         }
+        addMatchButton.setOnClickListener {
+            showBottomSheet()
+        }
         TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match))
         matchesRecyclerView.addOnItemTouchListener(OnBackgroundClickItemTouchListener(requireContext()) {
             showBottomSheet()
@@ -235,10 +238,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     viewModel.resetMens()
                     hideBottomSheetAndClearAddMatchInput()
                 }
-                resetMatchesButton.setOnClickListener {
-                    viewModel.resetMens()
-                    hideBottomSheetAndClearAddMatchInput()
-                }
             }
             TYPE_WOMENS -> {
                 titleTextView.setText(R.string.title_womens_rugby_rankings)
@@ -260,10 +259,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     addButton.isEnabled = womensAddMatchInputValid
                 })
                 resetButton.setOnClickListener {
-                    viewModel.resetWomens()
-                    hideBottomSheetAndClearAddMatchInput()
-                }
-                resetMatchesButton.setOnClickListener {
                     viewModel.resetWomens()
                     hideBottomSheetAndClearAddMatchInput()
                 }
@@ -298,7 +293,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
         if (hasMatches) addMatchFab.hide() else addMatchFab.show()
         resetButton.isEnabled = hasMatches
-        resetMatchesButton.isEnabled = hasMatches
+        addMatchButton.isEnabled = hasMatches
     }
 
     private fun showBottomSheet() {
@@ -315,7 +310,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatches: Boolean) {
         setAlphaAndVisibility(matchesRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES))
-        setAlphaAndVisibility(resetMatchesButton, if (hasMatches) {
+        setAlphaAndVisibility(addMatchButton, if (hasMatches) {
             offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES)
         } else {
             0f
