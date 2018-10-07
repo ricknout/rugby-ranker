@@ -40,7 +40,8 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                 matchResult.noHomeAdvantage -> setChipIconResource(R.drawable.ic_nha_white_24dp)
                 else -> chipIcon = null
             }
-            text = "${matchResult.homeTeamAbbreviation} ${matchResult.homeTeamScore} - ${matchResult.awayTeamScore} ${matchResult.awayTeamAbbreviation}"
+            text = itemView.context.getString(R.string.chip_match_result,
+                    matchResult.homeTeamAbbreviation, matchResult.homeTeamScore, matchResult.awayTeamScore, matchResult.awayTeamAbbreviation)
             setOnClickListener {
                 onItemClick(matchResult)
             }
