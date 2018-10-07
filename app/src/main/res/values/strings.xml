@@ -30,6 +30,8 @@
 
     <string name="chip_match_result">%1$s %2$d - %3$d %4$s</string>
 
+    <string name="menu_item_team">%1$s %2$s</string>
+
     <string name="tooltip_add_match">Add match</string>
 
     <string name="content_description_add_match">Add match</string>
