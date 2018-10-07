@@ -45,7 +45,7 @@ class MatchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
             text = itemView.context.getString(R.string.chip_match_result,
                     matchResult.homeTeamAbbreviation, matchResult.homeTeamScore, matchResult.awayTeamScore, matchResult.awayTeamAbbreviation)
             @ColorRes val backgroundColorResId = if (matchResult.isEditing) {
-                R.color.world_rugby_blue_light
+                R.color.world_rugby_blue_dark
             } else {
                 R.color.world_rugby_blue
             }
