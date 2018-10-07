@@ -220,6 +220,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             showBottomSheet()
         }
         TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match))
+        TooltipCompat.setTooltipText(addMatchButton, getString(R.string.tooltip_add_match))
         matchesRecyclerView.addOnItemTouchListener(OnBackgroundClickItemTouchListener(requireContext()) {
             showBottomSheet()
         })
