@@ -27,6 +27,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager
+import androidx.emoji.text.EmojiCompat
 import com.ricknout.worldrugbyranker.util.FlagUtils
 
 class RankingsFragment : DaggerFragment(), OnBackPressedListener {
@@ -343,8 +344,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                 putExtra(EXTRA_TEAM_ID, worldRugbyRanking.teamId)
                 putExtra(EXTRA_TEAM_ABBREVIATION, worldRugbyRanking.teamAbbreviation)
             }
-            val team = getString(R.string.menu_item_team,
-                    FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation), worldRugbyRanking.teamName)
+            val team = EmojiCompat.get().process(getString(R.string.menu_item_team,
+                    FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation), worldRugbyRanking.teamName))
             val homeTeamMenuItem = homeTeamPopupMenu.menu.add(team)
             homeTeamMenuItem.intent = intent
             val awayTeamMenuItem = awayTeamPopupMenu.menu.add(team)
