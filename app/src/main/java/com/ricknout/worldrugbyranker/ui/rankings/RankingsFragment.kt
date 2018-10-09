@@ -38,19 +38,38 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     private lateinit var viewModel: RankingsViewModel
 
     private val rankingsAdapter = WorldRugbyRankingListAdapter()
-    private val matchesAdapter = MatchResultListAdapter { matchResult ->
+    private val matchesAdapter = MatchResultListAdapter({ matchResult ->
         when (type) {
-            TYPE_MENS -> { viewModel.removeMensMatchResult(matchResult) }
-            TYPE_WOMENS -> { viewModel.removeWomensMatchResult(matchResult) }
+            TYPE_MENS -> { viewModel.beginEditMensMatchResult(matchResult) }
+            TYPE_WOMENS -> { viewModel.beginEditWomensMatchResult(matchResult) }
         }
-    }
+        applyMatchResultToInput(matchResult)
+        showBottomSheet()
+    }, { matchResult ->
+        when (type) {
+            TYPE_MENS -> {
+                val removedEditingMensMatchResult = viewModel.removeMensMatchResult(matchResult)
+                if (removedEditingMensMatchResult) {
+                    clearAddOrEditMatchInput()
+                }
+            }
+            TYPE_WOMENS -> {
+                val removedEditingWomensMatchResult = viewModel.removeWomensMatchResult(matchResult)
+                if (removedEditingWomensMatchResult) {
+                    clearAddOrEditMatchInput()
+                }
+            }
+        }
+    })
 
     private lateinit var homeTeamPopupMenu: PopupMenu
     private lateinit var awayTeamPopupMenu: PopupMenu
 
     private var homeTeamId: Long? = null
+    private var homeTeamName: String? = null
     private var homeTeamAbbreviation: String? = null
     private var awayTeamId: Long? = null
+    private var awayTeamName: String? = null
     private var awayTeamAbbreviation: String? = null
 
     private var type: Int = TYPE_NONE
@@ -58,7 +77,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private var bottomSheetState = BOTTOM_SHEET_STATE_NONE
 
-    private var clearAddMatchInput = false
+    private var clearAddOrEditMatchInput = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
             = inflater.inflate(R.layout.fragment_rankings, container, false)
@@ -70,8 +89,10 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         type = RankingsFragmentArgs.fromBundle(arguments).type
         bottomSheetState = savedInstanceState?.getInt(KEY_BOTTOM_SHEET_STATE, BOTTOM_SHEET_STATE_NONE) ?: BOTTOM_SHEET_STATE_NONE
         homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
+        homeTeamName = savedInstanceState?.getString(KEY_HOME_TEAM_NAME)
         homeTeamAbbreviation = savedInstanceState?.getString(KEY_HOME_TEAM_ABBREVIATION)
         awayTeamId = savedInstanceState?.getLong(KEY_AWAY_TEAM_ID)
+        awayTeamName = savedInstanceState?.getString(KEY_AWAY_TEAM_NAME)
         awayTeamAbbreviation = savedInstanceState?.getString(KEY_AWAY_TEAM_ABBREVIATION)
         rankingsRecyclerView.adapter = rankingsAdapter
         matchesRecyclerView.adapter = matchesAdapter
@@ -79,9 +100,11 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             setOnMenuItemClickListener { menuItem ->
                 val intent = menuItem.intent
                 val homeTeamId = intent.extras?.getLong(EXTRA_TEAM_ID)
+                val homeTeamName = intent.extras?.getString(EXTRA_TEAM_NAME)
                 val homeTeamAbbreviation = intent.extras?.getString(EXTRA_TEAM_ABBREVIATION)
                 if (homeTeamId == awayTeamId) return@setOnMenuItemClickListener true
                 this@RankingsFragment.homeTeamId = homeTeamId
+                this@RankingsFragment.homeTeamName = homeTeamName
                 this@RankingsFragment.homeTeamAbbreviation = homeTeamAbbreviation
                 homeTeamEditText.setText(menuItem.title)
                 true
@@ -91,9 +114,11 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             setOnMenuItemClickListener { menuItem ->
                 val intent = menuItem.intent
                 val awayTeamId = intent.extras?.getLong(EXTRA_TEAM_ID)
+                val awayTeamName = intent.extras?.getString(EXTRA_TEAM_NAME)
                 val awayTeamAbbreviation = intent.extras?.getString(EXTRA_TEAM_ABBREVIATION)
                 if (awayTeamId == homeTeamId) return@setOnMenuItemClickListener true
                 this@RankingsFragment.awayTeamId = awayTeamId
+                this@RankingsFragment.awayTeamName = awayTeamName
                 this@RankingsFragment.awayTeamAbbreviation = awayTeamAbbreviation
                 awayTeamEditText.setText(menuItem.title)
                 true
@@ -168,14 +193,14 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                updateAlphaForBottomSheetSlide(slideOffset, hasMatches())
+                updateAlphaForBottomSheetSlide(slideOffset, hasMatches(), isEditing())
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 bottomSheetState = state
                 if (state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) {
-                    if (clearAddMatchInput) {
-                        clearAddMatchInput()
-                        clearAddMatchInput = false
+                    if (clearAddOrEditMatchInput) {
+                        clearAddOrEditMatchInput()
+                        clearAddOrEditMatchInput = false
                     }
                     hideSoftInput()
                 }
@@ -187,11 +212,12 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             BottomSheetBehavior.STATE_COLLAPSED -> 0f
             else -> -1f
         }
-        updateAlphaForBottomSheetSlide(slideOffset, hasMatches())
+        updateAlphaForBottomSheetSlide(slideOffset, hasMatches(), isEditing())
         addMatchFab.setOnClickListener {
             showBottomSheet()
         }
         addMatchButton.setOnClickListener {
+            clearAddOrEditMatchInput()
             showBottomSheet()
         }
         TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match))
@@ -202,19 +228,22 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         closeButton.setOnClickListener {
             hideBottomSheet()
         }
-        addButton.setOnClickListener {
-            if (addMatchResultFromInput()) {
-                hideBottomSheetAndClearAddMatchInput()
+        addOrEditButton.setOnClickListener {
+            if (addOrEditMatchResultFromInput()) {
+                hideBottomSheetAndClearAddOrEditMatchInput()
             }
         }
         awayPointsEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (addMatchResultFromInput()) {
-                    hideBottomSheetAndClearAddMatchInput()
+                if (addOrEditMatchResultFromInput()) {
+                    hideBottomSheetAndClearAddOrEditMatchInput()
                     return@setOnEditorActionListener true
                 }
             }
             false
+        }
+        cancelButton.setOnClickListener {
+            hideBottomSheetAndClearAddOrEditMatchInput()
         }
         when (type) {
             TYPE_MENS -> {
@@ -233,13 +262,15 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     val isEmpty = mensMatches?.isEmpty() ?: true
                     updateUiForMatches(!isEmpty)
                 })
-                viewModel.mensAddMatchInputValid.observe(this, Observer { mensAddMatchInputValid ->
-                    addButton.isEnabled = mensAddMatchInputValid
+                viewModel.mensAddOrEditMatchInputValid.observe(this, Observer { mensAddOrEditMatchInputValid ->
+                    addOrEditButton.isEnabled = mensAddOrEditMatchInputValid
                 })
-                resetButton.setOnClickListener {
-                    viewModel.resetMens()
-                    hideBottomSheetAndClearAddMatchInput()
-                }
+                viewModel.editingMensMatchResult.observe(this, Observer { mensMatchResult ->
+                    val isEditing = mensMatchResult != null
+                    addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match else R.string.title_add_match)
+                    cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
+                    addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
+                })
             }
             TYPE_WOMENS -> {
                 titleTextView.setText(R.string.title_womens_rugby_rankings)
@@ -257,13 +288,15 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     val isEmpty = womensMatches?.isEmpty() ?: true
                     updateUiForMatches(!isEmpty)
                 })
-                viewModel.womensAddMatchInputValid.observe(this, Observer { womensAddMatchInputValid ->
-                    addButton.isEnabled = womensAddMatchInputValid
+                viewModel.womensAddOrEditMatchInputValid.observe(this, Observer { womensAddOrEditMatchInputValid ->
+                    addOrEditButton.isEnabled = womensAddOrEditMatchInputValid
                 })
-                resetButton.setOnClickListener {
-                    viewModel.resetWomens()
-                    hideBottomSheetAndClearAddMatchInput()
-                }
+                viewModel.editingWomensMatchResult.observe(this, Observer { womensMatchResult ->
+                    val isEditing = womensMatchResult != null
+                    addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match else R.string.title_add_match)
+                    cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
+                    addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
+                })
             }
         }
     }
@@ -274,16 +307,24 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         homeTeamId?.let { homeTeamId ->
             outState.putLong(KEY_HOME_TEAM_ID, homeTeamId)
         }
+        outState.putString(KEY_HOME_TEAM_NAME, homeTeamName)
         outState.putString(KEY_HOME_TEAM_ABBREVIATION, homeTeamAbbreviation)
         awayTeamId?.let { awayTeamId ->
             outState.putLong(KEY_AWAY_TEAM_ID, awayTeamId)
         }
+        outState.putString(KEY_AWAY_TEAM_NAME, awayTeamName)
         outState.putString(KEY_AWAY_TEAM_ABBREVIATION, awayTeamAbbreviation)
     }
 
     private fun hasMatches() = when (type) {
         TYPE_MENS -> viewModel.hasMensMatches()
         TYPE_WOMENS -> viewModel.hasWomensMatches()
+        else -> false
+    }
+
+    private fun isEditing() = when (type) {
+        TYPE_MENS -> viewModel.isEditingMensMatch()
+        TYPE_WOMENS -> viewModel.isEditingWomensMatch()
         else -> false
     }
 
@@ -294,7 +335,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
         if (hasMatches) addMatchFab.hide() else addMatchFab.show()
-        resetButton.isEnabled = hasMatches
         addMatchButton.isEnabled = hasMatches
     }
 
@@ -310,21 +350,25 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatches: Boolean) {
+    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatches: Boolean, isEditing: Boolean) {
         setAlphaAndVisibility(matchesRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES))
         setAlphaAndVisibility(addMatchButton, if (hasMatches) {
             offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES)
         } else {
             0f
         })
-        setAlphaAndVisibility(addMatchTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(addButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(resetButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(homeTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(awayTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(nhaCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
-        setAlphaAndVisibility(rwcCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_MATCH))
+        setAlphaAndVisibility(addOrEditMatchTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(addOrEditButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(cancelButton, if (isEditing) {
+            offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH)
+        } else {
+            0f
+        })
+        setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(homeTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(awayTeamMatchResult, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(nhaCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
+        setAlphaAndVisibility(rwcCheckBox, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
     }
 
     private fun offsetToAlpha(value: Float, rangeMin: Float, rangeMax: Float): Float {
@@ -342,6 +386,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         worldRugbyRankings?.forEach { worldRugbyRanking ->
             val intent = Intent().apply {
                 putExtra(EXTRA_TEAM_ID, worldRugbyRanking.teamId)
+                putExtra(EXTRA_TEAM_NAME, worldRugbyRanking.teamName)
                 putExtra(EXTRA_TEAM_ABBREVIATION, worldRugbyRanking.teamAbbreviation)
             }
             val team = EmojiCompat.get().process(getString(R.string.menu_item_team,
@@ -353,8 +398,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun addMatchResultFromInput(): Boolean {
+    private fun addOrEditMatchResultFromInput(): Boolean {
         val homeTeamId = homeTeamId ?: return false
+        val homeTeamName = homeTeamName ?: return false
         val homeTeamAbbreviation = homeTeamAbbreviation ?: return false
         val homeTeamScore = if (!homePointsEditText.text.isNullOrEmpty()) {
             homePointsEditText.text.toString().toInt()
@@ -362,6 +408,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             return false
         }
         val awayTeamId = awayTeamId ?: return false
+        val awayTeamName = awayTeamName ?: return false
         val awayTeamAbbreviation = awayTeamAbbreviation ?: return false
         val awayTeamScore = if (!awayPointsEditText.text.isNullOrEmpty()) {
             awayPointsEditText.text.toString().toInt()
@@ -370,22 +417,38 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
         val nha = nhaCheckBox.isChecked
         val rwc = rwcCheckBox.isChecked
+        val id = when {
+            isEditing() && type == TYPE_MENS -> viewModel.editingMensMatchResult.value!!.id
+            isEditing() && type == TYPE_WOMENS -> viewModel.editingWomensMatchResult.value!!.id
+            else -> MatchResult.generateId()
+        }
         val matchResult = MatchResult(
-                homeTeamId,
-                homeTeamAbbreviation,
-                homeTeamScore,
-                awayTeamId,
-                awayTeamAbbreviation,
-                awayTeamScore,
-                nha,
-                rwc
+                id = id,
+                homeTeamId = homeTeamId,
+                homeTeamName = homeTeamName,
+                homeTeamAbbreviation = homeTeamAbbreviation,
+                homeTeamScore = homeTeamScore,
+                awayTeamId = awayTeamId,
+                awayTeamName = awayTeamName,
+                awayTeamAbbreviation = awayTeamAbbreviation,
+                awayTeamScore = awayTeamScore,
+                noHomeAdvantage = nha,
+                rugbyWorldCup = rwc
         )
-        return when (type) {
-            TYPE_MENS -> {
+        return when {
+            isEditing() && type == TYPE_MENS -> {
+                viewModel.editMensMatchResult(matchResult)
+                true
+            }
+            isEditing() && type == TYPE_WOMENS -> {
+                viewModel.editWomensMatchResult(matchResult)
+                true
+            }
+            type == TYPE_MENS -> {
                 viewModel.addMensMatchResult(matchResult)
                 true
             }
-            TYPE_WOMENS -> {
+            type == TYPE_WOMENS -> {
                 viewModel.addWomensMatchResult(matchResult)
                 true
             }
@@ -393,15 +456,32 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun hideBottomSheetAndClearAddMatchInput() {
-        clearAddMatchInput = true
+    private fun applyMatchResultToInput(matchResult: MatchResult) {
+        homeTeamId = matchResult.homeTeamId
+        homeTeamName = matchResult.homeTeamName
+        homeTeamAbbreviation = matchResult.homeTeamAbbreviation
+        homeTeamEditText.setText(matchResult.homeTeamName)
+        homePointsEditText.setText(matchResult.homeTeamScore.toString())
+        awayTeamId = matchResult.awayTeamId
+        awayTeamName = matchResult.awayTeamName
+        awayTeamAbbreviation = matchResult.awayTeamAbbreviation
+        awayTeamEditText.setText(matchResult.awayTeamName)
+        awayPointsEditText.setText(matchResult.awayTeamScore.toString())
+        nhaCheckBox.isChecked = matchResult.noHomeAdvantage
+        rwcCheckBox.isChecked = matchResult.rugbyWorldCup
+    }
+
+    private fun hideBottomSheetAndClearAddOrEditMatchInput() {
+        clearAddOrEditMatchInput = true
         hideBottomSheet()
     }
 
-    private fun clearAddMatchInput() {
+    private fun clearAddOrEditMatchInput() {
         homeTeamId = null
+        homeTeamName = null
         homeTeamAbbreviation = null
         awayTeamId = null
+        awayTeamName = null
         awayTeamAbbreviation = null
         homeTeamEditText.text?.clear()
         homePointsEditText.text?.clear()
@@ -409,6 +489,10 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         awayPointsEditText.text?.clear()
         nhaCheckBox.isChecked = false
         rwcCheckBox.isChecked = false
+        when (type) {
+            TYPE_MENS -> viewModel.endEditMensMatchResult()
+            TYPE_WOMENS -> viewModel.endEditWomensMatchResult()
+        }
     }
 
     override fun onBackPressed(): Boolean {
@@ -436,6 +520,10 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     override fun onDestroyView() {
         hideSoftInput()
+        when (type) {
+            TYPE_MENS -> viewModel.resetMensAddOrEditMatchInputValid()
+            TYPE_WOMENS -> viewModel.resetWomensAddOrEditMatchInputValid()
+        }
         super.onDestroyView()
     }
 
@@ -446,14 +534,17 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         private const val TYPE_WOMENS = 1
         private const val KEY_BOTTOM_SHEET_STATE = "bottom_sheet_state"
         private const val KEY_HOME_TEAM_ID = "home_team_id"
+        private const val KEY_HOME_TEAM_NAME = "home_team_name"
         private const val KEY_HOME_TEAM_ABBREVIATION = "home_team_abbreviation"
         private const val KEY_AWAY_TEAM_ID = "away_team_id"
+        private const val KEY_AWAY_TEAM_NAME = "away_team_name"
         private const val KEY_AWAY_TEAM_ABBREVIATION = "away_team_abbreviation"
         private const val EXTRA_TEAM_ID = "team_id"
+        private const val EXTRA_TEAM_NAME = "team_name"
         private const val EXTRA_TEAM_ABBREVIATION = "team_abbreviation"
         private const val BOTTOM_SHEET_STATE_NONE = -1
         private const val ALPHA_CHANGE_OVER = 0.33f
         private const val ALPHA_MAX_MATCHES = 0f
-        private const val ALPHA_MAX_ADD_MATCH = 0.67f
+        private const val ALPHA_MAX_ADD_OR_EDIT_MATCH = 0.67f
     }
 }
