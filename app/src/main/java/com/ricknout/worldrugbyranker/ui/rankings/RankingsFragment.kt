@@ -65,14 +65,14 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     }, { matchResult ->
         when (type) {
             TYPE_MENS -> {
-                val removedEditingMensMatchResult = viewModel.removeMensMatchResult(matchResult)
-                if (removedEditingMensMatchResult) {
+                val removedMensEditingMatchResult = viewModel.removeMensMatchResult(matchResult)
+                if (removedMensEditingMatchResult) {
                     clearAddOrEditMatchInput()
                 }
             }
             TYPE_WOMENS -> {
-                val removedEditingWomensMatchResult = viewModel.removeWomensMatchResult(matchResult)
-                if (removedEditingWomensMatchResult) {
+                val removedWomensEditingMatchResult = viewModel.removeWomensMatchResult(matchResult)
+                if (removedWomensEditingMatchResult) {
                     clearAddOrEditMatchInput()
                 }
             }
@@ -131,7 +131,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                updateAlphaForBottomSheetSlide(slideOffset, hasMatches(), isEditing())
+                updateAlphaForBottomSheetSlide(slideOffset, hasMatches(), isEditingMatch())
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 bottomSheetState = state
@@ -150,7 +150,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             BottomSheetBehavior.STATE_COLLAPSED -> 0f
             else -> -1f
         }
-        updateAlphaForBottomSheetSlide(slideOffset, hasMatches(), isEditing())
+        updateAlphaForBottomSheetSlide(slideOffset, hasMatches(), isEditingMatch())
     }
 
     private fun setupAddOrEditMatchInput() {
@@ -285,8 +285,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         viewModel.mensAddOrEditMatchInputValid.observe(this, Observer { mensAddOrEditMatchInputValid ->
             addOrEditButton.isEnabled = mensAddOrEditMatchInputValid
         })
-        viewModel.editingMensMatchResult.observe(this, Observer { mensMatchResult ->
-            val isEditing = mensMatchResult != null
+        viewModel.mensEditingMatchResult.observe(this, Observer { mensEditingMatchResult ->
+            val isEditing = mensEditingMatchResult != null
             addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match else R.string.title_add_match)
             cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
             addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
@@ -312,8 +312,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         viewModel.womensAddOrEditMatchInputValid.observe(this, Observer { womensAddOrEditMatchInputValid ->
             addOrEditButton.isEnabled = womensAddOrEditMatchInputValid
         })
-        viewModel.editingWomensMatchResult.observe(this, Observer { womensMatchResult ->
-            val isEditing = womensMatchResult != null
+        viewModel.womensEditingMatchResult.observe(this, Observer { womensEditingMatchResult ->
+            val isEditing = womensEditingMatchResult != null
             addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match else R.string.title_add_match)
             cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
             addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
@@ -326,7 +326,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         else -> false
     }
 
-    private fun isEditing() = when (type) {
+    private fun isEditingMatch() = when (type) {
         TYPE_MENS -> viewModel.isEditingMensMatch()
         TYPE_WOMENS -> viewModel.isEditingWomensMatch()
         else -> false
@@ -354,7 +354,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
-    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatches: Boolean, isEditing: Boolean) {
+    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatches: Boolean, isEditingMatch: Boolean) {
         setAlphaAndVisibility(matchesRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES))
         setAlphaAndVisibility(addMatchButton, if (hasMatches) {
             offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCHES)
@@ -363,7 +363,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         })
         setAlphaAndVisibility(addOrEditMatchTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
         setAlphaAndVisibility(addOrEditButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH))
-        setAlphaAndVisibility(cancelButton, if (isEditing) {
+        setAlphaAndVisibility(cancelButton, if (isEditingMatch) {
             offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH)
         } else {
             0f
@@ -422,8 +422,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         val nha = nhaCheckBox.isChecked
         val rwc = rwcCheckBox.isChecked
         val id = when {
-            isEditing() && type == TYPE_MENS -> viewModel.editingMensMatchResult.value!!.id
-            isEditing() && type == TYPE_WOMENS -> viewModel.editingWomensMatchResult.value!!.id
+            isEditingMatch() && type == TYPE_MENS -> viewModel.mensEditingMatchResult.value!!.id
+            isEditingMatch() && type == TYPE_WOMENS -> viewModel.womensEditingMatchResult.value!!.id
             else -> MatchResult.generateId()
         }
         val matchResult = MatchResult(
@@ -440,11 +440,11 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                 rugbyWorldCup = rwc
         )
         return when {
-            isEditing() && type == TYPE_MENS -> {
+            isEditingMatch() && type == TYPE_MENS -> {
                 viewModel.editMensMatchResult(matchResult)
                 true
             }
-            isEditing() && type == TYPE_WOMENS -> {
+            isEditingMatch() && type == TYPE_WOMENS -> {
                 viewModel.editWomensMatchResult(matchResult)
                 true
             }
@@ -497,6 +497,10 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         awayPointsEditText.text?.clear()
         nhaCheckBox.isChecked = false
         rwcCheckBox.isChecked = false
+        endEditMatchResult()
+    }
+
+    private fun endEditMatchResult() {
         when (type) {
             TYPE_MENS -> viewModel.endEditMensMatchResult()
             TYPE_WOMENS -> viewModel.endEditWomensMatchResult()

@@ -12,61 +12,63 @@ import javax.inject.Inject
 
 class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRugbyRankerRepository) : ViewModel() {
 
-    fun hasMensMatches() = !(_mensMatches.value?.isEmpty() ?: true)
+    // Mens
 
-    private val _mensMatches = MutableLiveData<List<MatchResult>>().apply { value = null }
+    private val _mensEditingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
+    val mensEditingMatchResult: LiveData<MatchResult>
+        get() = _mensEditingMatchResult
+
+    private val _mensMatches = MediatorLiveData<List<MatchResult>>().apply {
+        addSource(_mensEditingMatchResult) { mensEditingMatchResult ->
+            val currentMensMatches = value?.map { mensMatchResult ->
+                val isEditing = mensEditingMatchResult != null && mensMatchResult.id == mensEditingMatchResult.id
+                mensMatchResult.copy(isEditing = isEditing)
+            }
+            value = currentMensMatches
+        }
+        value = null
+    }
     val mensMatches: LiveData<List<MatchResult>>
         get() = _mensMatches
 
-    fun isEditingMensMatch() = _editingMensMatchResult.value != null
-
-    private val _editingMensMatchResult = MutableLiveData<MatchResult>().apply { value = null }
-    val editingMensMatchResult: LiveData<MatchResult>
-        get() = _editingMensMatchResult
-
     val latestMensWorldRugbyRankings = worldRugbyRankerRepository.getLatestMensWorldRugbyRankings()
-    private val calculatedMensWorldRugbyRankings = MutableLiveData<List<WorldRugbyRanking>>()
     private val _mensWorldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestMensWorldRugbyRankings) { mensWorldRugbyRankings ->
             if (!hasMensMatches()) value = mensWorldRugbyRankings
         }
-        addSource(calculatedMensWorldRugbyRankings) { mensWorldRugbyRankings ->
-            if (hasMensMatches()) value = mensWorldRugbyRankings
+        addSource(_mensMatches) { mensMatches ->
+            val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return@addSource
+            if (mensMatches == null) return@addSource
+            value = RankingsCalculator.allocatePointsForMatchResults(
+                    worldRugbyRankings = latestMensWorldRugbyRankings,
+                    matchResults = mensMatches
+            )
         }
     }
     val mensWorldRugbyRankings: LiveData<List<WorldRugbyRanking>>
         get() = _mensWorldRugbyRankings
 
+    fun hasMensMatches() = !(_mensMatches.value?.isEmpty() ?: true)
+
+    fun isEditingMensMatch() = _mensEditingMatchResult.value != null
+
     fun addMensMatchResult(matchResult: MatchResult) {
-        val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return
         val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
         currentMensMatches.add(matchResult)
         _mensMatches.value = currentMensMatches
-        calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
-                worldRugbyRankings = latestMensWorldRugbyRankings,
-                matchResults = currentMensMatches
-        )
     }
 
     fun beginEditMensMatchResult(matchResult: MatchResult) {
-        _editingMensMatchResult.value = matchResult
-        val currentMensMatches = _mensMatches.value!!.map { mensMatchResult ->
-            mensMatchResult.copy(isEditing = mensMatchResult.id == matchResult.id)
-        }
-        _mensMatches.value = currentMensMatches
+        if (_mensEditingMatchResult.value == matchResult) return
+        _mensEditingMatchResult.value = matchResult
     }
 
     fun endEditMensMatchResult() {
-        if (_editingMensMatchResult.value == null) return
-        _editingMensMatchResult.value = null
-        val currentMensMatches = _mensMatches.value!!.map { mensMatchResult ->
-            mensMatchResult.copy(isEditing = false)
-        }
-        _mensMatches.value = currentMensMatches
+        if (_mensEditingMatchResult.value == null) return
+        _mensEditingMatchResult.value = null
     }
 
     fun editMensMatchResult(matchResult: MatchResult) {
-        val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return
         val currentMensMatches = _mensMatches.value!!.map { mensMatchResult ->
             if (mensMatchResult.id == matchResult.id) {
                 matchResult
@@ -75,34 +77,24 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
             }
         }
         _mensMatches.value = currentMensMatches
-        calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
-                worldRugbyRankings = latestMensWorldRugbyRankings,
-                matchResults = currentMensMatches
-        )
     }
 
     fun removeMensMatchResult(matchResult: MatchResult): Boolean {
-        val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return false
-        val removedEditingMensMatchResult = _editingMensMatchResult.value?.id == matchResult.id
-        val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
+        val removedMensEditingMatchResult = _mensEditingMatchResult.value?.id == matchResult.id
+        val currentMensMatches = _mensMatches.value!!.toMutableList()
         currentMensMatches.remove(matchResult)
         if (currentMensMatches.isEmpty()) {
             resetMens()
-            return removedEditingMensMatchResult
+            return removedMensEditingMatchResult
         }
         _mensMatches.value = currentMensMatches
-        calculatedMensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
-                worldRugbyRankings = latestMensWorldRugbyRankings,
-                matchResults = currentMensMatches
-        )
-        if (removedEditingMensMatchResult) _editingMensMatchResult.value = null
-        return removedEditingMensMatchResult
+        if (removedMensEditingMatchResult) _mensEditingMatchResult.value = null
+        return removedMensEditingMatchResult
     }
 
     private fun resetMens() {
         _mensMatches.value = null
-        _editingMensMatchResult.value = null
-        calculatedMensWorldRugbyRankings.value = null
+        _mensEditingMatchResult.value = null
         _mensWorldRugbyRankings.value = latestMensWorldRugbyRankings.value
     }
 
@@ -128,61 +120,63 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
     private fun isMensAddOrEditMatchInputValid() = mensHomeTeamInputValid.value == true && mensHomePointsInputValid.value == true
                     && mensAwayTeamInputValid.value == true && mensAwayPointsInputValid.value == true
 
-    fun hasWomensMatches() = !(_womensMatches.value?.isEmpty() ?: true)
+    // Womens
 
-    private val _womensMatches = MutableLiveData<List<MatchResult>>().apply { value = null }
+    private val _womensEditingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
+    val womensEditingMatchResult: LiveData<MatchResult>
+        get() = _womensEditingMatchResult
+
+    private val _womensMatches = MediatorLiveData<List<MatchResult>>().apply {
+        addSource(_womensEditingMatchResult) { womensEditingMatchResult ->
+            val currentWomensMatches = value?.map { womensMatchResult ->
+                val isEditing = womensEditingMatchResult != null && womensMatchResult.id == womensEditingMatchResult.id
+                womensMatchResult.copy(isEditing = isEditing)
+            }
+            value = currentWomensMatches
+        }
+        value = null
+    }
     val womensMatches: LiveData<List<MatchResult>>
         get() = _womensMatches
 
-    fun isEditingWomensMatch() = _editingWomensMatchResult.value != null
-
-    private val _editingWomensMatchResult = MutableLiveData<MatchResult>().apply { value = null }
-    val editingWomensMatchResult: LiveData<MatchResult>
-        get() = _editingWomensMatchResult
-
     val latestWomensWorldRugbyRankings = worldRugbyRankerRepository.getLatestWomensWorldRugbyRankings()
-    private val calculatedWomensWorldRugbyRankings = MutableLiveData<List<WorldRugbyRanking>>()
     private val _womensWorldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestWomensWorldRugbyRankings) { womensWorldRugbyRankings ->
             if (!hasWomensMatches()) value = womensWorldRugbyRankings
         }
-        addSource(calculatedWomensWorldRugbyRankings) { womensWorldRugbyRankings ->
-            if (hasWomensMatches()) value = womensWorldRugbyRankings
+        addSource(_womensMatches) { womensMatches ->
+            val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return@addSource
+            if (womensMatches == null) return@addSource
+            value = RankingsCalculator.allocatePointsForMatchResults(
+                    worldRugbyRankings = latestWomensWorldRugbyRankings,
+                    matchResults = womensMatches
+            )
         }
     }
     val womensWorldRugbyRankings: LiveData<List<WorldRugbyRanking>>
         get() = _womensWorldRugbyRankings
 
+    fun hasWomensMatches() = !(_womensMatches.value?.isEmpty() ?: true)
+
+    fun isEditingWomensMatch() = _womensEditingMatchResult.value != null
+
     fun addWomensMatchResult(matchResult: MatchResult) {
-        val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return
         val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
         currentWomensMatches.add(matchResult)
         _womensMatches.value = currentWomensMatches
-        calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
-                worldRugbyRankings = latestWomensWorldRugbyRankings,
-                matchResults = currentWomensMatches
-        )
     }
 
     fun beginEditWomensMatchResult(matchResult: MatchResult) {
-        _editingWomensMatchResult.value = matchResult
-        val currentWomensMatches = _womensMatches.value!!.map { womensMatchResult ->
-            womensMatchResult.copy(isEditing = womensMatchResult.id == matchResult.id)
-        }
-        _womensMatches.value = currentWomensMatches
+        if (_womensEditingMatchResult.value == matchResult) return
+        _womensEditingMatchResult.value = matchResult
     }
 
     fun endEditWomensMatchResult() {
-        if (_editingWomensMatchResult.value == null) return
-        _editingWomensMatchResult.value = null
-        val currentWomensMatches = _womensMatches.value!!.map { womensMatchResult ->
-            womensMatchResult.copy(isEditing = false)
-        }
-        _womensMatches.value = currentWomensMatches
+        if (_womensEditingMatchResult.value == null) return
+        _womensEditingMatchResult.value = null
     }
 
     fun editWomensMatchResult(matchResult: MatchResult) {
-        val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return
         val currentWomensMatches = _womensMatches.value!!.map { womensMatchResult ->
             if (womensMatchResult.id == matchResult.id) {
                 matchResult
@@ -191,34 +185,24 @@ class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRug
             }
         }
         _womensMatches.value = currentWomensMatches
-        calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
-                worldRugbyRankings = latestWomensWorldRugbyRankings,
-                matchResults = currentWomensMatches
-        )
     }
 
     fun removeWomensMatchResult(matchResult: MatchResult): Boolean {
-        val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return false
-        val removedEditingWomensMatchResult = _editingWomensMatchResult.value?.id == matchResult.id
-        val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
+        val removedWomensEditingMatchResult = _womensEditingMatchResult.value?.id == matchResult.id
+        val currentWomensMatches = _womensMatches.value!!.toMutableList()
         currentWomensMatches.remove(matchResult)
         if (currentWomensMatches.isEmpty()) {
             resetWomens()
-            return removedEditingWomensMatchResult
+            return removedWomensEditingMatchResult
         }
         _womensMatches.value = currentWomensMatches
-        calculatedWomensWorldRugbyRankings.value = RankingsCalculator.allocatePointsForMatchResults(
-                worldRugbyRankings = latestWomensWorldRugbyRankings,
-                matchResults = currentWomensMatches
-        )
-        if (removedEditingWomensMatchResult) _editingWomensMatchResult.value = null
-        return removedEditingWomensMatchResult
+        if (removedWomensEditingMatchResult) _womensEditingMatchResult.value = null
+        return removedWomensEditingMatchResult
     }
 
     private fun resetWomens() {
         _womensMatches.value = null
-        _editingWomensMatchResult.value = null
-        calculatedWomensWorldRugbyRankings.value = null
+        _womensEditingMatchResult.value = null
         _womensWorldRugbyRankings.value = latestWomensWorldRugbyRankings.value
     }
 
