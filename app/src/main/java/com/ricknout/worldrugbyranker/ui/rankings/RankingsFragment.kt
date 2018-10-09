@@ -520,6 +520,10 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     override fun onDestroyView() {
         hideSoftInput()
+        when (type) {
+            TYPE_MENS -> viewModel.resetMensAddOrEditMatchInputValid()
+            TYPE_WOMENS -> viewModel.resetWomensAddOrEditMatchInputValid()
+        }
         super.onDestroyView()
     }
 

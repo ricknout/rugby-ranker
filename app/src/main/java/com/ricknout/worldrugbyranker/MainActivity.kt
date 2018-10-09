@@ -38,21 +38,17 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
                 R.id.mensRankingsFragment-> {
                     bottomNavigationView.post {
                         viewModel.endEditWomensMatchResult()
-                        viewModel.resetWomensAddOrEditMatchInputValid()
                     }
                 }
                 R.id.womensRankingsFragment-> {
                     bottomNavigationView.post {
                         viewModel.endEditMensMatchResult()
-                        viewModel.resetMensAddOrEditMatchInputValid()
                     }
                 }
                 R.id.infoFragment-> {
                     bottomNavigationView.post {
                         viewModel.endEditMensMatchResult()
-                        viewModel.resetMensAddOrEditMatchInputValid()
                         viewModel.endEditWomensMatchResult()
-                        viewModel.resetWomensAddOrEditMatchInputValid()
                     }
                 }
             }
