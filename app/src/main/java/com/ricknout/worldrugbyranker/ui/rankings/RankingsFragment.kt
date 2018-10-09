@@ -461,12 +461,16 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         homeTeamId = matchResult.homeTeamId
         homeTeamName = matchResult.homeTeamName
         homeTeamAbbreviation = matchResult.homeTeamAbbreviation
-        homeTeamEditText.setText(matchResult.homeTeamName)
+        val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
+                FlagUtils.getFlagEmojiForTeamAbbreviation(matchResult.homeTeamAbbreviation), homeTeamName))
+        homeTeamEditText.setText(homeTeam)
         homePointsEditText.setText(matchResult.homeTeamScore.toString())
         awayTeamId = matchResult.awayTeamId
         awayTeamName = matchResult.awayTeamName
         awayTeamAbbreviation = matchResult.awayTeamAbbreviation
-        awayTeamEditText.setText(matchResult.awayTeamName)
+        val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
+                FlagUtils.getFlagEmojiForTeamAbbreviation(matchResult.awayTeamAbbreviation), awayTeamName))
+        awayTeamEditText.setText(awayTeam)
         awayPointsEditText.setText(matchResult.awayTeamScore.toString())
         nhaCheckBox.isChecked = matchResult.noHomeAdvantage
         rwcCheckBox.isChecked = matchResult.rugbyWorldCup
