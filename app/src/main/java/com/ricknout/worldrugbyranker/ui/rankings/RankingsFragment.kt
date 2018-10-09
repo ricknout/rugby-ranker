@@ -24,11 +24,12 @@ import com.ricknout.worldrugbyranker.ui.common.OnBackPressedProvider
 import com.ricknout.worldrugbyranker.vo.MatchResult
 import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_rankings.*
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager
 import androidx.emoji.text.EmojiCompat
 import com.ricknout.worldrugbyranker.util.FlagUtils
+import kotlinx.android.synthetic.main.fragment_rankings.*
+import kotlinx.android.synthetic.main.include_add_edit_match_bottom_sheet.*
 
 class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
