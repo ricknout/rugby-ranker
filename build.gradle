@@ -10,6 +10,9 @@ buildscript {
     ext.dagger_version = '2.16'
     ext.oss_licenses_plugin_version = "0.9.3"
     ext.play_services_oss_licenses_version = "16.0.1"
+    ext.test_junit_version = "4.12"
+    ext.test_runner_version = "1.1.0-alpha4"
+    ext.test_espresso_version = "3.1.0-alpha4"
     repositories {
         google()
         jcenter()
