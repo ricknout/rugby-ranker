@@ -45,9 +45,7 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
                 itemView.previousPositionTextView.text = previousPosition
                 itemView.previousPositionTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_green))
             }
-            else -> {
-                itemView.previousPositionTextView.text = ""
-            }
+            else -> itemView.previousPositionTextView.text = ""
         }
         val flag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation))
         itemView.flagTextView.text = flag
@@ -64,9 +62,7 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
                 itemView.previousPointsTextView.text = previousPoints
                 itemView.previousPointsTextView.setTextColor(ContextCompat.getColor(itemView.context, R.color.world_rugby_red))
             }
-            else -> {
-                itemView.previousPointsTextView.text = ""
-            }
+            else -> itemView.previousPointsTextView.text = ""
         }
         val backgroundColor = if (adapterPosition == 0 || adapterPosition % 2 == 0) {
             ContextCompat.getColor(itemView.context, R.color.light_grey)

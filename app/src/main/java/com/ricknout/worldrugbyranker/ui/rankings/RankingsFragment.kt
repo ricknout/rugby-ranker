@@ -19,6 +19,8 @@ import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
 import com.ricknout.worldrugbyranker.ui.common.MatchResultListAdapter
 import com.ricknout.worldrugbyranker.ui.common.OnBackgroundClickItemTouchListener
@@ -27,6 +29,8 @@ import com.ricknout.worldrugbyranker.ui.common.OnBackPressedListener
 import com.ricknout.worldrugbyranker.ui.common.OnBackPressedProvider
 import com.ricknout.worldrugbyranker.ui.common.SimpleTextWatcher
 import com.ricknout.worldrugbyranker.util.FlagUtils
+import androidx.core.content.getSystemService
+import androidx.core.os.bundleOf
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import kotlinx.android.synthetic.main.include_add_edit_match_bottom_sheet.*
 
@@ -272,7 +276,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             rankingsAdapter.submitList(mensWorldRugbyRankings)
             val isEmpty = mensWorldRugbyRankings?.isEmpty() ?: true
             addMatchFab.isEnabled = !isEmpty
-            progressBar.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            progressBar.isVisible = isEmpty
         })
         viewModel.latestMensWorldRugbyRankings.observe(this, Observer { latestMensWorldRugbyRankings ->
             assignWorldRugbyRankingsToTeamPopupMenus(latestMensWorldRugbyRankings)
@@ -288,7 +292,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         viewModel.mensEditingMatchResult.observe(this, Observer { mensEditingMatchResult ->
             val isEditing = mensEditingMatchResult != null
             addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match else R.string.title_add_match)
-            cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
+            cancelButton.isInvisible = !isEditing
             addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
         })
     }
@@ -299,7 +303,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             rankingsAdapter.submitList(womensWorldRugbyRankings)
             val isEmpty = womensWorldRugbyRankings?.isEmpty() ?: true
             addMatchFab.isEnabled = !isEmpty
-            progressBar.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            progressBar.isVisible = isEmpty
         })
         viewModel.latestWomensWorldRugbyRankings.observe(this, Observer { latestWomensWorldRugbyRankings ->
             assignWorldRugbyRankingsToTeamPopupMenus(latestWomensWorldRugbyRankings)
@@ -315,7 +319,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         viewModel.womensEditingMatchResult.observe(this, Observer { womensEditingMatchResult ->
             val isEditing = womensEditingMatchResult != null
             addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match else R.string.title_add_match)
-            cancelButton.visibility = if (isEditing) View.VISIBLE else View.INVISIBLE
+            cancelButton.isInvisible = !isEditing
             addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
         })
     }
@@ -381,7 +385,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     private fun setAlphaAndVisibility(view: View, alpha: Float) {
         view.alpha = alpha
-        view.visibility = if (alpha == 0f) View.INVISIBLE else View.VISIBLE
+        view.isInvisible = alpha == 0f
     }
 
     private fun assignWorldRugbyRankingsToTeamPopupMenus(worldRugbyRankings: List<WorldRugbyRanking>?) {
@@ -389,9 +393,11 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         awayTeamPopupMenu.menu.clear()
         worldRugbyRankings?.forEach { worldRugbyRanking ->
             val intent = Intent().apply {
-                putExtra(EXTRA_TEAM_ID, worldRugbyRanking.teamId)
-                putExtra(EXTRA_TEAM_NAME, worldRugbyRanking.teamName)
-                putExtra(EXTRA_TEAM_ABBREVIATION, worldRugbyRanking.teamAbbreviation)
+                replaceExtras(bundleOf(
+                        EXTRA_TEAM_ID to worldRugbyRanking.teamId,
+                        EXTRA_TEAM_NAME to worldRugbyRanking.teamName,
+                        EXTRA_TEAM_ABBREVIATION to worldRugbyRanking.teamAbbreviation
+                ))
             }
             val team = EmojiCompat.get().process(getString(R.string.menu_item_team,
                     FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation), worldRugbyRanking.teamName))
@@ -526,8 +532,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     }
 
     private fun hideSoftInput() {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.rootView?.windowToken, 0)
+        val imm: InputMethodManager? = requireContext().getSystemService()
+        imm?.hideSoftInputFromWindow(view?.rootView?.windowToken, 0)
     }
 
     override fun onDestroyView() {

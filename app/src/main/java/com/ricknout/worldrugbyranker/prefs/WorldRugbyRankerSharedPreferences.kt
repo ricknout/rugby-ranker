@@ -1,12 +1,13 @@
 package com.ricknout.worldrugbyranker.prefs
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class WorldRugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
-    fun setMensRefreshTime(millis: Long) = sharedPreferences.edit().putLong(KEY_REFRESH_TIME_MENS, millis).apply()
+    fun setMensRefreshTime(millis: Long) = sharedPreferences.edit { putLong(KEY_REFRESH_TIME_MENS, millis) }
 
-    fun setWomensRefreshTime(millis: Long) = sharedPreferences.edit().putLong(KEY_REFRESH_TIME_WOMENS, millis).apply()
+    fun setWomensRefreshTime(millis: Long) = sharedPreferences.edit { putLong(KEY_REFRESH_TIME_WOMENS, millis) }
 
     fun getMensRefreshTime() = sharedPreferences.getLong(KEY_REFRESH_TIME_MENS, DEFAULT_REFRESH_TIME)
 
