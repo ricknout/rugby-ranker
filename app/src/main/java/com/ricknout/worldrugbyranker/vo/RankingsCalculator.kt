@@ -11,7 +11,7 @@ object RankingsCalculator {
             matchResults: List<MatchResult>
     ): List<WorldRugbyRanking> {
         if (matchResults.isEmpty()) return worldRugbyRankings
-        val mutableWorldRugbyRankings = worldRugbyRankings.map { worldRugbyRanking ->
+        val mutableWorldRugbyRankings = worldRugbyRankings.asSequence().map { worldRugbyRanking ->
             worldRugbyRanking.allocatePoints(0f) // Reset previous points initially
         }.toMutableList()
         matchResults.forEach { matchResult ->
