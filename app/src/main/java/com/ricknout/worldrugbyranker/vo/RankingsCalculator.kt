@@ -33,7 +33,7 @@ object RankingsCalculator {
         }.toList()
     }
 
-    private fun pointsForMatchResult(
+    fun pointsForMatchResult(
             homeTeam: WorldRugbyRanking,
             awayTeam: WorldRugbyRanking,
             matchResult: MatchResult
