@@ -1,7 +1,5 @@
 package com.ricknout.worldrugbyranker.util
 
-import android.util.Log
-
 object FlagUtils {
 
     fun getFlagEmojiForTeamAbbreviation(teamAbbreviation: String) = when (teamAbbreviation) {
@@ -110,11 +108,6 @@ object FlagUtils {
         "HEL" -> "\uD83C\uDDEC\uD83C\uDDF7" // Greece
         "VAN" -> "\uD83C\uDDFB\uD83C\uDDFA" // Vanuatu
         "ASM" -> "\uD83C\uDDE6\uD83C\uDDF8" // American Samoa
-        else -> {
-            Log.e(TAG, "Could not find flag emoji for $teamAbbreviation")
-            "\uD83C\uDFF3️" // White flag if team can't be found
-        }
+        else -> "\uD83C\uDFF3" // White flag if team can't be found
     }
-
-    private const val TAG = "FlagUtils"
 }
