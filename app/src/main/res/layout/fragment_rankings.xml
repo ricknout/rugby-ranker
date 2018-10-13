@@ -19,10 +19,9 @@
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:minHeight="?actionBarSize"
                 android:textAppearance="@style/WorldRugbyRankerTextAppearance.ToolbarTitle"
                 tools:text="Men's Rankings" />
 
