@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingStart="@dimen/spacing_standard"
-    android:paddingEnd="@dimen/spacing_standard">
+    android:paddingEnd="@dimen/spacing_standard"
+    android:background="?android:attr/windowBackground">
 
     <TextView
         android:id="@+id/positionTextView"
@@ -47,4 +48,3 @@
         app:layout_constraintHorizontal_weight="@integer/weight_points" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
