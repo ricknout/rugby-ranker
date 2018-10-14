@@ -2,15 +2,15 @@ package com.ricknout.worldrugbyranker.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.ricknout.worldrugbyranker.vo.MensWorldRugbyRanking
-import com.ricknout.worldrugbyranker.vo.WomensWorldRugbyRanking
+import androidx.room.TypeConverters
 import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 
 @Database(
-        entities = [MensWorldRugbyRanking::class, WomensWorldRugbyRanking::class],
+        entities = [WorldRugbyRanking::class],
         version = 1,
         exportSchema = false
 )
+@TypeConverters(WorldRugbyRankerTypeConverters::class)
 abstract class WorldRugbyRankerDb : RoomDatabase() {
 
     abstract fun worldRugbyRankingDao(): WorldRugbyRankingDao

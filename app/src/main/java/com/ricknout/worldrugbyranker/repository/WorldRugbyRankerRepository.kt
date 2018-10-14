@@ -9,8 +9,8 @@ import com.ricknout.worldrugbyranker.api.WorldRugbyRankingsService.Companion.JSO
 import com.ricknout.worldrugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.worldrugbyranker.prefs.WorldRugbyRankerSharedPreferences
 import com.ricknout.worldrugbyranker.util.DateUtils
-import com.ricknout.worldrugbyranker.vo.MensWorldRugbyRanking
-import com.ricknout.worldrugbyranker.vo.WomensWorldRugbyRanking
+import com.ricknout.worldrugbyranker.vo.RankingsType
+import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 import com.ricknout.worldrugbyranker.vo.WorldRugbyRankingDataConverter
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,75 +23,43 @@ class WorldRugbyRankerRepository(
         private val appExecutors: AppExecutors
 ) {
 
-    fun getLatestMensWorldRugbyRankings(): LiveData<List<MensWorldRugbyRanking>> {
+    fun getLatestWorldRugbyRankings(rankingsType: RankingsType): LiveData<List<WorldRugbyRanking>> {
         val currentDate = getCurrentDate()
-        return getMensWorldRugbyRankings(currentDate)
+        return getWorldRugbyRankings(rankingsType, currentDate)
     }
 
-    private fun getMensWorldRugbyRankings(date: String): LiveData<List<MensWorldRugbyRanking>> {
-        refreshMensWorldRugbyRankings(date)
-        return worldRugbyRankingDao.loadMens()
+    private fun getWorldRugbyRankings(rankingsType: RankingsType, date: String): LiveData<List<WorldRugbyRanking>> {
+        refreshWorldRugbyRankings(rankingsType, date)
+        return worldRugbyRankingDao.load(rankingsType)
     }
 
-    private fun refreshMensWorldRugbyRankings(date: String) {
-        val mensRefreshTime = worldRugbyRankerSharedPreferences.getMensRefreshTime()
-        if (!shouldRefresh(mensRefreshTime)) return
+    private fun refreshWorldRugbyRankings(rankingsType: RankingsType, date: String) {
+        val refreshTime = worldRugbyRankerSharedPreferences.getRefreshTime(rankingsType)
+        if (!shouldRefresh(refreshTime)) return
         appExecutors.networkIO.execute {
             val callback = object : Callback<WorldRugbyRankingsResponse> {
 
                 override fun onResponse(call: Call<WorldRugbyRankingsResponse>, response: Response<WorldRugbyRankingsResponse>) {
                     if (response.isSuccessful) {
                         val worldRugbyRankingsResponse = response.body() ?: return
-                        val worldRugbyRankings = WorldRugbyRankingDataConverter.convertFromMensWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
+                        val worldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, rankingsType)
                         appExecutors.diskIO.execute {
-                            worldRugbyRankingDao.insertMens(worldRugbyRankings)
+                            worldRugbyRankingDao.insert(worldRugbyRankings)
                         }
-                        worldRugbyRankerSharedPreferences.setMensRefreshTime(System.currentTimeMillis())
+                        worldRugbyRankerSharedPreferences.setRefreshTime(rankingsType, System.currentTimeMillis())
                     }
-                    // TODO: Handle unsuccessful
+                    // TODO: Handle unsuccessful?
                 }
 
                 override fun onFailure(call: Call<WorldRugbyRankingsResponse>, t: Throwable) {
-                    // TODO: Handle failure
+                    // TODO: Handle failure?
                 }
             }
-            worldRugbyRankingsService.getWorldRugbyRankings(JSON_MENS, date).enqueue(callback)
-        }
-    }
-
-    fun getLatestWomensWorldRugbyRankings(): LiveData<List<WomensWorldRugbyRanking>> {
-        val currentDate = getCurrentDate()
-        return getWomensWorldRugbyRankings(currentDate)
-    }
-
-    private fun getWomensWorldRugbyRankings(date: String): LiveData<List<WomensWorldRugbyRanking>> {
-        refreshWomensWorldRugbyRankings(date)
-        return worldRugbyRankingDao.loadWomens()
-    }
-
-    private fun refreshWomensWorldRugbyRankings(date: String) {
-        val womensRefreshTime = worldRugbyRankerSharedPreferences.getWomensRefreshTime()
-        if (!shouldRefresh(womensRefreshTime)) return
-        appExecutors.networkIO.execute {
-            val callback = object : Callback<WorldRugbyRankingsResponse> {
-
-                override fun onResponse(call: Call<WorldRugbyRankingsResponse>, response: Response<WorldRugbyRankingsResponse>) {
-                    if (response.isSuccessful) {
-                        val worldRugbyRankingsResponse = response.body() ?: return
-                        val worldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWomensWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
-                        appExecutors.diskIO.execute {
-                            worldRugbyRankingDao.insertWomens(worldRugbyRankings)
-                        }
-                        worldRugbyRankerSharedPreferences.setWomensRefreshTime(System.currentTimeMillis())
-                    }
-                    // TODO: Handle unsuccessful
-                }
-
-                override fun onFailure(call: Call<WorldRugbyRankingsResponse>, t: Throwable) {
-                    // TODO: Handle failure
-                }
+            val json = when (rankingsType) {
+                RankingsType.MENS -> JSON_MENS
+                RankingsType.WOMENS -> JSON_WOMENS
             }
-            worldRugbyRankingsService.getWorldRugbyRankings(JSON_WOMENS, date).enqueue(callback)
+            worldRugbyRankingsService.getWorldRugbyRankings(json, date).enqueue(callback)
         }
     }
 

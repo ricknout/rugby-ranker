@@ -7,224 +7,114 @@ import androidx.lifecycle.ViewModel
 import com.ricknout.worldrugbyranker.repository.WorldRugbyRankerRepository
 import com.ricknout.worldrugbyranker.vo.MatchResult
 import com.ricknout.worldrugbyranker.vo.RankingsCalculator
+import com.ricknout.worldrugbyranker.vo.RankingsType
 import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
-import javax.inject.Inject
 
-class RankingsViewModel @Inject constructor(worldRugbyRankerRepository: WorldRugbyRankerRepository) : ViewModel() {
+open class RankingsViewModel(rankingsType: RankingsType, worldRugbyRankerRepository: WorldRugbyRankerRepository) : ViewModel() {
 
-    // Mens
+    private val _editingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
+    val editingMatchResult: LiveData<MatchResult>
+        get() = _editingMatchResult
 
-    private val _mensEditingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
-    val mensEditingMatchResult: LiveData<MatchResult>
-        get() = _mensEditingMatchResult
-
-    private val _mensMatches = MediatorLiveData<List<MatchResult>>().apply {
-        addSource(_mensEditingMatchResult) { mensEditingMatchResult ->
-            val currentMensMatches = value?.map { mensMatchResult ->
-                val isEditing = mensEditingMatchResult != null && mensMatchResult.id == mensEditingMatchResult.id
-                mensMatchResult.copy(isEditing = isEditing)
+    private val _matchResults = MediatorLiveData<List<MatchResult>>().apply {
+        addSource(_editingMatchResult) { editingMatchResult ->
+            val currentMatchResults = value?.map { matchResult ->
+                val isEditing = editingMatchResult != null && matchResult.id == editingMatchResult.id
+                matchResult.copy(isEditing = isEditing)
             }
-            value = currentMensMatches
+            value = currentMatchResults
         }
         value = null
     }
-    val mensMatches: LiveData<List<MatchResult>>
-        get() = _mensMatches
+    val matchResults: LiveData<List<MatchResult>>
+        get() = _matchResults
 
-    val latestMensWorldRugbyRankings = worldRugbyRankerRepository.getLatestMensWorldRugbyRankings()
-    private val _mensWorldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
-        addSource(latestMensWorldRugbyRankings) { mensWorldRugbyRankings ->
-            if (!hasMensMatches()) value = mensWorldRugbyRankings
+    val latestWorldRugbyRankings = worldRugbyRankerRepository.getLatestWorldRugbyRankings(rankingsType)
+    private val _worldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
+        addSource(latestWorldRugbyRankings) { latestWorldRugbyRankings ->
+            if (!hasMatchResults()) value = latestWorldRugbyRankings
         }
-        addSource(_mensMatches) { mensMatches ->
-            val latestMensWorldRugbyRankings = latestMensWorldRugbyRankings.value ?: return@addSource
-            if (mensMatches == null) return@addSource
+        addSource(_matchResults) { matchResults ->
+            val latestWorldRugbyRankings = latestWorldRugbyRankings.value ?: return@addSource
+            if (matchResults == null) return@addSource
             value = RankingsCalculator.allocatePointsForMatchResults(
-                    worldRugbyRankings = latestMensWorldRugbyRankings,
-                    matchResults = mensMatches
+                    worldRugbyRankings = latestWorldRugbyRankings,
+                    matchResults = matchResults
             )
         }
     }
-    val mensWorldRugbyRankings: LiveData<List<WorldRugbyRanking>>
-        get() = _mensWorldRugbyRankings
+    val worldRugbyRankings: LiveData<List<WorldRugbyRanking>>
+        get() = _worldRugbyRankings
 
-    fun hasMensMatches() = !(_mensMatches.value?.isEmpty() ?: true)
+    fun hasMatchResults() = !(_matchResults.value?.isEmpty() ?: true)
 
-    fun isEditingMensMatch() = _mensEditingMatchResult.value != null
+    fun isEditingMatchResult() = _editingMatchResult.value != null
 
-    fun addMensMatchResult(matchResult: MatchResult) {
-        val currentMensMatches = (_mensMatches.value ?: emptyList()).toMutableList()
-        currentMensMatches.add(matchResult)
-        _mensMatches.value = currentMensMatches
+    fun addMatchResult(matchResult: MatchResult) {
+        val currentMatchResults = (_matchResults.value ?: emptyList()).toMutableList()
+        currentMatchResults.add(matchResult)
+        _matchResults.value = currentMatchResults
     }
 
-    fun beginEditMensMatchResult(matchResult: MatchResult) {
-        if (_mensEditingMatchResult.value == matchResult) return
-        _mensEditingMatchResult.value = matchResult
+    fun beginEditMatchResult(matchResult: MatchResult) {
+        if (_editingMatchResult.value == matchResult) return
+        _editingMatchResult.value = matchResult
     }
 
-    fun endEditMensMatchResult() {
-        if (_mensEditingMatchResult.value == null) return
-        _mensEditingMatchResult.value = null
+    fun endEditMatchResult() {
+        if (_editingMatchResult.value == null) return
+        _editingMatchResult.value = null
     }
 
-    fun editMensMatchResult(matchResult: MatchResult) {
-        val currentMensMatches = _mensMatches.value!!.map { mensMatchResult ->
-            if (mensMatchResult.id == matchResult.id) {
+    fun editMatchResult(matchResult: MatchResult) {
+        val currentMatchResults = _matchResults.value!!.map { currentMatchResult ->
+            if (currentMatchResult.id == matchResult.id) {
                 matchResult
             } else {
-                mensMatchResult
+                currentMatchResult
             }
         }
-        _mensMatches.value = currentMensMatches
+        _matchResults.value = currentMatchResults
     }
 
-    fun removeMensMatchResult(matchResult: MatchResult): Boolean {
-        val removedMensEditingMatchResult = _mensEditingMatchResult.value?.id == matchResult.id
-        val currentMensMatches = _mensMatches.value!!.toMutableList()
-        currentMensMatches.remove(matchResult)
-        if (currentMensMatches.isEmpty()) {
-            resetMens()
-            return removedMensEditingMatchResult
+    fun removeMatchResult(matchResult: MatchResult): Boolean {
+        val removedEditingMatchResult = _editingMatchResult.value?.id == matchResult.id
+        val currentMatchResults = _matchResults.value!!.toMutableList()
+        currentMatchResults.remove(matchResult)
+        if (currentMatchResults.isEmpty()) {
+            reset()
+            return removedEditingMatchResult
         }
-        _mensMatches.value = currentMensMatches
-        if (removedMensEditingMatchResult) _mensEditingMatchResult.value = null
-        return removedMensEditingMatchResult
+        _matchResults.value = currentMatchResults
+        if (removedEditingMatchResult) _editingMatchResult.value = null
+        return removedEditingMatchResult
     }
 
-    private fun resetMens() {
-        _mensMatches.value = null
-        _mensEditingMatchResult.value = null
-        _mensWorldRugbyRankings.value = latestMensWorldRugbyRankings.value
+    private fun reset() {
+        _matchResults.value = null
+        _editingMatchResult.value = null
+        _worldRugbyRankings.value = latestWorldRugbyRankings.value
     }
 
-    val mensHomeTeamInputValid = MutableLiveData<Boolean>()
-    val mensHomePointsInputValid = MutableLiveData<Boolean>()
-    val mensAwayTeamInputValid = MutableLiveData<Boolean>()
-    val mensAwayPointsInputValid = MutableLiveData<Boolean>()
+    val homeTeamInputValid = MutableLiveData<Boolean>()
+    val homePointsInputValid = MutableLiveData<Boolean>()
+    val awayTeamInputValid = MutableLiveData<Boolean>()
+    val awayPointsInputValid = MutableLiveData<Boolean>()
 
-    private val _mensAddOrEditMatchInputValid = MediatorLiveData<Boolean>().apply {
-        addSource(mensHomeTeamInputValid) { value = isMensAddOrEditMatchInputValid() }
-        addSource(mensHomePointsInputValid) { value = isMensAddOrEditMatchInputValid() }
-        addSource(mensAwayTeamInputValid) { value = isMensAddOrEditMatchInputValid() }
-        addSource(mensAwayPointsInputValid) { value = isMensAddOrEditMatchInputValid() }
+    private val _addOrEditMatchInputValid = MediatorLiveData<Boolean>().apply {
+        addSource(homeTeamInputValid) { value = isAddOrEditMatchInputValid() }
+        addSource(homePointsInputValid) { value = isAddOrEditMatchInputValid() }
+        addSource(awayTeamInputValid) { value = isAddOrEditMatchInputValid() }
+        addSource(awayPointsInputValid) { value = isAddOrEditMatchInputValid() }
         value = false
     }
-    val mensAddOrEditMatchInputValid: LiveData<Boolean>
-        get() = _mensAddOrEditMatchInputValid
+    val addOrEditMatchInputValid: LiveData<Boolean>
+        get() = _addOrEditMatchInputValid
 
-    fun resetMensAddOrEditMatchInputValid() {
-        _mensAddOrEditMatchInputValid.value = false
+    fun resetAddOrEditMatchInputValid() {
+        _addOrEditMatchInputValid.value = false
     }
 
-    private fun isMensAddOrEditMatchInputValid() = mensHomeTeamInputValid.value == true && mensHomePointsInputValid.value == true
-                    && mensAwayTeamInputValid.value == true && mensAwayPointsInputValid.value == true
-
-    // Womens
-
-    private val _womensEditingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
-    val womensEditingMatchResult: LiveData<MatchResult>
-        get() = _womensEditingMatchResult
-
-    private val _womensMatches = MediatorLiveData<List<MatchResult>>().apply {
-        addSource(_womensEditingMatchResult) { womensEditingMatchResult ->
-            val currentWomensMatches = value?.map { womensMatchResult ->
-                val isEditing = womensEditingMatchResult != null && womensMatchResult.id == womensEditingMatchResult.id
-                womensMatchResult.copy(isEditing = isEditing)
-            }
-            value = currentWomensMatches
-        }
-        value = null
-    }
-    val womensMatches: LiveData<List<MatchResult>>
-        get() = _womensMatches
-
-    val latestWomensWorldRugbyRankings = worldRugbyRankerRepository.getLatestWomensWorldRugbyRankings()
-    private val _womensWorldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
-        addSource(latestWomensWorldRugbyRankings) { womensWorldRugbyRankings ->
-            if (!hasWomensMatches()) value = womensWorldRugbyRankings
-        }
-        addSource(_womensMatches) { womensMatches ->
-            val latestWomensWorldRugbyRankings = latestWomensWorldRugbyRankings.value ?: return@addSource
-            if (womensMatches == null) return@addSource
-            value = RankingsCalculator.allocatePointsForMatchResults(
-                    worldRugbyRankings = latestWomensWorldRugbyRankings,
-                    matchResults = womensMatches
-            )
-        }
-    }
-    val womensWorldRugbyRankings: LiveData<List<WorldRugbyRanking>>
-        get() = _womensWorldRugbyRankings
-
-    fun hasWomensMatches() = !(_womensMatches.value?.isEmpty() ?: true)
-
-    fun isEditingWomensMatch() = _womensEditingMatchResult.value != null
-
-    fun addWomensMatchResult(matchResult: MatchResult) {
-        val currentWomensMatches = (_womensMatches.value ?: emptyList()).toMutableList()
-        currentWomensMatches.add(matchResult)
-        _womensMatches.value = currentWomensMatches
-    }
-
-    fun beginEditWomensMatchResult(matchResult: MatchResult) {
-        if (_womensEditingMatchResult.value == matchResult) return
-        _womensEditingMatchResult.value = matchResult
-    }
-
-    fun endEditWomensMatchResult() {
-        if (_womensEditingMatchResult.value == null) return
-        _womensEditingMatchResult.value = null
-    }
-
-    fun editWomensMatchResult(matchResult: MatchResult) {
-        val currentWomensMatches = _womensMatches.value!!.map { womensMatchResult ->
-            if (womensMatchResult.id == matchResult.id) {
-                matchResult
-            } else {
-                womensMatchResult
-            }
-        }
-        _womensMatches.value = currentWomensMatches
-    }
-
-    fun removeWomensMatchResult(matchResult: MatchResult): Boolean {
-        val removedWomensEditingMatchResult = _womensEditingMatchResult.value?.id == matchResult.id
-        val currentWomensMatches = _womensMatches.value!!.toMutableList()
-        currentWomensMatches.remove(matchResult)
-        if (currentWomensMatches.isEmpty()) {
-            resetWomens()
-            return removedWomensEditingMatchResult
-        }
-        _womensMatches.value = currentWomensMatches
-        if (removedWomensEditingMatchResult) _womensEditingMatchResult.value = null
-        return removedWomensEditingMatchResult
-    }
-
-    private fun resetWomens() {
-        _womensMatches.value = null
-        _womensEditingMatchResult.value = null
-        _womensWorldRugbyRankings.value = latestWomensWorldRugbyRankings.value
-    }
-
-    val womensHomeTeamInputValid = MutableLiveData<Boolean>()
-    val womensHomePointsInputValid = MutableLiveData<Boolean>()
-    val womensAwayTeamInputValid = MutableLiveData<Boolean>()
-    val womensAwayPointsInputValid = MutableLiveData<Boolean>()
-
-    private val _womensAddOrEditMatchInputValid = MediatorLiveData<Boolean>().apply {
-        addSource(womensHomeTeamInputValid) { value = isWomensAddOrEditMatchInputValid() }
-        addSource(womensHomePointsInputValid) { value = isWomensAddOrEditMatchInputValid() }
-        addSource(womensAwayTeamInputValid) { value = isWomensAddOrEditMatchInputValid() }
-        addSource(womensAwayPointsInputValid) { value = isWomensAddOrEditMatchInputValid() }
-        value = false
-    }
-    val womensAddOrEditMatchInputValid: LiveData<Boolean>
-        get() = _womensAddOrEditMatchInputValid
-
-    fun resetWomensAddOrEditMatchInputValid() {
-        _womensAddOrEditMatchInputValid.value = false
-    }
-
-    private fun isWomensAddOrEditMatchInputValid() = womensHomeTeamInputValid.value == true && womensHomePointsInputValid.value == true
-            && womensAwayTeamInputValid.value == true && womensAwayPointsInputValid.value == true
+    private fun isAddOrEditMatchInputValid() = homeTeamInputValid.value == true && homePointsInputValid.value == true
+            && awayTeamInputValid.value == true && awayPointsInputValid.value == true
 }

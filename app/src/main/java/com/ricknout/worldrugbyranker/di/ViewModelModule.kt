@@ -2,7 +2,8 @@ package com.ricknout.worldrugbyranker.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ricknout.worldrugbyranker.ui.rankings.RankingsViewModel
+import com.ricknout.worldrugbyranker.ui.rankings.MensRankingsViewModel
+import com.ricknout.worldrugbyranker.ui.rankings.WomensRankingsViewModel
 import com.ricknout.worldrugbyranker.viewmodel.WorldRugbyRankerViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -16,6 +17,11 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(RankingsViewModel::class)
-    abstract fun bindRankingsViewModel(rankingsViewModel: RankingsViewModel): ViewModel
+    @ViewModelKey(MensRankingsViewModel::class)
+    abstract fun bindMensRankingsViewModel(mensRankingsViewModel: MensRankingsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WomensRankingsViewModel::class)
+    abstract fun bindWomensRankingsViewModel(womensRankingsViewModel: WomensRankingsViewModel): ViewModel
 }

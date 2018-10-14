@@ -2,16 +2,29 @@ package com.ricknout.worldrugbyranker.prefs
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.ricknout.worldrugbyranker.vo.RankingsType
 
 class WorldRugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
-    fun setMensRefreshTime(millis: Long) = sharedPreferences.edit { putLong(KEY_REFRESH_TIME_MENS, millis) }
+    fun setRefreshTime(rankingsType: RankingsType, millis: Long) {
+        when (rankingsType) {
+            RankingsType.MENS -> setMensRefreshTime(millis)
+            RankingsType.WOMENS -> setWomensRefreshTime(millis)
+        }
+    }
 
-    fun setWomensRefreshTime(millis: Long) = sharedPreferences.edit { putLong(KEY_REFRESH_TIME_WOMENS, millis) }
+    private fun setMensRefreshTime(millis: Long) = sharedPreferences.edit { putLong(KEY_REFRESH_TIME_MENS, millis) }
 
-    fun getMensRefreshTime() = sharedPreferences.getLong(KEY_REFRESH_TIME_MENS, DEFAULT_REFRESH_TIME)
+    private fun setWomensRefreshTime(millis: Long) = sharedPreferences.edit { putLong(KEY_REFRESH_TIME_WOMENS, millis) }
 
-    fun getWomensRefreshTime() = sharedPreferences.getLong(KEY_REFRESH_TIME_WOMENS, DEFAULT_REFRESH_TIME)
+    fun getRefreshTime(rankingsType: RankingsType) = when (rankingsType) {
+        RankingsType.MENS -> getMensRefreshTime()
+        RankingsType.WOMENS -> getWomensRefreshTime()
+    }
+
+    private fun getMensRefreshTime() = sharedPreferences.getLong(KEY_REFRESH_TIME_MENS, DEFAULT_REFRESH_TIME)
+
+    private fun getWomensRefreshTime() = sharedPreferences.getLong(KEY_REFRESH_TIME_WOMENS, DEFAULT_REFRESH_TIME)
 
     companion object {
         private const val KEY_REFRESH_TIME_MENS = "refresh_time_mens"

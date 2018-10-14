@@ -7,7 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ricknout.worldrugbyranker.ui.common.OnBackPressedListener
 import com.ricknout.worldrugbyranker.ui.common.OnBackPressedProvider
-import com.ricknout.worldrugbyranker.ui.rankings.RankingsViewModel
+import com.ricknout.worldrugbyranker.ui.rankings.MensRankingsViewModel
+import com.ricknout.worldrugbyranker.ui.rankings.WomensRankingsViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.saket.fluidresize.sample.FluidContentResizer
@@ -20,13 +21,16 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: RankingsViewModel
+    private lateinit var mensRankingsViewModel: MensRankingsViewModel
+    private lateinit var womensRankingsViewModel: WomensRankingsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(RankingsViewModel::class.java)
+        mensRankingsViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(MensRankingsViewModel::class.java)
+        womensRankingsViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(WomensRankingsViewModel::class.java)
         val navController = findNavController(R.id.navHostFragment)
         bottomNavigationView.setupWithNavController(navController)
         bottomNavigationView.setOnNavigationItemReselectedListener {
@@ -37,18 +41,18 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
             when (destination.id) {
                 R.id.mensRankingsFragment-> {
                     bottomNavigationView.post {
-                        viewModel.endEditWomensMatchResult()
+                        womensRankingsViewModel.endEditMatchResult()
                     }
                 }
                 R.id.womensRankingsFragment-> {
                     bottomNavigationView.post {
-                        viewModel.endEditMensMatchResult()
+                        mensRankingsViewModel.endEditMatchResult()
                     }
                 }
                 R.id.infoFragment-> {
                     bottomNavigationView.post {
-                        viewModel.endEditMensMatchResult()
-                        viewModel.endEditWomensMatchResult()
+                        mensRankingsViewModel.endEditMatchResult()
+                        womensRankingsViewModel.endEditMatchResult()
                     }
                 }
             }
