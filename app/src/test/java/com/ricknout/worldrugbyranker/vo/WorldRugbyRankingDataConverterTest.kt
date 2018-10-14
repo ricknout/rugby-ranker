@@ -28,7 +28,7 @@ class WorldRugbyRankingDataConverterTest {
 
     @Test
     fun convertFromMensWorldRugbyRankingsResponse() {
-        val mensWorldRugbyRankings = WorldRugbyRankingDataConverter.convertFromMensWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
+        val mensWorldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.MENS)
         assertEquals(mensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         mensWorldRugbyRankings.forEachIndexed { index, mensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -40,12 +40,13 @@ class WorldRugbyRankingDataConverterTest {
             assertEquals(mensWorldRugbyRanking.points, entry.pts)
             assertEquals(mensWorldRugbyRanking.previousPoints, entry.previousPts)
             assertEquals(mensWorldRugbyRanking.matches, entry.matches)
+            assertEquals(mensWorldRugbyRanking.rankingsType, RankingsType.MENS)
         }
     }
 
     @Test
     fun convertFromWomensWorldRugbyRankingsResponse() {
-        val womensWorldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWomensWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
+        val womensWorldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.WOMENS)
         assertEquals(womensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         womensWorldRugbyRankings.forEachIndexed { index, womensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -57,6 +58,7 @@ class WorldRugbyRankingDataConverterTest {
             assertEquals(womensWorldRugbyRanking.points, entry.pts)
             assertEquals(womensWorldRugbyRanking.previousPoints, entry.previousPts)
             assertEquals(womensWorldRugbyRanking.matches, entry.matches)
+            assertEquals(womensWorldRugbyRanking.rankingsType, RankingsType.WOMENS)
         }
     }
 }

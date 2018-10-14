@@ -7,7 +7,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun allocatePointsForMatchResult() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -15,9 +15,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 95f,
-                matches = 10
+                matches = 10,
+                rankingsType = RankingsType.MENS
         )
-        val team2 = MensWorldRugbyRanking(
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -25,9 +26,10 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 95f,
                 previousPoints = 90f,
-                matches = 10
+                matches = 10,
+                rankingsType = RankingsType.MENS
         )
-        val team3 = WomensWorldRugbyRanking(
+        val team3 = WorldRugbyRanking(
                 teamId = 3,
                 teamName = "Team 3",
                 teamAbbreviation = "T3",
@@ -35,9 +37,10 @@ class RankingsCalculatorTest {
                 previousPosition = 4,
                 points = 90f,
                 previousPoints = 85f,
-                matches = 10
+                matches = 10,
+                rankingsType = RankingsType.MENS
         )
-        val team4 = WomensWorldRugbyRanking(
+        val team4 = WorldRugbyRanking(
                 teamId = 4,
                 teamName = "Team 4",
                 teamAbbreviation = "T4",
@@ -45,7 +48,8 @@ class RankingsCalculatorTest {
                 previousPosition = 5,
                 points = 85f,
                 previousPoints = 80f,
-                matches = 10
+                matches = 10,
+                rankingsType = RankingsType.MENS
         )
         val matchResult1 = MatchResult(
                 id = MatchResult.generateId(),
@@ -85,7 +89,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsEqual() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -93,8 +97,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -102,7 +108,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -140,7 +148,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsEqual_NHA() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -148,8 +156,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -157,7 +167,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -195,7 +207,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsEqual_RWC() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -203,8 +215,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -212,7 +226,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -250,7 +266,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsNotEqual() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -258,8 +274,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -267,7 +285,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 95f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -305,7 +325,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsNotEqual_NHA() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -313,8 +333,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -322,7 +344,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 95f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -360,7 +384,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsNotEqual_RWC() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -368,8 +392,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -377,7 +403,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 95f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -415,7 +443,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsMoreThan10() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -423,8 +451,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -432,7 +462,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 80f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -470,7 +502,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsMoreThan10_NHA() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -478,8 +510,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -487,7 +521,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 80f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
@@ -525,7 +561,7 @@ class RankingsCalculatorTest {
 
     @Test
     fun pointsForMatchResult_TeamsPointsMoreThan10_RWC() {
-        val team1 = MensWorldRugbyRanking(
+        val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
                 teamAbbreviation = "T1",
@@ -533,8 +569,10 @@ class RankingsCalculatorTest {
                 previousPosition = 2,
                 points = 100f,
                 previousPoints = 90f,
-                matches = 10)
-        val team2 = MensWorldRugbyRanking(
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
+        val team2 = WorldRugbyRanking(
                 teamId = 2,
                 teamName = "Team 2",
                 teamAbbreviation = "T2",
@@ -542,7 +580,9 @@ class RankingsCalculatorTest {
                 previousPosition = 3,
                 points = 80f,
                 previousPoints = 90f,
-                matches = 10)
+                matches = 10,
+                rankingsType = RankingsType.MENS
+        )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
                 homeTeamId = team1.teamId,
