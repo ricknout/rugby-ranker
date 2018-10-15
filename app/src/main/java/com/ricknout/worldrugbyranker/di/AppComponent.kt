@@ -2,6 +2,7 @@ package com.ricknout.worldrugbyranker.di
 
 import android.app.Application
 import com.ricknout.worldrugbyranker.WorldRugbyRankerApplication
+import com.ricknout.worldrugbyranker.work.WorldRugbyRankingsWorker
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -26,4 +27,6 @@ interface AppComponent {
     }
 
     fun inject(worldRugbyRankerApplication: WorldRugbyRankerApplication)
+
+    fun inject(worldRugbyRankingsWorker: WorldRugbyRankingsWorker)
 }
