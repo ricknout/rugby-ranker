@@ -9,7 +9,6 @@
     <string name="title_womens_rugby_rankings">Women\'s Rugby Rankings</string>
     <string name="title_add_match">Add match</string>
     <string name="title_edit_match">Edit match</string>
-    <string name="title_send_to">Send to</string>
 
     <string name="subtitle_position">#</string>
     <string name="subtitle_team">Team</string>
@@ -41,6 +40,7 @@
     <string name="content_description_reset_matches">Reset matches</string>
     <string name="content_description_close">Close</string>
 
+    <string name="title_share">Share %s</string>
     <string name="subject_share">Get the %s app</string>
     <string name="text_share">View and calculate World Rugby rankings.\n\nGet the %1$s app:\n%2$s</string>
 
