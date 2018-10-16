@@ -136,6 +136,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                         clearAddOrEditMatchInput = false
                     }
                     hideSoftInput()
+                    homePointsEditText.clearFocus()
+                    awayPointsEditText.clearFocus()
                 }
             }
         })
