@@ -6,6 +6,7 @@
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_half"
     android:elevation="@dimen/elevation_bottom_sheet"
     android:background="@drawable/bg_bottom_sheet"
     android:clickable="true"
@@ -23,6 +24,13 @@
         app:layout_constraintGuide_begin="@dimen/height_peek" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/dragGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/height_drag" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,13 +44,22 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/spacing_double" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_drag_handle_grey"
+        app:layout_constraintBottom_toBottomOf="@id/dragGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="contentDescription" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_cancel"
         style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dragGuideline"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -53,7 +70,7 @@
         android:text="@string/title_add_match"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="?android:textColorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dragGuideline"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -62,13 +79,13 @@
         android:id="@+id/closeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+        app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
         android:tint="@color/dark_grey"
         android:paddingStart="@dimen/padding_horizontal_close"
         android:paddingEnd="@dimen/padding_horizontal_close"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/content_description_close"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dragGuideline"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -119,7 +136,8 @@
                 android:id="@+id/homePointsEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="@integer/max_length_points" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,7 +190,8 @@
                 android:id="@+id/awayPointsEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="@integer/max_length_points" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,7 +237,7 @@
         android:orientation="horizontal"
         android:requiresFadingEdge="horizontal"
         android:fadingEdgeLength="@dimen/length_fading_edge"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dragGuideline"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/addMatchButton"
@@ -228,13 +247,13 @@
         android:id="@+id/addMatchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_match_black_24dp"
+        app:srcCompat="@drawable/ic_add_match_black_24dp"
         android:tint="@color/dark_grey"
         android:paddingStart="@dimen/padding_horizontal_reset_matches"
         android:paddingEnd="@dimen/padding_horizontal_reset_matches"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/content_description_reset_matches"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dragGuideline"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toEndOf="@id/matchesRecyclerView"
         app:layout_constraintEnd_toEndOf="parent" />

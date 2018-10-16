@@ -3,7 +3,8 @@
 
     <dimen name="width_points">96dp</dimen>
 
-    <dimen name="height_peek">48dp</dimen>
+    <dimen name="height_peek">60dp</dimen>
+    <dimen name="height_drag">12dp</dimen>
     <dimen name="height_match_result">32dp</dimen>
 
     <dimen name="length_fading_edge">8dp</dimen>
@@ -16,6 +17,7 @@
 
     <dimen name="margin_fab">16dp</dimen>
 
+    <dimen name="spacing_half">4dp</dimen>
     <dimen name="spacing_standard">8dp</dimen>
     <dimen name="spacing_double">16dp</dimen>
 
