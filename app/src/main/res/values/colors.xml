@@ -22,7 +22,8 @@
     <color name="world_rugby_red">#e51a19</color>
     <color name="white">#ffffff</color>
     <color name="black_alpha_30">#4d000000</color>
-    <color name="dark_grey">#808080</color>
+    <color name="dark_grey">#666666</color>
+    <color name="medium_grey">#d0d1d3</color>
     <color name="light_grey">#f6f7f8</color>
 
 </resources>
