@@ -24,13 +24,6 @@
         app:layout_constraintGuide_begin="@dimen/height_peek" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/dragGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/height_drag" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,22 +37,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/spacing_double" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_drag_handle_grey"
-        app:layout_constraintBottom_toBottomOf="@id/dragGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="contentDescription" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_cancel"
         style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
-        app:layout_constraintTop_toTopOf="@id/dragGuideline"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -70,7 +54,7 @@
         android:text="@string/title_add_match"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="?android:textColorPrimary"
-        app:layout_constraintTop_toTopOf="@id/dragGuideline"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -85,117 +69,95 @@
         android:paddingEnd="@dimen/padding_horizontal_close"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/content_description_close"
-        app:layout_constraintTop_toTopOf="@id/dragGuideline"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/homeTeamMatchResult"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/homeTeamTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_standard"
+        android:layout_marginEnd="@dimen/spacing_standard"
+        android:hint="@string/hint_home_team"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toStartOf="@id/homePointsTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/homeTeamEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
+            android:drawablePadding="@dimen/spacing_standard" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/homePointsTextInputLayout"
+        android:layout_width="@dimen/width_points"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_points"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toTopOf="@id/homeTeamTextInputLayout"
+        app:layout_constraintBottom_toBottomOf="@id/homeTeamTextInputLayout"
         app:layout_constraintEnd_toEndOf="@id/endGuideline">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/homeTeamTextInputLayout"
-            android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/homePointsEditText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_standard"
-            android:hint="@string/hint_home_team"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/homePointsTextInputLayout">
+            android:inputType="number"
+            android:maxLength="@integer/max_length_points" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/homeTeamEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textNoSuggestions"
-                android:cursorVisible="false"
-                android:focusableInTouchMode="false"
-                android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
-                android:drawablePadding="@dimen/spacing_standard" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/homePointsTextInputLayout"
-            android:layout_width="@dimen/width_points"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_points"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/homePointsEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="@integer/max_length_points" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/awayTeamMatchResult"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/awayTeamTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_standard"
-        app:layout_constraintTop_toBottomOf="@id/homeTeamMatchResult"
+        android:layout_marginEnd="@dimen/spacing_standard"
+        android:hint="@string/hint_away_team"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@id/homeTeamTextInputLayout"
         app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintEnd_toStartOf="@id/awayPointsTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/awayTeamEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
+            android:drawablePadding="@dimen/spacing_standard" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/awayPointsTextInputLayout"
+        android:layout_width="@dimen/width_points"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_points"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:layout_constraintTop_toTopOf="@id/awayTeamTextInputLayout"
+        app:layout_constraintBottom_toBottomOf="@id/awayTeamTextInputLayout"
         app:layout_constraintEnd_toEndOf="@id/endGuideline">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/awayTeamTextInputLayout"
-            android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/awayPointsEditText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_standard"
-            android:hint="@string/hint_away_team"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/awayPointsTextInputLayout">
+            android:inputType="number"
+            android:maxLength="@integer/max_length_points" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/awayTeamEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textNoSuggestions"
-                android:cursorVisible="false"
-                android:focusableInTouchMode="false"
-                android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
-                android:drawablePadding="@dimen/spacing_standard" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/awayPointsTextInputLayout"
-            android:layout_width="@dimen/width_points"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_points"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/awayPointsEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="@integer/max_length_points" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/nhaCheckBox"
@@ -203,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_standard"
         android:text="@string/check_box_no_home_advantage"
-        app:layout_constraintTop_toBottomOf="@id/awayTeamMatchResult"
+        app:layout_constraintTop_toBottomOf="@id/awayTeamTextInputLayout"
         app:layout_constraintStart_toStartOf="@id/startGuideline" />
 
     <CheckBox
@@ -213,7 +175,7 @@
         android:layout_marginTop="@dimen/spacing_standard"
         android:layout_marginStart="@dimen/spacing_standard"
         android:text="@string/check_box_rugby_world_cup"
-        app:layout_constraintTop_toBottomOf="@id/awayTeamMatchResult"
+        app:layout_constraintTop_toBottomOf="@id/awayTeamTextInputLayout"
         app:layout_constraintStart_toEndOf="@id/nhaCheckBox" />
 
     <com.google.android.material.button.MaterialButton
@@ -237,7 +199,7 @@
         android:orientation="horizontal"
         android:requiresFadingEdge="horizontal"
         android:fadingEdgeLength="@dimen/length_fading_edge"
-        app:layout_constraintTop_toTopOf="@id/dragGuideline"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/addMatchButton"
@@ -253,7 +215,7 @@
         android:paddingEnd="@dimen/padding_horizontal_reset_matches"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/content_description_reset_matches"
-        app:layout_constraintTop_toTopOf="@id/dragGuideline"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toEndOf="@id/matchesRecyclerView"
         app:layout_constraintEnd_toEndOf="parent" />
