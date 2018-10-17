@@ -31,6 +31,8 @@ import com.ricknout.worldrugbyranker.ui.common.SimpleTextWatcher
 import com.ricknout.worldrugbyranker.util.FlagUtils
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
+import androidx.work.State
+import com.google.android.material.snackbar.Snackbar
 import com.ricknout.worldrugbyranker.vo.RankingsType
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import kotlinx.android.synthetic.main.include_add_edit_match_bottom_sheet.*
@@ -58,6 +60,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     private lateinit var homeTeamPopupMenu: PopupMenu
     private lateinit var awayTeamPopupMenu: PopupMenu
+
+    private lateinit var snackBar: Snackbar
 
     private val worldRugbyRankingAdapter = WorldRugbyRankingListAdapter()
     private val matchResultAdapter = MatchResultListAdapter({ matchResult ->
@@ -95,6 +99,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         setupAddOrEditMatchInput()
         setupAddMatchButtons()
         setupTitle()
+        setupSnackbar()
         setupViewModel()
     }
 
@@ -258,6 +263,10 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         })
     }
 
+    private fun setupSnackbar() {
+        snackBar = Snackbar.make(root, "", Snackbar.LENGTH_INDEFINITE)
+    }
+
     private fun setupViewModel() {
         viewModel.worldRugbyRankings.observe(this, Observer { worldRugbyRankings ->
             worldRugbyRankingAdapter.submitList(worldRugbyRankings)
@@ -267,6 +276,16 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         })
         viewModel.latestWorldRugbyRankings.observe(this, Observer { latestWorldRugbyRankings ->
             assignWorldRugbyRankingsToTeamPopupMenus(latestWorldRugbyRankings)
+        })
+        viewModel.latestWorldRugbyRankingsStatuses.observe(this, Observer { workStatuses ->
+            val workStatus = if (workStatuses != null && !workStatuses.isEmpty()) workStatuses[0] else return@Observer
+            when (workStatus.state) {
+                State.RUNNING -> {
+                    snackBar.setText(R.string.snackbar_fetching_world_rugby_rankings)
+                    snackBar.show()
+                }
+                else -> snackBar.dismiss()
+            }
         })
         viewModel.matchResults.observe(this, Observer { matchResults ->
             matchResultAdapter.submitList(matchResults)

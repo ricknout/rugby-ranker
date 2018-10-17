@@ -10,6 +10,7 @@ import com.ricknout.worldrugbyranker.api.WorldRugbyRankingsService
 import com.ricknout.worldrugbyranker.db.WorldRugbyRankerDb
 import com.ricknout.worldrugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.worldrugbyranker.repository.WorldRugbyRankerRepository
+import com.ricknout.worldrugbyranker.work.WorldRugbyRankerWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -52,8 +53,17 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideWorldRugbyRankerRepository(worldRugbyRankingDao: WorldRugbyRankingDao) : WorldRugbyRankerRepository {
-        return WorldRugbyRankerRepository(worldRugbyRankingDao)
+    fun provideWorldRugbyRankerWorkManager(): WorldRugbyRankerWorkManager {
+        return WorldRugbyRankerWorkManager()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWorldRugbyRankerRepository(
+            worldRugbyRankingDao: WorldRugbyRankingDao,
+            worldRugbyRankerWorkManager: WorldRugbyRankerWorkManager
+    ) : WorldRugbyRankerRepository {
+        return WorldRugbyRankerRepository(worldRugbyRankerWorkManager, worldRugbyRankingDao)
     }
 
     companion object {

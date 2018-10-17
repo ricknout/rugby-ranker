@@ -30,6 +30,8 @@ open class RankingsViewModel(rankingsType: RankingsType, worldRugbyRankerReposit
         get() = _matchResults
 
     val latestWorldRugbyRankings = worldRugbyRankerRepository.getLatestWorldRugbyRankings(rankingsType)
+    val latestWorldRugbyRankingsStatuses = worldRugbyRankerRepository.getLatestWorldRugbyRankingsStatuses(rankingsType)
+
     private val _worldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestWorldRugbyRankings) { latestWorldRugbyRankings ->
             if (!hasMatchResults()) value = latestWorldRugbyRankings
