@@ -27,9 +27,11 @@ data class WorldRugbyRanking(
         val rankingsType: RankingsType
 ) {
 
-        fun allocatePoints(points: Float) = copy(previousPoints = this.points, points = this.points + points)
+    fun resetPreviousPoints() = copy(previousPoints = this.points)
 
-        fun updatePosition(position: Int) = copy(previousPosition = this.position, position = position)
+    fun addPoints(points: Float) = copy(points = this.points + points)
 
-        fun pointsDifference() = points - previousPoints
+    fun updatePosition(position: Int) = copy(previousPosition = this.position, position = position)
+
+    fun pointsDifference() = points - previousPoints
 }
