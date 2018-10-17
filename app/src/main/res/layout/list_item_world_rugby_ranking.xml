@@ -42,7 +42,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/positionTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="(100)" />
+            tools:text="(↑105)"
+            tools:textColor="@color/world_rugby_green" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -108,7 +109,7 @@
             tools:text="99.99" />
 
         <TextView
-            android:id="@+id/previousPointsTextView"
+            android:id="@+id/pointsDifferenceTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_standard"
@@ -119,7 +120,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/pointsTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="(99.99)" />
+            tools:text="(+6.00)"
+            tools:textColor="@color/world_rugby_green" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

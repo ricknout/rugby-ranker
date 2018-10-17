@@ -30,4 +30,6 @@ data class WorldRugbyRanking(
         fun allocatePoints(points: Float) = copy(previousPoints = this.points, points = this.points + points)
 
         fun updatePosition(position: Int) = copy(previousPosition = this.position, position = position)
+
+        fun pointsDifference() = points - previousPoints
 }

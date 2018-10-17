@@ -12,6 +12,7 @@ import com.ricknout.worldrugbyranker.R
 import com.ricknout.worldrugbyranker.util.FlagUtils
 import com.ricknout.worldrugbyranker.vo.WorldRugbyRanking
 import kotlinx.android.synthetic.main.list_item_world_rugby_ranking.view.*
+import kotlin.math.abs
 
 class WorldRugbyRankingListAdapter : ListAdapter<WorldRugbyRanking, WorldRugbyRankingViewHolder>(DIFF_CALLBACK) {
 
@@ -37,25 +38,37 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         itemView.positionTextView.text = "${worldRugbyRanking.position}"
         val worldRugbyGreenColor = ContextCompat.getColor(itemView.context, R.color.world_rugby_green)
         val worldRugbyRedColor = ContextCompat.getColor(itemView.context, R.color.world_rugby_red)
-        val mediumGreyColor = ContextCompat.getColor(itemView.context, R.color.medium_grey)
-        val previousPosition = "(${worldRugbyRanking.previousPosition})"
-        itemView.previousPositionTextView.text = previousPosition
         when {
-            worldRugbyRanking.position > worldRugbyRanking.previousPosition -> itemView.previousPositionTextView.setTextColor(worldRugbyRedColor)
-            worldRugbyRanking.position < worldRugbyRanking.previousPosition -> itemView.previousPositionTextView.setTextColor(worldRugbyGreenColor)
-            else -> itemView.previousPositionTextView.setTextColor(mediumGreyColor)
+            worldRugbyRanking.position > worldRugbyRanking.previousPosition -> {
+                val downPreviousPosition = itemView.context.getString(R.string.ranking_previous_position_down, worldRugbyRanking.previousPosition)
+                itemView.previousPositionTextView.text = downPreviousPosition
+                itemView.previousPositionTextView.setTextColor(worldRugbyRedColor)
+            }
+            worldRugbyRanking.position < worldRugbyRanking.previousPosition -> {
+                val upPreviousPosition = itemView.context.getString(R.string.ranking_previous_position_up, worldRugbyRanking.previousPosition)
+                itemView.previousPositionTextView.text = upPreviousPosition
+                itemView.previousPositionTextView.setTextColor(worldRugbyGreenColor)
+            }
+            else -> itemView.previousPositionTextView.text = ""
         }
         val flag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation))
         itemView.flagTextView.text = flag
         itemView.teamTextView.text = worldRugbyRanking.teamName
         val pointsFormat = "%.2f"
         itemView.pointsTextView.text = pointsFormat.format(worldRugbyRanking.points)
-        val previousPoints = "(${pointsFormat.format(worldRugbyRanking.previousPoints)})"
-        itemView.previousPointsTextView.text = previousPoints
+        val pointsDifference = pointsFormat.format(abs(worldRugbyRanking.pointsDifference()))
         when {
-            worldRugbyRanking.points > worldRugbyRanking.previousPoints -> itemView.previousPointsTextView.setTextColor(worldRugbyGreenColor)
-            worldRugbyRanking.points < worldRugbyRanking.previousPoints -> itemView.previousPointsTextView.setTextColor(worldRugbyRedColor)
-            else -> itemView.previousPointsTextView.setTextColor(mediumGreyColor)
+            worldRugbyRanking.points > worldRugbyRanking.previousPoints -> {
+                val positivePointsDifference = itemView.context.getString(R.string.ranking_points_difference_positive, pointsDifference)
+                itemView.pointsDifferenceTextView.text = positivePointsDifference
+                itemView.pointsDifferenceTextView.setTextColor(worldRugbyGreenColor)
+            }
+            worldRugbyRanking.points < worldRugbyRanking.previousPoints -> {
+                val negativePointsDifference = itemView.context.getString(R.string.ranking_points_difference_negative, pointsDifference)
+                itemView.pointsDifferenceTextView.text = negativePointsDifference
+                itemView.pointsDifferenceTextView.setTextColor(worldRugbyRedColor)
+            }
+            else -> itemView.pointsDifferenceTextView.text = ""
         }
         val backgroundColor = if (adapterPosition == 0 || adapterPosition % 2 == 0) {
             ContextCompat.getColor(itemView.context, R.color.light_grey)
