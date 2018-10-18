@@ -36,7 +36,7 @@ object FluidContentResizer {
     // for some reason it skips the first animation and I cannot figure out why.
     heightAnimator = ObjectAnimator.ofInt(event.contentHeightBeforeResize, event.contentHeight).apply {
       interpolator = FastOutSlowInInterpolator()
-      duration = 300
+      duration = 200
     }
     heightAnimator.addUpdateListener { contentView.setHeight(it.animatedValue as Int) }
     heightAnimator.start()
