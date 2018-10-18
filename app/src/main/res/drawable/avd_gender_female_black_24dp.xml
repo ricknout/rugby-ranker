@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_gender_female_black_24dp">
+
+    <target android:name="horizontalLine">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="200"
+                    android:startOffset="0"
+                    android:propertyName="trimPathStart"
+                    android:valueFrom="0"
+                    android:valueTo="0.5" />
+                <objectAnimator
+                    android:duration="200"
+                    android:startOffset="0"
+                    android:propertyName="trimPathEnd"
+                    android:valueFrom="1"
+                    android:valueTo="0.5" />
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="verticalLine">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="200"
+                android:startOffset="200"
+                android:propertyName="trimPathStart"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="circleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="200"
+                android:startOffset="400"
+                android:propertyName="translateY"
+                android:valueFrom="0"
+                android:valueTo="4" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="circleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="200"
+                android:startOffset="600"
+                android:propertyName="translateY"
+                android:valueFrom="4"
+                android:valueTo="0" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="verticalLine">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="200"
+                android:startOffset="800"
+                android:propertyName="trimPathStart"
+                android:valueFrom="1"
+                android:valueTo="0" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="horizontalLine">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="200"
+                    android:startOffset="1000"
+                    android:propertyName="trimPathStart"
+                    android:valueFrom="0.5"
+                    android:valueTo="0" />
+                <objectAnimator
+                    android:duration="200"
+                    android:startOffset="1000"
+                    android:propertyName="trimPathEnd"
+                    android:valueFrom="0.5"
+                    android:valueTo="1" />
+            </set>
+        </aapt:attr>
+    </target>
+
+</animated-vector>
