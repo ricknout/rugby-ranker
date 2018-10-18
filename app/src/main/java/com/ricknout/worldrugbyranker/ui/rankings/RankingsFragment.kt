@@ -284,7 +284,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                     snackBar.setText(R.string.snackbar_fetching_world_rugby_rankings)
                     snackBar.show()
                 }
-                else -> snackBar.dismiss()
+                else -> root.post { snackBar.dismiss() }
             }
         })
         viewModel.matchResults.observe(this, Observer { matchResults ->
