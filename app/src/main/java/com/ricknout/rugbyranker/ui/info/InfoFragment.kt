@@ -43,6 +43,6 @@ class InfoFragment : Fragment() {
         const val TAG = "InfoFragment"
         private const val RANKINGS_EXPLANATION_URL = "https://www.world.rugby/rankings/explanation"
         private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
-        private const val GITHUB_URL = "https://github.com/nicholasrout/world-rugby-ranker"
+        private const val GITHUB_URL = "https://github.com/nicholasrout/rugby-ranker"
     }
 }
