@@ -7,7 +7,7 @@
     <target android:name="horizontalLine">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:duration="200"
+                android:duration="180"
                 android:startOffset="0"
                 android:propertyName="trimPathStart"
                 android:valueFrom="0"
@@ -18,7 +18,7 @@
     <target android:name="verticalLine">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:duration="200"
+                android:duration="180"
                 android:startOffset="0"
                 android:propertyName="trimPathStart"
                 android:valueFrom="0"
@@ -29,8 +29,8 @@
     <target android:name="diagonalLine">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:duration="200"
-                android:startOffset="200"
+                android:duration="180"
+                android:startOffset="180"
                 android:propertyName="trimPathEnd"
                 android:valueFrom="1"
                 android:valueTo="0" />
@@ -41,14 +41,14 @@
         <aapt:attr name="android:animation">
             <set>
                 <objectAnimator
-                    android:duration="200"
-                    android:startOffset="400"
+                    android:duration="180"
+                    android:startOffset="360"
                     android:propertyName="translateX"
                     android:valueFrom="0"
                     android:valueTo="3" />
                 <objectAnimator
-                    android:duration="200"
-                    android:startOffset="400"
+                    android:duration="180"
+                    android:startOffset="360"
                     android:propertyName="translateY"
                     android:valueFrom="0"
                     android:valueTo="-3" />
@@ -60,14 +60,14 @@
         <aapt:attr name="android:animation">
             <set>
                 <objectAnimator
-                    android:duration="200"
-                    android:startOffset="600"
+                    android:duration="180"
+                    android:startOffset="540"
                     android:propertyName="translateX"
                     android:valueFrom="3"
                     android:valueTo="0" />
                 <objectAnimator
-                    android:duration="200"
-                    android:startOffset="600"
+                    android:duration="180"
+                    android:startOffset="540"
                     android:propertyName="translateY"
                     android:valueFrom="-3"
                     android:valueTo="0" />
@@ -78,8 +78,8 @@
     <target android:name="diagonalLine">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:duration="200"
-                android:startOffset="800"
+                android:duration="180"
+                android:startOffset="720"
                 android:propertyName="trimPathEnd"
                 android:valueFrom="0"
                 android:valueTo="1" />
@@ -89,8 +89,8 @@
     <target android:name="verticalLine">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:duration="200"
-                android:startOffset="1000"
+                android:duration="180"
+                android:startOffset="900"
                 android:propertyName="trimPathStart"
                 android:valueFrom="1"
                 android:valueTo="0" />
@@ -100,8 +100,8 @@
     <target android:name="horizontalLine">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:duration="200"
-                android:startOffset="1000"
+                android:duration="180"
+                android:startOffset="900"
                 android:propertyName="trimPathStart"
                 android:valueFrom="1"
                 android:valueTo="0" />
