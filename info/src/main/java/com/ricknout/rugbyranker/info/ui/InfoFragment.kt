@@ -1,16 +1,16 @@
-package com.ricknout.rugbyranker.ui.info
+package com.ricknout.rugbyranker.info.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ricknout.rugbyranker.R
+import com.ricknout.rugbyranker.info.R
 import kotlinx.android.synthetic.main.fragment_info.*
 import android.content.Intent
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.ricknout.rugbyranker.BuildConfig
-import com.ricknout.rugbyranker.util.IntentUtils
+import com.ricknout.rugbyranker.info.BuildConfig
+import com.ricknout.rugbyranker.info.util.CustomTabsUtils
 
 class InfoFragment : Fragment() {
 
@@ -19,7 +19,7 @@ class InfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         howAreWorldRugbyRankingsCalculatedButton.setOnClickListener {
-            IntentUtils.launchCustomTab(requireContext(), RANKINGS_EXPLANATION_URL)
+            CustomTabsUtils.launchCustomTab(requireContext(), RANKINGS_EXPLANATION_URL)
         }
         shareThisAppButton.setOnClickListener {
             val appName = getString(R.string.app_name)
@@ -31,7 +31,7 @@ class InfoFragment : Fragment() {
             startActivity(Intent.createChooser(intent, requireContext().getString(R.string.title_share, appName)))
         }
         viewSourceCodeButton.setOnClickListener {
-            IntentUtils.launchCustomTab(requireContext(), GITHUB_URL)
+            CustomTabsUtils.launchCustomTab(requireContext(), GITHUB_URL)
         }
         openSourceLicensesButton.setOnClickListener {
             val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)

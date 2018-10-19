@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.ui.common
+package com.ricknout.rugbyranker.common.ui
 
 import android.content.Context
 import android.view.GestureDetector

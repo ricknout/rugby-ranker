@@ -5,7 +5,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsService
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
-import com.ricknout.rugbyranker.util.DateUtils
+import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.vo.RankingsType
 import com.ricknout.rugbyranker.vo.WorldRugbyRankingDataConverter
 import javax.inject.Inject

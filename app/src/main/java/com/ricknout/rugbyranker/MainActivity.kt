@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.ricknout.rugbyranker.ui.common.OnBackPressedListener
-import com.ricknout.rugbyranker.ui.common.OnBackPressedProvider
+import com.ricknout.rugbyranker.common.ui.OnBackPressedListener
+import com.ricknout.rugbyranker.common.ui.OnBackPressedProvider
 import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
 import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
 import dagger.android.support.DaggerAppCompatActivity

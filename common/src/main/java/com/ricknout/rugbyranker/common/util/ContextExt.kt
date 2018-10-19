@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.util
+package com.ricknout.rugbyranker.common.util
 
 import android.content.Context
 import android.util.TypedValue

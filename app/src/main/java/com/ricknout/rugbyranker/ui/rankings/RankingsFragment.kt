@@ -23,11 +23,11 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
 import com.ricknout.rugbyranker.ui.common.MatchResultListAdapter
-import com.ricknout.rugbyranker.ui.common.OnBackgroundClickItemTouchListener
+import com.ricknout.rugbyranker.common.ui.OnBackgroundClickItemTouchListener
 import com.ricknout.rugbyranker.ui.common.WorldRugbyRankingListAdapter
-import com.ricknout.rugbyranker.ui.common.OnBackPressedListener
-import com.ricknout.rugbyranker.ui.common.OnBackPressedProvider
-import com.ricknout.rugbyranker.ui.common.SimpleTextWatcher
+import com.ricknout.rugbyranker.common.ui.OnBackPressedListener
+import com.ricknout.rugbyranker.common.ui.OnBackPressedProvider
+import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
 import com.ricknout.rugbyranker.util.FlagUtils
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf

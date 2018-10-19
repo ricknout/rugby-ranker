@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="title_info">Info</string>
+
+    <string name="button_how_are_world_rugby_rankings_calculated">How are World Rugby Rankings calculated?</string>
+    <string name="button_share_this_app">Share this app&#8230;</string>
+    <string name="button_view_source_code">View source code</string>
+    <string name="button_open_source_licenses">Open source licenses</string>
+
+    <string name="title_share">Share %s</string>
+    <string name="subject_share">Get the %s app</string>
+    <string name="text_share">View and calculate World Rugby rankings.\n\nGet the %1$s app:\n%2$s</string>
+
+</resources>

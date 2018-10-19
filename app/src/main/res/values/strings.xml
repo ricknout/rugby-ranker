@@ -1,10 +1,7 @@
 <resources>
 
-    <string name="app_name">Rugby Ranker</string>
-
     <string name="title_mens">Men\'s</string>
     <string name="title_womens">Women\'s</string>
-    <string name="title_info">Info</string>
     <string name="title_mens_rugby_rankings">Men\'s Rugby Rankings</string>
     <string name="title_womens_rugby_rankings">Women\'s Rugby Rankings</string>
     <string name="title_add_match">Add match</string>
@@ -18,10 +15,6 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_add">Add</string>
     <string name="button_edit">Edit</string>
-    <string name="button_how_are_world_rugby_rankings_calculated">How are World Rugby Rankings calculated?</string>
-    <string name="button_share_this_app">Share this app&#8230;</string>
-    <string name="button_view_source_code">View source code</string>
-    <string name="button_open_source_licenses">Open source licenses</string>
 
     <string name="hint_home_team">Home team</string>
     <string name="hint_away_team">Away team</string>
@@ -46,9 +39,5 @@
     <string name="content_description_add_match">Add match</string>
     <string name="content_description_reset_matches">Reset matches</string>
     <string name="content_description_close">Close</string>
-
-    <string name="title_share">Share %s</string>
-    <string name="subject_share">Get the %s app</string>
-    <string name="text_share">View and calculate World Rugby rankings.\n\nGet the %1$s app:\n%2$s</string>
 
 </resources>

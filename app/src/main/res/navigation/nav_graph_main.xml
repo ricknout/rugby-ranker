@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.ricknout.rugbyranker.ui.info.InfoFragment"
+        android:name="com.ricknout.rugbyranker.info.ui.InfoFragment"
         android:label="InfoFragment"
         tools:layout="@layout/fragment_info" />
 

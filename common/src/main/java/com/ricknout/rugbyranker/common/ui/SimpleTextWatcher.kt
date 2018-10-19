@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.ui.common
+package com.ricknout.rugbyranker.common.ui
 
 import android.text.Editable
 import android.text.TextWatcher

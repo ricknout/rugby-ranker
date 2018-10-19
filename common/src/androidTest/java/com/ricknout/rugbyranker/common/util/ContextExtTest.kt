@@ -1,9 +1,9 @@
-package com.ricknout.rugbyranker.util
+package com.ricknout.rugbyranker.common.util
 
 import androidx.core.content.ContextCompat
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import com.ricknout.rugbyranker.R
+import com.ricknout.rugbyranker.common.R
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.assertEquals

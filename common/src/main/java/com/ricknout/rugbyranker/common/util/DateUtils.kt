@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.util
+package com.ricknout.rugbyranker.common.util
 
 import java.text.SimpleDateFormat
 import java.util.Calendar

@@ -1,4 +1,7 @@
 buildscript {
+    ext.compile_sdk_version = 28
+    ext.min_sdk_version = 21
+    ext.target_sdk_version = 28
     ext.gradle_build_tools_version = "3.2.1"
     ext.kotlin_version = '1.2.71'
     ext.androidx_version = '1.0.0'

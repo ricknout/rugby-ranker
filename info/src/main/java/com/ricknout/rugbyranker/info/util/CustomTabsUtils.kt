@@ -1,10 +1,11 @@
-package com.ricknout.rugbyranker.util
+package com.ricknout.rugbyranker.info.util
 
 import android.content.Context
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
+import com.ricknout.rugbyranker.common.util.getColorPrimary
 
-object IntentUtils {
+object CustomTabsUtils {
 
     fun launchCustomTab(context: Context, url: String) {
         val colorPrimary = context.getColorPrimary()
