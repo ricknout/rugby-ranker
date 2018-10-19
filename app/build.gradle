@@ -8,7 +8,7 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.ricknout.worldrugbyranker"
+        applicationId "com.ricknout.rugbyranker"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1

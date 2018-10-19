@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/mensRankingsFragment"
-        android:name="com.ricknout.worldrugbyranker.ui.rankings.RankingsFragment"
+        android:name="com.ricknout.rugbyranker.ui.rankings.RankingsFragment"
         android:label="MensRankingsFragment"
         tools:layout="@layout/fragment_rankings">
         <argument android:name="rankingsTypeOrdinal" android:defaultValue="0" app:argType="integer" />
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/womensRankingsFragment"
-        android:name="com.ricknout.worldrugbyranker.ui.rankings.RankingsFragment"
+        android:name="com.ricknout.rugbyranker.ui.rankings.RankingsFragment"
         android:label="WomensRankingsFragment"
         tools:layout="@layout/fragment_rankings">
         <argument android:name="rankingsTypeOrdinal" android:defaultValue="1" app:argType="integer" />
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.ricknout.worldrugbyranker.ui.info.InfoFragment"
+        android:name="com.ricknout.rugbyranker.ui.info.InfoFragment"
         android:label="InfoFragment"
         tools:layout="@layout/fragment_info" />
 

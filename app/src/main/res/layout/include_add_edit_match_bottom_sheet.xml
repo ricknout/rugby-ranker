@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_cancel"
-        style="@style/WorldRugbyRankerMaterialButton.TextButton.DoublePadding"
+        style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent" />

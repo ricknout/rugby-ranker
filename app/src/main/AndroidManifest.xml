@@ -2,7 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ricknout.worldrugbyranker">
+    package="com.ricknout.rugbyranker">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,13 +13,13 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/WorldRugbyRankerTheme"
-        android:name=".WorldRugbyRankerApplication"
+        android:theme="@style/RugbyRankerTheme"
+        android:name=".RugbyRankerApplication"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".LauncherActivity"
-            android:theme="@style/WorldRugbyRankerTheme.Launcher">
+            android:theme="@style/RugbyRankerTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

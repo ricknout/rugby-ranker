@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="WorldRugbyRankerTheme.Launcher">
+    <style name="RugbyRankerTheme.Launcher">
         <item name="android:windowBackground">@drawable/bg_launcher</item>
         <item name="android:navigationBarColor">@color/color_navigation_bar_launcher</item>
         <item name="android:windowLightNavigationBar">true</item>
