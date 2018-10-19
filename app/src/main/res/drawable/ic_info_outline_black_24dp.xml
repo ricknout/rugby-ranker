@@ -23,10 +23,15 @@
         android:strokeWidth="2"
         android:strokeColor="#000000" />
 
-    <path
-        android:name="dot"
-        android:pathData="M12,7L12,9"
-        android:strokeWidth="2"
-        android:strokeColor="#000000" />
+    <group
+        android:name="dotGroup"
+        android:pivotX="12"
+        android:pivotY="8">
+        <path
+            android:name="dot"
+            android:pathData="M12,7L12,9"
+            android:strokeWidth="2"
+            android:strokeColor="#000000" />
+    </group>
 
 </vector>
