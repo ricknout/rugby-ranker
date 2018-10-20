@@ -25,10 +25,7 @@ class RugbyRankerWorkManager {
     ).setConstraints(constraints).build()
 
     fun fetchAndStoreLatestWorldRugbyRankings(rankingsType: RankingsType) {
-        val uniqueWorkName = when (rankingsType) {
-            RankingsType.MENS -> MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
-            RankingsType.WOMENS -> WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
-        }
+        val uniqueWorkName = getUniqueWorkName(rankingsType)
         val workRequest = when (rankingsType) {
             RankingsType.MENS -> mensWorkRequest
             RankingsType.WOMENS -> womensWorkRequest
@@ -38,12 +35,14 @@ class RugbyRankerWorkManager {
     }
 
     fun getLatestWorldRugbyRankingsStatuses(rankingsType: RankingsType): LiveData<List<WorkStatus>> {
-        val uniqueWorkName = when (rankingsType) {
-            RankingsType.MENS -> MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
-            RankingsType.WOMENS -> WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
-        }
+        val uniqueWorkName = getUniqueWorkName(rankingsType)
         val workManager = WorkManager.getInstance()
         return workManager.getStatusesForUniqueWorkLiveData(uniqueWorkName)
+    }
+
+    private fun getUniqueWorkName(rankingsType: RankingsType) = when (rankingsType) {
+        RankingsType.MENS -> MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
+        RankingsType.WOMENS -> WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
     }
 
     companion object {
