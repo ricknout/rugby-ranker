@@ -6,12 +6,12 @@ import androidx.work.ListenableWorker
 import androidx.work.Worker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.ricknout.rugbyranker.api.WorldRugbyRankingsService
+import com.ricknout.rugbyranker.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import javax.inject.Inject
 
 class RugbyRankerWorkerFactory @Inject constructor(
-        private val worldRugbyRankingsService: WorldRugbyRankingsService,
+        private val worldRugbyService: WorldRugbyService,
         private val worldRugbyRankingDao: WorldRugbyRankingDao
 ) : WorkerFactory() {
 
@@ -19,10 +19,10 @@ class RugbyRankerWorkerFactory @Inject constructor(
 
         return when (workerClassName) {
             MensWorldRugbyRankingsWorker::class.java.name -> MensWorldRugbyRankingsWorker(
-                    appContext, workerParameters, worldRugbyRankingsService, worldRugbyRankingDao
+                    appContext, workerParameters, worldRugbyService, worldRugbyRankingDao
             )
             WomensWorldRugbyRankingsWorker::class.java.name -> WomensWorldRugbyRankingsWorker(
-                    appContext, workerParameters, worldRugbyRankingsService, worldRugbyRankingDao
+                    appContext, workerParameters, worldRugbyService, worldRugbyRankingDao
             )
             else -> {
                 try {

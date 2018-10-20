@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
-import com.ricknout.rugbyranker.api.WorldRugbyRankingsService
+import com.ricknout.rugbyranker.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
@@ -28,14 +28,14 @@ class AppModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(WorldRugbyRankingsService.BASE_URL)
+                .baseUrl(WorldRugbyService.BASE_URL)
                 .build()
     }
 
     @Provides
     @Singleton
-    fun provideWorldRugbyRankingsService(retrofit: Retrofit): WorldRugbyRankingsService {
-        return retrofit.create(WorldRugbyRankingsService::class.java)
+    fun provideWorldRugbyService(retrofit: Retrofit): WorldRugbyService {
+        return retrofit.create(WorldRugbyService::class.java)
     }
 
     @Provides

@@ -5,10 +5,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface WorldRugbyRankingsService {
+interface WorldRugbyService {
 
     @GET("rugby/rankings/{json}")
-    fun getWorldRugbyRankings(@Path("json") json: String, @Query("date") date: String): Call<WorldRugbyRankingsResponse>
+    fun getRankings(@Path("json") json: String, @Query("date") date: String): Call<WorldRugbyRankingsResponse>
 
     companion object {
         const val JSON_MENS = "mru.json"
