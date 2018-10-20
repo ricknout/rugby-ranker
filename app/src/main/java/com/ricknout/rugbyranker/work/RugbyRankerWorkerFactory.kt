@@ -6,23 +6,19 @@ import androidx.work.ListenableWorker
 import androidx.work.Worker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.ricknout.rugbyranker.api.WorldRugbyService
-import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
+import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import javax.inject.Inject
 
-class RugbyRankerWorkerFactory @Inject constructor(
-        private val worldRugbyService: WorldRugbyService,
-        private val worldRugbyRankingDao: WorldRugbyRankingDao
-) : WorkerFactory() {
+class RugbyRankerWorkerFactory @Inject constructor(private val rugbyRankerRepository: RugbyRankerRepository) : WorkerFactory() {
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {
 
         return when (workerClassName) {
             MensWorldRugbyRankingsWorker::class.java.name -> MensWorldRugbyRankingsWorker(
-                    appContext, workerParameters, worldRugbyService, worldRugbyRankingDao
+                    appContext, workerParameters, rugbyRankerRepository
             )
             WomensWorldRugbyRankingsWorker::class.java.name -> WomensWorldRugbyRankingsWorker(
-                    appContext, workerParameters, worldRugbyService, worldRugbyRankingDao
+                    appContext, workerParameters, rugbyRankerRepository
             )
             else -> {
                 try {

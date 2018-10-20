@@ -24,13 +24,20 @@ class RugbyRankerWorkManager {
             WomensWorldRugbyRankingsWorker::class.java, WORK_REQUEST_REPEAT_INTERVAL, WORK_REQUEST_REPEAT_INTERVAL_TIME_UNIT
     ).setConstraints(constraints).build()
 
-    fun fetchAndStoreWorldRugbyRankings() {
+    fun fetchAndStoreLatestWorldRugbyRankings(rankingsType: RankingsType) {
+        val uniqueWorkName = when (rankingsType) {
+            RankingsType.MENS -> MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
+            RankingsType.WOMENS -> WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
+        }
+        val workRequest = when (rankingsType) {
+            RankingsType.MENS -> mensWorkRequest
+            RankingsType.WOMENS -> womensWorkRequest
+        }
         val workManager = WorkManager.getInstance()
-        workManager.enqueueUniquePeriodicWork(MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, mensWorkRequest)
-        workManager.enqueueUniquePeriodicWork(WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, womensWorkRequest)
+        workManager.enqueueUniquePeriodicWork(uniqueWorkName, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, workRequest)
     }
 
-    fun getWorldRugbyRankingsStatuses(rankingsType: RankingsType): LiveData<List<WorkStatus>> {
+    fun getLatestWorldRugbyRankingsStatuses(rankingsType: RankingsType): LiveData<List<WorkStatus>> {
         val uniqueWorkName = when (rankingsType) {
             RankingsType.MENS -> MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
             RankingsType.WOMENS -> WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME

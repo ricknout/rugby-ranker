@@ -53,16 +53,16 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRugbyRankerWorkManager(): RugbyRankerWorkManager {
-        return RugbyRankerWorkManager()
+    fun provideRugbyRankerRepository(
+            worldRugbyService: WorldRugbyService,
+            worldRugbyRankingDao: WorldRugbyRankingDao
+    ) : RugbyRankerRepository {
+        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao)
     }
 
     @Provides
     @Singleton
-    fun provideRugbyRankerRepository(
-            worldRugbyRankingDao: WorldRugbyRankingDao,
-            rugbyRankerWorkManager: RugbyRankerWorkManager
-    ) : RugbyRankerRepository {
-        return RugbyRankerRepository(rugbyRankerWorkManager, worldRugbyRankingDao)
+    fun provideRugbyRankerWorkManager(): RugbyRankerWorkManager {
+        return RugbyRankerWorkManager()
     }
 }

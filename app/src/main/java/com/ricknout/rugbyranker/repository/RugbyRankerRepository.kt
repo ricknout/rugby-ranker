@@ -1,20 +1,33 @@
 package com.ricknout.rugbyranker.repository
 
-import androidx.lifecycle.LiveData
+import com.ricknout.rugbyranker.api.WorldRugbyService
+import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.vo.RankingsType
-import com.ricknout.rugbyranker.vo.WorldRugbyRanking
-import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
+import com.ricknout.rugbyranker.vo.WorldRugbyRankingDataConverter
 
 class RugbyRankerRepository(
-        private val rugbyRankerWorkManager: RugbyRankerWorkManager,
+        private val worldRugbyService: WorldRugbyService,
         private val worldRugbyRankingDao: WorldRugbyRankingDao
 ) {
 
-    fun getLatestWorldRugbyRankings(rankingsType: RankingsType): LiveData<List<WorldRugbyRanking>> {
-        rugbyRankerWorkManager.fetchAndStoreWorldRugbyRankings()
-        return worldRugbyRankingDao.load(rankingsType)
+    fun loadLatestWorldRugbyRankings(rankingsType: RankingsType) = worldRugbyRankingDao.load(rankingsType)
+
+    fun fetchAndCacheLatestWorldRugbyRankings(rankingsType: RankingsType): Boolean {
+        val json = when (rankingsType) {
+            RankingsType.MENS -> WorldRugbyService.JSON_MENS
+            RankingsType.WOMENS -> WorldRugbyService.JSON_WOMENS
+        }
+        val date = getCurrentDate()
+        val response = worldRugbyService.getRankings(json, date).execute()
+        if (response.isSuccessful) {
+            val worldRugbyRankingsResponse = response.body() ?: return false
+            val worldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, rankingsType)
+            worldRugbyRankingDao.insert(worldRugbyRankings)
+            return true
+        }
+        return false
     }
 
-    fun getLatestWorldRugbyRankingsStatuses(rankingsType: RankingsType) = rugbyRankerWorkManager.getWorldRugbyRankingsStatuses(rankingsType)
+    private fun getCurrentDate() = DateUtils.getCurrentDate(WorldRugbyService.DATE_FORMAT)
 }

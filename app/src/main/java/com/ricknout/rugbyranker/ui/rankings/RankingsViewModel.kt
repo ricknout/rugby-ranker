@@ -9,8 +9,17 @@ import com.ricknout.rugbyranker.vo.MatchResult
 import com.ricknout.rugbyranker.vo.RankingsCalculator
 import com.ricknout.rugbyranker.vo.RankingsType
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
+import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 
-open class RankingsViewModel(rankingsType: RankingsType, rugbyRankerRepository: RugbyRankerRepository) : ViewModel() {
+open class RankingsViewModel(
+        rankingsType: RankingsType,
+        rugbyRankerRepository: RugbyRankerRepository,
+        rugbyRankerWorkManager: RugbyRankerWorkManager
+) : ViewModel() {
+
+    init {
+        rugbyRankerWorkManager.fetchAndStoreLatestWorldRugbyRankings(rankingsType)
+    }
 
     private val _editingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
     val editingMatchResult: LiveData<MatchResult>
@@ -29,8 +38,8 @@ open class RankingsViewModel(rankingsType: RankingsType, rugbyRankerRepository: 
     val matchResults: LiveData<List<MatchResult>>
         get() = _matchResults
 
-    val latestWorldRugbyRankings = rugbyRankerRepository.getLatestWorldRugbyRankings(rankingsType)
-    val latestWorldRugbyRankingsStatuses = rugbyRankerRepository.getLatestWorldRugbyRankingsStatuses(rankingsType)
+    val latestWorldRugbyRankings = rugbyRankerRepository.loadLatestWorldRugbyRankings(rankingsType)
+    val latestWorldRugbyRankingsStatuses = rugbyRankerWorkManager.getLatestWorldRugbyRankingsStatuses(rankingsType)
 
     private val _worldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestWorldRugbyRankings) { latestWorldRugbyRankings ->
