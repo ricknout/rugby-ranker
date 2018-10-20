@@ -35,9 +35,5 @@ open class WorldRugbyRankingsWorker(
         return Result.RETRY
     }
 
-    private fun getCurrentDate(): String = DateUtils.getCurrentDate(DATE_FORMAT)
-
-    companion object {
-        private const val DATE_FORMAT = "yyyy-MM-dd"
-    }
+    private fun getCurrentDate(): String = DateUtils.getCurrentDate(WorldRugbyRankingsService.DATE_FORMAT)
 }

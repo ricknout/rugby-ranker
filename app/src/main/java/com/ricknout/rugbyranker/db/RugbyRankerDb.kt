@@ -14,4 +14,8 @@ import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 abstract class RugbyRankerDb : RoomDatabase() {
 
     abstract fun worldRugbyRankingDao(): WorldRugbyRankingDao
+
+    companion object {
+        const val DATABASE_NAME = " rugby_ranker.db"
+    }
 }

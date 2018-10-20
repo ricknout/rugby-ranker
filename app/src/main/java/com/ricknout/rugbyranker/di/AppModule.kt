@@ -28,7 +28,7 @@ class AppModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
+                .baseUrl(WorldRugbyRankingsService.BASE_URL)
                 .build()
     }
 
@@ -41,7 +41,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDatabase(context: Context): RugbyRankerDb {
-        return Room.databaseBuilder(context, RugbyRankerDb::class.java, DATABASE_NAME)
+        return Room.databaseBuilder(context, RugbyRankerDb::class.java, RugbyRankerDb.DATABASE_NAME)
                 .build()
     }
 
@@ -64,10 +64,5 @@ class AppModule {
             rugbyRankerWorkManager: RugbyRankerWorkManager
     ) : RugbyRankerRepository {
         return RugbyRankerRepository(rugbyRankerWorkManager, worldRugbyRankingDao)
-    }
-
-    companion object {
-        private const val BASE_URL = "https://cmsapi.pulselive.com/"
-        private const val DATABASE_NAME = " rugby_ranker.db"
     }
 }
