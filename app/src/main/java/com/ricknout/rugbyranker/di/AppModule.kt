@@ -14,7 +14,7 @@ import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@Module(includes = [ViewModelModule::class])
+@Module(includes = [ViewModelModule::class, WorkerModule::class])
 class AppModule {
 
     @Provides

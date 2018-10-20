@@ -8,22 +8,18 @@ import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.vo.RankingsType
 import com.ricknout.rugbyranker.vo.WorldRugbyRankingDataConverter
-import javax.inject.Inject
 
-abstract class WorldRugbyRankingsWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
-
-    @Inject
-    lateinit var worldRugbyRankingsService: WorldRugbyRankingsService
-
-    @Inject
-    lateinit var worldRugbyRankingDao: WorldRugbyRankingDao
-
-    abstract fun getRankingsType(): RankingsType
+open class WorldRugbyRankingsWorker(
+        context: Context,
+        workerParams: WorkerParameters,
+        private val worldRugbyRankingsService: WorldRugbyRankingsService,
+        private val worldRugbyRankingDao: WorldRugbyRankingDao,
+        private val rankingsType: RankingsType
+) : Worker(context, workerParams) {
 
     override fun doWork() = fetchAndCacheRankings()
 
     private fun fetchAndCacheRankings(): Result {
-        val rankingsType = getRankingsType()
         val json = when (rankingsType) {
             RankingsType.MENS -> WorldRugbyRankingsService.JSON_MENS
             RankingsType.WOMENS -> WorldRugbyRankingsService.JSON_WOMENS
