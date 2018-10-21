@@ -4,6 +4,8 @@ Rugby Ranker is a **work-in-progess** Android app for viewing and calculating th
 
 It displays the latest international rankings and makes use of the [World Rugby 'Points Exchange' system](https://www.world.rugby/rankings/explanation) in order to predict changes in team positions and points.
 
+<br>
+
 <p align="center">
   <img alt="Rugby Ranker Demo" src="/art/demo.gif" width="320" />
 </p>
