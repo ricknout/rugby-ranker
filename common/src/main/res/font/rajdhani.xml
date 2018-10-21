@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <font-family
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="600"
-        android:font="@font/rajdhani_semibold"
-        app:fontStyle="normal"
-        app:fontWeight="600"
-        app:font="@font/rajdhani_semibold" />
-
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="700"
-        android:font="@font/rajdhani_bold"
-        app:fontStyle="normal"
-        app:fontWeight="700"
-        app:font="@font/rajdhani_bold" />
-
-</font-family>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fontProviderAuthority="com.google.android.gms.fonts"
+    android:fontProviderPackage="com.google.android.gms"
+    android:fontProviderQuery="name=Rajdhani&amp;weight=600"
+    android:fontProviderCerts="@array/com_google_android_gms_fonts_certs"
+    app:fontProviderAuthority="com.google.android.gms.fonts"
+    app:fontProviderPackage="com.google.android.gms"
+    app:fontProviderQuery="name=Rajdhani&amp;weight=600"
+    app:fontProviderCerts="@array/com_google_android_gms_fonts_certs"
+    tools:ignore="FontValidationWarning,UnusedAttribute" />

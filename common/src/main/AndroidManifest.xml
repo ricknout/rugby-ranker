@@ -1,3 +1,13 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ricknout.rugbyranker.common" />
+    package="com.ricknout.rugbyranker.common">
+
+    <application>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+    </application>
+
+</manifest>
