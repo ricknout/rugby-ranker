@@ -11,12 +11,10 @@ It displays the latest international rankings and makes use of the [World Rugby 
 </p>
 
 <p align="center">
-  <a href="https://play.google.com/store/apps">
+  <a href="https://play.google.com/store/apps/details?id=com.ricknout.rugbyranker" target="_blank">
     <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="320" />
   </a>
 </p>
-
-// TODO: Add Play Store URL to Google Play button
 
 ## Android development
 
