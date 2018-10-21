@@ -13,6 +13,7 @@ android {
         targetSdkVersion target_sdk_version
         versionCode 1000
         versionName "1.0.0"
+        setProperty("archivesBaseName", applicationId + "-v" + versionName)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
