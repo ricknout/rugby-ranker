@@ -9,9 +9,9 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:label="${appName}"
+        android:icon="${appIcon}"
+        android:roundIcon="${appIcon}"
         android:supportsRtl="true"
         android:theme="@style/RugbyRankerTheme"
         android:name=".RugbyRankerApplication"
@@ -32,9 +32,10 @@
 
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="com.ricknout.rugbyranker.workmanager-init"
+            android:authorities="${workManagerInitAuthorities}"
             android:enabled="false"
-            android:exported="false" />
+            android:exported="false"
+            tools:replace="android:authorities" />
 
     </application>
 

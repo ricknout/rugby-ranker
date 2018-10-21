@@ -21,6 +21,19 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    appIcon:"@mipmap/ic_launcher",
+                    appName:"@string/app_name",
+                    "workManagerInitAuthorities":"com.ricknout.rugbyranker.workmanager-init"
+            ]
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            manifestPlaceholders = [
+                    appIcon:"@mipmap/ic_launcher_debug",
+                    appName:"@string/app_name_debug",
+                    "workManagerInitAuthorities":"com.ricknout.rugbyranker.debug.workmanager-init"
+            ]
         }
     }
 }

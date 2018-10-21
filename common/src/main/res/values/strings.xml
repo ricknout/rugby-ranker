@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">Rugby Ranker</string>
+    <string name="app_name_debug">Rugby Ranker Debug</string>
 
 </resources>
