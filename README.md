@@ -4,15 +4,20 @@ Rugby Ranker is a **work-in-progess** Android app for viewing and calculating th
 
 It displays the latest international rankings and makes use of the [World Rugby 'Points Exchange' system](https://www.world.rugby/rankings/explanation) in order to predict changes in team positions and points.
 
-// TODO: Add GIF screenshot
 
-// TODO: Add Google Play button
+<img alt="Rugby Ranker Demo" src="/art/demo.gif" width="320" height="640" />
+
+<a href="" target="_blank">
+  <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="320" height="124" />
+</a>
+
+// TODO: Add Play Store URL to Google Play button
 
 ## Android development
 
 Rugby Ranker attempts to make use of the latest Android libraries and best practices:
 * Entirely written in [Kotlin](https://kotlinlang.org/)
-* Makes use of [Android Jetpack](https://developer.android.com/jetpack/):
+* Makes use of [Android Jetpack](https://developer.android.com/jetpack/), including:
   * All appropriate [Architecture Components](https://developer.android.com/topic/libraries/architecture/), including **Lifecycles**, **LiveData**, **ViewModel**, **Room**, **Navigation** and **WorkManager**
   * [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout) 2.0 and [MotionLayout](https://developer.android.com/reference/android/support/constraint/motion/MotionLayout) for layouts and transitions
   * [EmojiCompat](https://developer.android.com/guide/topics/ui/look-and-feel/emoji-compat) for emoji compatibility on older platforms
