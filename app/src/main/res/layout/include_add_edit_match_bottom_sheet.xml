@@ -63,7 +63,7 @@
                 android:id="@+id/addOrEditMatchTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_add_match"
+                android:text="@string/title_add_match_prediction"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="?android:textColorPrimary"
                 app:layout_constraintTop_toTopOf="parent"

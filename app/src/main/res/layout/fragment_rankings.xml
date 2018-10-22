@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Men's Rankings" />
+            tools:text="Latest Men's Rugby Rankings" />
 
         <include
             android:id="@+id/rankingsHeader"
@@ -66,7 +66,7 @@
         app:hoveredFocusedTranslationZ="0dp"
         app:pressedTranslationZ="0dp"
         app:srcCompat="@drawable/ic_add_match_black_24dp"
-        android:contentDescription="@string/content_description_add_match" />
+        android:contentDescription="@string/content_description_add_match_prediction" />
 
     <include layout="@layout/include_add_edit_match_bottom_sheet" />
 

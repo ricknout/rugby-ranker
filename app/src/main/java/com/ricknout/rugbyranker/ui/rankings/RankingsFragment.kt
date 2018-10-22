@@ -98,7 +98,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         setupBottomSheet()
         setupAddOrEditMatchInput()
         setupAddMatchButtons()
-        setupTitle()
         setupSnackbar()
         setupViewModel()
     }
@@ -252,15 +251,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             clearAddOrEditMatchInput()
             showBottomSheet()
         }
-        TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match))
-        TooltipCompat.setTooltipText(addMatchButton, getString(R.string.tooltip_add_match))
-    }
-
-    private fun setupTitle() {
-        titleTextView.setText(when (rankingsType) {
-            RankingsType.MENS -> R.string.title_mens_rugby_rankings
-            RankingsType.WOMENS -> R.string.title_womens_rugby_rankings
-        })
+        TooltipCompat.setTooltipText(addMatchFab, getString(R.string.tooltip_add_match_prediction))
+        TooltipCompat.setTooltipText(addMatchButton, getString(R.string.tooltip_add_match_prediction))
     }
 
     private fun setupSnackbar() {
@@ -291,13 +283,14 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             matchResultAdapter.submitList(matchResults)
             val isEmpty = matchResults?.isEmpty() ?: true
             updateUiForMatchResults(!isEmpty)
+            setTitle(!isEmpty)
         })
         viewModel.addOrEditMatchInputValid.observe(this, Observer { addOrEditMatchInputValid ->
             addOrEditButton.isEnabled = addOrEditMatchInputValid
         })
         viewModel.editingMatchResult.observe(this, Observer { editingMatchResult ->
             val isEditing = editingMatchResult != null
-            addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match else R.string.title_add_match)
+            addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match_prediction else R.string.title_add_match_prediction)
             cancelButton.isInvisible = !isEditing
             addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
         })
@@ -315,6 +308,25 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
         if (hasMatchResults) addMatchFab.hide() else addMatchFab.show()
         addMatchButton.isEnabled = hasMatchResults
+    }
+
+    private fun setTitle(hasMatchResults: Boolean) {
+        titleTextView.setText(when (rankingsType) {
+            RankingsType.MENS -> {
+                if (hasMatchResults) {
+                    R.string.title_predicted_mens_rugby_rankings
+                } else {
+                    R.string.title_latest_mens_rugby_rankings
+                }
+            }
+            RankingsType.WOMENS -> {
+                if (hasMatchResults) {
+                    R.string.title_predicted_womens_rugby_rankings
+                } else {
+                    R.string.title_latest_womens_rugby_rankings
+                }
+            }
+        })
     }
 
     private fun showBottomSheet() {
