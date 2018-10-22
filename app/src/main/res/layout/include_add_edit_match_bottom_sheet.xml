@@ -112,7 +112,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/homePointsTextInputLayout"
                 android:layout_width="@dimen/width_points"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:hint="@string/hint_points"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:layout_constraintTop_toTopOf="@id/homeTeamTextInputLayout"
@@ -122,7 +122,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/homePointsEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:maxLength="@integer/max_length_points" />
 
@@ -155,7 +155,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/awayPointsTextInputLayout"
                 android:layout_width="@dimen/width_points"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:hint="@string/hint_points"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:layout_constraintTop_toTopOf="@id/awayTeamTextInputLayout"
@@ -165,7 +165,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/awayPointsEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:maxLength="@integer/max_length_points" />
 
