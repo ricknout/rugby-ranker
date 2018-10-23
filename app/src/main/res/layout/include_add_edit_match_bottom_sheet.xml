@@ -14,7 +14,8 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:behavior_hideable="true"
     app:behavior_peekHeight="@dimen/height_peek"
-    app:behavior_skipCollapsed="true">
+    app:behavior_skipCollapsed="true"
+    tools:background="@null">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
