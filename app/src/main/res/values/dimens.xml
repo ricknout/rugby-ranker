@@ -4,22 +4,18 @@
     <dimen name="width_points">96dp</dimen>
 
     <dimen name="height_peek">48dp</dimen>
-    <dimen name="height_match_result">32dp</dimen>
 
     <dimen name="length_fading_edge">8dp</dimen>
 
     <dimen name="padding_bottom_rankings">88dp</dimen>
-    <dimen name="padding_horizontal_match_result">16dp</dimen>
-    <dimen name="padding_horizontal_reset_matches">12dp</dimen>
+    <dimen name="padding_horizontal_add_match">12dp</dimen>
     <dimen name="padding_horizontal_close">12dp</dimen>
-    <dimen name="padding_end_matches">48dp</dimen>
 
     <dimen name="margin_fab">16dp</dimen>
 
     <dimen name="elevation_bottom_sheet">8dp</dimen>
 
     <dimen name="corner_radius_bottom_sheet">8dp</dimen>
-    <dimen name="corner_radius_match_result">16dp</dimen>
 
     <dimen name="text_size_ranking_auto_size_max">16sp</dimen>
 
