@@ -123,7 +123,10 @@ open class RankingsViewModel(
         get() = _addOrEditMatchInputValid
 
     fun resetAddOrEditMatchInputValid() {
-        _addOrEditMatchInputValid.value = false
+        homeTeamInputValid.value = false
+        homePointsInputValid.value = false
+        awayTeamInputValid.value = false
+        awayPointsInputValid.value = false
     }
 
     private fun isAddOrEditMatchInputValid() = homeTeamInputValid.value == true && homePointsInputValid.value == true
