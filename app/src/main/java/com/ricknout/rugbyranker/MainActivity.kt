@@ -39,17 +39,17 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
         }
         navController.addOnNavigatedListener { _, destination ->
             when (destination.id) {
-                R.id.mensRankingsFragment-> {
+                R.id.mensRankingsFragment -> {
                     bottomNavigationView.post {
                         womensRankingsViewModel.endEditMatchResult()
                     }
                 }
-                R.id.womensRankingsFragment-> {
+                R.id.womensRankingsFragment -> {
                     bottomNavigationView.post {
                         mensRankingsViewModel.endEditMatchResult()
                     }
                 }
-                R.id.infoFragment-> {
+                R.id.infoFragment -> {
                     bottomNavigationView.post {
                         mensRankingsViewModel.endEditMatchResult()
                         womensRankingsViewModel.endEditMatchResult()
