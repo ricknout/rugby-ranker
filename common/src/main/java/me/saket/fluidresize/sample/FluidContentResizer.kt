@@ -24,6 +24,8 @@ object FluidContentResizer {
     }
   }
 
+  fun isAnimating() = heightAnimator.isStarted || heightAnimator.isRunning
+
   private fun animateHeight(viewHolder: ActivityViewHolder, event: KeyboardVisibilityChanged) {
     val contentView = viewHolder.contentView
     contentView.setHeight(event.contentHeightBeforeResize)
@@ -36,7 +38,7 @@ object FluidContentResizer {
     // for some reason it skips the first animation and I cannot figure out why.
     heightAnimator = ObjectAnimator.ofInt(event.contentHeightBeforeResize, event.contentHeight).apply {
       interpolator = FastOutSlowInInterpolator()
-      duration = 200
+      duration = 150
     }
     heightAnimator.addUpdateListener { contentView.setHeight(it.animatedValue as Int) }
     heightAnimator.start()

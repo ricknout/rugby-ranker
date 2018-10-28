@@ -65,6 +65,7 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
     }
 
     override fun onBackPressed() {
+        if (FluidContentResizer.isAnimating()) return
         val onBackPressedHandled = onBackPressedListener?.onBackPressed() ?: false
         if (!onBackPressedHandled) super.onBackPressed()
     }
