@@ -36,7 +36,7 @@ class RugbyRankerRepository(
         return false
     }
 
-    private fun getCurrentDate() = DateUtils.getCurrentDate(WorldRugbyService.DATE_FORMAT)
+    private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT)
 
     fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType: RankingsType): LiveData<String> {
         return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType)
