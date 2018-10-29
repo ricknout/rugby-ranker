@@ -41,6 +41,18 @@ open class RankingsViewModel(
     val latestWorldRugbyRankings = rugbyRankerRepository.loadLatestWorldRugbyRankings(rankingsType)
     val latestWorldRugbyRankingsStatuses = rugbyRankerWorkManager.getLatestWorldRugbyRankingsStatuses(rankingsType)
 
+    private val repositoryLatestWorldRugbyRankingsEffectiveTime = rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType)
+    private val _latestWorldRugbyRankingsEffectiveTime = MediatorLiveData<String>().apply {
+        addSource(repositoryLatestWorldRugbyRankingsEffectiveTime) { effectiveTime ->
+            value = if (hasMatchResults()) null else effectiveTime
+        }
+        addSource(_matchResults) { _ ->
+            value = if (hasMatchResults()) null else repositoryLatestWorldRugbyRankingsEffectiveTime.value
+        }
+    }
+    val latestWorldRugbyRankingsEffectiveTime: LiveData<String>
+        get() = _latestWorldRugbyRankingsEffectiveTime
+
     private val _worldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestWorldRugbyRankings) { latestWorldRugbyRankings ->
             if (!hasMatchResults()) value = latestWorldRugbyRankings

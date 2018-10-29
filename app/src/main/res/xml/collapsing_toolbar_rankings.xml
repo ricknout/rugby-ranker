@@ -17,7 +17,7 @@
     <ConstraintSet android:id="@+id/expanded">
 
         <Constraint
-            android:id="@id/titleTextView"
+            android:id="@id/titles"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
             android:id="@id/rankingsHeader"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titles"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:elevation="0dp" />
@@ -39,7 +39,7 @@
     <ConstraintSet android:id="@+id/collapsed">
 
         <Constraint
-            android:id="@id/titleTextView"
+            android:id="@id/titles"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintBottom_toTopOf="parent"
@@ -51,7 +51,7 @@
             android:id="@id/rankingsHeader"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titles"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:elevation="4dp" />

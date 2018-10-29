@@ -279,6 +279,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                 else -> root.post { snackBar.dismiss() }
             }
         })
+        viewModel.latestWorldRugbyRankingsEffectiveTime.observe(this, Observer { effectiveTime ->
+            setSubtitle(effectiveTime)
+        })
         viewModel.matchResults.observe(this, Observer { matchResults ->
             matchResultAdapter.submitList(matchResults)
             val isEmpty = matchResults?.isEmpty() ?: true
@@ -327,6 +330,15 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
                 }
             }
         })
+    }
+
+    private fun setSubtitle(effectiveTime: String?) {
+        subtitleTextView.text = if (effectiveTime == null) {
+            null
+        } else {
+            getString(R.string.subtitle_last_updated, effectiveTime)
+        }
+        subtitleTextView.isVisible = effectiveTime != null
     }
 
     private fun showBottomSheet() {

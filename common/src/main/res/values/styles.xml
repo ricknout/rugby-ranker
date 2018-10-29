@@ -23,6 +23,8 @@
 
     <style name="RugbyRankerTextAppearance.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
+    <style name="RugbyRankerTextAppearance.Caption" parent="@style/TextAppearance.MaterialComponents.Caption" />
+
     <style name="RugbyRankerTextAppearance.Chip" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:fontFamily">@font/rajdhani</item>
     </style>
