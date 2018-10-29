@@ -173,23 +173,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
-                android:id="@+id/nhaCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_standard"
-                android:text="@string/check_box_no_home_advantage"
-                app:layout_constraintTop_toBottomOf="@id/awayTeamTextInputLayout"
-                app:layout_constraintStart_toStartOf="@id/startGuideline" />
-
-            <CheckBox
                 android:id="@+id/rwcCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/check_box_rugby_world_cup"
+                app:layout_constraintTop_toTopOf="@id/nhaCheckBox"
+                app:layout_constraintBottom_toBottomOf="@id/nhaCheckBox"
+                app:layout_constraintStart_toStartOf="@id/startGuideline" />
+
+            <CheckBox
+                android:id="@+id/nhaCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_standard"
                 android:layout_marginStart="@dimen/spacing_standard"
-                android:text="@string/check_box_rugby_world_cup"
+                android:text="@string/check_box_no_home_advantage"
                 app:layout_constraintTop_toBottomOf="@id/awayTeamTextInputLayout"
-                app:layout_constraintStart_toEndOf="@id/nhaCheckBox" />
+                app:layout_constraintStart_toEndOf="@id/rwcCheckBox"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addOrEditButton"
