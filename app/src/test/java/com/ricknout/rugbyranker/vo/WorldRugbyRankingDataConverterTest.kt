@@ -14,7 +14,7 @@ class WorldRugbyRankingDataConverterTest {
 
     @Before
     fun setup() {
-        val effective = Effective(label = "Label", millis = 1000, gmtOffset = 0)
+        val effective = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = 0)
         val team1 = Team(id = 100L, name = "Team 1", abbreviation = "T1")
         val entry1 = Entry(pos = 1, previousPos = 2, pts = 100f, previousPts = 90f, matches = 10, team = team1)
         val team2 = Team(id = 200L, name = "Team 2", abbreviation = "T2")
@@ -27,8 +27,8 @@ class WorldRugbyRankingDataConverterTest {
     }
 
     @Test
-    fun convertFromMensWorldRugbyRankingsResponse() {
-        val mensWorldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.MENS)
+    fun getMensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
+        val mensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.MENS)
         assertEquals(mensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         mensWorldRugbyRankings.forEachIndexed { index, mensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -45,8 +45,8 @@ class WorldRugbyRankingDataConverterTest {
     }
 
     @Test
-    fun convertFromWomensWorldRugbyRankingsResponse() {
-        val womensWorldRugbyRankings = WorldRugbyRankingDataConverter.convertFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.WOMENS)
+    fun getWomensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
+        val womensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.WOMENS)
         assertEquals(womensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         womensWorldRugbyRankings.forEachIndexed { index, womensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -60,5 +60,19 @@ class WorldRugbyRankingDataConverterTest {
             assertEquals(womensWorldRugbyRanking.matches, entry.matches)
             assertEquals(womensWorldRugbyRanking.rankingsType, RankingsType.WOMENS)
         }
+    }
+
+    @Test
+    fun getEffectiveTimeFromWorldRugbyRankingsResponse() {
+        val effectiveTime = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
+        assertEquals(effectiveTime, "2018-10-29")
+        val effectiveGmtMinus10 = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = -10)
+        val worldRugbyRankingsResponseGmtMinus10 = worldRugbyRankingsResponse.copy(effective = effectiveGmtMinus10)
+        val effectiveTimeGmtMinus10 = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtMinus10)
+        assertEquals(effectiveTimeGmtMinus10, "2018-10-28")
+        val effectiveGmtPlus10 = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = 10)
+        val worldRugbyRankingsResponseGmtPlus10 = worldRugbyRankingsResponse.copy(effective = effectiveGmtPlus10)
+        val effectiveTimeGmtPlus10 = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtPlus10)
+        assertEquals(effectiveTimeGmtPlus10, "2018-10-29")
     }
 }

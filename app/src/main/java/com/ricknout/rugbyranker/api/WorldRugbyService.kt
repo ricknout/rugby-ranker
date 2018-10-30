@@ -13,7 +13,6 @@ interface WorldRugbyService {
     companion object {
         const val JSON_MENS = "mru.json"
         const val JSON_WOMENS = "wru.json"
-        const val DATE_FORMAT = "yyyy-MM-dd"
         const val BASE_URL = "https://cmsapi.pulselive.com/"
     }
 }

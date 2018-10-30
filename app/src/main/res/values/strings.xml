@@ -12,6 +12,7 @@
     <string name="subtitle_position" translatable="false">#</string>
     <string name="subtitle_team">Team</string>
     <string name="subtitle_points">Points</string>
+    <string name="subtitle_last_updated">Last updated: %s</string>
 
     <string name="button_reset">Reset</string>
     <string name="button_cancel">Cancel</string>
