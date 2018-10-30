@@ -35,6 +35,7 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
         bottomNavigationView.setupWithNavController(navController)
         bottomNavigationView.setOnNavigationItemReselectedListener {
             // Do nothing to prevent recreating of Fragments on reselect
+            // https://issuetracker.google.com/issues/110312014
             // TODO: Implement ViewModel event to scroll to top?
         }
         navController.addOnNavigatedListener { _, destination ->
