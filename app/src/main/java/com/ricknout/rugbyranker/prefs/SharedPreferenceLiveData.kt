@@ -3,7 +3,7 @@ package com.ricknout.rugbyranker.prefs
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 
-abstract class SharedPreferenceLiveData <T>(
+abstract class SharedPreferenceLiveData<T>(
         val sharedPreferences: SharedPreferences,
         private val key: String,
         private val defValue: T?
