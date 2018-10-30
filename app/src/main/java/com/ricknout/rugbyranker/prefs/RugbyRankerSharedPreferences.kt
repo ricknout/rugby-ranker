@@ -18,6 +18,15 @@ class RugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferen
 
     private fun setWomensEffectiveTime(effectiveTime: String) = sharedPreferences.edit { putString(KEY_EFFECTIVE_TIME_WOMENS, effectiveTime) }
 
+    fun getLatestWorldRugbyRankingsEffectiveTime(rankingsType: RankingsType): String? = when (rankingsType) {
+        RankingsType.MENS -> getMensEffectiveTime()
+        RankingsType.WOMENS -> getWomensEffectiveTime()
+    }
+
+    private fun getMensEffectiveTime() = sharedPreferences.getString(KEY_EFFECTIVE_TIME_MENS, null)
+
+    private fun getWomensEffectiveTime() = sharedPreferences.getString(KEY_EFFECTIVE_TIME_WOMENS, null)
+
     fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType: RankingsType): LiveData<String> = when (rankingsType) {
         RankingsType.MENS -> getMensEffectiveTimeLiveData()
         RankingsType.WOMENS -> getWomensEffectiveTimeLiveData()
