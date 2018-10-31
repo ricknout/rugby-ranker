@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import androidx.core.view.GestureDetectorCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class OnBackgroundClickItemTouchListener(context: Context, onBackgroundClick: () -> Unit) : RecyclerView.OnItemTouchListener {
+class OnBackgroundClickItemTouchListener(context: Context, onBackgroundClick: () -> Unit) : RecyclerView.SimpleOnItemTouchListener() {
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
@@ -22,11 +22,5 @@ class OnBackgroundClickItemTouchListener(context: Context, onBackgroundClick: ()
             gestureDetector.onTouchEvent(e)
         }
         return false
-    }
-
-    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-    }
-
-    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
     }
 }
