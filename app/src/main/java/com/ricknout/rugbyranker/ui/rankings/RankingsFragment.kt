@@ -23,7 +23,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
 import com.ricknout.rugbyranker.ui.common.MatchResultListAdapter
-import com.ricknout.rugbyranker.common.ui.OnBackgroundClickItemTouchListener
+import com.ricknout.rugbyranker.common.ui.BackgroundClickOnItemTouchListener
 import com.ricknout.rugbyranker.ui.common.WorldRugbyRankingListAdapter
 import com.ricknout.rugbyranker.common.ui.OnBackPressedListener
 import com.ricknout.rugbyranker.common.ui.OnBackPressedProvider
@@ -120,7 +120,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     private fun setupRecyclerViews() {
         rankingsRecyclerView.adapter = worldRugbyRankingAdapter
         matchesRecyclerView.adapter = matchResultAdapter
-        matchesRecyclerView.addOnItemTouchListener(OnBackgroundClickItemTouchListener(requireContext()) {
+        matchesRecyclerView.addOnItemTouchListener(BackgroundClickOnItemTouchListener(requireContext()) {
             showBottomSheet()
         })
     }
