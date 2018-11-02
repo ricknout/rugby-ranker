@@ -16,9 +16,9 @@ interface WorldRugbyService {
     @GET("rugby/match")
     fun getMatches(
             @Query("sports") sports: String,
+            @Query("states") states: String,
             @Query("startDate") startDate: String,
             @Query("endDate") endDate: String,
-            @Query("states") states: String,
             @Query("sort") sort: String,
             @Query("pageSize") pageSize: Int,
             @Query("page") page: Int
