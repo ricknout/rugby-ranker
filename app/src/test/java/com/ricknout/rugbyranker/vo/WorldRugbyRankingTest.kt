@@ -14,7 +14,7 @@ class WorldRugbyRankingTest {
             100f,
             90f,
             10,
-            RankingsType.MENS
+            Sport.MENS
     )
 
     @Test

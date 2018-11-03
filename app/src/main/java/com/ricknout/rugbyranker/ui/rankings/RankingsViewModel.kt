@@ -7,18 +7,18 @@ import androidx.lifecycle.ViewModel
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.vo.MatchResult
 import com.ricknout.rugbyranker.vo.RankingsCalculator
-import com.ricknout.rugbyranker.vo.RankingsType
+import com.ricknout.rugbyranker.vo.Sport
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 
 open class RankingsViewModel(
-        rankingsType: RankingsType,
+        sport: Sport,
         rugbyRankerRepository: RugbyRankerRepository,
         rugbyRankerWorkManager: RugbyRankerWorkManager
 ) : ViewModel() {
 
     init {
-        rugbyRankerWorkManager.fetchAndStoreLatestWorldRugbyRankings(rankingsType)
+        rugbyRankerWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
     }
 
     private val _editingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
@@ -38,15 +38,15 @@ open class RankingsViewModel(
     val matchResults: LiveData<List<MatchResult>>
         get() = _matchResults
 
-    val latestWorldRugbyRankings = rugbyRankerRepository.loadLatestWorldRugbyRankings(rankingsType)
-    val latestWorldRugbyRankingsStatuses = rugbyRankerWorkManager.getLatestWorldRugbyRankingsStatuses(rankingsType)
+    val latestWorldRugbyRankings = rugbyRankerRepository.loadLatestWorldRugbyRankings(sport)
+    val latestWorldRugbyRankingsStatuses = rugbyRankerWorkManager.getLatestWorldRugbyRankingsStatuses(sport)
 
     private val _latestWorldRugbyRankingsEffectiveTime = MediatorLiveData<String>().apply {
-        addSource(rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType)) { effectiveTime ->
+        addSource(rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport)) { effectiveTime ->
             value = if (hasMatchResults()) null else effectiveTime
         }
         addSource(_matchResults) { _ ->
-            value = if (hasMatchResults()) null else rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTime(rankingsType)
+            value = if (hasMatchResults()) null else rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTime(sport)
         }
     }
     val latestWorldRugbyRankingsEffectiveTime: LiveData<String>

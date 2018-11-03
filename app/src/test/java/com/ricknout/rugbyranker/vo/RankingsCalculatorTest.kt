@@ -16,7 +16,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 95f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -27,7 +27,7 @@ class RankingsCalculatorTest {
                 points = 95f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team3 = WorldRugbyRanking(
                 teamId = 3,
@@ -38,7 +38,7 @@ class RankingsCalculatorTest {
                 points = 90f,
                 previousPoints = 85f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team4 = WorldRugbyRanking(
                 teamId = 4,
@@ -49,7 +49,7 @@ class RankingsCalculatorTest {
                 points = 85f,
                 previousPoints = 80f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val matchResult1 = MatchResult(
                 id = MatchResult.generateId(),
@@ -98,7 +98,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -109,7 +109,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -157,7 +157,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -168,7 +168,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -216,7 +216,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -227,7 +227,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -275,7 +275,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -286,7 +286,7 @@ class RankingsCalculatorTest {
                 points = 95f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -334,7 +334,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -345,7 +345,7 @@ class RankingsCalculatorTest {
                 points = 95f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -393,7 +393,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -404,7 +404,7 @@ class RankingsCalculatorTest {
                 points = 95f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -452,7 +452,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -463,7 +463,7 @@ class RankingsCalculatorTest {
                 points = 80f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -511,7 +511,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -522,7 +522,7 @@ class RankingsCalculatorTest {
                 points = 80f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),
@@ -570,7 +570,7 @@ class RankingsCalculatorTest {
                 points = 100f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val team2 = WorldRugbyRanking(
                 teamId = 2,
@@ -581,7 +581,7 @@ class RankingsCalculatorTest {
                 points = 80f,
                 previousPoints = 90f,
                 matches = 10,
-                rankingsType = RankingsType.MENS
+                sport = Sport.MENS
         )
         val baseMatchResult = MatchResult(
                 id = MatchResult.generateId(),

@@ -5,7 +5,7 @@ import com.ricknout.rugbyranker.common.util.DateUtils
 
 object WorldRugbyRankingDataConverter {
 
-    fun getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse: WorldRugbyRankingsResponse, rankingsType: RankingsType): List<WorldRugbyRanking> {
+    fun getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse: WorldRugbyRankingsResponse, sport: Sport): List<WorldRugbyRanking> {
         return worldRugbyRankingsResponse.entries.map { entry ->
             WorldRugbyRanking(
                     teamId = entry.team.id,
@@ -16,7 +16,7 @@ object WorldRugbyRankingDataConverter {
                     points = entry.pts,
                     previousPoints = entry.previousPts,
                     matches = entry.matches,
-                    rankingsType = rankingsType
+                    sport = sport
             )
         }
     }

@@ -1,16 +1,16 @@
 package com.ricknout.rugbyranker.prefs
 
 import android.content.SharedPreferences
-import com.ricknout.rugbyranker.vo.RankingsType
+import com.ricknout.rugbyranker.vo.Sport
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 
 class RugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
-    fun setLatestWorldRugbyRankingsEffectiveTime(effectiveTime: String, rankingsType: RankingsType) {
-        when (rankingsType) {
-            RankingsType.MENS -> setMensEffectiveTime(effectiveTime)
-            RankingsType.WOMENS -> setWomensEffectiveTime(effectiveTime)
+    fun setLatestWorldRugbyRankingsEffectiveTime(effectiveTime: String, sport: Sport) {
+        when (sport) {
+            Sport.MENS -> setMensEffectiveTime(effectiveTime)
+            Sport.WOMENS -> setWomensEffectiveTime(effectiveTime)
         }
     }
 
@@ -18,18 +18,18 @@ class RugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferen
 
     private fun setWomensEffectiveTime(effectiveTime: String) = sharedPreferences.edit { putString(KEY_EFFECTIVE_TIME_WOMENS, effectiveTime) }
 
-    fun getLatestWorldRugbyRankingsEffectiveTime(rankingsType: RankingsType): String? = when (rankingsType) {
-        RankingsType.MENS -> getMensEffectiveTime()
-        RankingsType.WOMENS -> getWomensEffectiveTime()
+    fun getLatestWorldRugbyRankingsEffectiveTime(sport: Sport): String? = when (sport) {
+        Sport.MENS -> getMensEffectiveTime()
+        Sport.WOMENS -> getWomensEffectiveTime()
     }
 
     private fun getMensEffectiveTime() = sharedPreferences.getString(KEY_EFFECTIVE_TIME_MENS, null)
 
     private fun getWomensEffectiveTime() = sharedPreferences.getString(KEY_EFFECTIVE_TIME_WOMENS, null)
 
-    fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType: RankingsType): LiveData<String> = when (rankingsType) {
-        RankingsType.MENS -> getMensEffectiveTimeLiveData()
-        RankingsType.WOMENS -> getWomensEffectiveTimeLiveData()
+    fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport: Sport): LiveData<String> = when (sport) {
+        Sport.MENS -> getMensEffectiveTimeLiveData()
+        Sport.WOMENS -> getWomensEffectiveTimeLiveData()
     }
 
     private fun getMensEffectiveTimeLiveData() = StringSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_MENS, null)

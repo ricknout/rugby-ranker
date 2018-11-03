@@ -9,6 +9,7 @@ import javax.inject.Singleton
 import androidx.room.Room
 import com.ricknout.rugbyranker.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
+import com.ricknout.rugbyranker.db.RugbyRankerMigrations
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
@@ -44,6 +45,7 @@ class AppModule {
     @Singleton
     fun provideDatabase(context: Context): RugbyRankerDb {
         return Room.databaseBuilder(context, RugbyRankerDb::class.java, RugbyRankerDb.DATABASE_NAME)
+                .addMigrations(RugbyRankerMigrations.MIGRATION_1_2)
                 .build()
     }
 

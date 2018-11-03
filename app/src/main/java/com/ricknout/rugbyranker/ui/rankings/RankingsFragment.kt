@@ -33,7 +33,7 @@ import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.work.State
 import com.google.android.material.snackbar.Snackbar
-import com.ricknout.rugbyranker.vo.RankingsType
+import com.ricknout.rugbyranker.vo.Sport
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import kotlinx.android.synthetic.main.include_add_edit_match_bottom_sheet.*
 
@@ -44,7 +44,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     private lateinit var viewModel: RankingsViewModel
 
-    private lateinit var rankingsType: RankingsType
+    private lateinit var sport: Sport
 
     private var homeTeamId: Long? = null
     private var homeTeamName: String? = null
@@ -79,12 +79,12 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val rankingsTypeOrdinal = RankingsFragmentArgs.fromBundle(arguments).rankingsTypeOrdinal
-        rankingsType = RankingsType.values()[rankingsTypeOrdinal]
-        viewModel = when (rankingsType) {
-            RankingsType.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+        val sportOrdinal = RankingsFragmentArgs.fromBundle(arguments).sportOrdinal
+        sport = Sport.values()[sportOrdinal]
+        viewModel = when (sport) {
+            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensRankingsViewModel::class.java)
-            RankingsType.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(WomensRankingsViewModel::class.java)
         }
         homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
@@ -314,15 +314,15 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     }
 
     private fun setTitle(hasMatchResults: Boolean) {
-        titleTextView.setText(when (rankingsType) {
-            RankingsType.MENS -> {
+        titleTextView.setText(when (sport) {
+            Sport.MENS -> {
                 if (hasMatchResults) {
                     R.string.title_predicted_mens_rugby_rankings
                 } else {
                     R.string.title_latest_mens_rugby_rankings
                 }
             }
-            RankingsType.WOMENS -> {
+            Sport.WOMENS -> {
                 if (hasMatchResults) {
                     R.string.title_predicted_womens_rugby_rankings
                 } else {

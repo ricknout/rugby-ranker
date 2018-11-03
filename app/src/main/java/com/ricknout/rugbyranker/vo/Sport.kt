@@ -1,6 +1,6 @@
 package com.ricknout.rugbyranker.vo
 
-enum class RankingsType {
+enum class Sport {
     MENS,
     WOMENS
 }

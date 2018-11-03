@@ -28,7 +28,7 @@ class WorldRugbyRankingDataConverterTest {
 
     @Test
     fun getMensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
-        val mensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.MENS)
+        val mensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.MENS)
         assertEquals(mensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         mensWorldRugbyRankings.forEachIndexed { index, mensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -40,13 +40,13 @@ class WorldRugbyRankingDataConverterTest {
             assertEquals(mensWorldRugbyRanking.points, entry.pts)
             assertEquals(mensWorldRugbyRanking.previousPoints, entry.previousPts)
             assertEquals(mensWorldRugbyRanking.matches, entry.matches)
-            assertEquals(mensWorldRugbyRanking.rankingsType, RankingsType.MENS)
+            assertEquals(mensWorldRugbyRanking.sport, Sport.MENS)
         }
     }
 
     @Test
     fun getWomensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
-        val womensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, RankingsType.WOMENS)
+        val womensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.WOMENS)
         assertEquals(womensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         womensWorldRugbyRankings.forEachIndexed { index, womensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -58,7 +58,7 @@ class WorldRugbyRankingDataConverterTest {
             assertEquals(womensWorldRugbyRanking.points, entry.pts)
             assertEquals(womensWorldRugbyRanking.previousPoints, entry.previousPts)
             assertEquals(womensWorldRugbyRanking.matches, entry.matches)
-            assertEquals(womensWorldRugbyRanking.rankingsType, RankingsType.WOMENS)
+            assertEquals(womensWorldRugbyRanking.sport, Sport.WOMENS)
         }
     }
 

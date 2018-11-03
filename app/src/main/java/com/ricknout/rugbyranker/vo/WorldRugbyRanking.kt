@@ -14,7 +14,7 @@ data class WorldRugbyRanking(
         val points: Float,
         val previousPoints: Float,
         val matches: Int,
-        val rankingsType: RankingsType
+        val sport: Sport
 ) {
 
     fun resetPreviousPoints() = copy(previousPoints = this.points)

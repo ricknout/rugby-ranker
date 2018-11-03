@@ -7,7 +7,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.WorkStatus
-import com.ricknout.rugbyranker.vo.RankingsType
+import com.ricknout.rugbyranker.vo.Sport
 import java.util.concurrent.TimeUnit
 
 class RugbyRankerWorkManager {
@@ -24,25 +24,25 @@ class RugbyRankerWorkManager {
             WomensWorldRugbyRankingsWorker::class.java, WORK_REQUEST_REPEAT_INTERVAL, WORK_REQUEST_REPEAT_INTERVAL_TIME_UNIT
     ).setConstraints(constraints).build()
 
-    fun fetchAndStoreLatestWorldRugbyRankings(rankingsType: RankingsType) {
-        val uniqueWorkName = getUniqueWorkName(rankingsType)
-        val workRequest = when (rankingsType) {
-            RankingsType.MENS -> mensWorkRequest
-            RankingsType.WOMENS -> womensWorkRequest
+    fun fetchAndStoreLatestWorldRugbyRankings(sport: Sport) {
+        val uniqueWorkName = getUniqueWorkName(sport)
+        val workRequest = when (sport) {
+            Sport.MENS -> mensWorkRequest
+            Sport.WOMENS -> womensWorkRequest
         }
         val workManager = WorkManager.getInstance()
         workManager.enqueueUniquePeriodicWork(uniqueWorkName, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, workRequest)
     }
 
-    fun getLatestWorldRugbyRankingsStatuses(rankingsType: RankingsType): LiveData<List<WorkStatus>> {
-        val uniqueWorkName = getUniqueWorkName(rankingsType)
+    fun getLatestWorldRugbyRankingsStatuses(sport: Sport): LiveData<List<WorkStatus>> {
+        val uniqueWorkName = getUniqueWorkName(sport)
         val workManager = WorkManager.getInstance()
         return workManager.getStatusesForUniqueWorkLiveData(uniqueWorkName)
     }
 
-    private fun getUniqueWorkName(rankingsType: RankingsType) = when (rankingsType) {
-        RankingsType.MENS -> MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
-        RankingsType.WOMENS -> WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
+    private fun getUniqueWorkName(sport: Sport) = when (sport) {
+        Sport.MENS -> MensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
+        Sport.WOMENS -> WomensWorldRugbyRankingsWorker.UNIQUE_WORK_NAME
     }
 
     companion object {

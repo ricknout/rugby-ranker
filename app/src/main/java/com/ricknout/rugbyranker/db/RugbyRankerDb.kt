@@ -3,11 +3,12 @@ package com.ricknout.rugbyranker.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 
 @Database(
-        entities = [WorldRugbyRanking::class],
-        version = 1,
+        entities = [WorldRugbyRanking::class, WorldRugbyMatch::class],
+        version = 2,
         exportSchema = false
 )
 @TypeConverters(RugbyRankerTypeConverters::class)
