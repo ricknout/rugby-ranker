@@ -7,7 +7,7 @@ import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.vo.Sport
-import com.ricknout.rugbyranker.vo.WorldRugbyRankingDataConverter
+import com.ricknout.rugbyranker.vo.WorldRugbyDataConverter
 
 class RugbyRankerRepository(
         private val worldRugbyService: WorldRugbyService,
@@ -27,9 +27,9 @@ class RugbyRankerRepository(
         val response = worldRugbyService.getRankings(json, date).execute()
         if (response.isSuccessful) {
             val worldRugbyRankingsResponse = response.body() ?: return false
-            val worldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
+            val worldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
             worldRugbyRankingDao.insert(worldRugbyRankings)
-            val effectiveTime = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
+            val effectiveTime = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
             rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTime(effectiveTime, sport)
             return true
         }

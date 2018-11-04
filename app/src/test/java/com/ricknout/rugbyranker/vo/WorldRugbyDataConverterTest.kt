@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.assertEquals
 
-class WorldRugbyRankingDataConverterTest {
+class WorldRugbyDataConverterTest {
 
     private lateinit var worldRugbyRankingsResponse: WorldRugbyRankingsResponse
 
@@ -28,7 +28,7 @@ class WorldRugbyRankingDataConverterTest {
 
     @Test
     fun getMensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
-        val mensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.MENS)
+        val mensWorldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.MENS)
         assertEquals(mensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         mensWorldRugbyRankings.forEachIndexed { index, mensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -46,7 +46,7 @@ class WorldRugbyRankingDataConverterTest {
 
     @Test
     fun getWomensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
-        val womensWorldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.WOMENS)
+        val womensWorldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.WOMENS)
         assertEquals(womensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         womensWorldRugbyRankings.forEachIndexed { index, womensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -64,15 +64,15 @@ class WorldRugbyRankingDataConverterTest {
 
     @Test
     fun getEffectiveTimeFromWorldRugbyRankingsResponse() {
-        val effectiveTime = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
+        val effectiveTime = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
         assertEquals(effectiveTime, "2018-10-29")
         val effectiveGmtMinus10 = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = -10)
         val worldRugbyRankingsResponseGmtMinus10 = worldRugbyRankingsResponse.copy(effective = effectiveGmtMinus10)
-        val effectiveTimeGmtMinus10 = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtMinus10)
+        val effectiveTimeGmtMinus10 = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtMinus10)
         assertEquals(effectiveTimeGmtMinus10, "2018-10-28")
         val effectiveGmtPlus10 = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = 10)
         val worldRugbyRankingsResponseGmtPlus10 = worldRugbyRankingsResponse.copy(effective = effectiveGmtPlus10)
-        val effectiveTimeGmtPlus10 = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtPlus10)
+        val effectiveTimeGmtPlus10 = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtPlus10)
         assertEquals(effectiveTimeGmtPlus10, "2018-10-29")
     }
 }

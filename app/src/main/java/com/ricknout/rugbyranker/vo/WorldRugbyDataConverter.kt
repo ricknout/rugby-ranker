@@ -3,7 +3,7 @@ package com.ricknout.rugbyranker.vo
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
 import com.ricknout.rugbyranker.common.util.DateUtils
 
-object WorldRugbyRankingDataConverter {
+object WorldRugbyDataConverter {
 
     fun getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse: WorldRugbyRankingsResponse, sport: Sport): List<WorldRugbyRanking> {
         return worldRugbyRankingsResponse.entries.map { entry ->
