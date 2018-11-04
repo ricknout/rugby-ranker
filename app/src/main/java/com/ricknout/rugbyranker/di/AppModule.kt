@@ -10,6 +10,7 @@ import androidx.room.Room
 import com.ricknout.rugbyranker.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.RugbyRankerMigrations
+import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
@@ -53,6 +54,12 @@ class AppModule {
     @Singleton
     fun provideWorldRugbyRankingDao(database: RugbyRankerDb): WorldRugbyRankingDao {
         return database.worldRugbyRankingDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWorldRugbyMatchDao(database: RugbyRankerDb): WorldRugbyMatchDao {
+        return database.worldRugbyMatchDao()
     }
 
     @Provides
