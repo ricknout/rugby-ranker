@@ -74,7 +74,7 @@ open class RankingsViewModel(
 
     fun refreshLatestWorldRugbyRankings(onComplete: (success: Boolean) -> Unit) {
         _refreshingLatestWorldRugbyRankings.value = true
-        rugbyRankerRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(rankingsType) { success ->
+        rugbyRankerRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(sport) { success ->
             _refreshingLatestWorldRugbyRankings.value = false
             onComplete(success)
         }
