@@ -61,7 +61,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
     private lateinit var homeTeamPopupMenu: PopupMenu
     private lateinit var awayTeamPopupMenu: PopupMenu
 
-    private lateinit var snackBar: Snackbar
+    private lateinit var workerSnackBar: Snackbar
+    private lateinit var refreshSnackBar: Snackbar
 
     private val worldRugbyRankingAdapter = WorldRugbyRankingListAdapter()
     private val matchResultAdapter = MatchResultListAdapter({ matchResult ->
@@ -98,8 +99,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         setupBottomSheet()
         setupAddOrEditMatchInput()
         setupAddMatchButtons()
-        setupSnackbar()
+        setupSnackbars()
         setupViewModel()
+        setupSwipeRefreshLayout()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -255,8 +257,9 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         TooltipCompat.setTooltipText(addMatchButton, getString(R.string.tooltip_add_match_prediction))
     }
 
-    private fun setupSnackbar() {
-        snackBar = Snackbar.make(root, "", Snackbar.LENGTH_INDEFINITE)
+    private fun setupSnackbars() {
+        workerSnackBar = Snackbar.make(root, "", Snackbar.LENGTH_INDEFINITE)
+        refreshSnackBar = Snackbar.make(root, "", Snackbar.LENGTH_SHORT)
     }
 
     private fun setupViewModel() {
@@ -273,14 +276,21 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             val workStatus = if (workStatuses != null && !workStatuses.isEmpty()) workStatuses[0] else return@Observer
             when (workStatus.state) {
                 State.RUNNING -> {
-                    snackBar.setText(R.string.snackbar_fetching_world_rugby_rankings)
-                    snackBar.show()
+                    swipeRefreshLayout.isEnabled = false
+                    workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_rankings)
+                    workerSnackBar.show()
                 }
-                else -> root.post { snackBar.dismiss() }
+                else -> {
+                    swipeRefreshLayout.isEnabled = true
+                    root.post { workerSnackBar.dismiss() }
+                }
             }
         })
         viewModel.latestWorldRugbyRankingsEffectiveTime.observe(this, Observer { effectiveTime ->
             setSubtitle(effectiveTime)
+        })
+        viewModel.refreshingLatestWorldRugbyRankings.observe(this, Observer { refreshingLatestWorldRugbyRankings ->
+            swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyRankings
         })
         viewModel.matchResults.observe(this, Observer { matchResults ->
             matchResultAdapter.submitList(matchResults)
@@ -297,6 +307,19 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             cancelButton.isInvisible = !isEditing
             addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
         })
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        val swipeRefreshColors = resources.getIntArray(R.array.colors_swipe_refresh)
+        swipeRefreshLayout.setColorSchemeColors(*swipeRefreshColors)
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refreshLatestWorldRugbyRankings { success ->
+                if (!success) {
+                    refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_rankings)
+                    refreshSnackBar.show()
+                }
+            }
+        }
     }
 
     private fun hasMatchResults() = viewModel.hasMatchResults()
