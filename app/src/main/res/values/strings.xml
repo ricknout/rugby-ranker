@@ -2,10 +2,8 @@
 
     <string name="title_mens">Men\'s</string>
     <string name="title_womens">Women\'s</string>
-    <string name="title_latest_mens_rugby_rankings">Latest Men\'s Rugby Rankings</string>
-    <string name="title_latest_womens_rugby_rankings">Latest Women\'s Rugby Rankings</string>
-    <string name="title_predicted_mens_rugby_rankings">Predicted Men\'s Rugby Rankings</string>
-    <string name="title_predicted_womens_rugby_rankings">Predicted Women\'s Rugby Rankings</string>
+    <string name="title_mens_rugby_rankings">Men\'s Rugby Rankings</string>
+    <string name="title_womens_rugby_rankings">Women\'s Rugby Rankings</string>
     <string name="title_add_match_prediction">Add match prediction</string>
     <string name="title_edit_match_prediction">Edit match prediction</string>
 
@@ -13,6 +11,10 @@
     <string name="subtitle_team">Team</string>
     <string name="subtitle_points">Points</string>
     <string name="subtitle_last_updated">Last updated: %s</string>
+    <plurals name="subtitle_predicting_matches">
+        <item quantity="one">Predicting %d match</item>
+        <item quantity="other">Predicting %d matches</item>
+    </plurals>
 
     <string name="button_reset">Reset</string>
     <string name="button_cancel">Cancel</string>
