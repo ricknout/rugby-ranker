@@ -20,7 +20,7 @@ class RugbyRankerRepository(
     fun loadLatestWorldRugbyRankings(rankingsType: RankingsType) = worldRugbyRankingDao.load(rankingsType)
 
     @WorkerThread
-    fun fetchAndCacheLatestWorldRugbyRankings(rankingsType: RankingsType): Boolean {
+    fun fetchAndCacheLatestWorldRugbyRankingsSync(rankingsType: RankingsType): Boolean {
         val json = when (rankingsType) {
             RankingsType.MENS -> WorldRugbyService.JSON_MENS
             RankingsType.WOMENS -> WorldRugbyService.JSON_WOMENS

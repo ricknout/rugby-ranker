@@ -16,7 +16,7 @@ open class WorldRugbyRankingsWorker(
     override fun doWork() = fetchAndCacheLatestWorldRugbyRankings()
 
     private fun fetchAndCacheLatestWorldRugbyRankings(): Result {
-        val success = rugbyRankerRepository.fetchAndCacheLatestWorldRugbyRankings(rankingsType)
+        val success = rugbyRankerRepository.fetchAndCacheLatestWorldRugbyRankingsSync(rankingsType)
         return if (success) Result.SUCCESS else Result.RETRY
     }
 }
