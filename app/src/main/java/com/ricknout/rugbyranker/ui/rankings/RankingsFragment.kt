@@ -94,6 +94,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         awayTeamName = savedInstanceState?.getString(KEY_AWAY_TEAM_NAME)
         awayTeamAbbreviation = savedInstanceState?.getString(KEY_AWAY_TEAM_ABBREVIATION)
         bottomSheetState = savedInstanceState?.getInt(KEY_BOTTOM_SHEET_STATE, BOTTOM_SHEET_STATE_NONE) ?: BOTTOM_SHEET_STATE_NONE
+        setupSwipeRefreshLayout()
         setupRecyclerViews()
         setupBottomSheet()
         setupAddOrEditMatchInput()
@@ -115,6 +116,11 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
         outState.putString(KEY_AWAY_TEAM_NAME, awayTeamName)
         outState.putString(KEY_AWAY_TEAM_ABBREVIATION, awayTeamAbbreviation)
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        val swipeRefreshColors = resources.getIntArray(R.array.colors_swipe_refresh)
+        swipeRefreshLayout.setColorSchemeColors(*swipeRefreshColors)
     }
 
     private fun setupRecyclerViews() {
