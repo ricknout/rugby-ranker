@@ -12,8 +12,8 @@ import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 
 open class RankingsViewModel(
-        sport: Sport,
-        rugbyRankerRepository: RugbyRankerRepository,
+        private val sport: Sport,
+        private val rugbyRankerRepository: RugbyRankerRepository,
         rugbyRankerWorkManager: RugbyRankerWorkManager
 ) : ViewModel() {
 
@@ -67,6 +67,18 @@ open class RankingsViewModel(
     }
     val worldRugbyRankings: LiveData<List<WorldRugbyRanking>>
         get() = _worldRugbyRankings
+
+    private val _refreshingLatestWorldRugbyRankings = MutableLiveData<Boolean>().apply { value = false }
+    val refreshingLatestWorldRugbyRankings: LiveData<Boolean>
+        get() = _refreshingLatestWorldRugbyRankings
+
+    fun refreshLatestWorldRugbyRankings(onComplete: (success: Boolean) -> Unit) {
+        _refreshingLatestWorldRugbyRankings.value = true
+        rugbyRankerRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(rankingsType) { success ->
+            _refreshingLatestWorldRugbyRankings.value = false
+            onComplete(success)
+        }
+    }
 
     fun hasMatchResults() = !(_matchResults.value?.isEmpty() ?: true)
 

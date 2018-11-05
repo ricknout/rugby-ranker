@@ -17,6 +17,8 @@ import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 @Module(includes = [ViewModelModule::class, WorkerModule::class])
 class AppModule {
@@ -76,12 +78,19 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideExecutor(): Executor {
+        return Executors.newSingleThreadExecutor()
+    }
+
+    @Provides
+    @Singleton
     fun provideRugbyRankerRepository(
             worldRugbyService: WorldRugbyService,
             worldRugbyRankingDao: WorldRugbyRankingDao,
-            rugbyRankerSharedPreferences: RugbyRankerSharedPreferences
+            rugbyRankerSharedPreferences: RugbyRankerSharedPreferences,
+            executor: Executor
     ) : RugbyRankerRepository {
-        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, rugbyRankerSharedPreferences)
+        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, rugbyRankerSharedPreferences, executor)
     }
 
     @Provides
