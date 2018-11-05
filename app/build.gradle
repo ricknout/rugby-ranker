@@ -53,7 +53,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
-    implementation "android.arch.work:work-runtime:$work_version"
+    implementation "android.arch.work:work-runtime-ktx:$work_version"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
