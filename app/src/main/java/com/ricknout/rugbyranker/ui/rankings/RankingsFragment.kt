@@ -1,6 +1,5 @@
 package com.ricknout.rugbyranker.ui.rankings
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,8 +24,6 @@ import androidx.emoji.text.EmojiCompat
 import com.ricknout.rugbyranker.ui.common.MatchResultListAdapter
 import com.ricknout.rugbyranker.common.ui.BackgroundClickOnItemTouchListener
 import com.ricknout.rugbyranker.ui.common.WorldRugbyRankingListAdapter
-import com.ricknout.rugbyranker.common.ui.OnBackPressedListener
-import com.ricknout.rugbyranker.common.ui.OnBackPressedProvider
 import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
 import com.ricknout.rugbyranker.util.FlagUtils
 import androidx.core.content.getSystemService
@@ -37,7 +34,7 @@ import com.ricknout.rugbyranker.vo.RankingsType
 import kotlinx.android.synthetic.main.fragment_rankings.*
 import kotlinx.android.synthetic.main.include_add_edit_match_bottom_sheet.*
 
-class RankingsFragment : DaggerFragment(), OnBackPressedListener {
+class RankingsFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -102,6 +99,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
+        setupOnBackPressed()
         setTitle()
     }
 
@@ -322,6 +320,20 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         }
     }
 
+    private fun setupOnBackPressed() {
+        requireActivity().addOnBackPressedCallback {
+            if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                } else {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                }
+                return@addOnBackPressedCallback true
+            }
+            false
+        }
+    }
+
     private fun hasMatchResults() = viewModel.hasMatchResults()
 
     private fun getMatchResultCount() = viewModel.getMatchResultCount()
@@ -506,24 +518,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         nhaCheckBox.isChecked = false
         rwcCheckBox.isChecked = false
         viewModel.endEditMatchResult()
-    }
-
-    override fun onBackPressed(): Boolean {
-        if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            } else {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
-            return true
-        }
-        return super.onBackPressed()
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        (context as? OnBackPressedProvider ?: throw ClassCastException("$context must implement OnBackPressedProvider"))
-                .setOnBackPressedListener(this)
     }
 
     private fun hideSoftInput() {

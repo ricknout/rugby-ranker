@@ -4,7 +4,14 @@ buildscript {
     ext.target_sdk_version = 28
     ext.gradle_build_tools_version = '3.3.0-beta02'
     ext.kotlin_version = '1.3.0'
-    ext.androidx_version = '1.0.0'
+    ext.androidx_version = '1.1.0-alpha01'
+    ext.activity_version = '1.0.0-alpha01'
+    ext.fragment_version = '1.1.0-alpha01'
+    ext.recyclerview_version = '1.0.0'
+    ext.emoji_version = '1.0.0'
+    ext.browser_version = '1.0.0'
+    ext.ktx_version = '1.0.1'
+    ext.material_version = "1.1.0-alpha01"
     ext.constraintlayout_version = "2.0.0-alpha2"
     ext.retrofit_version = "2.4.0"
     ext.lifecycle_version = "2.0.0"

@@ -43,8 +43,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':info')
     implementation project(':common')
-    implementation "androidx.emoji:emoji:$androidx_version"
-    implementation "androidx.emoji:emoji-bundled:$androidx_version"
+    implementation "androidx.emoji:emoji:$emoji_version"
+    implementation "androidx.emoji:emoji-bundled:$emoji_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
