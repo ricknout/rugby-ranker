@@ -48,7 +48,7 @@
 
     <style name="RugbyRankerChip" parent="Widget.MaterialComponents.Chip.Action">
         <item name="android:textAppearance">@style/RugbyRankerTextAppearance.Chip</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="chipBackgroundColor">?attr/colorSecondary</item>
     </style>
 
