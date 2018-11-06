@@ -29,6 +29,7 @@ import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
 import com.ricknout.rugbyranker.util.FlagUtils
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnLayout
 import androidx.work.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.vo.RankingsType
@@ -160,12 +161,14 @@ class RankingsFragment : DaggerFragment() {
             }
         })
         if (bottomSheetState != BOTTOM_SHEET_STATE_NONE) bottomSheetBehavior.state = bottomSheetState
-        val slideOffset = when (bottomSheetBehavior.state) {
-            BottomSheetBehavior.STATE_EXPANDED -> 1f
-            BottomSheetBehavior.STATE_COLLAPSED -> 0f
-            else -> -1f
+        bottomSheet.doOnLayout {
+            val slideOffset = when (bottomSheetBehavior.state) {
+                BottomSheetBehavior.STATE_EXPANDED -> 1f
+                BottomSheetBehavior.STATE_COLLAPSED -> 0f
+                else -> -1f
+            }
+            updateAlphaForBottomSheetSlide(slideOffset, hasMatchResults(), isEditingMatchResult())
         }
-        updateAlphaForBottomSheetSlide(slideOffset, hasMatchResults(), isEditingMatchResult())
     }
 
     private fun setupAddOrEditMatchInput() {
