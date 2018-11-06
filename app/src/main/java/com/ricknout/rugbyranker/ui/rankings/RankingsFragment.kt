@@ -18,6 +18,7 @@ import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
@@ -73,6 +74,18 @@ class RankingsFragment : DaggerFragment() {
         }
     })
 
+    private val onBackPressedCallback = OnBackPressedCallback {
+        if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            } else {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            return@OnBackPressedCallback true
+        }
+        false
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
@@ -99,8 +112,8 @@ class RankingsFragment : DaggerFragment() {
         setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
-        setupOnBackPressed()
         setTitle()
+        requireActivity().addOnBackPressedCallback(onBackPressedCallback)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -320,20 +333,6 @@ class RankingsFragment : DaggerFragment() {
         }
     }
 
-    private fun setupOnBackPressed() {
-        requireActivity().addOnBackPressedCallback {
-            if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                } else {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                }
-                return@addOnBackPressedCallback true
-            }
-            false
-        }
-    }
-
     private fun hasMatchResults() = viewModel.hasMatchResults()
 
     private fun getMatchResultCount() = viewModel.getMatchResultCount()
@@ -528,6 +527,7 @@ class RankingsFragment : DaggerFragment() {
     override fun onDestroyView() {
         hideSoftInput()
         viewModel.resetAddOrEditMatchInputValid()
+        requireActivity().removeOnBackPressedCallback(onBackPressedCallback)
         super.onDestroyView()
     }
 
