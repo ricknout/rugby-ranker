@@ -82,6 +82,8 @@ open class RankingsViewModel(
 
     fun hasMatchResults() = !(_matchResults.value?.isEmpty() ?: true)
 
+    fun getMatchResultCount() = _matchResults.value?.size ?: 0
+
     fun isEditingMatchResult() = _editingMatchResult.value != null
 
     fun addMatchResult(matchResult: MatchResult) {

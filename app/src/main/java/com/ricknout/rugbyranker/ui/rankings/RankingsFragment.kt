@@ -102,6 +102,7 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
+        setTitle()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -296,7 +297,6 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
             matchResultAdapter.submitList(matchResults)
             val isEmpty = matchResults?.isEmpty() ?: true
             updateUiForMatchResults(!isEmpty)
-            setTitle(!isEmpty)
         })
         viewModel.addOrEditMatchInputValid.observe(this, Observer { addOrEditMatchInputValid ->
             addOrEditButton.isEnabled = addOrEditMatchInputValid
@@ -324,6 +324,8 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
 
     private fun hasMatchResults() = viewModel.hasMatchResults()
 
+    private fun getMatchResultCount() = viewModel.getMatchResultCount()
+
     private fun isEditingMatchResult() = viewModel.isEditingMatchResult()
 
     private fun updateUiForMatchResults(hasMatchResults: Boolean) {
@@ -336,32 +338,29 @@ class RankingsFragment : DaggerFragment(), OnBackPressedListener {
         addMatchButton.isEnabled = hasMatchResults
     }
 
-    private fun setTitle(hasMatchResults: Boolean) {
-        titleTextView.setText(when (sport) {
-            Sport.MENS -> {
-                if (hasMatchResults) {
-                    R.string.title_predicted_mens_rugby_rankings
-                } else {
-                    R.string.title_latest_mens_rugby_rankings
-                }
-            }
-            Sport.WOMENS -> {
-                if (hasMatchResults) {
-                    R.string.title_predicted_womens_rugby_rankings
-                } else {
-                    R.string.title_latest_womens_rugby_rankings
-                }
-            }
+    private fun setTitle() {
+        titleTextView.setText(when (rankingsType) {
+            RankingsType.MENS -> R.string.title_mens_rugby_rankings
+            RankingsType.WOMENS -> R.string.title_womens_rugby_rankings
         })
     }
 
     private fun setSubtitle(effectiveTime: String?) {
-        subtitleTextView.text = if (effectiveTime == null) {
-            null
-        } else {
-            getString(R.string.subtitle_last_updated, effectiveTime)
+        when {
+            effectiveTime != null -> {
+                subtitleTextView.text = getString(R.string.subtitle_last_updated, effectiveTime)
+                subtitleTextView.isVisible = true
+            }
+            hasMatchResults() -> {
+                val matchResultCount = getMatchResultCount()
+                subtitleTextView.text = resources.getQuantityString(R.plurals.subtitle_predicting_matches, matchResultCount, matchResultCount)
+                subtitleTextView.isVisible = true
+            }
+            else -> {
+                subtitleTextView.text = null
+                subtitleTextView.isVisible = false
+            }
         }
-        subtitleTextView.isVisible = effectiveTime != null
     }
 
     private fun showBottomSheet() {
