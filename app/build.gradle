@@ -11,8 +11,8 @@ android {
         applicationId "com.ricknout.rugbyranker"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
-        versionCode 1092
-        versionName "1.0.11"
+        versionCode 1093
+        versionName "1.0.12"
         setProperty("archivesBaseName", applicationId + "-v" + versionName)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,10 +43,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':info')
     implementation project(':common')
-    implementation "androidx.emoji:emoji:$androidx_version"
-    implementation "androidx.emoji:emoji-bundled:$androidx_version"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "androidx.emoji:emoji:$emoji_version"
+    implementation "androidx.emoji:emoji-bundled:$emoji_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.room:room-runtime:$room_version"
@@ -55,6 +53,8 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
     implementation "android.arch.work:work-runtime-ktx:$work_version"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"

@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.ricknout.rugbyranker.common.ui.OnBackPressedListener
-import com.ricknout.rugbyranker.common.ui.OnBackPressedProvider
 import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
 import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
 import dagger.android.support.DaggerAppCompatActivity
@@ -14,9 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.saket.fluidresize.sample.FluidContentResizer
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
-
-    private var onBackPressedListener: OnBackPressedListener? = null
+class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -61,18 +57,8 @@ class MainActivity : DaggerAppCompatActivity(), OnBackPressedProvider {
         FluidContentResizer.listen(this)
     }
 
-    override fun setOnBackPressedListener(onBackPressedListener: OnBackPressedListener?) {
-        this.onBackPressedListener = onBackPressedListener
-    }
-
     override fun onBackPressed() {
         if (FluidContentResizer.isAnimating()) return
-        val onBackPressedHandled = onBackPressedListener?.onBackPressed() ?: false
-        if (!onBackPressedHandled) super.onBackPressed()
-    }
-
-    override fun onDestroy() {
-        onBackPressedListener = null
-        super.onDestroy()
+        super.onBackPressed()
     }
 }
