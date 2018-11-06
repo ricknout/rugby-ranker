@@ -18,6 +18,7 @@ import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
@@ -28,6 +29,7 @@ import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
 import com.ricknout.rugbyranker.util.FlagUtils
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnLayout
 import androidx.work.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.vo.Sport
@@ -73,6 +75,18 @@ class RankingsFragment : DaggerFragment() {
         }
     })
 
+    private val onBackPressedCallback = OnBackPressedCallback {
+        if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            } else {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            return@OnBackPressedCallback true
+        }
+        false
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
@@ -99,8 +113,8 @@ class RankingsFragment : DaggerFragment() {
         setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
-        setupOnBackPressed()
         setTitle()
+        requireActivity().addOnBackPressedCallback(onBackPressedCallback)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -147,12 +161,14 @@ class RankingsFragment : DaggerFragment() {
             }
         })
         if (bottomSheetState != BOTTOM_SHEET_STATE_NONE) bottomSheetBehavior.state = bottomSheetState
-        val slideOffset = when (bottomSheetBehavior.state) {
-            BottomSheetBehavior.STATE_EXPANDED -> 1f
-            BottomSheetBehavior.STATE_COLLAPSED -> 0f
-            else -> -1f
+        bottomSheet.doOnLayout {
+            val slideOffset = when (bottomSheetBehavior.state) {
+                BottomSheetBehavior.STATE_EXPANDED -> 1f
+                BottomSheetBehavior.STATE_COLLAPSED -> 0f
+                else -> -1f
+            }
+            updateAlphaForBottomSheetSlide(slideOffset, hasMatchResults(), isEditingMatchResult())
         }
-        updateAlphaForBottomSheetSlide(slideOffset, hasMatchResults(), isEditingMatchResult())
     }
 
     private fun setupAddOrEditMatchInput() {
@@ -317,20 +333,6 @@ class RankingsFragment : DaggerFragment() {
                     refreshSnackBar.show()
                 }
             }
-        }
-    }
-
-    private fun setupOnBackPressed() {
-        requireActivity().addOnBackPressedCallback {
-            if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                } else {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                }
-                return@addOnBackPressedCallback true
-            }
-            false
         }
     }
 
@@ -528,6 +530,7 @@ class RankingsFragment : DaggerFragment() {
     override fun onDestroyView() {
         hideSoftInput()
         viewModel.resetAddOrEditMatchInputValid()
+        requireActivity().removeOnBackPressedCallback(onBackPressedCallback)
         super.onDestroyView()
     }
 
