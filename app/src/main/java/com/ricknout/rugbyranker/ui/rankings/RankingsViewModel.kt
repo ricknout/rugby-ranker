@@ -48,7 +48,7 @@ open class RankingsViewModel(
             value = if (hasMatchResults() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
                 null
             } else {
-                DateUtils.getDate(DateUtils.DATE_FORMAT, effectiveTimeMillis)
+                DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, effectiveTimeMillis)
             }
         }
         addSource(_matchResults) { _ ->
@@ -56,7 +56,7 @@ open class RankingsViewModel(
             value = if (hasMatchResults() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
                 null
             } else {
-                DateUtils.getDate(DateUtils.DATE_FORMAT, effectiveTimeMillis)
+                DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, effectiveTimeMillis)
             }
         }
     }

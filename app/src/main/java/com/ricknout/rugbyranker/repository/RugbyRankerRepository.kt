@@ -85,14 +85,6 @@ class RugbyRankerRepository(
 
     private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
 
-    fun getLatestWorldRugbyRankingsEffectiveTime(sport: Sport): String? {
-        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTime(sport)
-    }
-
-    fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport: Sport): LiveData<String> {
-        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport)
-    }
-
     fun getLatestWorldRugbyRankingsEffectiveTimeMillis(sport: Sport): Long {
         return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
     }

@@ -4,7 +4,6 @@ import com.ricknout.rugbyranker.api.Match
 import com.ricknout.rugbyranker.api.WorldRugbyMatchesResponse
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
 import com.ricknout.rugbyranker.api.WorldRugbyService
-import com.ricknout.rugbyranker.common.util.DateUtils
 import java.lang.IllegalArgumentException
 
 object WorldRugbyDataConverter {
@@ -23,10 +22,6 @@ object WorldRugbyDataConverter {
                     sport = sport
             )
         }
-    }
-
-    fun getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse: WorldRugbyRankingsResponse): String {
-        return DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, worldRugbyRankingsResponse.effective.millis, worldRugbyRankingsResponse.effective.gmtOffset.toInt())
     }
 
     fun getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse: WorldRugbyMatchesResponse, sport: Sport): List<WorldRugbyMatch> {
