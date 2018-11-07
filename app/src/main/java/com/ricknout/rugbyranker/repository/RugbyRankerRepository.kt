@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
+import com.ricknout.rugbyranker.api.WorldRugbyMatchesResponse
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
 import com.ricknout.rugbyranker.api.WorldRugbyService
 import com.ricknout.rugbyranker.common.util.DateUtils
@@ -142,6 +143,55 @@ class RugbyRankerRepository(
             }
         }
         return success
+    }
+
+    fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, onComplete: (success: Boolean) -> Unit) {
+        val sports = when (sport) {
+            Sport.MENS -> WorldRugbyService.SPORT_MENS
+            Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
+        }
+        val states = when (matchStatus) {
+            MatchStatus.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
+            MatchStatus.COMPLETE -> WorldRugbyService.STATE_COMPLETE
+        }
+        val millis = System.currentTimeMillis()
+        val startDate = when (matchStatus) {
+            MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT, millis)
+            MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT, millis)
+        }
+        val endDate = when (matchStatus) {
+            MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT, millis)
+            MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT, millis)
+        }
+        val sort = when (matchStatus) {
+            MatchStatus.UNPLAYED -> WorldRugbyService.SORT_ASC
+            MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
+        }
+        val page = 0
+        val callback = object : Callback<WorldRugbyMatchesResponse> {
+
+            override fun onResponse(call: Call<WorldRugbyMatchesResponse>, response: Response<WorldRugbyMatchesResponse>) {
+                if (response.isSuccessful) {
+                    val worldRugbyMatchesResponse = response.body()
+                    if (worldRugbyMatchesResponse == null) {
+                        onComplete(false)
+                        return
+                    }
+                    val worldRugbyMatches = WorldRugbyDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
+                    executor.execute {
+                        worldRugbyMatchDao.insert(worldRugbyMatches)
+                    }
+                    onComplete(true)
+                } else {
+                    onComplete(false)
+                }
+            }
+
+            override fun onFailure(call: Call<WorldRugbyMatchesResponse>, t: Throwable) {
+                onComplete(false)
+            }
+        }
+        worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).enqueue(callback)
     }
 
     companion object {

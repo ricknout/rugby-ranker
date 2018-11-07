@@ -41,6 +41,8 @@
 
     <string name="snackbar_fetching_world_rugby_rankings">Fetching World Rugby Rankings&#8230;</string>
     <string name="snackbar_failed_to_refresh_world_rugby_rankings">Failed to refresh World Rugby Rankings</string>
+    <string name="snackbar_fetching_world_rugby_matches">Fetching World Rugby Matches&#8230;</string>
+    <string name="snackbar_failed_to_refresh_world_rugby_matches">Failed to refresh World Rugby Matches</string>
 
     <string name="content_description_add_match_prediction">Add match prediction</string>
     <string name="content_description_reset_matches">Reset matches</string>
