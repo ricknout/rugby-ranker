@@ -3,10 +3,13 @@ package com.ricknout.rugbyranker.ui.common
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.R
+import com.ricknout.rugbyranker.common.util.DateUtils
+import com.ricknout.rugbyranker.util.FlagUtils
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
 
@@ -31,7 +34,18 @@ class WorldRugbyMatchPagedListAdapter : PagedListAdapter<WorldRugbyMatch, WorldR
 class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyMatch: WorldRugbyMatch) {
-        // TODO: Bind data to proper match layout
-        itemView.textView.text = "${worldRugbyMatch.firstTeamName} v ${worldRugbyMatch.secondTeamName} (${worldRugbyMatch.timeLabel})"
+        // TODO: Use string res placeholders and improve on this a bit
+        val date = DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, worldRugbyMatch.timeMillis)
+        itemView.dateTextView.text = date
+        val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
+        itemView.timeTextView.text = time
+        val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
+        val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
+        val teams = "$firstTeamFlag ${worldRugbyMatch.firstTeamName} - ${worldRugbyMatch.secondTeamName} $secondTeamFlag"
+        itemView.teamsTextView.text = teams
+        itemView.eventTextView.text = worldRugbyMatch.eventLabel
+        itemView.eventTextView.isVisible = worldRugbyMatch.eventLabel != null
+        itemView.venueTextView.text = worldRugbyMatch.venueName
+        itemView.venueTextView.isVisible = worldRugbyMatch.venueName != null
     }
 }

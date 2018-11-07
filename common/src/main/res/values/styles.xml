@@ -12,6 +12,7 @@
         <item name="bottomNavigationStyle">@style/RugbyRankerBottomNavigationView</item>
         <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
         <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
+        <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
     </style>
@@ -53,5 +54,12 @@
     </style>
 
     <style name="RugbyRankerTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+    <style name="RugbyRankerCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+        <item name="cardCornerRadius">@dimen/corner_radius_card_view</item>
+        <item name="strokeWidth">@dimen/stroke_width_card_view</item>
+        <item name="strokeColor">@color/light_grey</item>
+    </style>
 
 </resources>

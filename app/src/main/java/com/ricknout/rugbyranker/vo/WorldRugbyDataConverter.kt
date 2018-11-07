@@ -26,7 +26,7 @@ object WorldRugbyDataConverter {
     }
 
     fun getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse: WorldRugbyRankingsResponse): String {
-        return DateUtils.getDate(DateUtils.DATE_FORMAT, worldRugbyRankingsResponse.effective.millis, worldRugbyRankingsResponse.effective.gmtOffset.toInt())
+        return DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, worldRugbyRankingsResponse.effective.millis, worldRugbyRankingsResponse.effective.gmtOffset.toInt())
     }
 
     fun getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse: WorldRugbyMatchesResponse, sport: Sport): List<WorldRugbyMatch> {

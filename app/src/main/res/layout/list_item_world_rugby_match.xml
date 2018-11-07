@@ -1,22 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_standard"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- TODO: Implement proper match layout -->
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Team v Team (YYYY-MM-DD)"/>
+        android:padding="@dimen/spacing_double">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="YYYY-MM-DD" />
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_standard"
+            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintTop_toTopOf="@id/dateTextView"
+            app:layout_constraintBottom_toBottomOf="@id/dateTextView"
+            app:layout_constraintStart_toEndOf="@id/dateTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="HH:MM" />
+
+        <TextView
+            android:id="@+id/teamsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_standard"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/dateTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="🏳️ Team name - Team name 🏳️" />
+
+        <TextView
+            android:id="@+id/eventTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_standard"
+            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/teamsTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Event name" />
+
+        <TextView
+            android:id="@+id/venueTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+            app:layout_constraintTop_toBottomOf="@id/eventTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Venue name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

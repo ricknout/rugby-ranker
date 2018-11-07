@@ -85,7 +85,7 @@ class RugbyRankerRepository(
         worldRugbyService.getRankings(json, date).enqueue(callback)
     }
 
-    private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT)
+    private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
 
     fun getLatestWorldRugbyRankingsEffectiveTime(sport: Sport): String? {
         return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTime(sport)
@@ -113,12 +113,12 @@ class RugbyRankerRepository(
         }
         val millis = System.currentTimeMillis()
         val startDate = when (matchStatus) {
-            MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT, millis)
-            MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT, millis)
+            MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
+            MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
         }
         val endDate = when (matchStatus) {
-            MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT, millis)
-            MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT, millis)
+            MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
+            MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
         }
         val sort = when (matchStatus) {
             MatchStatus.UNPLAYED -> WorldRugbyService.SORT_ASC
@@ -156,12 +156,12 @@ class RugbyRankerRepository(
         }
         val millis = System.currentTimeMillis()
         val startDate = when (matchStatus) {
-            MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT, millis)
-            MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT, millis)
+            MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
+            MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
         }
         val endDate = when (matchStatus) {
-            MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT, millis)
-            MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT, millis)
+            MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
+            MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
         }
         val sort = when (matchStatus) {
             MatchStatus.UNPLAYED -> WorldRugbyService.SORT_ASC
