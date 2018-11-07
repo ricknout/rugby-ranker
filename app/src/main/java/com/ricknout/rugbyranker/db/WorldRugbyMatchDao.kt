@@ -15,9 +15,9 @@ interface WorldRugbyMatchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(worldRugbyMatches: List<WorldRugbyMatch>)
 
-    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :sport AND status = :matchStatus ORDER BY timeMillis ASC")
-    fun loadAsc(sport: Sport, matchStatus: MatchStatus): DataSource.Factory<Int, WorldRugbyMatch>
+    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :sport AND status = :matchStatus AND timeMillis > :millis ORDER BY timeMillis ASC")
+    fun loadAsc(sport: Sport, matchStatus: MatchStatus, millis: Long): DataSource.Factory<Int, WorldRugbyMatch>
 
-    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :sport AND status = :matchStatus ORDER BY timeMillis DESC")
-    fun loadDesc(sport: Sport, matchStatus: MatchStatus): DataSource.Factory<Int, WorldRugbyMatch>
+    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :sport AND status = :matchStatus AND timeMillis < :millis ORDER BY timeMillis DESC")
+    fun loadDesc(sport: Sport, matchStatus: MatchStatus, millis: Long): DataSource.Factory<Int, WorldRugbyMatch>
 }

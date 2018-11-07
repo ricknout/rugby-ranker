@@ -95,7 +95,8 @@ class RugbyRankerRepository(
     }
 
     fun loadLatestWorldRugbyMatches(sport: Sport, matchStatus: MatchStatus, asc: Boolean): LiveData<PagedList<WorldRugbyMatch>> {
-        val dataSourceFactory = if (asc) worldRugbyMatchDao.loadAsc(sport, matchStatus) else worldRugbyMatchDao.loadDesc(sport, matchStatus)
+        val millis = System.currentTimeMillis()
+        val dataSourceFactory = if (asc) worldRugbyMatchDao.loadAsc(sport, matchStatus, millis) else worldRugbyMatchDao.loadDesc(sport, matchStatus, millis)
         return dataSourceFactory.toLiveData(pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_DATABASE)
     }
 
@@ -118,11 +119,15 @@ class RugbyRankerRepository(
             MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT, millis)
             MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT, millis)
         }
+        val sort = when (matchStatus) {
+            MatchStatus.UNPLAYED -> WorldRugbyService.SORT_ASC
+            MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
+        }
         var page = 0
         var pageCount = Int.MAX_VALUE
         var success = false
         while (page < pageCount) {
-            val response = worldRugbyService.getMatches(sports, states, startDate, endDate, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).execute()
+            val response = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).execute()
             if (response.isSuccessful) {
                 val worldRugbyMatchesResponse = response.body() ?: break
                 val worldRugbyMatches = WorldRugbyDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)

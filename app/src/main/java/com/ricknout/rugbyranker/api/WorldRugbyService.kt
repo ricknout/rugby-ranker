@@ -19,6 +19,7 @@ interface WorldRugbyService {
             @Query("states") states: String,
             @Query("startDate") startDate: String,
             @Query("endDate") endDate: String,
+            @Query("sort") sort: String,
             @Query("page") page: Int,
             @Query("pageSize") pageSize: Int
     ): Call<WorldRugbyMatchesResponse>
@@ -30,6 +31,8 @@ interface WorldRugbyService {
         const val SPORT_WOMENS = "wru"
         const val STATE_UNPLAYED = "U"
         const val STATE_COMPLETE = "C"
+        const val SORT_ASC = "asc"
+        const val SORT_DESC = "desc"
         const val BASE_URL = "https://cmsapi.pulselive.com/"
     }
 }
