@@ -28,4 +28,40 @@
         android:label="InfoFragment"
         tools:layout="@layout/fragment_info" />
 
+    <fragment
+        android:id="@+id/mensFixturesFragment"
+        android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
+        android:label="MensFixturesFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mensResultsFragment"
+        android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
+        android:label="MensResultsFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensFixturesFragment"
+        android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
+        android:label="WomensFixturesFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensResultsFragment"
+        android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
+        android:label="WomensResultsFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
+    </fragment>
+
 </navigation>

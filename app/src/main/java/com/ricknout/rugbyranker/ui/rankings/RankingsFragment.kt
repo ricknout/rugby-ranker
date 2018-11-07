@@ -353,9 +353,9 @@ class RankingsFragment : DaggerFragment() {
     }
 
     private fun setTitle() {
-        titleTextView.setText(when (rankingsType) {
-            RankingsType.MENS -> R.string.title_mens_rugby_rankings
-            RankingsType.WOMENS -> R.string.title_womens_rugby_rankings
+        titleTextView.setText(when (sport) {
+            Sport.MENS -> R.string.title_mens_rugby_rankings
+            Sport.WOMENS -> R.string.title_womens_rugby_rankings
         })
     }
 

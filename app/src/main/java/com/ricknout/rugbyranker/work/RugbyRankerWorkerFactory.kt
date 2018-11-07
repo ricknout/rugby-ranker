@@ -20,6 +20,18 @@ class RugbyRankerWorkerFactory @Inject constructor(private val rugbyRankerReposi
             WomensWorldRugbyRankingsWorker::class.java.name -> WomensWorldRugbyRankingsWorker(
                     appContext, workerParameters, rugbyRankerRepository
             )
+            MensUnplayedWorldRugbyMatchesWorker::class.java.name -> MensUnplayedWorldRugbyMatchesWorker(
+                    appContext, workerParameters, rugbyRankerRepository
+            )
+            MensCompleteWorldRugbyMatchesWorker::class.java.name -> MensCompleteWorldRugbyMatchesWorker(
+                    appContext, workerParameters, rugbyRankerRepository
+            )
+            WomensUnplayedWorldRugbyMatchesWorker::class.java.name -> WomensUnplayedWorldRugbyMatchesWorker(
+                    appContext, workerParameters, rugbyRankerRepository
+            )
+            WomensCompleteWorldRugbyMatchesWorker::class.java.name -> WomensCompleteWorldRugbyMatchesWorker(
+                    appContext, workerParameters, rugbyRankerRepository
+            )
             else -> {
                 try {
                     val clazz = Class.forName(workerClassName).asSubclass<Worker>(Worker::class.java)

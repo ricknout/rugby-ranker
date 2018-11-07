@@ -87,10 +87,11 @@ class AppModule {
     fun provideRugbyRankerRepository(
             worldRugbyService: WorldRugbyService,
             worldRugbyRankingDao: WorldRugbyRankingDao,
+            worldRugbyMatchDao: WorldRugbyMatchDao,
             rugbyRankerSharedPreferences: RugbyRankerSharedPreferences,
             executor: Executor
     ) : RugbyRankerRepository {
-        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, rugbyRankerSharedPreferences, executor)
+        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, worldRugbyMatchDao, rugbyRankerSharedPreferences, executor)
     }
 
     @Provides

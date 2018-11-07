@@ -7,9 +7,11 @@ import java.util.SimpleTimeZone
 
 object DateUtils {
 
-    fun getCurrentDate(format: String): String {
+    fun getCurrentDate(format: String) = getDate(format, System.currentTimeMillis())
+
+    fun getDate(format: String, millis: Long): String {
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
-        val time = Calendar.getInstance().time
+        val time = Calendar.getInstance().apply { timeInMillis = millis }.time
         return simpleDateFormat.format(time)
     }
 
@@ -17,6 +19,24 @@ object DateUtils {
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
         simpleDateFormat.timeZone = SimpleTimeZone(gmtOffset, "GMT")
         val time = Calendar.getInstance().apply { timeInMillis = millis }.time
+        return simpleDateFormat.format(time)
+    }
+
+    fun getYearBeforeDate(format: String, millis: Long): String {
+        val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
+        val time = Calendar.getInstance().apply {
+            timeInMillis = millis
+            add(Calendar.YEAR, -1)
+        }.time
+        return simpleDateFormat.format(time)
+    }
+
+    fun getYearAfterDate(format: String, millis: Long): String {
+        val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
+        val time = Calendar.getInstance().apply {
+            timeInMillis = millis
+            add(Calendar.YEAR, 1)
+        }.time
         return simpleDateFormat.format(time)
     }
 

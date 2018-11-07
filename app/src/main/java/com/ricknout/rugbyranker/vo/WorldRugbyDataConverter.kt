@@ -3,6 +3,7 @@ package com.ricknout.rugbyranker.vo
 import com.ricknout.rugbyranker.api.Match
 import com.ricknout.rugbyranker.api.WorldRugbyMatchesResponse
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
+import com.ricknout.rugbyranker.api.WorldRugbyService
 import com.ricknout.rugbyranker.common.util.DateUtils
 import java.lang.IllegalArgumentException
 
@@ -13,7 +14,7 @@ object WorldRugbyDataConverter {
             WorldRugbyRanking(
                     teamId = entry.team.id,
                     teamName = entry.team.name,
-                    teamAbbreviation = entry.team.abbreviation,
+                    teamAbbreviation = entry.team.abbreviation!!,
                     position = entry.pos,
                     previousPosition = entry.previousPos,
                     points = entry.pts,
@@ -25,7 +26,7 @@ object WorldRugbyDataConverter {
     }
 
     fun getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse: WorldRugbyRankingsResponse): String {
-        return DateUtils.getDate(DateUtils.DATE_FORMAT, worldRugbyRankingsResponse.effective.millis, worldRugbyRankingsResponse.effective.gmtOffset)
+        return DateUtils.getDate(DateUtils.DATE_FORMAT, worldRugbyRankingsResponse.effective.millis, worldRugbyRankingsResponse.effective.gmtOffset.toInt())
     }
 
     fun getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse: WorldRugbyMatchesResponse, sport: Sport): List<WorldRugbyMatch> {
@@ -45,30 +46,29 @@ object WorldRugbyDataConverter {
                     secondTeamScore = match.scores[1],
                     timeLabel = match.time.label,
                     timeMillis = match.time.millis,
-                    timeGmtOffset = match.time.gmtOffset,
-                    venueId = match.venue.id,
-                    venueName = match.venue.name,
-                    venueCity = match.venue.city,
-                    venueCountry = match.venue.country,
-                    eventId = match.events[0].id,
-                    eventLabel = match.events[0].label,
+                    timeGmtOffset = match.time.gmtOffset.toInt(),
+                    venueId = match.venue?.id,
+                    venueName = match.venue?.name,
+                    venueCity = match.venue?.city,
+                    venueCountry = match.venue?.country,
+                    eventId = match.events.firstOrNull()?.id,
+                    eventLabel = match.events.firstOrNull()?.label,
                     eventSport = sport,
-                    eventRankingsWeight = match.events[0].rankingsWeight,
-                    eventStartTimeLabel = match.events[0].start.label,
-                    eventStartTimeMillis = match.events[0].start.millis,
-                    eventStartTimeGmtOffset = match.events[0].start.gmtOffset,
-                    eventEndTimeLabel = match.events[0].end.label,
-                    eventEndTimeMillis = match.events[0].end.millis,
-                    eventEndTimeGmtOffset = match.events[0].end.gmtOffset
+                    eventRankingsWeight = match.events.firstOrNull()?.rankingsWeight,
+                    eventStartTimeLabel = match.events.firstOrNull()?.start?.label,
+                    eventStartTimeMillis = match.events.firstOrNull()?.start?.millis,
+                    eventStartTimeGmtOffset = match.events.firstOrNull()?.start?.gmtOffset?.toInt(),
+                    eventEndTimeLabel = match.events.firstOrNull()?.end?.label,
+                    eventEndTimeMillis = match.events.firstOrNull()?.end?.millis,
+                    eventEndTimeGmtOffset = match.events.firstOrNull()?.end?.gmtOffset?.toInt()
             )
         }
     }
 
     private fun getMatchStatusFromMatch(match: Match): MatchStatus {
         return when (match.status) {
-            "U" -> MatchStatus.UNPLAYED
-            "L" -> MatchStatus.LIVE
-            "C" -> MatchStatus.COMPLETE
+            WorldRugbyService.STATE_UNPLAYED -> MatchStatus.UNPLAYED
+            WorldRugbyService.STATE_COMPLETE -> MatchStatus.COMPLETE
             else -> throw IllegalArgumentException("Unknown match status ${match.status}")
         }
     }
