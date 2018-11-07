@@ -7,38 +7,39 @@ import androidx.lifecycle.LiveData
 
 class RugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
-    fun setLatestWorldRugbyRankingsEffectiveTime(effectiveTime: String, sport: Sport) {
+    fun setLatestWorldRugbyRankingsEffectiveTimeMillis(millis: Long, sport: Sport) {
         when (sport) {
-            Sport.MENS -> setMensEffectiveTime(effectiveTime)
-            Sport.WOMENS -> setWomensEffectiveTime(effectiveTime)
+            Sport.MENS -> setMensEffectiveTimeMillis(millis)
+            Sport.WOMENS -> setWomensEffectiveTimeMillis(millis)
         }
     }
 
-    private fun setMensEffectiveTime(effectiveTime: String) = sharedPreferences.edit { putString(KEY_EFFECTIVE_TIME_MENS, effectiveTime) }
+    private fun setMensEffectiveTimeMillis(millis: Long) = sharedPreferences.edit { putLong(KEY_EFFECTIVE_TIME_MILLIS_MENS, millis) }
 
-    private fun setWomensEffectiveTime(effectiveTime: String) = sharedPreferences.edit { putString(KEY_EFFECTIVE_TIME_WOMENS, effectiveTime) }
+    private fun setWomensEffectiveTimeMillis(millis: Long) = sharedPreferences.edit { putLong(KEY_EFFECTIVE_TIME_MILLIS_WOMENS, millis) }
 
-    fun getLatestWorldRugbyRankingsEffectiveTime(sport: Sport): String? = when (sport) {
-        Sport.MENS -> getMensEffectiveTime()
-        Sport.WOMENS -> getWomensEffectiveTime()
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillis(sport: Sport) = when (sport) {
+        Sport.MENS -> getMensEffectiveTimeMillis()
+        Sport.WOMENS -> getWomensEffectiveTimeMillis()
     }
 
-    private fun getMensEffectiveTime() = sharedPreferences.getString(KEY_EFFECTIVE_TIME_MENS, null)
+    private fun getMensEffectiveTimeMillis() = sharedPreferences.getLong(KEY_EFFECTIVE_TIME_MILLIS_MENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
 
-    private fun getWomensEffectiveTime() = sharedPreferences.getString(KEY_EFFECTIVE_TIME_WOMENS, null)
+    private fun getWomensEffectiveTimeMillis() = sharedPreferences.getLong(KEY_EFFECTIVE_TIME_MILLIS_WOMENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
 
-    fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport: Sport): LiveData<String> = when (sport) {
-        Sport.MENS -> getMensEffectiveTimeLiveData()
-        Sport.WOMENS -> getWomensEffectiveTimeLiveData()
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport: Sport): LiveData<Long> = when (sport) {
+        Sport.MENS -> getMensEffectiveTimeMillisLiveData()
+        Sport.WOMENS -> getWomensEffectiveTimeMillisLiveData()
     }
 
-    private fun getMensEffectiveTimeLiveData() = StringSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_MENS, null)
+    private fun getMensEffectiveTimeMillisLiveData() = LongSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_MILLIS_MENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
 
-    private fun getWomensEffectiveTimeLiveData() = StringSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_WOMENS, null)
+    private fun getWomensEffectiveTimeMillisLiveData() = LongSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_MILLIS_WOMENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
 
     companion object {
         const val SHARED_PREFERENCES_NAME = "rugby_ranker_shared_preferences"
-        private const val KEY_EFFECTIVE_TIME_MENS = "effective_time_mens"
-        private const val KEY_EFFECTIVE_TIME_WOMENS = "effective_time_womens"
+        const val DEFAULT_EFFECTIVE_TIME_MILLIS = -1L
+        private const val KEY_EFFECTIVE_TIME_MILLIS_MENS = "effective_time_millis_mens"
+        private const val KEY_EFFECTIVE_TIME_MILLIS_WOMENS = "effective_time_millis_womens"
     }
 }

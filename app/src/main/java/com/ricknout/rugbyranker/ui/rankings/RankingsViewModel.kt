@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ricknout.rugbyranker.common.util.DateUtils
+import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.vo.MatchResult
 import com.ricknout.rugbyranker.vo.RankingsCalculator
@@ -42,11 +44,20 @@ open class RankingsViewModel(
     val latestWorldRugbyRankingsStatuses = rugbyRankerWorkManager.getLatestWorldRugbyRankingsStatuses(sport)
 
     private val _latestWorldRugbyRankingsEffectiveTime = MediatorLiveData<String>().apply {
-        addSource(rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport)) { effectiveTime ->
-            value = if (hasMatchResults()) null else effectiveTime
+        addSource(rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)) { effectiveTimeMillis ->
+            value = if (hasMatchResults() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
+                null
+            } else {
+                DateUtils.getDate(DateUtils.DATE_FORMAT, effectiveTimeMillis)
+            }
         }
         addSource(_matchResults) { _ ->
-            value = if (hasMatchResults()) null else rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTime(sport)
+            val effectiveTimeMillis = rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
+            value = if (hasMatchResults() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
+                null
+            } else {
+                DateUtils.getDate(DateUtils.DATE_FORMAT, effectiveTimeMillis)
+            }
         }
     }
     val latestWorldRugbyRankingsEffectiveTime: LiveData<String>

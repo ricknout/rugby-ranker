@@ -44,8 +44,7 @@ class RugbyRankerRepository(
             executor.execute {
                 worldRugbyRankingDao.insert(worldRugbyRankings)
             }
-            val effectiveTime = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
-            rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTime(effectiveTime, sport)
+            rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
             return true
         }
         return false
@@ -70,8 +69,7 @@ class RugbyRankerRepository(
                     executor.execute {
                         worldRugbyRankingDao.insert(worldRugbyRankings)
                     }
-                    val effectiveTime = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
-                    rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTime(effectiveTime, sport)
+                    rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
                     onComplete(true)
                 } else {
                     onComplete(false)
@@ -93,6 +91,14 @@ class RugbyRankerRepository(
 
     fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport: Sport): LiveData<String> {
         return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeLiveData(sport)
+    }
+
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillis(sport: Sport): Long {
+        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
+    }
+
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport: Sport): LiveData<Long> {
+        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)
     }
 
     fun loadLatestWorldRugbyMatches(sport: Sport, matchStatus: MatchStatus, asc: Boolean): LiveData<PagedList<WorldRugbyMatch>> {

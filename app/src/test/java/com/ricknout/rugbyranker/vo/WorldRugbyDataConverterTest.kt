@@ -61,18 +61,4 @@ class WorldRugbyDataConverterTest {
             assertEquals(womensWorldRugbyRanking.sport, Sport.WOMENS)
         }
     }
-
-    @Test
-    fun getEffectiveTimeFromWorldRugbyRankingsResponse() {
-        val effectiveTime = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
-        assertEquals(effectiveTime, "2018-10-29")
-        val effectiveGmtMinus10 = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = -10)
-        val worldRugbyRankingsResponseGmtMinus10 = worldRugbyRankingsResponse.copy(effective = effectiveGmtMinus10)
-        val effectiveTimeGmtMinus10 = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtMinus10)
-        assertEquals(effectiveTimeGmtMinus10, "2018-10-28")
-        val effectiveGmtPlus10 = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = 10)
-        val worldRugbyRankingsResponseGmtPlus10 = worldRugbyRankingsResponse.copy(effective = effectiveGmtPlus10)
-        val effectiveTimeGmtPlus10 = WorldRugbyDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponseGmtPlus10)
-        assertEquals(effectiveTimeGmtPlus10, "2018-10-29")
-    }
 }
