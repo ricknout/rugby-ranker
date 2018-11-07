@@ -37,8 +37,7 @@ class RugbyRankerRepository(
             executor.execute {
                 worldRugbyRankingDao.insert(worldRugbyRankings)
             }
-            val effectiveTime = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
-            rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTime(effectiveTime, rankingsType)
+            rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, rankingsType)
             return true
         }
         return false
@@ -63,8 +62,7 @@ class RugbyRankerRepository(
                     executor.execute {
                         worldRugbyRankingDao.insert(worldRugbyRankings)
                     }
-                    val effectiveTime = WorldRugbyRankingDataConverter.getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse)
-                    rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTime(effectiveTime, rankingsType)
+                    rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, rankingsType)
                     onComplete(true)
                 } else {
                     onComplete(false)
@@ -80,11 +78,11 @@ class RugbyRankerRepository(
 
     private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT)
 
-    fun getLatestWorldRugbyRankingsEffectiveTime(rankingsType: RankingsType): String? {
-        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTime(rankingsType)
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillis(rankingsType: RankingsType): Long {
+        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillis(rankingsType)
     }
 
-    fun getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType: RankingsType): LiveData<String> {
-        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeLiveData(rankingsType)
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(rankingsType: RankingsType): LiveData<Long> {
+        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(rankingsType)
     }
 }

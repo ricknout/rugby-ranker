@@ -1,7 +1,6 @@
 package com.ricknout.rugbyranker.vo
 
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
-import com.ricknout.rugbyranker.common.util.DateUtils
 
 object WorldRugbyRankingDataConverter {
 
@@ -19,9 +18,5 @@ object WorldRugbyRankingDataConverter {
                     rankingsType = rankingsType
             )
         }
-    }
-
-    fun getEffectiveTimeFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse: WorldRugbyRankingsResponse): String {
-        return DateUtils.getDate(DateUtils.DATE_FORMAT, worldRugbyRankingsResponse.effective.millis, worldRugbyRankingsResponse.effective.gmtOffset)
     }
 }
