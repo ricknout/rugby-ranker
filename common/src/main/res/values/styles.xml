@@ -56,10 +56,8 @@
     <style name="RugbyRankerTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
 
     <style name="RugbyRankerCardView" parent="Widget.MaterialComponents.CardView">
-        <item name="cardElevation">0dp</item>
+        <item name="cardElevation">@dimen/elevation_card_view</item>
         <item name="cardCornerRadius">@dimen/corner_radius_card_view</item>
-        <item name="strokeWidth">@dimen/stroke_width_card_view</item>
-        <item name="strokeColor">@color/medium_grey</item>
     </style>
 
 </resources>
