@@ -17,11 +17,24 @@
         android:padding="@dimen/spacing_double">
 
         <TextView
+            android:id="@+id/teamsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="🏳️ Team name - Team name 🏳️" />
+
+        <TextView
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/spacing_standard"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintTop_toBottomOf="@id/teamsTextView"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="YYYY-MM-DD" />
 
@@ -30,25 +43,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_standard"
-            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
             app:layout_constraintTop_toTopOf="@id/dateTextView"
             app:layout_constraintBottom_toBottomOf="@id/dateTextView"
             app:layout_constraintStart_toEndOf="@id/dateTextView"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="HH:MM" />
-
-        <TextView
-            android:id="@+id/teamsTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_standard"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="?android:textColorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/dateTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="🏳️ Team name - Team name 🏳️" />
 
         <TextView
             android:id="@+id/eventTextView"
@@ -57,7 +57,7 @@
             android:layout_marginTop="@dimen/spacing_standard"
             android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
             android:textColor="?android:attr/textColorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/teamsTextView"
+            app:layout_constraintTop_toBottomOf="@id/dateTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Event name" />
