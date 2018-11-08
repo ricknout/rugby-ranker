@@ -278,16 +278,16 @@ class RankingsFragment : DaggerFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel.worldRugbyRankings.observe(this, Observer { worldRugbyRankings ->
+        viewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->
             worldRugbyRankingAdapter.submitList(worldRugbyRankings)
             val isEmpty = worldRugbyRankings?.isEmpty() ?: true
             addMatchFab.isEnabled = !isEmpty
             progressBar.isVisible = isEmpty
         })
-        viewModel.latestWorldRugbyRankings.observe(this, Observer { latestWorldRugbyRankings ->
+        viewModel.latestWorldRugbyRankings.observe(viewLifecycleOwner, Observer { latestWorldRugbyRankings ->
             assignWorldRugbyRankingsToTeamPopupMenus(latestWorldRugbyRankings)
         })
-        viewModel.latestWorldRugbyRankingsStatuses.observe(this, Observer { workStatuses ->
+        viewModel.latestWorldRugbyRankingsStatuses.observe(viewLifecycleOwner, Observer { workStatuses ->
             val workStatus = if (workStatuses != null && !workStatuses.isEmpty()) workStatuses[0] else return@Observer
             when (workStatus.state) {
                 State.RUNNING -> {
@@ -301,21 +301,21 @@ class RankingsFragment : DaggerFragment() {
                 }
             }
         })
-        viewModel.latestWorldRugbyRankingsEffectiveTime.observe(this, Observer { effectiveTime ->
+        viewModel.latestWorldRugbyRankingsEffectiveTime.observe(viewLifecycleOwner, Observer { effectiveTime ->
             setSubtitle(effectiveTime)
         })
-        viewModel.refreshingLatestWorldRugbyRankings.observe(this, Observer { refreshingLatestWorldRugbyRankings ->
+        viewModel.refreshingLatestWorldRugbyRankings.observe(viewLifecycleOwner, Observer { refreshingLatestWorldRugbyRankings ->
             swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyRankings
         })
-        viewModel.matchResults.observe(this, Observer { matchResults ->
+        viewModel.matchResults.observe(viewLifecycleOwner, Observer { matchResults ->
             matchResultAdapter.submitList(matchResults)
             val isEmpty = matchResults?.isEmpty() ?: true
             updateUiForMatchResults(!isEmpty)
         })
-        viewModel.addOrEditMatchInputValid.observe(this, Observer { addOrEditMatchInputValid ->
+        viewModel.addOrEditMatchInputValid.observe(viewLifecycleOwner, Observer { addOrEditMatchInputValid ->
             addOrEditButton.isEnabled = addOrEditMatchInputValid
         })
-        viewModel.editingMatchResult.observe(this, Observer { editingMatchResult ->
+        viewModel.editingMatchResult.observe(viewLifecycleOwner, Observer { editingMatchResult ->
             val isEditing = editingMatchResult != null
             addOrEditMatchTitleTextView.setText(if (isEditing) R.string.title_edit_match_prediction else R.string.title_add_match_prediction)
             cancelButton.isInvisible = !isEditing
