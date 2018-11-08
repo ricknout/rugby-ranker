@@ -59,7 +59,7 @@
         <item name="cardElevation">0dp</item>
         <item name="cardCornerRadius">@dimen/corner_radius_card_view</item>
         <item name="strokeWidth">@dimen/stroke_width_card_view</item>
-        <item name="strokeColor">@color/light_grey</item>
+        <item name="strokeColor">@color/medium_grey</item>
     </style>
 
 </resources>

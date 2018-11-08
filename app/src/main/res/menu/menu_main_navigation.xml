@@ -12,7 +12,7 @@
         android:title="@string/title_womens" />
 
     <item
-        android:id="@id/mensResultsFragment"
+        android:id="@id/infoFragment"
         android:icon="@drawable/asl_info_outline_black_24dp"
         android:title="@string/title_info" />
 
