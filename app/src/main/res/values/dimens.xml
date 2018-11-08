@@ -18,5 +18,6 @@
     <dimen name="corner_radius_bottom_sheet">4dp</dimen>
 
     <dimen name="text_size_ranking_auto_size_max">16sp</dimen>
+    <dimen name="text_size_match_auto_size_max">18sp</dimen>
 
 </resources>

@@ -30,8 +30,9 @@ class MatchesFragment : DaggerFragment() {
 
     private lateinit var workerSnackBar: Snackbar
     private lateinit var refreshSnackBar: Snackbar
+    private var showScores: Boolean = false
 
-    private val worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter()
+    private lateinit var worldRugbyMatchPagedListAdapter: WorldRugbyMatchPagedListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
             = inflater.inflate(R.layout.fragment_matches, container, false)
@@ -41,6 +42,7 @@ class MatchesFragment : DaggerFragment() {
         sport = Sport.values()[sportOrdinal]
         val matchStatusOrdinal = MatchesFragmentArgs.fromBundle(arguments).matchStatusOrdinal
         matchStatus = MatchStatus.values()[matchStatusOrdinal]
+        showScores = MatchesFragmentArgs.fromBundle(arguments).showScores
         viewModel = when (sport) {
             Sport.MENS -> {
                 when (matchStatus) {
@@ -66,6 +68,7 @@ class MatchesFragment : DaggerFragment() {
     }
 
     private fun setupRecyclerView() {
+        worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter(showScores)
         matchesRecyclerView.adapter = worldRugbyMatchPagedListAdapter
     }
 
