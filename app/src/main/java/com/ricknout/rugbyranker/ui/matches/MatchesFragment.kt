@@ -80,12 +80,12 @@ class MatchesFragment : DaggerFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel.latestWorldRugbyMatches.observe(this, Observer { latestWorldRugbyMatches ->
+        viewModel.latestWorldRugbyMatches.observe(viewLifecycleOwner, Observer { latestWorldRugbyMatches ->
             worldRugbyMatchPagedListAdapter.submitList(latestWorldRugbyMatches)
             val isEmpty = latestWorldRugbyMatches?.isEmpty() ?: true
             progressBar.isVisible = isEmpty
         })
-        viewModel.latestWorldRugbyMatchesStatuses.observe(this, Observer { workStatuses ->
+        viewModel.latestWorldRugbyMatchesStatuses.observe(viewLifecycleOwner, Observer { workStatuses ->
             val workStatus = if (workStatuses != null && !workStatuses.isEmpty()) workStatuses[0] else return@Observer
             when (workStatus.state) {
                 State.RUNNING -> {
@@ -99,7 +99,7 @@ class MatchesFragment : DaggerFragment() {
                 }
             }
         })
-        viewModel.refreshingLatestWorldRugbyMatches.observe(this, Observer { refreshingLatestWorldRugbyMatches ->
+        viewModel.refreshingLatestWorldRugbyMatches.observe(viewLifecycleOwner, Observer { refreshingLatestWorldRugbyMatches ->
             swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyMatches
         })
     }
