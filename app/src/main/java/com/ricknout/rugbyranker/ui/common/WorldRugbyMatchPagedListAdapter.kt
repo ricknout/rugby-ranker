@@ -14,7 +14,8 @@ import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
 
 class WorldRugbyMatchPagedListAdapter(
-        private val showScores: Boolean
+        private val showScores: Boolean,
+        private val showTime: Boolean
 ) : PagedListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
@@ -22,7 +23,7 @@ class WorldRugbyMatchPagedListAdapter(
 
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
-        holder.bind(worldRugbyMatch, showScores)
+        holder.bind(worldRugbyMatch, showScores, showTime)
     }
 
     companion object {
@@ -35,11 +36,15 @@ class WorldRugbyMatchPagedListAdapter(
 
 class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(worldRugbyMatch: WorldRugbyMatch, showScores: Boolean) {
+    fun bind(worldRugbyMatch: WorldRugbyMatch, showScores: Boolean, showTime: Boolean) {
         val date = DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, worldRugbyMatch.timeMillis)
         itemView.dateTextView.text = date
-        val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
-        itemView.timeTextView.text = time
+        if (showTime) {
+            val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
+            itemView.timeTextView.text = time
+        } else {
+            itemView.timeTextView.text = null
+        }
         val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
         val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
         val teams = if (showScores) {

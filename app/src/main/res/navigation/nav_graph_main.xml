@@ -36,6 +36,7 @@
         <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
         <argument android:name="showScores" android:defaultValue="false" app:argType="boolean" />
+        <argument android:name="showTime" android:defaultValue="true" app:argType="boolean" />
     </fragment>
 
     <fragment
@@ -46,6 +47,7 @@
         <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
         <argument android:name="showScores" android:defaultValue="true" app:argType="boolean" />
+        <argument android:name="showTime" android:defaultValue="false" app:argType="boolean" />
     </fragment>
 
     <fragment
@@ -56,6 +58,7 @@
         <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
         <argument android:name="showScores" android:defaultValue="false" app:argType="boolean" />
+        <argument android:name="showTime" android:defaultValue="true" app:argType="boolean" />
     </fragment>
 
     <fragment
@@ -66,6 +69,7 @@
         <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
         <argument android:name="showScores" android:defaultValue="true" app:argType="boolean" />
+        <argument android:name="showTime" android:defaultValue="false" app:argType="boolean" />
     </fragment>
 
 </navigation>
