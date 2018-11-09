@@ -288,7 +288,7 @@ class RankingsFragment : DaggerFragment() {
             assignWorldRugbyRankingsToTeamPopupMenus(latestWorldRugbyRankings)
         })
         viewModel.latestWorldRugbyRankingsWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
-            val workInfo = if (workInfos != null && !workInfos.isEmpty()) workInfos[0] else return@Observer
+            val workInfo = workInfos?.firstOrNull() ?: return@Observer
             when (workInfo.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
@@ -362,7 +362,7 @@ class RankingsFragment : DaggerFragment() {
     private fun setSubtitle(effectiveTime: String?) {
         when {
             effectiveTime != null -> {
-                subtitleTextView.text = getString(R.string.subtitle_last_updated, effectiveTime)
+                subtitleTextView.text = getString(R.string.subtitle_last_updated_by_world_rugby, effectiveTime)
                 subtitleTextView.isVisible = true
             }
             hasMatchResults() -> {
