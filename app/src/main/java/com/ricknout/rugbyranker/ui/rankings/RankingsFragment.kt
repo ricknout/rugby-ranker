@@ -30,7 +30,7 @@ import com.ricknout.rugbyranker.util.FlagUtils
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
-import androidx.work.State
+import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.vo.Sport
 import kotlinx.android.synthetic.main.fragment_rankings.*
@@ -287,9 +287,9 @@ class RankingsFragment : DaggerFragment() {
         viewModel.latestWorldRugbyRankings.observe(viewLifecycleOwner, Observer { latestWorldRugbyRankings ->
             assignWorldRugbyRankingsToTeamPopupMenus(latestWorldRugbyRankings)
         })
-        viewModel.latestWorldRugbyRankingsStatuses.observe(viewLifecycleOwner, Observer { workStatuses ->
-            val workStatus = if (workStatuses != null && !workStatuses.isEmpty()) workStatuses[0] else return@Observer
-            when (workStatus.state) {
+        viewModel.latestWorldRugbyRankingsWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
+            val workInfo = if (workInfos != null && !workInfos.isEmpty()) workInfos[0] else return@Observer
+            when (workInfo.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
                     workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_rankings)

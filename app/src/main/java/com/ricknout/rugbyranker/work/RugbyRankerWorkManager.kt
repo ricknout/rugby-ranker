@@ -6,7 +6,7 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.WorkStatus
+import androidx.work.WorkInfo
 import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.vo.Sport
 import java.util.concurrent.TimeUnit
@@ -35,10 +35,10 @@ class RugbyRankerWorkManager {
         workManager.enqueueUniquePeriodicWork(uniqueWorkName, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, workRequest)
     }
 
-    fun getLatestWorldRugbyRankingsStatuses(sport: Sport): LiveData<List<WorkStatus>> {
+    fun getLatestWorldRugbyRankingsWorkInfos(sport: Sport): LiveData<List<WorkInfo>> {
         val uniqueWorkName = getRankingsUniqueWorkName(sport)
         val workManager = WorkManager.getInstance()
-        return workManager.getStatusesForUniqueWorkLiveData(uniqueWorkName)
+        return workManager.getWorkInfosForUniqueWorkLiveData(uniqueWorkName)
     }
 
     private fun getRankingsUniqueWorkName(sport: Sport) = when (sport) {
@@ -82,10 +82,10 @@ class RugbyRankerWorkManager {
         workManager.enqueueUniquePeriodicWork(uniqueWorkName, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, workRequest)
     }
 
-    fun getLatestWorldRugbyMatchesStatuses(sport: Sport, matchStatus: MatchStatus): LiveData<List<WorkStatus>> {
+    fun getLatestWorldRugbyMatchesWorkInfos(sport: Sport, matchStatus: MatchStatus): LiveData<List<WorkInfo>> {
         val uniqueWorkName = getMatchesUniqueWorkName(sport, matchStatus)
         val workManager = WorkManager.getInstance()
-        return workManager.getStatusesForUniqueWorkLiveData(uniqueWorkName)
+        return workManager.getWorkInfosForUniqueWorkLiveData(uniqueWorkName)
     }
 
     private fun getMatchesUniqueWorkName(sport: Sport, matchStatus: MatchStatus) = when (sport) {
