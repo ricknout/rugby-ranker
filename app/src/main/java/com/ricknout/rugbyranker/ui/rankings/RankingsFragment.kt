@@ -362,7 +362,7 @@ class RankingsFragment : DaggerFragment() {
     private fun setSubtitle(effectiveTime: String?) {
         when {
             effectiveTime != null -> {
-                subtitleTextView.text = getString(R.string.subtitle_last_updated, effectiveTime)
+                subtitleTextView.text = getString(R.string.subtitle_last_updated_by_world_rugby, effectiveTime)
                 subtitleTextView.isVisible = true
             }
             hasMatchResults() -> {

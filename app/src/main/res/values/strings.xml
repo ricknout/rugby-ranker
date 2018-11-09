@@ -10,7 +10,7 @@
     <string name="subtitle_position" translatable="false">#</string>
     <string name="subtitle_team">Team</string>
     <string name="subtitle_points">Points</string>
-    <string name="subtitle_last_updated">Last updated: %s</string>
+    <string name="subtitle_last_updated_by_world_rugby">Last updated by World Rugby: %s</string>
     <plurals name="subtitle_predicting_matches">
         <item quantity="one">Predicting %d match</item>
         <item quantity="other">Predicting %d matches</item>
