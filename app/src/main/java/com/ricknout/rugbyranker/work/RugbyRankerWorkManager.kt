@@ -6,7 +6,7 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.WorkStatus
+import androidx.work.WorkInfo
 import com.ricknout.rugbyranker.vo.RankingsType
 import java.util.concurrent.TimeUnit
 
@@ -34,10 +34,10 @@ class RugbyRankerWorkManager {
         workManager.enqueueUniquePeriodicWork(uniqueWorkName, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, workRequest)
     }
 
-    fun getLatestWorldRugbyRankingsStatuses(rankingsType: RankingsType): LiveData<List<WorkStatus>> {
+    fun getLatestWorldRugbyRankingsWorkInfos(rankingsType: RankingsType): LiveData<List<WorkInfo>> {
         val uniqueWorkName = getUniqueWorkName(rankingsType)
         val workManager = WorkManager.getInstance()
-        return workManager.getStatusesForUniqueWorkLiveData(uniqueWorkName)
+        return workManager.getWorkInfosForUniqueWorkLiveData(uniqueWorkName)
     }
 
     private fun getUniqueWorkName(rankingsType: RankingsType) = when (rankingsType) {

@@ -16,7 +16,7 @@ buildscript {
     ext.lifecycle_version = "2.0.0"
     ext.room_version = "2.1.0-alpha02"
     ext.navigation_version = "1.0.0-alpha07"
-    ext.work_version = "1.0.0-alpha10"
+    ext.work_version = "1.0.0-alpha11"
     ext.retrofit_version = "2.4.0"
     ext.dagger_version = '2.16'
     ext.oss_licenses_plugin_version = "0.9.3"
