@@ -288,7 +288,7 @@ class RankingsFragment : DaggerFragment() {
             assignWorldRugbyRankingsToTeamPopupMenus(latestWorldRugbyRankings)
         })
         viewModel.latestWorldRugbyRankingsWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
-            val workInfo = if (workInfos != null && !workInfos.isEmpty()) workInfos[0] else return@Observer
+            val workInfo = workInfos?.firstOrNull() ?: return@Observer
             when (workInfo.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
