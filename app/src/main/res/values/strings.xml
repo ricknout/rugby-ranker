@@ -50,5 +50,6 @@
 
     <string name="text_match_teams" translatable="false">%1$s \u0020%2$s \u0020- \u0020%3$s \u0020%4$s</string>
     <string name="text_match_teams_with_scores" translatable="false">%1$s \u0020%2$s \u0020%3$d \u0020- \u0020%4$d \u0020%5$s \u0020%6$s</string>
+    <string name="text_match_venue_country" translatable="false">%1$s, %2$s</string>
 
 </resources>

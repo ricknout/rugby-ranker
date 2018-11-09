@@ -57,7 +57,24 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         itemView.teamsTextView.text = teams
         itemView.eventTextView.text = worldRugbyMatch.eventLabel
         itemView.eventTextView.isVisible = worldRugbyMatch.eventLabel != null
-        itemView.venueTextView.text = worldRugbyMatch.venueName
-        itemView.venueTextView.isVisible = worldRugbyMatch.venueName != null
+        when {
+            worldRugbyMatch.venueName != null && worldRugbyMatch.venueCountry != null -> {
+                val venueAndCountry = itemView.context.getString(R.string.text_match_venue_country, worldRugbyMatch.venueName, worldRugbyMatch.venueCountry)
+                itemView.venueTextView.text = venueAndCountry
+                itemView.venueTextView.isVisible = true
+            }
+            worldRugbyMatch.venueName != null -> {
+                itemView.venueTextView.text = worldRugbyMatch.venueName
+                itemView.venueTextView.isVisible = true
+            }
+            worldRugbyMatch.venueCountry != null -> {
+                itemView.venueTextView.text = worldRugbyMatch.venueCountry
+                itemView.venueTextView.isVisible = true
+            }
+            else -> {
+                itemView.venueTextView.text = null
+                itemView.venueTextView.isVisible = false
+            }
+        }
     }
 }
