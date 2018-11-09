@@ -20,7 +20,7 @@ open class MatchesViewModel(
     }
 
     val latestWorldRugbyMatches = rugbyRankerRepository.loadLatestWorldRugbyMatches(sport, matchStatus, asc = matchStatus == MatchStatus.UNPLAYED)
-    val latestWorldRugbyMatchesStatuses = rugbyRankerWorkManager.getLatestWorldRugbyMatchesStatuses(sport, matchStatus)
+    val latestWorldRugbyMatchesWorkInfos = rugbyRankerWorkManager.getLatestWorldRugbyMatchesWorkInfos(sport, matchStatus)
 
     private val _refreshingLatestWorldRugbyMatches = MutableLiveData<Boolean>().apply { value = false }
     val refreshingLatestWorldRugbyMatches: LiveData<Boolean>

@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.work.State
+import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchPagedListAdapter
@@ -85,9 +85,9 @@ class MatchesFragment : DaggerFragment() {
             val isEmpty = latestWorldRugbyMatches?.isEmpty() ?: true
             progressBar.isVisible = isEmpty
         })
-        viewModel.latestWorldRugbyMatchesStatuses.observe(viewLifecycleOwner, Observer { workStatuses ->
-            val workStatus = if (workStatuses != null && !workStatuses.isEmpty()) workStatuses[0] else return@Observer
-            when (workStatus.state) {
+        viewModel.latestWorldRugbyMatchesWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
+            val workInfo = if (workInfos != null && !workInfos.isEmpty()) workInfos[0] else return@Observer
+            when (workInfo.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
                     workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_matches)
