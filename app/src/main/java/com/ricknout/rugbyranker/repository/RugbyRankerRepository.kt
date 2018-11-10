@@ -76,7 +76,7 @@ class RugbyRankerRepository(
         worldRugbyService.getRankings(json, date).enqueue(callback)
     }
 
-    private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT)
+    private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
 
     fun getLatestWorldRugbyRankingsEffectiveTimeMillis(rankingsType: RankingsType): Long {
         return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillis(rankingsType)
