@@ -37,7 +37,7 @@ class WorldRugbyMatchPagedListAdapter(
 class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyMatch: WorldRugbyMatch, showScores: Boolean, showTime: Boolean) {
-        val date = DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, worldRugbyMatch.timeMillis)
+        val date = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, worldRugbyMatch.timeMillis)
         itemView.dateTextView.text = date
         if (showTime) {
             val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
