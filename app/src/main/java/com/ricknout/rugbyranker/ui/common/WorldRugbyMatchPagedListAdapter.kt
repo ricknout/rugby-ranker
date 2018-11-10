@@ -15,8 +15,11 @@ import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
 
 class WorldRugbyMatchPagedListAdapter(
         private val showScores: Boolean,
-        private val showTime: Boolean
+        private val showTime: Boolean,
+        private val onItemCountChange: () -> Unit
 ) : PagedListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
+
+    private var itemCount = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             = WorldRugbyMatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_match, parent, false))
@@ -24,6 +27,15 @@ class WorldRugbyMatchPagedListAdapter(
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
         holder.bind(worldRugbyMatch, showScores, showTime)
+    }
+
+    override fun getItemCount(): Int {
+        val itemCount = super.getItemCount()
+        if (this.itemCount != itemCount) {
+            onItemCountChange.invoke()
+            this.itemCount = itemCount
+        }
+        return itemCount
     }
 
     companion object {
@@ -37,14 +49,6 @@ class WorldRugbyMatchPagedListAdapter(
 class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyMatch: WorldRugbyMatch, showScores: Boolean, showTime: Boolean) {
-        val date = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, worldRugbyMatch.timeMillis)
-        itemView.dateTextView.text = date
-        if (showTime) {
-            val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
-            itemView.timeTextView.text = time
-        } else {
-            itemView.timeTextView.text = null
-        }
         val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
         val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
         val teams = if (showScores) {
@@ -55,6 +59,14 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
                     firstTeamFlag, worldRugbyMatch.firstTeamName, worldRugbyMatch.secondTeamName, secondTeamFlag)
         }
         itemView.teamsTextView.text = teams
+        if (showTime) {
+            val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
+            itemView.timeTextView.text = time
+            itemView.timeTextView.isVisible = true
+        } else {
+            itemView.timeTextView.text = null
+            itemView.timeTextView.isVisible = false
+        }
         itemView.eventTextView.text = worldRugbyMatch.eventLabel
         itemView.eventTextView.isVisible = worldRugbyMatch.eventLabel != null
         when {

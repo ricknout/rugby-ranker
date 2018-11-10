@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.R
+import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchDateItemDecoration
 import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchPagedListAdapter
 import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.vo.Sport
@@ -34,6 +35,8 @@ class MatchesFragment : DaggerFragment() {
     private var showTime: Boolean = false
 
     private lateinit var worldRugbyMatchPagedListAdapter: WorldRugbyMatchPagedListAdapter
+
+    private lateinit var worldRugbyMatchDateItemDecoration: WorldRugbyMatchDateItemDecoration
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
             = inflater.inflate(R.layout.fragment_matches, container, false)
@@ -70,7 +73,12 @@ class MatchesFragment : DaggerFragment() {
     }
 
     private fun setupRecyclerView() {
-        worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter(showScores, showTime)
+        worldRugbyMatchDateItemDecoration = WorldRugbyMatchDateItemDecoration(requireContext())
+        matchesRecyclerView.addItemDecoration(worldRugbyMatchDateItemDecoration, 0)
+        worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter(showScores, showTime) {
+            val latestWorldRugbyMatches = viewModel.latestWorldRugbyMatches.value ?: return@WorldRugbyMatchPagedListAdapter
+            worldRugbyMatchDateItemDecoration.matches = latestWorldRugbyMatches
+        }
         matchesRecyclerView.adapter = worldRugbyMatchPagedListAdapter
     }
 
@@ -82,6 +90,7 @@ class MatchesFragment : DaggerFragment() {
     private fun setupViewModel() {
         viewModel.latestWorldRugbyMatches.observe(viewLifecycleOwner, Observer { latestWorldRugbyMatches ->
             worldRugbyMatchPagedListAdapter.submitList(latestWorldRugbyMatches)
+            matchesRecyclerView.invalidateItemDecorations()
             val isEmpty = latestWorldRugbyMatches?.isEmpty() ?: true
             progressBar.isVisible = isEmpty
         })

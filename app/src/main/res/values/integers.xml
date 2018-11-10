@@ -7,6 +7,4 @@
 
     <integer name="max_length_points">3</integer>
 
-    <integer name="span_count_matches">1</integer>
-
 </resources>

@@ -2,6 +2,7 @@ package com.ricknout.rugbyranker.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import androidx.paging.Config
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.ricknout.rugbyranker.api.WorldRugbyMatchesResponse
@@ -96,7 +97,8 @@ class RugbyRankerRepository(
     fun loadLatestWorldRugbyMatches(sport: Sport, matchStatus: MatchStatus, asc: Boolean): LiveData<PagedList<WorldRugbyMatch>> {
         val millis = System.currentTimeMillis()
         val dataSourceFactory = if (asc) worldRugbyMatchDao.loadAsc(sport, matchStatus, millis) else worldRugbyMatchDao.loadDesc(sport, matchStatus, millis)
-        return dataSourceFactory.toLiveData(pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_DATABASE)
+        val config = Config(pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_DATABASE, enablePlaceholders = false)
+        return dataSourceFactory.toLiveData(config = config)
     }
 
     @WorkerThread
