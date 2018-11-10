@@ -33,5 +33,6 @@ object DateUtils {
     }
 
     const val DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd"
+    const val DATE_FORMAT_D_MMM_YYYY = "d MMM, yyyy"
     const val DATE_FORMAT_HH_MM = "HH:mm"
 }
