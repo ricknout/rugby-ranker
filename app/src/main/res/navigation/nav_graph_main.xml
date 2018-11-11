@@ -29,47 +29,39 @@
         tools:layout="@layout/fragment_info" />
 
     <fragment
-        android:id="@+id/mensFixturesFragment"
+        android:id="@+id/mensUnplayedMatchesFragment"
         android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
         android:label="MensFixturesFragment"
         tools:layout="@layout/fragment_matches">
         <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
-        <argument android:name="showScores" android:defaultValue="false" app:argType="boolean" />
-        <argument android:name="showTime" android:defaultValue="true" app:argType="boolean" />
     </fragment>
 
     <fragment
-        android:id="@+id/mensResultsFragment"
+        android:id="@+id/mensCompleteMatchesFragment"
         android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
         android:label="MensResultsFragment"
         tools:layout="@layout/fragment_matches">
         <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
-        <argument android:name="showScores" android:defaultValue="true" app:argType="boolean" />
-        <argument android:name="showTime" android:defaultValue="false" app:argType="boolean" />
     </fragment>
 
     <fragment
-        android:id="@+id/womensFixturesFragment"
+        android:id="@+id/womensUnplayedMatchesFragment"
         android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
         android:label="WomensFixturesFragment"
         tools:layout="@layout/fragment_matches">
         <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
-        <argument android:name="showScores" android:defaultValue="false" app:argType="boolean" />
-        <argument android:name="showTime" android:defaultValue="true" app:argType="boolean" />
     </fragment>
 
     <fragment
-        android:id="@+id/womensResultsFragment"
+        android:id="@+id/womensCompleteMatchesFragment"
         android:name="com.ricknout.rugbyranker.ui.matches.MatchesFragment"
         android:label="WomensResultsFragment"
         tools:layout="@layout/fragment_matches">
         <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
         <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
-        <argument android:name="showScores" android:defaultValue="true" app:argType="boolean" />
-        <argument android:name="showTime" android:defaultValue="false" app:argType="boolean" />
     </fragment>
 
 </navigation>

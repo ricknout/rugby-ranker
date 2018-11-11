@@ -10,12 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.util.FlagUtils
+import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
 
 class WorldRugbyMatchPagedListAdapter(
-        private val showScores: Boolean,
-        private val showTime: Boolean,
         private val onItemCountChange: () -> Unit
 ) : PagedListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
@@ -26,7 +25,7 @@ class WorldRugbyMatchPagedListAdapter(
 
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
-        holder.bind(worldRugbyMatch, showScores, showTime)
+        holder.bind(worldRugbyMatch)
     }
 
     override fun getItemCount(): Int {
@@ -48,7 +47,9 @@ class WorldRugbyMatchPagedListAdapter(
 
 class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(worldRugbyMatch: WorldRugbyMatch, showScores: Boolean, showTime: Boolean) {
+    fun bind(worldRugbyMatch: WorldRugbyMatch) {
+        val showScores = worldRugbyMatch.status == MatchStatus.COMPLETE
+        val showTime = worldRugbyMatch.status == MatchStatus.UNPLAYED
         val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
         val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
         val teams = if (showScores) {
@@ -69,24 +70,14 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         }
         itemView.eventTextView.text = worldRugbyMatch.eventLabel
         itemView.eventTextView.isVisible = worldRugbyMatch.eventLabel != null
-        when {
+        itemView.venueTextView.text = when {
             worldRugbyMatch.venueName != null && worldRugbyMatch.venueCountry != null -> {
-                val venueAndCountry = itemView.context.getString(R.string.text_match_venue_country, worldRugbyMatch.venueName, worldRugbyMatch.venueCountry)
-                itemView.venueTextView.text = venueAndCountry
-                itemView.venueTextView.isVisible = true
+                itemView.context.getString(R.string.text_match_venue_country, worldRugbyMatch.venueName, worldRugbyMatch.venueCountry)
             }
-            worldRugbyMatch.venueName != null -> {
-                itemView.venueTextView.text = worldRugbyMatch.venueName
-                itemView.venueTextView.isVisible = true
-            }
-            worldRugbyMatch.venueCountry != null -> {
-                itemView.venueTextView.text = worldRugbyMatch.venueCountry
-                itemView.venueTextView.isVisible = true
-            }
-            else -> {
-                itemView.venueTextView.text = null
-                itemView.venueTextView.isVisible = false
-            }
+            worldRugbyMatch.venueName != null -> worldRugbyMatch.venueName
+            worldRugbyMatch.venueCountry != null ->  worldRugbyMatch.venueCountry
+            else -> null
         }
+        itemView.venueTextView.isVisible = worldRugbyMatch.venueName != null && worldRugbyMatch.venueCountry != null
     }
 }

@@ -31,8 +31,6 @@ class MatchesFragment : DaggerFragment() {
 
     private lateinit var workerSnackBar: Snackbar
     private lateinit var refreshSnackBar: Snackbar
-    private var showScores: Boolean = false
-    private var showTime: Boolean = false
 
     private lateinit var worldRugbyMatchPagedListAdapter: WorldRugbyMatchPagedListAdapter
 
@@ -46,8 +44,6 @@ class MatchesFragment : DaggerFragment() {
         sport = Sport.values()[sportOrdinal]
         val matchStatusOrdinal = MatchesFragmentArgs.fromBundle(arguments).matchStatusOrdinal
         matchStatus = MatchStatus.values()[matchStatusOrdinal]
-        showScores = MatchesFragmentArgs.fromBundle(arguments).showScores
-        showTime = MatchesFragmentArgs.fromBundle(arguments).showTime
         viewModel = when (sport) {
             Sport.MENS -> {
                 when (matchStatus) {
@@ -75,7 +71,7 @@ class MatchesFragment : DaggerFragment() {
     private fun setupRecyclerView() {
         worldRugbyMatchDateItemDecoration = WorldRugbyMatchDateItemDecoration(requireContext())
         matchesRecyclerView.addItemDecoration(worldRugbyMatchDateItemDecoration, 0)
-        worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter(showScores, showTime) {
+        worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter {
             val latestWorldRugbyMatches = viewModel.latestWorldRugbyMatches.value ?: return@WorldRugbyMatchPagedListAdapter
             worldRugbyMatchDateItemDecoration.matches = latestWorldRugbyMatches
         }
