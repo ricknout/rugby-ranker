@@ -3,14 +3,12 @@ package com.ricknout.rugbyranker.ui.common
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.os.Build
 import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.text.style.AbsoluteSizeSpan
-import android.text.style.StyleSpan
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getColorOrThrow
 import androidx.core.content.res.getDimensionOrThrow
@@ -122,7 +120,7 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
             }
         }.apply {
             append(System.lineSeparator())
-            inSpans(AbsoluteSizeSpan(yearTextSize), StyleSpan(Typeface.BOLD)) {
+            inSpans(AbsoluteSizeSpan(yearTextSize)) {
                 val year = DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY, millis)
                 append(year)
             }
