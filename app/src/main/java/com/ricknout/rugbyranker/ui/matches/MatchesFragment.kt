@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.R
+import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchDateItemDecoration
 import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchPagedListAdapter
 import com.ricknout.rugbyranker.vo.MatchStatus
@@ -79,14 +83,15 @@ class MatchesFragment : DaggerFragment() {
     }
 
     private fun setupSnackbars() {
-        workerSnackBar = Snackbar.make(root, "", Snackbar.LENGTH_INDEFINITE)
-        refreshSnackBar = Snackbar.make(root, "", Snackbar.LENGTH_SHORT)
+        val coordinatorLayout = ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
+        workerSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_INDEFINITE)
+        refreshSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_SHORT)
     }
 
     private fun setupViewModel() {
         viewModel.latestWorldRugbyMatches.observe(viewLifecycleOwner, Observer { latestWorldRugbyMatches ->
             worldRugbyMatchPagedListAdapter.submitList(latestWorldRugbyMatches)
-            matchesRecyclerView.invalidateItemDecorations()
+            worldRugbyMatchDateItemDecoration.matches = latestWorldRugbyMatches
             val isEmpty = latestWorldRugbyMatches?.isEmpty() ?: true
             progressBar.isVisible = isEmpty
         })
@@ -95,12 +100,16 @@ class MatchesFragment : DaggerFragment() {
             when (workInfo.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
-                    workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_matches)
-                    workerSnackBar.show()
+                    doIfVisibleToUser {
+                        workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_matches)
+                        workerSnackBar.show()
+                    }
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    root.post { workerSnackBar.dismiss() }
+                    doIfVisibleToUser {
+                        root.post { workerSnackBar.dismiss() }
+                    }
                 }
             }
         })
@@ -115,10 +124,23 @@ class MatchesFragment : DaggerFragment() {
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshLatestWorldRugbyMatches { success ->
                 if (!success) {
-                    refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_matches)
-                    refreshSnackBar.show()
+                    doIfVisibleToUser {
+                        refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_matches)
+                        refreshSnackBar.show()
+                    }
                 }
             }
+        }
+    }
+
+    companion object {
+        const val TAG = "MatchesFragment"
+        private const val ARG_SPORT_ORDINAL = "sportOrdinal"
+        private const val ARG_MATCH_STATUS_ORDINAL = "matchStatusOrdinal"
+        fun newInstance(sport: Sport, matchStatus: MatchStatus): MatchesFragment {
+            val matchesFragment = MatchesFragment()
+            matchesFragment.arguments = bundleOf(ARG_SPORT_ORDINAL to sport.ordinal, ARG_MATCH_STATUS_ORDINAL to matchStatus.ordinal)
+            return matchesFragment
         }
     }
 }

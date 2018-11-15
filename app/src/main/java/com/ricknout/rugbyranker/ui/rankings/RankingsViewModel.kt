@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
-import com.ricknout.rugbyranker.vo.MatchResult
+import com.ricknout.rugbyranker.vo.MatchPrediction
 import com.ricknout.rugbyranker.vo.RankingsCalculator
 import com.ricknout.rugbyranker.vo.Sport
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
@@ -23,37 +23,37 @@ open class RankingsViewModel(
         rugbyRankerWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
     }
 
-    private val _editingMatchResult = MutableLiveData<MatchResult>().apply { value = null }
-    val editingMatchResult: LiveData<MatchResult>
-        get() = _editingMatchResult
+    private val _editingMatchPrediction = MutableLiveData<MatchPrediction>().apply { value = null }
+    val editingMatchPrediction: LiveData<MatchPrediction>
+        get() = _editingMatchPrediction
 
-    private val _matchResults = MediatorLiveData<List<MatchResult>>().apply {
-        addSource(_editingMatchResult) { editingMatchResult ->
-            val currentMatchResults = value?.map { matchResult ->
-                val isEditing = editingMatchResult != null && matchResult.id == editingMatchResult.id
-                matchResult.copy(isEditing = isEditing)
+    private val _matchPredictions = MediatorLiveData<List<MatchPrediction>>().apply {
+        addSource(_editingMatchPrediction) { editingMatchPrediction ->
+            val currentMatchPredictions = value?.map { matchPrediction ->
+                val isEditing = editingMatchPrediction != null && matchPrediction.id == editingMatchPrediction.id
+                matchPrediction.copy(isEditing = isEditing)
             }
-            value = currentMatchResults
+            value = currentMatchPredictions
         }
         value = null
     }
-    val matchResults: LiveData<List<MatchResult>>
-        get() = _matchResults
+    val matchPredictions: LiveData<List<MatchPrediction>>
+        get() = _matchPredictions
 
     val latestWorldRugbyRankings = rugbyRankerRepository.loadLatestWorldRugbyRankings(sport)
     val latestWorldRugbyRankingsWorkInfos = rugbyRankerWorkManager.getLatestWorldRugbyRankingsWorkInfos(sport)
 
     private val _latestWorldRugbyRankingsEffectiveTime = MediatorLiveData<String>().apply {
         addSource(rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)) { effectiveTimeMillis ->
-            value = if (hasMatchResults() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
+            value = if (hasMatchPredictions() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
                 null
             } else {
                 DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, effectiveTimeMillis)
             }
         }
-        addSource(_matchResults) { _ ->
+        addSource(_matchPredictions) {
             val effectiveTimeMillis = rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
-            value = if (hasMatchResults() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
+            value = if (hasMatchPredictions() || effectiveTimeMillis == RugbyRankerSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
                 null
             } else {
                 DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, effectiveTimeMillis)
@@ -65,14 +65,14 @@ open class RankingsViewModel(
 
     private val _worldRugbyRankings = MediatorLiveData<List<WorldRugbyRanking>>().apply {
         addSource(latestWorldRugbyRankings) { latestWorldRugbyRankings ->
-            if (!hasMatchResults()) value = latestWorldRugbyRankings
+            if (!hasMatchPredictions()) value = latestWorldRugbyRankings
         }
-        addSource(_matchResults) { matchResults ->
+        addSource(_matchPredictions) { matchPredictions ->
             val latestWorldRugbyRankings = latestWorldRugbyRankings.value ?: return@addSource
-            if (matchResults == null) return@addSource
-            value = RankingsCalculator.allocatePointsForMatchResults(
+            if (matchPredictions == null) return@addSource
+            value = RankingsCalculator.allocatePointsForMatchPredictions(
                     worldRugbyRankings = latestWorldRugbyRankings,
-                    matchResults = matchResults
+                    matchPredictions = matchPredictions
             )
         }
     }
@@ -91,55 +91,55 @@ open class RankingsViewModel(
         }
     }
 
-    fun hasMatchResults() = !(_matchResults.value?.isEmpty() ?: true)
+    fun hasMatchPredictions() = !(_matchPredictions.value?.isEmpty() ?: true)
 
-    fun getMatchResultCount() = _matchResults.value?.size ?: 0
+    fun getMatchPredictionCount() = _matchPredictions.value?.size ?: 0
 
-    fun isEditingMatchResult() = _editingMatchResult.value != null
+    fun isEditingMatchPrediction() = _editingMatchPrediction.value != null
 
-    fun addMatchResult(matchResult: MatchResult) {
-        val currentMatchResults = (_matchResults.value ?: emptyList()).toMutableList()
-        currentMatchResults.add(matchResult)
-        _matchResults.value = currentMatchResults
+    fun addMatchPrediction(matchPrediction: MatchPrediction) {
+        val currentMatchPredictions = (_matchPredictions.value ?: emptyList()).toMutableList()
+        currentMatchPredictions.add(matchPrediction)
+        _matchPredictions.value = currentMatchPredictions
     }
 
-    fun beginEditMatchResult(matchResult: MatchResult) {
-        if (_editingMatchResult.value == matchResult) return
-        _editingMatchResult.value = matchResult
+    fun beginEditMatchPrediction(matchPrediction: MatchPrediction) {
+        if (_editingMatchPrediction.value == matchPrediction) return
+        _editingMatchPrediction.value = matchPrediction
     }
 
-    fun endEditMatchResult() {
-        if (_editingMatchResult.value == null) return
-        _editingMatchResult.value = null
+    fun endEditMatchPrediction() {
+        if (_editingMatchPrediction.value == null) return
+        _editingMatchPrediction.value = null
     }
 
-    fun editMatchResult(matchResult: MatchResult) {
-        val currentMatchResults = _matchResults.value!!.map { currentMatchResult ->
-            if (currentMatchResult.id == matchResult.id) {
-                matchResult
+    fun editMatchPrediction(matchPrediction: MatchPrediction) {
+        val currentMatchPredictions = _matchPredictions.value!!.map { currentMatchPrediction ->
+            if (currentMatchPrediction.id == matchPrediction.id) {
+                matchPrediction
             } else {
-                currentMatchResult
+                currentMatchPrediction
             }
         }
-        _matchResults.value = currentMatchResults
+        _matchPredictions.value = currentMatchPredictions
     }
 
-    fun removeMatchResult(matchResult: MatchResult): Boolean {
-        val removedEditingMatchResult = _editingMatchResult.value?.id == matchResult.id
-        val currentMatchResults = _matchResults.value!!.toMutableList()
-        currentMatchResults.remove(matchResult)
-        if (currentMatchResults.isEmpty()) {
+    fun removeMatchPrediction(matchPrediction: MatchPrediction): Boolean {
+        val removedEditingMatchPrediction = _editingMatchPrediction.value?.id == matchPrediction.id
+        val currentMatchPredictions = _matchPredictions.value!!.toMutableList()
+        currentMatchPredictions.remove(matchPrediction)
+        if (currentMatchPredictions.isEmpty()) {
             reset()
-            return removedEditingMatchResult
+            return removedEditingMatchPrediction
         }
-        _matchResults.value = currentMatchResults
-        if (removedEditingMatchResult) _editingMatchResult.value = null
-        return removedEditingMatchResult
+        _matchPredictions.value = currentMatchPredictions
+        if (removedEditingMatchPrediction) _editingMatchPrediction.value = null
+        return removedEditingMatchPrediction
     }
 
     private fun reset() {
-        _matchResults.value = null
-        _editingMatchResult.value = null
+        _matchPredictions.value = null
+        _editingMatchPrediction.value = null
         _worldRugbyRankings.value = latestWorldRugbyRankings.value
     }
 
@@ -148,23 +148,39 @@ open class RankingsViewModel(
     val awayTeamInputValid = MutableLiveData<Boolean>()
     val awayPointsInputValid = MutableLiveData<Boolean>()
 
-    private val _addOrEditMatchInputValid = MediatorLiveData<Boolean>().apply {
-        addSource(homeTeamInputValid) { value = isAddOrEditMatchInputValid() }
-        addSource(homePointsInputValid) { value = isAddOrEditMatchInputValid() }
-        addSource(awayTeamInputValid) { value = isAddOrEditMatchInputValid() }
-        addSource(awayPointsInputValid) { value = isAddOrEditMatchInputValid() }
+    private val _matchPredictionInputValid = MediatorLiveData<Boolean>().apply {
+        addSource(homeTeamInputValid) { value = isMatchPredictionInputValid() }
+        addSource(homePointsInputValid) { value = isMatchPredictionInputValid() }
+        addSource(awayTeamInputValid) { value = isMatchPredictionInputValid() }
+        addSource(awayPointsInputValid) { value = isMatchPredictionInputValid() }
         value = false
     }
-    val addOrEditMatchInputValid: LiveData<Boolean>
-        get() = _addOrEditMatchInputValid
+    val matchPredictionInputValid: LiveData<Boolean>
+        get() = _matchPredictionInputValid
 
-    fun resetAddOrEditMatchInputValid() {
+    fun resetMatchPredictionInputValid() {
         homeTeamInputValid.value = false
         homePointsInputValid.value = false
         awayTeamInputValid.value = false
         awayPointsInputValid.value = false
     }
 
-    private fun isAddOrEditMatchInputValid() = homeTeamInputValid.value == true && homePointsInputValid.value == true
+    private fun isMatchPredictionInputValid() = homeTeamInputValid.value == true && homePointsInputValid.value == true
             && awayTeamInputValid.value == true && awayPointsInputValid.value == true
+
+    val showMatchPredictionInput = MutableLiveData<Boolean>().apply { value = true }
+
+    private val _matchPredictionInputState = MediatorLiveData<MatchPredictionInputState>().apply {
+        addSource(showMatchPredictionInput) { showMatchPredictionInput ->
+            value = value?.copy(showMatchPredictionInput = showMatchPredictionInput)
+        }
+        addSource(_matchPredictions) {
+            value = value?.copy(hasMatchPredictions = hasMatchPredictions())
+        }
+        value = MatchPredictionInputState()
+    }
+    val matchPredictionInputState: LiveData<MatchPredictionInputState>
+        get() = _matchPredictionInputState
+
+    data class MatchPredictionInputState(val showMatchPredictionInput: Boolean = true, val hasMatchPredictions: Boolean = false)
 }

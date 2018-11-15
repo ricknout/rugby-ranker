@@ -4,12 +4,12 @@
     <string name="title_womens">Women\'s</string>
     <string name="title_mens_rugby_rankings">Men\'s Rugby Rankings</string>
     <string name="title_womens_rugby_rankings">Women\'s Rugby Rankings</string>
+    <string name="title_rankings">Rankings</string>
+    <string name="title_fixtures">Fixtures</string>
+    <string name="title_results">Results</string>
     <string name="title_add_match_prediction">Add match prediction</string>
     <string name="title_edit_match_prediction">Edit match prediction</string>
 
-    <string name="subtitle_position" translatable="false">#</string>
-    <string name="subtitle_team">Team</string>
-    <string name="subtitle_points">Points</string>
     <string name="subtitle_last_updated_by_world_rugby">Last updated by World Rugby: %s</string>
     <plurals name="subtitle_predicting_matches">
         <item quantity="one">Predicting %d match</item>
@@ -33,7 +33,7 @@
     <string name="ranking_points_difference_positive" translatable="false">(+%s)</string>
     <string name="ranking_points_difference_negative" translatable="false">(−%s)</string>
 
-    <string name="chip_match_result" translatable="false">%1$s %2$d - %3$d %4$s</string>
+    <string name="chip_match_prediction" translatable="false">%1$s %2$d - %3$d %4$s</string>
 
     <string name="menu_item_team" translatable="false">%1$s %2$s</string>
 

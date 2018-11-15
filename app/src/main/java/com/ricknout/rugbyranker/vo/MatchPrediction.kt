@@ -2,7 +2,7 @@ package com.ricknout.rugbyranker.vo
 
 import java.util.UUID
 
-data class MatchResult(
+data class MatchPrediction(
         val id: String,
         val homeTeamId: Long,
         val homeTeamName: String,

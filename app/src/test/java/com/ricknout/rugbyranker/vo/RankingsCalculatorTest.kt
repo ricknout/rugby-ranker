@@ -6,7 +6,7 @@ import org.junit.Assert.assertEquals
 class RankingsCalculatorTest {
 
     @Test
-    fun allocatePointsForMatchResult() {
+    fun allocatePointsForMatchPrediction() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -51,8 +51,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val matchResult1 = MatchResult(
-                id = MatchResult.generateId(),
+        val matchPrediction1 = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -64,8 +64,8 @@ class RankingsCalculatorTest {
                 noHomeAdvantage = true,
                 rugbyWorldCup = false
         )
-        val matchResult2 = MatchResult(
-                id = MatchResult.generateId(),
+        val matchPrediction2 = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team3.teamId,
                 homeTeamName = team3.teamName,
                 homeTeamAbbreviation = team3.teamAbbreviation,
@@ -78,17 +78,17 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = true
         )
         val teams = listOf(team1, team2, team3, team4)
-        val matchResults = listOf(matchResult1, matchResult2)
+        val matchPredictions = listOf(matchPrediction1, matchPrediction2)
         val expectedTeam1 = team1.copy(points = 97.75f, previousPoints = 100f, position = 1, previousPosition = 1)
         val expectedTeam2 = team2.copy(points = 97.25f, previousPoints = 95f, position = 2, previousPosition = 2)
         val expectedTeam3 = team3.copy(points = 86.4f, previousPoints = 90f, position = 4, previousPosition = 3)
         val expectedTeam4 = team4.copy(points = 88.6f, previousPoints = 85f, position = 3, previousPosition = 4)
         val expectedTeams = listOf(expectedTeam1, expectedTeam2, expectedTeam4, expectedTeam3)
-        assertEquals(RankingsCalculator.allocatePointsForMatchResults(teams, matchResults), expectedTeams)
+        assertEquals(RankingsCalculator.allocatePointsForMatchPredictions(teams, matchPredictions), expectedTeams)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsEqual() {
+    fun pointsForMatchPrediction_TeamsPointsEqual() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -111,8 +111,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -125,29 +125,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = false
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -0.3f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -0.3f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -0.3f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -0.3f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 0.7f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -1.3f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 1.05f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -1.9499999f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsEqual_NHA() {
+    fun pointsForMatchPrediction_TeamsPointsEqual_NHA() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -170,8 +170,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -184,29 +184,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = false
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, 0f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, 0f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, 0f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, 0f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 1f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -1f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 1.5f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -1.5f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsEqual_RWC() {
+    fun pointsForMatchPrediction_TeamsPointsEqual_RWC() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -229,8 +229,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -243,29 +243,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = true
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -0.6f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -0.6f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -0.6f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -0.6f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 1.4f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -2.6f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 2.1f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -3.8999999f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsNotEqual() {
+    fun pointsForMatchPrediction_TeamsPointsNotEqual() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -288,8 +288,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -302,29 +302,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = false
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -0.8f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -0.8f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -0.8f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -0.8f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 0.19999999f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -1.8f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 0.29999998f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -2.6999998f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsNotEqual_NHA() {
+    fun pointsForMatchPrediction_TeamsPointsNotEqual_NHA() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -347,8 +347,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -361,29 +361,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = false
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -0.5f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -0.5f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -0.5f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -0.5f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 0.5f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -1.5f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 0.75f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -2.25f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsNotEqual_RWC() {
+    fun pointsForMatchPrediction_TeamsPointsNotEqual_RWC() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -406,8 +406,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -420,29 +420,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = true
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -1.6f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -1.6f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -1.6f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -1.6f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 0.39999998f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -3.6f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 0.59999996f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -5.3999996f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsMoreThan10() {
+    fun pointsForMatchPrediction_TeamsPointsMoreThan10() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -465,8 +465,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -479,29 +479,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = false
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -1f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -1f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -1f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -1f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 0f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -2f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 0f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -3f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsMoreThan10_NHA() {
+    fun pointsForMatchPrediction_TeamsPointsMoreThan10_NHA() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -524,8 +524,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -538,29 +538,29 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = false
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -1f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -1f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -1f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -1f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 0f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -2f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 0f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -3f)
     }
 
     @Test
-    fun pointsForMatchResult_TeamsPointsMoreThan10_RWC() {
+    fun pointsForMatchPrediction_TeamsPointsMoreThan10_RWC() {
         val team1 = WorldRugbyRanking(
                 teamId = 1,
                 teamName = "Team 1",
@@ -583,8 +583,8 @@ class RankingsCalculatorTest {
                 matches = 10,
                 sport = Sport.MENS
         )
-        val baseMatchResult = MatchResult(
-                id = MatchResult.generateId(),
+        val baseMatchPrediction = MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = team1.teamId,
                 homeTeamName = team1.teamName,
                 homeTeamAbbreviation = team1.teamAbbreviation,
@@ -597,24 +597,24 @@ class RankingsCalculatorTest {
                 rugbyWorldCup = true
         )
         // Draw
-        val drawMatchResult = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 50)
-        val pointsForDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForDrawMatchResult, -2f)
-        val pointsForReverseDrawMatchResult = RankingsCalculator.pointsForMatchResult(team1, team2, drawMatchResult)
-        assertEquals(pointsForReverseDrawMatchResult, -2f)
+        val drawMatchPrediction = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 50)
+        val pointsForDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForDrawMatchPrediction, -2f)
+        val pointsForReverseDrawMatchPrediction = RankingsCalculator.pointsForMatchPrediction(team1, team2, drawMatchPrediction)
+        assertEquals(pointsForReverseDrawMatchPrediction, -2f)
         // Score <= 15
-        val scoreLess15Result = baseMatchResult.copy(homeTeamScore = 50, awayTeamScore = 40)
-        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreLess15Result)
+        val scoreLess15Result = baseMatchPrediction.copy(homeTeamScore = 50, awayTeamScore = 40)
+        val pointsForScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreLess15Result)
         assertEquals(pointsForScoreLess15Result, 0f)
         val reverseScoreLess15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 50)
-        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreLess15Result)
+        val pointsForReverseScoreLess15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreLess15Result)
         assertEquals(pointsForReverseScoreLess15Result, -4f)
         // Score > 15
-        val scoreMore15Result = baseMatchResult.copy(homeTeamScore = 60, awayTeamScore = 40)
-        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, scoreMore15Result)
+        val scoreMore15Result = baseMatchPrediction.copy(homeTeamScore = 60, awayTeamScore = 40)
+        val pointsForScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, scoreMore15Result)
         assertEquals(pointsForScoreMore15Result, 0f)
         val reverseScoreMore15Result = scoreLess15Result.copy(homeTeamScore = 40, awayTeamScore = 60)
-        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchResult(team1, team2, reverseScoreMore15Result)
+        val pointsForReverseScoreMore15Result = RankingsCalculator.pointsForMatchPrediction(team1, team2, reverseScoreMore15Result)
         assertEquals(pointsForReverseScoreMore15Result, -6f)
     }
 }

@@ -4,7 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/mensRankingsFragment">
+    app:startDestination="@id/mensFragment">
+
+    <fragment
+        android:id="@+id/mensFragment"
+        android:name="com.ricknout.rugbyranker.ui.SportFragment"
+        android:label="MensFragment"
+        tools:layout="@layout/fragment_sport">
+        <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensFragment"
+        android:name="com.ricknout.rugbyranker.ui.SportFragment"
+        android:label="WomensFragment"
+        tools:layout="@layout/fragment_sport">
+        <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/mensRankingsFragment"

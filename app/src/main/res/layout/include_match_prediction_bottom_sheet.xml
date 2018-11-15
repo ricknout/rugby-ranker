@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottomSheet"
+    android:id="@id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/spacing_half"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/addEditMatchPeekGuideline"
+                android:id="@+id/matchPredictionPeekGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -58,18 +58,18 @@
                 android:text="@string/button_cancel"
                 style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/addEditMatchPeekGuideline"
+                app:layout_constraintBottom_toBottomOf="@id/matchPredictionPeekGuideline"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/addOrEditMatchTitleTextView"
+                android:id="@+id/matchPredictionTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_add_match_prediction"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/addEditMatchPeekGuideline"
+                app:layout_constraintBottom_toBottomOf="@id/matchPredictionPeekGuideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -84,7 +84,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/content_description_close"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/addEditMatchPeekGuideline"
+                app:layout_constraintBottom_toBottomOf="@id/matchPredictionPeekGuideline"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +94,7 @@
                 android:layout_marginTop="@dimen/spacing_standard"
                 android:layout_marginEnd="@dimen/spacing_standard"
                 android:hint="@string/hint_home_team"
-                app:layout_constraintTop_toBottomOf="@id/addEditMatchPeekGuideline"
+                app:layout_constraintTop_toBottomOf="@id/matchPredictionPeekGuideline"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/homePointsTextInputLayout">
 
@@ -190,7 +190,7 @@
                 app:layout_constraintEnd_toEndOf="@id/endGuideline" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/addOrEditButton"
+                android:id="@+id/addOrEditMatchPredictionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_standard"
@@ -206,14 +206,14 @@
     </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/matchesPeekGuideline"
+        android:id="@+id/peekGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="@dimen/height_peek" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/matchesRecyclerView"
+        android:id="@+id/matchePredictionsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -222,13 +222,13 @@
         android:requiresFadingEdge="horizontal"
         android:fadingEdgeLength="@dimen/length_fading_edge"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/matchesPeekGuideline"
+        app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/addMatchButton"
-        tools:listitem="@layout/list_item_match_result" />
+        app:layout_constraintEnd_toStartOf="@id/addMatchPredictionButton"
+        tools:listitem="@layout/list_item_match_prediction" />
 
     <ImageButton
-        android:id="@+id/addMatchButton"
+        android:id="@+id/addMatchPredictionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_add_match_black_24dp"
@@ -238,8 +238,8 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/content_description_reset_matches"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/matchesPeekGuideline"
-        app:layout_constraintStart_toEndOf="@id/matchesRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
+        app:layout_constraintStart_toEndOf="@id/matchePredictionsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

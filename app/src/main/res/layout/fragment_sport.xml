@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titles"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:animateLayoutChanges="true"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/RugbyRankerTextAppearance.ToolbarTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/subtitleTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Latest Men's Rugby Rankings" />
+
+            <TextView
+                android:id="@+id/subtitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Last updated: YYYY-MM-DD" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addMatchPredictionFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin_fab"
+        app:fabSize="auto"
+        app:hoveredFocusedTranslationZ="0dp"
+        app:pressedTranslationZ="0dp"
+        app:srcCompat="@drawable/ic_add_match_black_24dp"
+        android:contentDescription="@string/content_description_add_match_prediction" />
+
+    <include layout="@layout/include_match_prediction_bottom_sheet" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

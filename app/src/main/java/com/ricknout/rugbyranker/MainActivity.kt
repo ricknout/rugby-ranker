@@ -36,20 +36,20 @@ class MainActivity : DaggerAppCompatActivity() {
         }
         navController.addOnNavigatedListener { _, destination ->
             when (destination.id) {
-                R.id.mensRankingsFragment -> {
+                R.id.mensFragment -> {
                     bottomNavigationView.post {
-                        womensRankingsViewModel.endEditMatchResult()
+                        womensRankingsViewModel.endEditMatchPrediction()
                     }
                 }
-                R.id.womensRankingsFragment -> {
+                R.id.womensFragment -> {
                     bottomNavigationView.post {
-                        mensRankingsViewModel.endEditMatchResult()
+                        mensRankingsViewModel.endEditMatchPrediction()
                     }
                 }
                 R.id.infoFragment -> {
                     bottomNavigationView.post {
-                        mensRankingsViewModel.endEditMatchResult()
-                        womensRankingsViewModel.endEditMatchResult()
+                        mensRankingsViewModel.endEditMatchPrediction()
+                        womensRankingsViewModel.endEditMatchPrediction()
                     }
                 }
             }

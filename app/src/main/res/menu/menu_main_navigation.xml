@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@id/mensRankingsFragment"
+        android:id="@id/mensFragment"
         android:icon="@drawable/asl_gender_male_black_24dp"
         android:title="@string/title_mens" />
 
     <item
-        android:id="@id/womensRankingsFragment"
+        android:id="@id/womensFragment"
         android:icon="@drawable/asl_gender_female_black_24dp"
         android:title="@string/title_womens" />
 
