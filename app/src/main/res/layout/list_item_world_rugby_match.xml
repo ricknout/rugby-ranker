@@ -34,25 +34,11 @@
             tools:text="🏳️ Team name - Team name 🏳️" />
 
         <TextView
-            android:id="@+id/timeTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_standard"
-            android:textAppearance="?attr/textAppearanceListItemSmall"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintTop_toBottomOf="@id/teamsTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="HH:MM" />
-
-        <TextView
             android:id="@+id/eventTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_standard"
             android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
-            android:textColor="?android:attr/textColorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/timeTextView"
+            app:layout_constraintTop_toBottomOf="@id/teamsTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Event name" />
@@ -66,6 +52,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Venue name" />
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_standard"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            app:layout_constraintTop_toBottomOf="@id/venueTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="HH:MM" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
