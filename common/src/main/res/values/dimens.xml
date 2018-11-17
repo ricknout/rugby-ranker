@@ -9,6 +9,9 @@
     <dimen name="corner_radius_card_view">4dp</dimen>
 
     <dimen name="width_world_rugby_match_date_header">72dp</dimen>
+
+    <dimen name="size_border">1dp</dimen>
+
     <dimen name="text_size_world_rugby_match_date_header_day_month">18sp</dimen>
     <dimen name="text_size_world_rugby_match_date_header_year">12sp</dimen>
 

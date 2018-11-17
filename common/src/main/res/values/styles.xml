@@ -15,6 +15,7 @@
         <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
+        <item name="android:listDivider">@drawable/list_divider</item>
     </style>
 
     <style name="RugbyRankerTheme.Secondary">
@@ -59,6 +60,8 @@
         <item name="cardElevation">@dimen/elevation_card_view</item>
         <item name="cardCornerRadius">@dimen/corner_radius_card_view</item>
         <item name="cardBackgroundColor">@color/light_grey</item>
+        <item name="strokeWidth">@dimen/size_border</item>
+        <item name="strokeColor">@color/color_border</item>
     </style>
 
     <style name="RugbyRankerWorldRugbyMatchDateHeader">

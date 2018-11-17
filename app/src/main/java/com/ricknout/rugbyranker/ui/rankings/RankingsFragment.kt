@@ -15,6 +15,7 @@ import javax.inject.Inject
 import androidx.core.view.isVisible
 import com.ricknout.rugbyranker.ui.common.WorldRugbyRankingListAdapter
 import androidx.core.os.bundleOf
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
@@ -54,6 +55,8 @@ class RankingsFragment : DaggerFragment() {
     }
 
     private fun setupRecyclerView() {
+        val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        rankingsRecyclerView.addItemDecoration(dividerItemDecoration, 0)
         rankingsRecyclerView.adapter = worldRugbyRankingAdapter
     }
 

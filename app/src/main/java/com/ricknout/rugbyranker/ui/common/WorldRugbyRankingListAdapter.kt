@@ -71,9 +71,9 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             else -> itemView.pointsDifferenceTextView.text = ""
         }
         val backgroundColor = if (adapterPosition == 0 || adapterPosition % 2 == 0) {
-            ContextCompat.getColor(itemView.context, R.color.light_grey)
-        } else {
             ContextCompat.getColor(itemView.context, R.color.white)
+        } else {
+            ContextCompat.getColor(itemView.context, R.color.light_grey)
         }
         itemView.backgroundView.setBackgroundColor(backgroundColor)
     }

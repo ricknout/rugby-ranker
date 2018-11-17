@@ -16,6 +16,7 @@
         <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
+        <item name="android:listDivider">@drawable/list_divider</item>
     </style>
 
 </resources>
