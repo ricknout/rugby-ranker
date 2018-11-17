@@ -3,9 +3,11 @@ package com.ricknout.rugbyranker.ui.matches
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ricknout.rugbyranker.common.livedata.Event
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 
 open class MatchesViewModel(
@@ -32,5 +34,13 @@ open class MatchesViewModel(
             _refreshingLatestWorldRugbyMatches.value = false
             onComplete(success)
         }
+    }
+
+    private val _navigatePredict = MutableLiveData<Event<WorldRugbyMatch>>()
+    val navigatePredict: LiveData<Event<WorldRugbyMatch>>
+        get() = _navigatePredict
+
+    fun predict(worldRugbyMatch: WorldRugbyMatch) {
+        _navigatePredict.value = Event(worldRugbyMatch)
     }
 }

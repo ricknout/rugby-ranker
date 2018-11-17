@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.view.updatePaddingRelative
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,8 @@ import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
 
 class WorldRugbyMatchPagedListAdapter(
-        private val onItemCountChange: () -> Unit
+        private val onItemCountChange: () -> Unit,
+        private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
 ) : PagedListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
     private var itemCount = 0
@@ -25,7 +27,7 @@ class WorldRugbyMatchPagedListAdapter(
 
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
-        holder.bind(worldRugbyMatch)
+        holder.bind(worldRugbyMatch, onPredictClick)
     }
 
     override fun getItemCount(): Int {
@@ -47,9 +49,10 @@ class WorldRugbyMatchPagedListAdapter(
 
 class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(worldRugbyMatch: WorldRugbyMatch) {
+    fun bind(worldRugbyMatch: WorldRugbyMatch, onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit) {
         val showScores = worldRugbyMatch.status == MatchStatus.COMPLETE
         val showTime = worldRugbyMatch.status == MatchStatus.UNPLAYED
+        val showPredict = worldRugbyMatch.status == MatchStatus.UNPLAYED
         val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
         val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
         val teams = if (showScores) {
@@ -79,5 +82,16 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
             else -> null
         }
         itemView.venueTextView.isVisible = worldRugbyMatch.venueName != null && worldRugbyMatch.venueCountry != null
+        if (showPredict) {
+            itemView.predictButton.setOnClickListener {
+                onPredictClick.invoke(worldRugbyMatch)
+            }
+            itemView.predictButton.isVisible = true
+            itemView.constraintLayout.updatePaddingRelative(bottom = 0)
+        } else {
+            itemView.predictButton.setOnClickListener(null)
+            itemView.predictButton.isVisible = false
+            itemView.constraintLayout.updatePaddingRelative(bottom = itemView.context.resources.getDimensionPixelSize(R.dimen.spacing_double))
+        }
     }
 }

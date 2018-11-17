@@ -12,58 +12,75 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_double">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/teamsTextView"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="?android:textColorPrimary"
-            android:lines="1"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMaxTextSize="@dimen/text_size_match_auto_size_max"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="🏳️ Team name - Team name 🏳️" />
+            android:padding="@dimen/spacing_double">
 
-        <TextView
-            android:id="@+id/eventTextView"
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/teamsTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:textColorPrimary"
+                android:lines="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMaxTextSize="@dimen/text_size_match_auto_size_max"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="🏳️ Team name - Team name 🏳️" />
+
+            <TextView
+                android:id="@+id/eventTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+                app:layout_constraintTop_toBottomOf="@id/teamsTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Event name" />
+
+            <TextView
+                android:id="@+id/venueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+                app:layout_constraintTop_toBottomOf="@id/eventTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Venue name" />
+
+            <TextView
+                android:id="@+id/timeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_standard"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                app:layout_constraintTop_toBottomOf="@id/venueTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="HH:MM" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/predictButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
-            app:layout_constraintTop_toBottomOf="@id/teamsTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Event name" />
+            android:text="@string/button_predict"
+            style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
+            android:theme="@style/RugbyRankerTheme.Secondary"
+            android:layout_gravity="bottom|end" />
 
-        <TextView
-            android:id="@+id/venueTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
-            app:layout_constraintTop_toBottomOf="@id/eventTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Venue name" />
-
-        <TextView
-            android:id="@+id/timeTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_standard"
-            android:textAppearance="?attr/textAppearanceListItemSmall"
-            app:layout_constraintTop_toBottomOf="@id/venueTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="HH:MM" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -24,10 +24,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.rugbyranker.R
+import com.ricknout.rugbyranker.common.livedata.EventObserver
 import com.ricknout.rugbyranker.common.ui.BackgroundClickOnItemTouchListener
 import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
 import com.ricknout.rugbyranker.ui.common.MatchPredictionListAdapter
 import com.ricknout.rugbyranker.ui.matches.MatchesFragment
+import com.ricknout.rugbyranker.ui.matches.MatchesViewModel
+import com.ricknout.rugbyranker.ui.matches.MensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.ui.matches.WomensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.ui.rankings.RankingsViewModel
 import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
 import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
@@ -37,6 +41,7 @@ import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.vo.Sport
 import com.ricknout.rugbyranker.vo.MatchPrediction
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
+import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_sport.*
 import kotlinx.android.synthetic.main.include_match_prediction_bottom_sheet.*
@@ -49,6 +54,7 @@ class SportFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var rankingsViewModel: RankingsViewModel
+    private lateinit var unplayedMatchesViewModel: MatchesViewModel
 
     private lateinit var sport: Sport
 
@@ -60,6 +66,7 @@ class SportFragment : DaggerFragment() {
     private var awayTeamAbbreviation: String? = null
 
     private var clearMatchPredictionInput = false
+    private var showMatchPredictionInput = false
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
@@ -97,6 +104,12 @@ class SportFragment : DaggerFragment() {
             Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(WomensRankingsViewModel::class.java)
         }
+        unplayedMatchesViewModel = when (sport) {
+            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(MensUnplayedMatchesViewModel::class.java)
+            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(WomensUnplayedMatchesViewModel::class.java)
+        }
         homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
         homeTeamName = savedInstanceState?.getString(KEY_HOME_TEAM_NAME)
         homeTeamAbbreviation = savedInstanceState?.getString(KEY_HOME_TEAM_ABBREVIATION)
@@ -108,7 +121,7 @@ class SportFragment : DaggerFragment() {
         setupTabsAndViewPager()
         setupAddMatchFab()
         setupBottomSheet(bottomSheetState)
-        setupViewModel()
+        setupViewModels()
         requireActivity().addOnBackPressedCallback(onBackPressedCallback)
     }
 
@@ -159,6 +172,10 @@ class SportFragment : DaggerFragment() {
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 rankingsViewModel.showMatchPredictionInput.value = position == POSITION_RANKINGS
+                if (showMatchPredictionInput) {
+                    showBottomSheet()
+                    showMatchPredictionInput = false
+                }
             }
         })
     }
@@ -295,7 +312,7 @@ class SportFragment : DaggerFragment() {
         TooltipCompat.setTooltipText(addMatchPredictionFab, getString(R.string.tooltip_add_match_prediction))
     }
 
-    private fun setupViewModel() {
+    private fun setupViewModels() {
         rankingsViewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->
             val isEmpty = worldRugbyRankings?.isEmpty() ?: true
             addMatchPredictionFab.isEnabled = !isEmpty
@@ -337,6 +354,11 @@ class SportFragment : DaggerFragment() {
                 this.skipCollapsed = skipCollapsed
                 this.state = state
             }
+        })
+        unplayedMatchesViewModel.navigatePredict.observe(viewLifecycleOwner, EventObserver { worldRugbyMatch ->
+            applyWorldRugbyMatchToInput(worldRugbyMatch)
+            showMatchPredictionInput = true
+            viewPager.currentItem = POSITION_RANKINGS
         })
     }
 
@@ -462,6 +484,29 @@ class SportFragment : DaggerFragment() {
         awayPointsEditText.setText(matchPrediction.awayTeamScore.toString())
         nhaCheckBox.isChecked = matchPrediction.noHomeAdvantage
         rwcCheckBox.isChecked = matchPrediction.rugbyWorldCup
+    }
+
+    private fun applyWorldRugbyMatchToInput(worldRugbyMatch: WorldRugbyMatch) {
+        homeTeamId = worldRugbyMatch.firstTeamId
+        homeTeamName = worldRugbyMatch.firstTeamName
+        homeTeamAbbreviation = worldRugbyMatch.firstTeamAbbreviation!!
+        val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
+                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation), homeTeamName))
+        homeTeamEditText.setText(homeTeam)
+        homePointsEditText.text?.clear()
+        awayTeamId = worldRugbyMatch.secondTeamId
+        awayTeamName = worldRugbyMatch.secondTeamName
+        awayTeamAbbreviation = worldRugbyMatch.secondTeamAbbreviation!!
+        val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
+                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation), awayTeamName))
+        awayTeamEditText.setText(awayTeam)
+        awayPointsEditText.text?.clear()
+        nhaCheckBox.isChecked = worldRugbyMatch.venueCountry?.let { venueCountry ->
+            venueCountry != worldRugbyMatch.firstTeamName && venueCountry != worldRugbyMatch.secondTeamName
+        } ?: false
+        rwcCheckBox.isChecked = worldRugbyMatch.eventLabel?.let { eventLabel ->
+            eventLabel.contains("Rugby World Cup", ignoreCase = true) && !eventLabel.contains("Qualifying", ignoreCase = true)
+        } ?: false
     }
 
     private fun hideSoftInput() {

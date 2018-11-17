@@ -75,10 +75,12 @@ class MatchesFragment : DaggerFragment() {
     private fun setupRecyclerView() {
         worldRugbyMatchDateItemDecoration = WorldRugbyMatchDateItemDecoration(requireContext())
         matchesRecyclerView.addItemDecoration(worldRugbyMatchDateItemDecoration, 0)
-        worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter {
+        worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter({
             val latestWorldRugbyMatches = viewModel.latestWorldRugbyMatches.value ?: return@WorldRugbyMatchPagedListAdapter
             worldRugbyMatchDateItemDecoration.matches = latestWorldRugbyMatches
-        }
+        }, { worldRugbyMatch ->
+            viewModel.predict(worldRugbyMatch)
+        })
         matchesRecyclerView.adapter = worldRugbyMatchPagedListAdapter
     }
 
