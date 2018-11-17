@@ -42,11 +42,11 @@ class RugbyRankerRepository(
             val response = worldRugbyService.getRankings(json, date).execute()
             if (response.isSuccessful) {
                 val worldRugbyRankingsResponse = response.body() ?: return false
-                val worldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, rankingsType)
+                val worldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
                 executor.execute {
                     worldRugbyRankingDao.insert(worldRugbyRankings)
                 }
-                rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, rankingsType)
+                rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
                 return true
             }
             return false
@@ -131,22 +131,26 @@ class RugbyRankerRepository(
         var page = 0
         var pageCount = Int.MAX_VALUE
         var success = false
-        while (page < pageCount) {
-            val response = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).execute()
-            if (response.isSuccessful) {
-                val worldRugbyMatchesResponse = response.body() ?: break
-                val worldRugbyMatches = WorldRugbyDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
-                executor.execute {
-                    worldRugbyMatchDao.insert(worldRugbyMatches)
+        try {
+            while (page < pageCount) {
+                val response = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).execute()
+                if (response.isSuccessful) {
+                    val worldRugbyMatchesResponse = response.body() ?: break
+                    val worldRugbyMatches = WorldRugbyDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
+                    executor.execute {
+                        worldRugbyMatchDao.insert(worldRugbyMatches)
+                    }
+                    page++
+                    pageCount = worldRugbyMatchesResponse.pageInfo.numPages
+                    success = true
+                } else {
+                    break
                 }
-                page++
-                pageCount = worldRugbyMatchesResponse.pageInfo.numPages
-                success = true
-            } else {
-                break
             }
+            return success
+        } catch (_: Exception) {
+            return false
         }
-        return success
     }
 
     fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, onComplete: (success: Boolean) -> Unit) {
