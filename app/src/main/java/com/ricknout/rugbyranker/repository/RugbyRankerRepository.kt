@@ -30,17 +30,21 @@ class RugbyRankerRepository(
             RankingsType.WOMENS -> WorldRugbyService.JSON_WOMENS
         }
         val date = getCurrentDate()
-        val response = worldRugbyService.getRankings(json, date).execute()
-        if (response.isSuccessful) {
-            val worldRugbyRankingsResponse = response.body() ?: return false
-            val worldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, rankingsType)
-            executor.execute {
-                worldRugbyRankingDao.insert(worldRugbyRankings)
+        try {
+            val response = worldRugbyService.getRankings(json, date).execute()
+            if (response.isSuccessful) {
+                val worldRugbyRankingsResponse = response.body() ?: return false
+                val worldRugbyRankings = WorldRugbyRankingDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, rankingsType)
+                executor.execute {
+                    worldRugbyRankingDao.insert(worldRugbyRankings)
+                }
+                rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, rankingsType)
+                return true
             }
-            rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, rankingsType)
-            return true
+            return false
+        } catch (_: Exception) {
+            return false
         }
-        return false
     }
 
     fun fetchAndCacheLatestWorldRugbyRankingsAsync(rankingsType: RankingsType, onComplete: (success: Boolean) -> Unit) {
