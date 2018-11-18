@@ -21,8 +21,6 @@
     <string name="ranking_points_difference_positive" translatable="false">(+%s)</string>
     <string name="ranking_points_difference_negative" translatable="false">(−%s)</string>
 
-    <string name="chip_match_prediction" translatable="false">%1$s %2$d - %3$d %4$s</string>
-
     <string name="menu_item_team" translatable="false">%1$s %2$s</string>
 
     <string name="tooltip_add_match_prediction">Add match prediction</string>

@@ -27,7 +27,7 @@ import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.common.livedata.EventObserver
 import com.ricknout.rugbyranker.common.ui.BackgroundClickOnItemTouchListener
 import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
-import com.ricknout.rugbyranker.ui.common.MatchPredictionListAdapter
+import com.ricknout.rugbyranker.prediction.ui.MatchPredictionListAdapter
 import com.ricknout.rugbyranker.ui.matches.MatchesFragment
 import com.ricknout.rugbyranker.ui.matches.MatchesViewModel
 import com.ricknout.rugbyranker.ui.matches.MensUnplayedMatchesViewModel

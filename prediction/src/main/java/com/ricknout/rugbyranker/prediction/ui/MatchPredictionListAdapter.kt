@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.ui.common
+package com.ricknout.rugbyranker.prediction.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ricknout.rugbyranker.R
+import com.ricknout.rugbyranker.prediction.R
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import kotlinx.android.synthetic.main.list_item_match_prediction.view.*
 
