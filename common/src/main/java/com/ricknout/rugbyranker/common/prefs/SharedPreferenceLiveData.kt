@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.prefs
+package com.ricknout.rugbyranker.common.prefs
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData

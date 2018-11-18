@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.ricknout.rugbyranker.vo.Sport
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
+import com.ricknout.rugbyranker.common.prefs.LongSharedPreferenceLiveData
 
 class RugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
