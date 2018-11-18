@@ -15,8 +15,6 @@ import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
-import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchDateItemDecoration
-import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchPagedListAdapter
 import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
 import dagger.android.support.DaggerFragment
@@ -76,7 +74,8 @@ class MatchesFragment : DaggerFragment() {
         worldRugbyMatchDateItemDecoration = WorldRugbyMatchDateItemDecoration(requireContext())
         matchesRecyclerView.addItemDecoration(worldRugbyMatchDateItemDecoration, 0)
         worldRugbyMatchPagedListAdapter = WorldRugbyMatchPagedListAdapter({
-            val latestWorldRugbyMatches = viewModel.latestWorldRugbyMatches.value ?: return@WorldRugbyMatchPagedListAdapter
+            val latestWorldRugbyMatches = viewModel.latestWorldRugbyMatches.value
+                    ?: return@WorldRugbyMatchPagedListAdapter
             worldRugbyMatchDateItemDecoration.matches = latestWorldRugbyMatches
         }, { worldRugbyMatch ->
             viewModel.predict(worldRugbyMatch)

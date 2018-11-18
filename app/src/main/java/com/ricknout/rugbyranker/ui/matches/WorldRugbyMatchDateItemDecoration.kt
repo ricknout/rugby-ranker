@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.ui.common
+package com.ricknout.rugbyranker.ui.matches
 
 import android.content.Context
 import android.graphics.Canvas
