@@ -36,7 +36,7 @@ import com.ricknout.rugbyranker.ui.rankings.RankingsViewModel
 import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
 import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
 import com.ricknout.rugbyranker.ui.rankings.RankingsFragment
-import com.ricknout.rugbyranker.util.FlagUtils
+import com.ricknout.rugbyranker.common.util.FlagUtils
 import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.vo.Sport
 import com.ricknout.rugbyranker.vo.MatchPrediction

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.common.util.DateUtils
-import com.ricknout.rugbyranker.util.FlagUtils
+import com.ricknout.rugbyranker.common.util.FlagUtils
 import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*

@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.util
+package com.ricknout.rugbyranker.common.util
 
 object FlagUtils {
 
