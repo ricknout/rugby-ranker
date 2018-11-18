@@ -16,7 +16,7 @@
         <item quantity="other">Predicting %d matches</item>
     </plurals>
 
-    <string name="button_reset">Reset</string>
+    <string name="button_clear">Clear</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_add">Add</string>
     <string name="button_edit">Edit</string>

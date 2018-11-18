@@ -185,7 +185,7 @@ class SportFragment : DaggerFragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                updateAlphaForBottomSheetSlide(slideOffset, rankingsViewModel.hasMatchPredictions(), rankingsViewModel.isEditingMatchPrediction())
+                updateAlphaForBottomSheetSlide(slideOffset, rankingsViewModel.hasMatchPredictions())
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 if (state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) {
@@ -206,7 +206,7 @@ class SportFragment : DaggerFragment() {
                 BottomSheetBehavior.STATE_COLLAPSED -> 0f
                 else -> -1f
             }
-            updateAlphaForBottomSheetSlide(slideOffset, rankingsViewModel.hasMatchPredictions(), rankingsViewModel.isEditingMatchPrediction())
+            updateAlphaForBottomSheetSlide(slideOffset, rankingsViewModel.hasMatchPredictions())
         }
         matchePredictionsRecyclerView.adapter = matchPredictionAdapter
         matchePredictionsRecyclerView.addOnItemTouchListener(BackgroundClickOnItemTouchListener(requireContext()) {
@@ -278,8 +278,12 @@ class SportFragment : DaggerFragment() {
                 }
             })
         }
-        cancelButton.setOnClickListener {
-            hideBottomSheetAndClearMatchPredictionInput()
+        clearOrCancelButton.setOnClickListener {
+            if (rankingsViewModel.isEditingMatchPrediction()) {
+                hideBottomSheetAndClearMatchPredictionInput()
+            } else {
+                clearMatchPredictionInput()
+            }
         }
         closeButton.setOnClickListener {
             hideBottomSheet()
@@ -331,8 +335,8 @@ class SportFragment : DaggerFragment() {
         })
         rankingsViewModel.editingMatchPrediction.observe(viewLifecycleOwner, Observer { editingMatchPrediction ->
             val isEditing = editingMatchPrediction != null
+            clearOrCancelButton.setText(if (isEditing) R.string.button_cancel else R.string.button_clear)
             matchPredictionTitleTextView.setText(if (isEditing) R.string.title_edit_match_prediction else R.string.title_add_match_prediction)
-            cancelButton.isInvisible = !isEditing
             addOrEditMatchPredictionButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
         })
         rankingsViewModel.matchPredictionInputState.observe(viewLifecycleOwner, Observer { matchPredictionInputState ->
@@ -374,7 +378,7 @@ class SportFragment : DaggerFragment() {
         }
     }
 
-    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatchPredictions: Boolean, isEditingMatchPrediction: Boolean) {
+    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatchPredictions: Boolean) {
         setAlphaAndVisibility(matchePredictionsRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCH_PREDICTIONS))
         setAlphaAndVisibility(addMatchPredictionButton, if (hasMatchPredictions) {
             offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCH_PREDICTIONS)
@@ -382,11 +386,7 @@ class SportFragment : DaggerFragment() {
             0f
         })
         setAlphaAndVisibility(matchPredictionTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION))
-        setAlphaAndVisibility(cancelButton, if (isEditingMatchPrediction) {
-            offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION)
-        } else {
-            0f
-        })
+        setAlphaAndVisibility(clearOrCancelButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION))
         setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION))
     }
 
