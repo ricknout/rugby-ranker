@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.R
-import com.ricknout.rugbyranker.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import kotlinx.android.synthetic.main.list_item_match_prediction.view.*
 
 class MatchPredictionListAdapter(

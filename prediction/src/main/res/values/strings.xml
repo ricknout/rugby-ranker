@@ -1,5 +1,20 @@
 <resources>
 
+    <string name="title_add_match_prediction">Add match prediction</string>
+    <string name="title_edit_match_prediction">Edit match prediction</string>
 
+    <string name="button_clear">Clear</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_add">Add</string>
+    <string name="button_edit">Edit</string>
+
+    <string name="hint_home_team">Home team</string>
+    <string name="hint_away_team">Away team</string>
+    <string name="hint_points">Points</string>
+
+    <string name="check_box_rugby_world_cup">Rugby World Cup</string>
+    <string name="check_box_no_home_advantage">No home advantage (neutral venue)</string>
+
+    <string name="content_description_close">Close</string>
 
 </resources>

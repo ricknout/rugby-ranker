@@ -1,5 +1,6 @@
 package com.ricknout.rugbyranker.vo
 
+import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min

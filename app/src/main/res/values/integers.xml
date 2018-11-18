@@ -5,6 +5,4 @@
     <integer name="weight_team">15</integer>
     <integer name="weight_points">8</integer>
 
-    <integer name="max_length_points">3</integer>
-
 </resources>

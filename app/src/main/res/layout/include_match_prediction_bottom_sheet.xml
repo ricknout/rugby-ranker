@@ -236,7 +236,7 @@
         android:paddingStart="@dimen/padding_horizontal_add_match"
         android:paddingEnd="@dimen/padding_horizontal_add_match"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/content_description_reset_matches"
+        android:contentDescription="@string/content_description_add_match_prediction"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
         app:layout_constraintStart_toEndOf="@id/matchePredictionsRecyclerView"

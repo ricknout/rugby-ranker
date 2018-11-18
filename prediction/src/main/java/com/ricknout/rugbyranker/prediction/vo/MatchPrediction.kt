@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.vo
+package com.ricknout.rugbyranker.prediction.vo
 
 import java.util.UUID
 

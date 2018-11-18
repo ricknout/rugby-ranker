@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
-import com.ricknout.rugbyranker.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import com.ricknout.rugbyranker.vo.RankingsCalculator
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
