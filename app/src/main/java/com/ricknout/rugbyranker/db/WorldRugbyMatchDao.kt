@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.ricknout.rugbyranker.vo.MatchStatus
-import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 
 @Dao

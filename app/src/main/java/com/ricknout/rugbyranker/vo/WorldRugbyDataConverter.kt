@@ -4,6 +4,7 @@ import com.ricknout.rugbyranker.api.Match
 import com.ricknout.rugbyranker.api.WorldRugbyMatchesResponse
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
 import com.ricknout.rugbyranker.api.WorldRugbyService
+import com.ricknout.rugbyranker.common.vo.Sport
 import java.lang.IllegalArgumentException
 
 object WorldRugbyDataConverter {

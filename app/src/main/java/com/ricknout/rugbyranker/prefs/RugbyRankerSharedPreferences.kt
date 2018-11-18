@@ -1,7 +1,7 @@
 package com.ricknout.rugbyranker.prefs
 
 import android.content.SharedPreferences
-import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.common.vo.Sport
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import com.ricknout.rugbyranker.common.prefs.LongSharedPreferenceLiveData

@@ -13,7 +13,7 @@ import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.vo.MatchStatus
-import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.vo.WorldRugbyDataConverter
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import retrofit2.Call

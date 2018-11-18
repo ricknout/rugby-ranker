@@ -9,7 +9,7 @@ import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.vo.MatchPrediction
 import com.ricknout.rugbyranker.vo.RankingsCalculator
-import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 

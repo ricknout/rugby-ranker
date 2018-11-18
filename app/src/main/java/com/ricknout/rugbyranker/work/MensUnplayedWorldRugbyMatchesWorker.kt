@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.WorkerParameters
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.vo.MatchStatus
-import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.common.vo.Sport
 
 class MensUnplayedWorldRugbyMatchesWorker(
         context: Context,

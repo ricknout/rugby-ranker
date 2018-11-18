@@ -8,7 +8,7 @@ import androidx.work.WorkManager
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.WorkInfo
 import com.ricknout.rugbyranker.vo.MatchStatus
-import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.common.vo.Sport
 import java.util.concurrent.TimeUnit
 
 class RugbyRankerWorkManager {

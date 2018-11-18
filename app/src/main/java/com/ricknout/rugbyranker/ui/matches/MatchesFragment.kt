@@ -18,7 +18,7 @@ import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchDateItemDecoration
 import com.ricknout.rugbyranker.ui.common.WorldRugbyMatchPagedListAdapter
 import com.ricknout.rugbyranker.vo.MatchStatus
-import com.ricknout.rugbyranker.vo.Sport
+import com.ricknout.rugbyranker.common.vo.Sport
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_matches.*

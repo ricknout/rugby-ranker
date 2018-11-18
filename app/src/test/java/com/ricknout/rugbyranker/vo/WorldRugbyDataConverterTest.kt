@@ -4,6 +4,7 @@ import com.ricknout.rugbyranker.api.Effective
 import com.ricknout.rugbyranker.api.Entry
 import com.ricknout.rugbyranker.api.Team
 import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
+import com.ricknout.rugbyranker.common.vo.Sport
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.assertEquals
