@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.api
+package com.ricknout.rugbyranker.common.api
 
 data class Effective(
         val label: String,

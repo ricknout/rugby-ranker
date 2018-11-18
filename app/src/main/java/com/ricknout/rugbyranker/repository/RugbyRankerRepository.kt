@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.paging.Config
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
-import com.ricknout.rugbyranker.api.WorldRugbyMatchesResponse
-import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
-import com.ricknout.rugbyranker.api.WorldRugbyService
+import com.ricknout.rugbyranker.common.api.WorldRugbyMatchesResponse
+import com.ricknout.rugbyranker.common.api.WorldRugbyRankingsResponse
+import com.ricknout.rugbyranker.common.api.WorldRugbyService
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao

@@ -1,4 +1,4 @@
-package com.ricknout.rugbyranker.api
+package com.ricknout.rugbyranker.common.api
 
 import retrofit2.Call
 import retrofit2.http.GET

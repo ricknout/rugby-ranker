@@ -1,9 +1,9 @@
 package com.ricknout.rugbyranker.vo
 
-import com.ricknout.rugbyranker.api.Effective
-import com.ricknout.rugbyranker.api.Entry
-import com.ricknout.rugbyranker.api.Team
-import com.ricknout.rugbyranker.api.WorldRugbyRankingsResponse
+import com.ricknout.rugbyranker.common.api.Effective
+import com.ricknout.rugbyranker.common.api.Entry
+import com.ricknout.rugbyranker.common.api.Team
+import com.ricknout.rugbyranker.common.api.WorldRugbyRankingsResponse
 import com.ricknout.rugbyranker.common.vo.Sport
 import org.junit.Before
 import org.junit.Test

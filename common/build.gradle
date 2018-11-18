@@ -28,6 +28,8 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     api "androidx.recyclerview:recyclerview:$recyclerview_version"
     api "com.google.android.material:material:$material_version"
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     testImplementation "junit:junit:$test_junit_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"

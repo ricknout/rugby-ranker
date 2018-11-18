@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
-import com.ricknout.rugbyranker.api.WorldRugbyService
+import com.ricknout.rugbyranker.common.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.RugbyRankerMigrations
 import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
