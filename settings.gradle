@@ -1,1 +1,1 @@
-include ':app', ':info', ':common'
+include ':app', ':info', ':common', ':prediction'
