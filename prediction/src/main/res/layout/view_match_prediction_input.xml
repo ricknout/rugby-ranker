@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/spacing_half"
-    android:elevation="@dimen/elevation_bottom_sheet"
-    android:background="@drawable/bg_bottom_sheet"
     android:clickable="true"
-    android:focusable="true"
-    android:theme="@style/RugbyRankerTheme.Secondary"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="@dimen/height_peek"
-    app:behavior_skipCollapsed="true"
-    tools:background="@null">
+    android:focusable="true">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -213,7 +203,7 @@
         app:layout_constraintGuide_begin="@dimen/height_peek" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/matchePredictionsRecyclerView"
+        android:id="@+id/matchPredictionsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -239,7 +229,7 @@
         android:contentDescription="@string/content_description_add_match_prediction"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/peekGuideline"
-        app:layout_constraintStart_toEndOf="@id/matchePredictionsRecyclerView"
+        app:layout_constraintStart_toEndOf="@id/matchPredictionsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

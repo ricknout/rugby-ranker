@@ -71,6 +71,17 @@
         app:srcCompat="@drawable/ic_add_match_black_24dp"
         android:contentDescription="@string/content_description_add_match_prediction" />
 
-    <include layout="@layout/include_match_prediction_bottom_sheet" />
+    <com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_half"
+        android:theme="@style/RugbyRankerTheme.Secondary"
+        android:background="@drawable/bg_bottom_sheet"
+        android:elevation="@dimen/elevation_bottom_sheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="@dimen/height_peek"
+        app:behavior_skipCollapsed="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
