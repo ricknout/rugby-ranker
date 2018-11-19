@@ -6,16 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.prefs.RankingsSharedPreferences
-import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import com.ricknout.rugbyranker.vo.RankingsCalculator
 import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.repository.RankingsRepository
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 
 open class RankingsViewModel(
         private val sport: Sport,
-        private val rugbyRankerRepository: RugbyRankerRepository,
+        private val rankingsRepository: RankingsRepository,
         rugbyRankerWorkManager: RugbyRankerWorkManager
 ) : ViewModel() {
 
@@ -40,11 +40,11 @@ open class RankingsViewModel(
     val matchPredictions: LiveData<List<MatchPrediction>>
         get() = _matchPredictions
 
-    val latestWorldRugbyRankings = rugbyRankerRepository.loadLatestWorldRugbyRankings(sport)
+    val latestWorldRugbyRankings = rankingsRepository.loadLatestWorldRugbyRankings(sport)
     val latestWorldRugbyRankingsWorkInfos = rugbyRankerWorkManager.getLatestWorldRugbyRankingsWorkInfos(sport)
 
     private val _latestWorldRugbyRankingsEffectiveTime = MediatorLiveData<String>().apply {
-        addSource(rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)) { effectiveTimeMillis ->
+        addSource(rankingsRepository.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)) { effectiveTimeMillis ->
             value = if (hasMatchPredictions() || effectiveTimeMillis == RankingsSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
                 null
             } else {
@@ -52,7 +52,7 @@ open class RankingsViewModel(
             }
         }
         addSource(_matchPredictions) {
-            val effectiveTimeMillis = rugbyRankerRepository.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
+            val effectiveTimeMillis = rankingsRepository.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
             value = if (hasMatchPredictions() || effectiveTimeMillis == RankingsSharedPreferences.DEFAULT_EFFECTIVE_TIME_MILLIS) {
                 null
             } else {
@@ -85,7 +85,7 @@ open class RankingsViewModel(
 
     fun refreshLatestWorldRugbyRankings(onComplete: (success: Boolean) -> Unit) {
         _refreshingLatestWorldRugbyRankings.value = true
-        rugbyRankerRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(sport) { success ->
+        rankingsRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(sport) { success ->
             _refreshingLatestWorldRugbyRankings.value = false
             onComplete(success)
         }

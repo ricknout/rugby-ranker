@@ -13,7 +13,8 @@ import com.ricknout.rugbyranker.db.RugbyRankerMigrations
 import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.prefs.RankingsSharedPreferences
-import com.ricknout.rugbyranker.repository.RugbyRankerRepository
+import com.ricknout.rugbyranker.repository.MatchesRepository
+import com.ricknout.rugbyranker.repository.RankingsRepository
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -84,14 +85,23 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRugbyRankerRepository(
+    fun provideRankingsRepository(
             worldRugbyService: WorldRugbyService,
             worldRugbyRankingDao: WorldRugbyRankingDao,
-            worldRugbyMatchDao: WorldRugbyMatchDao,
             rankingsSharedPreferences: RankingsSharedPreferences,
             executor: Executor
-    ) : RugbyRankerRepository {
-        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, worldRugbyMatchDao, rankingsSharedPreferences, executor)
+    ) : RankingsRepository {
+        return RankingsRepository(worldRugbyService, worldRugbyRankingDao, rankingsSharedPreferences, executor)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchesRepository(
+            worldRugbyService: WorldRugbyService,
+            worldRugbyMatchDao: WorldRugbyMatchDao,
+            executor: Executor
+    ) : MatchesRepository {
+        return MatchesRepository(worldRugbyService, worldRugbyMatchDao, executor)
     }
 
     @Provides

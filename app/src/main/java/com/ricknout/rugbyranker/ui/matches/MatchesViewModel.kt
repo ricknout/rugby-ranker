@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ricknout.rugbyranker.common.livedata.Event
-import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.repository.MatchesRepository
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 
 open class MatchesViewModel(
         private val sport: Sport,
         private val matchStatus: MatchStatus,
-        private val rugbyRankerRepository: RugbyRankerRepository,
+        private val matchesRepository: MatchesRepository,
         rugbyRankerWorkManager: RugbyRankerWorkManager
 ) : ViewModel() {
 
@@ -21,7 +21,7 @@ open class MatchesViewModel(
         rugbyRankerWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
     }
 
-    val latestWorldRugbyMatches = rugbyRankerRepository.loadLatestWorldRugbyMatches(sport, matchStatus, asc = matchStatus == MatchStatus.UNPLAYED)
+    val latestWorldRugbyMatches = matchesRepository.loadLatestWorldRugbyMatches(sport, matchStatus, asc = matchStatus == MatchStatus.UNPLAYED)
     val latestWorldRugbyMatchesWorkInfos = rugbyRankerWorkManager.getLatestWorldRugbyMatchesWorkInfos(sport, matchStatus)
 
     private val _refreshingLatestWorldRugbyMatches = MutableLiveData<Boolean>().apply { value = false }
@@ -30,7 +30,7 @@ open class MatchesViewModel(
 
     fun refreshLatestWorldRugbyMatches(onComplete: (success: Boolean) -> Unit) {
         _refreshingLatestWorldRugbyMatches.value = true
-        rugbyRankerRepository.fetchAndCacheLatestWorldRugbyMatchesAsync(sport, matchStatus) { success ->
+        matchesRepository.fetchAndCacheLatestWorldRugbyMatchesAsync(sport, matchStatus) { success ->
             _refreshingLatestWorldRugbyMatches.value = false
             onComplete(success)
         }

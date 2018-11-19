@@ -1,12 +1,11 @@
 package com.ricknout.rugbyranker.ui.rankings
 
-import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.repository.RankingsRepository
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 import javax.inject.Inject
 
 class WomensRankingsViewModel @Inject constructor(
-        rugbyRankerRepository: RugbyRankerRepository,
+        rankingsRepository: RankingsRepository,
         rugbyRankerWorkManager: RugbyRankerWorkManager
-) : RankingsViewModel(Sport.WOMENS, rugbyRankerRepository, rugbyRankerWorkManager)
-
+) : RankingsViewModel(Sport.WOMENS, rankingsRepository, rugbyRankerWorkManager)

@@ -6,31 +6,35 @@ import androidx.work.ListenableWorker
 import androidx.work.Worker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.ricknout.rugbyranker.repository.RugbyRankerRepository
+import com.ricknout.rugbyranker.repository.MatchesRepository
+import com.ricknout.rugbyranker.repository.RankingsRepository
 import javax.inject.Inject
 
-class RugbyRankerWorkerFactory @Inject constructor(private val rugbyRankerRepository: RugbyRankerRepository) : WorkerFactory() {
+class RugbyRankerWorkerFactory @Inject constructor(
+        private val rankingsRepository: RankingsRepository,
+        private val matchesRepository: MatchesRepository
+) : WorkerFactory() {
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {
 
         return when (workerClassName) {
             MensWorldRugbyRankingsWorker::class.java.name -> MensWorldRugbyRankingsWorker(
-                    appContext, workerParameters, rugbyRankerRepository
+                    appContext, workerParameters, rankingsRepository
             )
             WomensWorldRugbyRankingsWorker::class.java.name -> WomensWorldRugbyRankingsWorker(
-                    appContext, workerParameters, rugbyRankerRepository
+                    appContext, workerParameters, rankingsRepository
             )
             MensUnplayedWorldRugbyMatchesWorker::class.java.name -> MensUnplayedWorldRugbyMatchesWorker(
-                    appContext, workerParameters, rugbyRankerRepository
+                    appContext, workerParameters, matchesRepository
             )
             MensCompleteWorldRugbyMatchesWorker::class.java.name -> MensCompleteWorldRugbyMatchesWorker(
-                    appContext, workerParameters, rugbyRankerRepository
+                    appContext, workerParameters, matchesRepository
             )
             WomensUnplayedWorldRugbyMatchesWorker::class.java.name -> WomensUnplayedWorldRugbyMatchesWorker(
-                    appContext, workerParameters, rugbyRankerRepository
+                    appContext, workerParameters, matchesRepository
             )
             WomensCompleteWorldRugbyMatchesWorker::class.java.name -> WomensCompleteWorldRugbyMatchesWorker(
-                    appContext, workerParameters, rugbyRankerRepository
+                    appContext, workerParameters, matchesRepository
             )
             else -> {
                 try {
