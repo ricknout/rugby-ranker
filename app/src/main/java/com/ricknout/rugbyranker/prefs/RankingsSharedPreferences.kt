@@ -6,7 +6,7 @@ import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import com.ricknout.rugbyranker.common.prefs.LongSharedPreferenceLiveData
 
-class RugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferences) {
+class RankingsSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
     fun setLatestWorldRugbyRankingsEffectiveTimeMillis(millis: Long, sport: Sport) {
         when (sport) {
@@ -38,7 +38,6 @@ class RugbyRankerSharedPreferences(private val sharedPreferences: SharedPreferen
     private fun getWomensEffectiveTimeMillisLiveData() = LongSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_MILLIS_WOMENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
 
     companion object {
-        const val SHARED_PREFERENCES_NAME = "rugby_ranker_shared_preferences"
         const val DEFAULT_EFFECTIVE_TIME_MILLIS = -1L
         private const val KEY_EFFECTIVE_TIME_MILLIS_MENS = "effective_time_millis_mens"
         private const val KEY_EFFECTIVE_TIME_MILLIS_WOMENS = "effective_time_millis_womens"

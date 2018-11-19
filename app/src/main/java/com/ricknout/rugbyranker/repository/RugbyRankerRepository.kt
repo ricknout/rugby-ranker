@@ -11,7 +11,7 @@ import com.ricknout.rugbyranker.common.api.WorldRugbyService
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
-import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
+import com.ricknout.rugbyranker.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.vo.RankingsDataConverter
 import com.ricknout.rugbyranker.vo.MatchesDataConverter
@@ -26,7 +26,7 @@ class RugbyRankerRepository(
         private val worldRugbyService: WorldRugbyService,
         private val worldRugbyRankingDao: WorldRugbyRankingDao,
         private val worldRugbyMatchDao: WorldRugbyMatchDao,
-        private val rugbyRankerSharedPreferences: RugbyRankerSharedPreferences,
+        private val rankingsSharedPreferences: RankingsSharedPreferences,
         private val executor: Executor
 ) {
 
@@ -47,7 +47,7 @@ class RugbyRankerRepository(
                 executor.execute {
                     worldRugbyRankingDao.insert(worldRugbyRankings)
                 }
-                rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
+                rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
                 return true
             }
             return false
@@ -75,7 +75,7 @@ class RugbyRankerRepository(
                     executor.execute {
                         worldRugbyRankingDao.insert(worldRugbyRankings)
                     }
-                    rugbyRankerSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
+                    rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
                     onComplete(true)
                 } else {
                     onComplete(false)
@@ -92,11 +92,11 @@ class RugbyRankerRepository(
     private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
 
     fun getLatestWorldRugbyRankingsEffectiveTimeMillis(sport: Sport): Long {
-        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
+        return rankingsSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillis(sport)
     }
 
     fun getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport: Sport): LiveData<Long> {
-        return rugbyRankerSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)
+        return rankingsSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)
     }
 
     fun loadLatestWorldRugbyMatches(sport: Sport, matchStatus: MatchStatus, asc: Boolean): LiveData<PagedList<WorldRugbyMatch>> {

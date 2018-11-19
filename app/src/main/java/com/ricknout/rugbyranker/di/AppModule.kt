@@ -12,7 +12,7 @@ import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.RugbyRankerMigrations
 import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
-import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
+import com.ricknout.rugbyranker.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 import retrofit2.Retrofit
@@ -67,13 +67,13 @@ class AppModule {
     @Provides
     @Singleton
     fun provideSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences(RugbyRankerSharedPreferences.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        return context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
 
     @Provides
     @Singleton
-    fun provideRugbyRankerSharedPreferences(sharedPreferences: SharedPreferences): RugbyRankerSharedPreferences {
-        return RugbyRankerSharedPreferences(sharedPreferences)
+    fun provideRankingsSharedPreferences(sharedPreferences: SharedPreferences): RankingsSharedPreferences {
+        return RankingsSharedPreferences(sharedPreferences)
     }
 
     @Provides
@@ -88,15 +88,19 @@ class AppModule {
             worldRugbyService: WorldRugbyService,
             worldRugbyRankingDao: WorldRugbyRankingDao,
             worldRugbyMatchDao: WorldRugbyMatchDao,
-            rugbyRankerSharedPreferences: RugbyRankerSharedPreferences,
+            rankingsSharedPreferences: RankingsSharedPreferences,
             executor: Executor
     ) : RugbyRankerRepository {
-        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, worldRugbyMatchDao, rugbyRankerSharedPreferences, executor)
+        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, worldRugbyMatchDao, rankingsSharedPreferences, executor)
     }
 
     @Provides
     @Singleton
     fun provideRugbyRankerWorkManager(): RugbyRankerWorkManager {
         return RugbyRankerWorkManager()
+    }
+
+    companion object {
+        private const val SHARED_PREFERENCES_NAME = "rugby_ranker_shared_preferences"
     }
 }
