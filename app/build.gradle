@@ -41,7 +41,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':rankings')
     implementation project(':prediction')
+    implementation project(':matches')
     implementation project(':info')
     implementation project(':common')
     implementation "androidx.emoji:emoji:$emoji_version"
