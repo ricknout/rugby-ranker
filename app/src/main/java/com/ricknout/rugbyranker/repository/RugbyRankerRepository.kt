@@ -12,10 +12,11 @@ import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
-import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
-import com.ricknout.rugbyranker.vo.WorldRugbyDataConverter
+import com.ricknout.rugbyranker.vo.RankingsDataConverter
+import com.ricknout.rugbyranker.vo.MatchesDataConverter
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
+import com.ricknout.rugbyranker.vo.MatchStatus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +43,7 @@ class RugbyRankerRepository(
             val response = worldRugbyService.getRankings(json, date).execute()
             if (response.isSuccessful) {
                 val worldRugbyRankingsResponse = response.body() ?: return false
-                val worldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
+                val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
                 executor.execute {
                     worldRugbyRankingDao.insert(worldRugbyRankings)
                 }
@@ -70,7 +71,7 @@ class RugbyRankerRepository(
                         onComplete(false)
                         return
                     }
-                    val worldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
+                    val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
                     executor.execute {
                         worldRugbyRankingDao.insert(worldRugbyRankings)
                     }
@@ -136,7 +137,7 @@ class RugbyRankerRepository(
                 val response = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).execute()
                 if (response.isSuccessful) {
                     val worldRugbyMatchesResponse = response.body() ?: break
-                    val worldRugbyMatches = WorldRugbyDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
+                    val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
                     executor.execute {
                         worldRugbyMatchDao.insert(worldRugbyMatches)
                     }
@@ -185,7 +186,7 @@ class RugbyRankerRepository(
                         onComplete(false)
                         return
                     }
-                    val worldRugbyMatches = WorldRugbyDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
+                    val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
                     executor.execute {
                         worldRugbyMatchDao.insert(worldRugbyMatches)
                     }

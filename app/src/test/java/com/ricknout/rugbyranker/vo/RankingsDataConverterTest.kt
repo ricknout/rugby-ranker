@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.assertEquals
 
-class WorldRugbyDataConverterTest {
+class RankingsDataConverterTest {
 
     private lateinit var worldRugbyRankingsResponse: WorldRugbyRankingsResponse
 
@@ -29,7 +29,7 @@ class WorldRugbyDataConverterTest {
 
     @Test
     fun getMensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
-        val mensWorldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.MENS)
+        val mensWorldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.MENS)
         assertEquals(mensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         mensWorldRugbyRankings.forEachIndexed { index, mensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
@@ -47,7 +47,7 @@ class WorldRugbyDataConverterTest {
 
     @Test
     fun getWomensWorldRugbyRankingsFromWorldRugbyRankingsResponse() {
-        val womensWorldRugbyRankings = WorldRugbyDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.WOMENS)
+        val womensWorldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, Sport.WOMENS)
         assertEquals(womensWorldRugbyRankings.size, worldRugbyRankingsResponse.entries.size)
         womensWorldRugbyRankings.forEachIndexed { index, womensWorldRugbyRanking ->
             val entry = worldRugbyRankingsResponse.entries[index]
