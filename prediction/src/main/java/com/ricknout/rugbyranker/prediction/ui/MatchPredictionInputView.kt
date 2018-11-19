@@ -174,7 +174,7 @@ class MatchPredictionInputView
     }
 
     fun clearMatchPredictionPointsInput() {
-        awayTeamEditText.text?.clear()
+        homePointsEditText.text?.clear()
         awayPointsEditText.text?.clear()
     }
 
