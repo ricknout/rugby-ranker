@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="padding_bottom_rankings">88dp</dimen>
-
     <dimen name="margin_fab">16dp</dimen>
-
-    <dimen name="text_size_ranking_auto_size_max">16sp</dimen>
-    <dimen name="text_size_match_auto_size_max">18sp</dimen>
 
 </resources>

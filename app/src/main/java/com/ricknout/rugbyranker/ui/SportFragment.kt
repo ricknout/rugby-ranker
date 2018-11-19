@@ -23,21 +23,21 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.common.livedata.EventObserver
-import com.ricknout.rugbyranker.ui.matches.MatchesFragment
-import com.ricknout.rugbyranker.ui.matches.MatchesViewModel
-import com.ricknout.rugbyranker.ui.matches.MensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.ui.matches.WomensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.ui.rankings.RankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.RankingsFragment
+import com.ricknout.rugbyranker.matches.ui.MatchesFragment
+import com.ricknout.rugbyranker.matches.ui.MatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
 import com.ricknout.rugbyranker.common.util.FlagUtils
-import com.ricknout.rugbyranker.vo.MatchStatus
+import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
-import com.ricknout.rugbyranker.vo.WorldRugbyRanking
-import com.ricknout.rugbyranker.vo.WorldRugbyMatch
+import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
+import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_sport.*
 import java.lang.IllegalArgumentException
@@ -452,13 +452,13 @@ class SportFragment : DaggerFragment() {
         homeTeamName = worldRugbyMatch.firstTeamName
         homeTeamAbbreviation = worldRugbyMatch.firstTeamAbbreviation!!
         val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation), homeTeamName))
+                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation!!), homeTeamName))
         bottomSheet.homeTeamText = homeTeam
         awayTeamId = worldRugbyMatch.secondTeamId
         awayTeamName = worldRugbyMatch.secondTeamName
         awayTeamAbbreviation = worldRugbyMatch.secondTeamAbbreviation!!
         val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation), awayTeamName))
+                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation!!), awayTeamName))
         bottomSheet.awayTeamText = awayTeam
         bottomSheet.clearMatchPredictionPointsInput()
         bottomSheet.nhaChecked = worldRugbyMatch.venueCountry?.let { venueCountry ->

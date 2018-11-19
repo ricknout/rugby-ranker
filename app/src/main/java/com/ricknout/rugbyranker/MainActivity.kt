@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.saket.fluidresize.sample.FluidContentResizer

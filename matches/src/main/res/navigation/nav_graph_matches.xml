@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_matches"
+    app:startDestination="@id/mensUnplayedMatchesFragment">
+
+    <fragment
+        android:id="@+id/mensUnplayedMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="MensFixturesFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mensCompleteMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="MensResultsFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensUnplayedMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="WomensFixturesFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="0" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensCompleteMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="WomensResultsFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
+        <argument android:name="matchStatusOrdinal" android:defaultValue="1" app:argType="integer" />
+    </fragment>
+
+</navigation>

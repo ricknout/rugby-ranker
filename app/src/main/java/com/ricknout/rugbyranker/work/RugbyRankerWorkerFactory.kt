@@ -6,8 +6,14 @@ import androidx.work.ListenableWorker
 import androidx.work.Worker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.ricknout.rugbyranker.repository.MatchesRepository
-import com.ricknout.rugbyranker.repository.RankingsRepository
+import com.ricknout.rugbyranker.matches.repository.MatchesRepository
+import com.ricknout.rugbyranker.matches.work.MensCompleteWorldRugbyMatchesWorker
+import com.ricknout.rugbyranker.matches.work.MensUnplayedWorldRugbyMatchesWorker
+import com.ricknout.rugbyranker.matches.work.WomensCompleteWorldRugbyMatchesWorker
+import com.ricknout.rugbyranker.matches.work.WomensUnplayedWorldRugbyMatchesWorker
+import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
+import com.ricknout.rugbyranker.rankings.work.MensWorldRugbyRankingsWorker
+import com.ricknout.rugbyranker.rankings.work.WomensWorldRugbyRankingsWorker
 import javax.inject.Inject
 
 class RugbyRankerWorkerFactory @Inject constructor(

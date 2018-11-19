@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_rankings"
+    app:startDestination="@id/mensRankingsFragment">
+
+    <fragment
+        android:id="@+id/mensRankingsFragment"
+        android:name="com.ricknout.rugbyranker.rankings.ui.RankingsFragment"
+        android:label="MensRankingsFragment"
+        tools:layout="@layout/fragment_rankings">
+        <argument android:name="sportOrdinal" android:defaultValue="0" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensRankingsFragment"
+        android:name="com.ricknout.rugbyranker.rankings.ui.RankingsFragment"
+        android:label="WomensRankingsFragment"
+        tools:layout="@layout/fragment_rankings">
+        <argument android:name="sportOrdinal" android:defaultValue="1" app:argType="integer" />
+    </fragment>
+
+</navigation>

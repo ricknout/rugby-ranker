@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -28,8 +29,19 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     api "androidx.recyclerview:recyclerview:$recyclerview_version"
     api "com.google.android.material:material:$material_version"
+    api "androidx.emoji:emoji:$emoji_version"
+    api "androidx.emoji:emoji-bundled:$emoji_version"
+    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    api "androidx.room:room-runtime:$room_version"
+    api "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
+    api "android.arch.navigation:navigation-ui-ktx:$navigation_version"
+    api "android.arch.work:work-runtime-ktx:$work_version"
+    api "androidx.paging:paging-runtime-ktx:$paging_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.google.dagger:dagger:$dagger_version"
+    api "com.google.dagger:dagger-android:$dagger_version"
+    api "com.google.dagger:dagger-android-support:$dagger_version"
     testImplementation "junit:junit:$test_junit_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"

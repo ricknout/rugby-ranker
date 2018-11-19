@@ -2,12 +2,12 @@ package com.ricknout.rugbyranker.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ricknout.rugbyranker.ui.matches.MensCompleteMatchesViewModel
-import com.ricknout.rugbyranker.ui.matches.MensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.ui.matches.WomensCompleteMatchesViewModel
-import com.ricknout.rugbyranker.ui.matches.WomensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
+import com.ricknout.rugbyranker.matches.ui.MensCompleteMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.viewmodel.RugbyRankerViewModelFactory
 import dagger.Binds
 import dagger.Module
