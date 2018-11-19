@@ -46,7 +46,7 @@ class MatchPredictionInputView
 
     var homePointsText: Int
         get() = if (homePointsEditText.text.isNullOrEmpty()) NO_POINTS else homePointsEditText.text.toString().toInt()
-        set(value) = homeTeamEditText.setText(value.toString())
+        set(value) = homePointsEditText.setText(value.toString())
 
     var awayPointsText: Int
         get() = if (awayPointsEditText.text.isNullOrEmpty()) NO_POINTS else awayPointsEditText.text.toString().toInt()
