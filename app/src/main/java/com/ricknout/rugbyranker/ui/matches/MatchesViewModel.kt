@@ -8,21 +8,21 @@ import com.ricknout.rugbyranker.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.repository.MatchesRepository
 import com.ricknout.rugbyranker.vo.WorldRugbyMatch
-import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
+import com.ricknout.rugbyranker.work.MatchesWorkManager
 
 open class MatchesViewModel(
         private val sport: Sport,
         private val matchStatus: MatchStatus,
         private val matchesRepository: MatchesRepository,
-        rugbyRankerWorkManager: RugbyRankerWorkManager
+        matchesWorkManager: MatchesWorkManager
 ) : ViewModel() {
 
     init {
-        rugbyRankerWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
+        matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
     }
 
     val latestWorldRugbyMatches = matchesRepository.loadLatestWorldRugbyMatches(sport, matchStatus, asc = matchStatus == MatchStatus.UNPLAYED)
-    val latestWorldRugbyMatchesWorkInfos = rugbyRankerWorkManager.getLatestWorldRugbyMatchesWorkInfos(sport, matchStatus)
+    val latestWorldRugbyMatchesWorkInfos = matchesWorkManager.getLatestWorldRugbyMatchesWorkInfos(sport, matchStatus)
 
     private val _refreshingLatestWorldRugbyMatches = MutableLiveData<Boolean>().apply { value = false }
     val refreshingLatestWorldRugbyMatches: LiveData<Boolean>

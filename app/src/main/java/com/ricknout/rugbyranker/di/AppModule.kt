@@ -15,7 +15,8 @@ import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.repository.MatchesRepository
 import com.ricknout.rugbyranker.repository.RankingsRepository
-import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
+import com.ricknout.rugbyranker.work.MatchesWorkManager
+import com.ricknout.rugbyranker.work.RankingsWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executor
@@ -106,8 +107,14 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRugbyRankerWorkManager(): RugbyRankerWorkManager {
-        return RugbyRankerWorkManager()
+    fun provideRankingsWorkManager(): RankingsWorkManager {
+        return RankingsWorkManager()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchesWorkManager(): MatchesWorkManager {
+        return MatchesWorkManager()
     }
 
     companion object {

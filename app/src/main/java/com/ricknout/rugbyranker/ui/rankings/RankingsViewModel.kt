@@ -11,16 +11,16 @@ import com.ricknout.rugbyranker.vo.RankingsCalculator
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.repository.RankingsRepository
 import com.ricknout.rugbyranker.vo.WorldRugbyRanking
-import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
+import com.ricknout.rugbyranker.work.RankingsWorkManager
 
 open class RankingsViewModel(
         private val sport: Sport,
         private val rankingsRepository: RankingsRepository,
-        rugbyRankerWorkManager: RugbyRankerWorkManager
+        rankingsWorkManager: RankingsWorkManager
 ) : ViewModel() {
 
     init {
-        rugbyRankerWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
+        rankingsWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
     }
 
     private val _editingMatchPrediction = MutableLiveData<MatchPrediction>().apply { value = null }
@@ -41,7 +41,7 @@ open class RankingsViewModel(
         get() = _matchPredictions
 
     val latestWorldRugbyRankings = rankingsRepository.loadLatestWorldRugbyRankings(sport)
-    val latestWorldRugbyRankingsWorkInfos = rugbyRankerWorkManager.getLatestWorldRugbyRankingsWorkInfos(sport)
+    val latestWorldRugbyRankingsWorkInfos = rankingsWorkManager.getLatestWorldRugbyRankingsWorkInfos(sport)
 
     private val _latestWorldRugbyRankingsEffectiveTime = MediatorLiveData<String>().apply {
         addSource(rankingsRepository.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)) { effectiveTimeMillis ->
