@@ -15,6 +15,7 @@ import com.ricknout.rugbyranker.repository.RugbyRankerRepository
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -39,7 +40,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideWorldRugbyService(retrofit: Retrofit): WorldRugbyService {
-        return retrofit.create(WorldRugbyService::class.java)
+        return retrofit.create()
     }
 
     @Provides
