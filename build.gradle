@@ -18,7 +18,7 @@ buildscript {
     ext.navigation_version = "1.0.0-alpha07"
     ext.work_version = "1.0.0-alpha11"
     ext.paging_version = "2.1.0-beta01"
-    ext.retrofit_version = "2.4.0"
+    ext.retrofit_version = "2.5.0"
     ext.dagger_version = '2.16'
     ext.oss_licenses_plugin_version = "0.9.3"
     ext.play_services_oss_licenses_version = "16.0.1"
