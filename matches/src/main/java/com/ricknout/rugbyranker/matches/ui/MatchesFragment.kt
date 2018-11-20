@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
+import com.ricknout.rugbyranker.common.livedata.EventObserver
 import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
@@ -116,6 +117,9 @@ class MatchesFragment : DaggerFragment() {
         })
         viewModel.refreshingLatestWorldRugbyMatches.observe(viewLifecycleOwner, Observer { refreshingLatestWorldRugbyMatches ->
             swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyMatches
+        })
+        viewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+            doIfVisibleToUser { matchesRecyclerView.smoothScrollToPosition(0) }
         })
     }
 

@@ -17,6 +17,7 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
+import com.ricknout.rugbyranker.common.livedata.EventObserver
 import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.common.vo.Sport
 import kotlinx.android.synthetic.main.fragment_rankings.*
@@ -91,6 +92,9 @@ class RankingsFragment : DaggerFragment() {
         })
         viewModel.refreshingLatestWorldRugbyRankings.observe(viewLifecycleOwner, Observer { refreshingLatestWorldRugbyRankings ->
             swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyRankings
+        })
+        viewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+            doIfVisibleToUser { rankingsRecyclerView.smoothScrollToPosition(0) }
         })
     }
 

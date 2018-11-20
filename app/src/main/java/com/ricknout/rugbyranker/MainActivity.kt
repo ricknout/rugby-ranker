@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.ricknout.rugbyranker.matches.ui.MensCompleteMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import dagger.android.support.DaggerAppCompatActivity
@@ -19,6 +23,10 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var mensRankingsViewModel: MensRankingsViewModel
     private lateinit var womensRankingsViewModel: WomensRankingsViewModel
+    private lateinit var mensUnplayedMatchesViewModel: MensUnplayedMatchesViewModel
+    private lateinit var womensUnplayedMatchesViewModel: WomensUnplayedMatchesViewModel
+    private lateinit var mensCompleteMatchesViewModel: MensCompleteMatchesViewModel
+    private lateinit var womensCompleteMatchesViewModel: WomensCompleteMatchesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +35,34 @@ class MainActivity : DaggerAppCompatActivity() {
                 .get(MensRankingsViewModel::class.java)
         womensRankingsViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(WomensRankingsViewModel::class.java)
+        mensUnplayedMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(MensUnplayedMatchesViewModel::class.java)
+        womensUnplayedMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(WomensUnplayedMatchesViewModel::class.java)
+        mensCompleteMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(MensCompleteMatchesViewModel::class.java)
+        womensCompleteMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(WomensCompleteMatchesViewModel::class.java)
+        setupBottomNavigation()
+        FluidContentResizer.listen(this)
+    }
+
+    private fun setupBottomNavigation() {
         val navController = findNavController(R.id.navHostFragment)
         bottomNavigationView.setupWithNavController(navController)
-        bottomNavigationView.setOnNavigationItemReselectedListener {
-            // Do nothing to prevent recreating of Fragments on reselect
-            // https://issuetracker.google.com/issues/110312014
-            // TODO: Implement ViewModel event to scroll to top?
+        bottomNavigationView.setOnNavigationItemReselectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.mensFragment -> {
+                    mensRankingsViewModel.reselect()
+                    mensUnplayedMatchesViewModel.reselect()
+                    mensCompleteMatchesViewModel.reselect()
+                }
+                R.id.womensFragment -> {
+                    womensRankingsViewModel.reselect()
+                    womensUnplayedMatchesViewModel.reselect()
+                    womensCompleteMatchesViewModel.reselect()
+                }
+            }
         }
         navController.addOnNavigatedListener { _, destination ->
             when (destination.id) {
@@ -54,7 +84,6 @@ class MainActivity : DaggerAppCompatActivity() {
                 }
             }
         }
-        FluidContentResizer.listen(this)
     }
 
     override fun onBackPressed() {

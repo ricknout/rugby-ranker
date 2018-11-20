@@ -2,8 +2,8 @@ package com.ricknout.rugbyranker.matches.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.ricknout.rugbyranker.common.livedata.Event
+import com.ricknout.rugbyranker.common.viewmodel.ReselectViewModel
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
@@ -15,7 +15,7 @@ open class MatchesViewModel(
         private val matchStatus: MatchStatus,
         private val matchesRepository: MatchesRepository,
         matchesWorkManager: MatchesWorkManager
-) : ViewModel() {
+) : ReselectViewModel() {
 
     init {
         matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
