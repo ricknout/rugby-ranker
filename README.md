@@ -21,7 +21,7 @@ It displays the latest international rankings and makes use of the [World Rugby 
 Rugby Ranker attempts to make use of the latest Android libraries and best practices:
 * Entirely written in [Kotlin](https://kotlinlang.org/)
 * Makes use of [Android Jetpack](https://developer.android.com/jetpack/), including:
-  * All appropriate [Architecture Components](https://developer.android.com/topic/libraries/architecture/), including **Lifecycles**, **LiveData**, **ViewModel**, **Room**, **Navigation** and **WorkManager**
+  * All appropriate [Architecture Components](https://developer.android.com/topic/libraries/architecture/), including **Lifecycles**, **LiveData**, **ViewModel**, **Room**, **Paging**, **Navigation** and **WorkManager**
   * [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout) 2.0 for layouts
   * [EmojiCompat](https://developer.android.com/guide/topics/ui/look-and-feel/emoji-compat) for emoji compatibility on older platforms
   * [Android KTX](https://developer.android.com/kotlin/ktx) for more fluent use of Android APIs
