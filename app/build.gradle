@@ -24,7 +24,7 @@ android {
             manifestPlaceholders = [
                     appIcon:"@mipmap/ic_launcher",
                     appName:"@string/app_name",
-                    "workManagerInitAuthorities":"com.ricknout.rugbyranker.workmanager-init"
+                    workManagerInitAuthorities:"com.ricknout.rugbyranker.workmanager-init"
             ]
         }
         debug {
@@ -32,7 +32,7 @@ android {
             manifestPlaceholders = [
                     appIcon:"@mipmap/ic_launcher_debug",
                     appName:"@string/app_name_debug",
-                    "workManagerInitAuthorities":"com.ricknout.rugbyranker.debug.workmanager-init"
+                    workManagerInitAuthorities:"com.ricknout.rugbyranker.debug.workmanager-init"
             ]
         }
     }
