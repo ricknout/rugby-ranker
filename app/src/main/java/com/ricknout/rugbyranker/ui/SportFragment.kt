@@ -48,6 +48,7 @@ class SportFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var sportViewModel: SportViewModel
     private lateinit var rankingsViewModel: RankingsViewModel
     private lateinit var unplayedMatchesViewModel: MatchesViewModel
 
@@ -82,6 +83,12 @@ class SportFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sportOrdinal = SportFragmentArgs.fromBundle(arguments).sportOrdinal
         sport = Sport.values()[sportOrdinal]
+        sportViewModel = when (sport) {
+            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(MensViewModel::class.java)
+            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(WomensViewModel::class.java)
+        }
         rankingsViewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensRankingsViewModel::class.java)
@@ -303,6 +310,9 @@ class SportFragment : DaggerFragment() {
     }
 
     private fun setupViewModels() {
+        sportViewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+            appBarLayout.setExpanded(true)
+        })
         rankingsViewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->
             val isEmpty = worldRugbyRankings?.isEmpty() ?: true
             addMatchPredictionFab.isEnabled = !isEmpty
