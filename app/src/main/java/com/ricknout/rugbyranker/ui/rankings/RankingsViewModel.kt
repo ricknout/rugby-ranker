@@ -14,9 +14,9 @@ import com.ricknout.rugbyranker.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 
 open class RankingsViewModel(
-        private val rankingsType: RankingsType,
-        private val rugbyRankerRepository: RugbyRankerRepository,
-        rugbyRankerWorkManager: RugbyRankerWorkManager
+    private val rankingsType: RankingsType,
+    private val rugbyRankerRepository: RugbyRankerRepository,
+    rugbyRankerWorkManager: RugbyRankerWorkManager
 ) : ViewModel() {
 
     init {
@@ -165,6 +165,6 @@ open class RankingsViewModel(
         awayPointsInputValid.value = false
     }
 
-    private fun isAddOrEditMatchInputValid() = homeTeamInputValid.value == true && homePointsInputValid.value == true
-            && awayTeamInputValid.value == true && awayPointsInputValid.value == true
+    private fun isAddOrEditMatchInputValid() = homeTeamInputValid.value == true && homePointsInputValid.value == true &&
+            awayTeamInputValid.value == true && awayPointsInputValid.value == true
 }

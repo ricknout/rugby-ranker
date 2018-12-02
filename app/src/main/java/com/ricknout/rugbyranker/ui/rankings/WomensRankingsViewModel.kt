@@ -6,7 +6,6 @@ import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
 import javax.inject.Inject
 
 class WomensRankingsViewModel @Inject constructor(
-        rugbyRankerRepository: RugbyRankerRepository,
-        rugbyRankerWorkManager: RugbyRankerWorkManager
+    rugbyRankerRepository: RugbyRankerRepository,
+    rugbyRankerWorkManager: RugbyRankerWorkManager
 ) : RankingsViewModel(RankingsType.WOMENS, rugbyRankerRepository, rugbyRankerWorkManager)
-
