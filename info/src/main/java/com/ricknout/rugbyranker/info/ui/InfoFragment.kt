@@ -14,8 +14,8 @@ import com.ricknout.rugbyranker.info.util.CustomTabsUtils
 
 class InfoFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inflater.inflate(R.layout.fragment_info, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_info, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         howAreWorldRugbyRankingsCalculatedButton.setOnClickListener {
