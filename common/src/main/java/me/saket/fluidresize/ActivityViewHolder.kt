@@ -10,38 +10,37 @@ data class ActivityViewHolder(
     val resizableLayout: ViewGroup,
     val contentView: ViewGroup
 ) {
+    companion object {
 
-  companion object {
+        /**
+         * The Activity View tree usually looks like this:
+         *
+         * DecorView <- does not get resized, contains space for system Ui bars.
+         * - LinearLayout
+         * -- FrameLayout <- gets resized
+         * --- LinearLayout
+         * ---- Activity content
+         */
+        fun createFrom(activity: Activity): ActivityViewHolder {
+            val decorView = activity.window.decorView as ViewGroup
+            val contentView = decorView.findViewById<ViewGroup>(Window.ID_ANDROID_CONTENT)
+            val actionBarRootLayout = contentView.parent as ViewGroup
+            val resizableLayout = actionBarRootLayout.parent as ViewGroup
 
-    /**
-     * The Activity View tree usually looks like this:
-     *
-     * DecorView <- does not get resized, contains space for system Ui bars.
-     * - LinearLayout
-     * -- FrameLayout <- gets resized
-     * --- LinearLayout
-     * ---- Activity content
-     */
-    fun createFrom(activity: Activity): ActivityViewHolder {
-      val decorView = activity.window.decorView as ViewGroup
-      val contentView = decorView.findViewById<ViewGroup>(Window.ID_ANDROID_CONTENT)
-      val actionBarRootLayout = contentView.parent as ViewGroup
-      val resizableLayout = actionBarRootLayout.parent as ViewGroup
-
-      return ActivityViewHolder(
-          nonResizableLayout = decorView,
-          resizableLayout = resizableLayout,
-          contentView = contentView)
+            return ActivityViewHolder(
+                    nonResizableLayout = decorView,
+                    resizableLayout = resizableLayout,
+                    contentView = contentView)
+        }
     }
-  }
 
-  fun onDetach(onDetach: () -> Unit) {
-    nonResizableLayout.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-      override fun onViewDetachedFromWindow(v: View?) {
-        onDetach()
-      }
+    fun onDetach(onDetach: () -> Unit) {
+        nonResizableLayout.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewDetachedFromWindow(v: View?) {
+                onDetach()
+            }
 
-      override fun onViewAttachedToWindow(v: View?) {}
-    })
-  }
+            override fun onViewAttachedToWindow(v: View?) {}
+        })
+    }
 }

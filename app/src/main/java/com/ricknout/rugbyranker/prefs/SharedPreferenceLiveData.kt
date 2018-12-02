@@ -4,9 +4,9 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 
 abstract class SharedPreferenceLiveData<T>(
-        val sharedPreferences: SharedPreferences,
-        private val key: String,
-        private val defValue: T
+    val sharedPreferences: SharedPreferences,
+    private val key: String,
+    private val defValue: T
 ) : LiveData<T>() {
 
     private val onSharedPreferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
@@ -30,9 +30,9 @@ abstract class SharedPreferenceLiveData<T>(
 }
 
 class LongSharedPreferenceLiveData(
-        sharedPreferences: SharedPreferences,
-        key: String,
-        defValue: Long
+    sharedPreferences: SharedPreferences,
+    key: String,
+    defValue: Long
 ) : SharedPreferenceLiveData<Long>(sharedPreferences, key, defValue) {
 
     override fun getValueFromSharedPreferences(key: String, defValue: Long): Long = sharedPreferences.getLong(key, defValue)

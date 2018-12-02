@@ -12,12 +12,12 @@ import com.ricknout.rugbyranker.vo.MatchResult
 import kotlinx.android.synthetic.main.list_item_match_result.view.*
 
 class MatchResultListAdapter(
-        private val onItemClick: (matchResult: MatchResult) -> Unit,
-        private val onItemCloseIconClick: (matchResult: MatchResult) -> Unit
+    private val onItemClick: (matchResult: MatchResult) -> Unit,
+    private val onItemCloseIconClick: (matchResult: MatchResult) -> Unit
 ) : ListAdapter<MatchResult, MatchResultViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchResultViewHolder
-            = MatchResultViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_match_result, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchResultViewHolder =
+            MatchResultViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_match_result, parent, false))
 
     override fun onBindViewHolder(holder: MatchResultViewHolder, position: Int) {
         val matchResult = getItem(position)

@@ -5,16 +5,16 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "world_rugby_rankings")
 data class WorldRugbyRanking(
-        @PrimaryKey
-        val teamId: Long,
-        val teamName: String,
-        val teamAbbreviation: String,
-        val position: Int,
-        val previousPosition: Int,
-        val points: Float,
-        val previousPoints: Float,
-        val matches: Int,
-        val rankingsType: RankingsType
+    @PrimaryKey
+    val teamId: Long,
+    val teamName: String,
+    val teamAbbreviation: String,
+    val position: Int,
+    val previousPosition: Int,
+    val points: Float,
+    val previousPoints: Float,
+    val matches: Int,
+    val rankingsType: RankingsType
 ) {
 
     fun resetPreviousPoints() = copy(previousPoints = this.points)
