@@ -26,7 +26,7 @@ jobs:
 #      - store_artifacts:
 #          path: app/build/reports
 #          destination: reports
-#      - run:
+      - run:
           name: Run Lint Test
           command: ./gradlew lintDebug
       - run:
