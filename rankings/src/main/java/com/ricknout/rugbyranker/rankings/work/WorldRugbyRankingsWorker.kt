@@ -3,6 +3,7 @@ package com.ricknout.rugbyranker.rankings.work
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import androidx.work.Result
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 
@@ -17,6 +18,6 @@ open class WorldRugbyRankingsWorker(
 
     private fun fetchAndCacheLatestWorldRugbyRankings(): Result {
         val success = rankingsRepository.fetchAndCacheLatestWorldRugbyRankingsSync(sport)
-        return if (success) Result.SUCCESS else Result.RETRY
+        return if (success) Result.success() else Result.retry()
     }
 }
