@@ -91,8 +91,7 @@ class RankingsFragment : DaggerFragment() {
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val rankingsTypeOrdinal = RankingsFragmentArgs.fromBundle(arguments).rankingsTypeOrdinal
-        rankingsType = RankingsType.values()[rankingsTypeOrdinal]
+        rankingsType = RankingsFragmentArgs.fromBundle(arguments).rankingsType
         viewModel = when (rankingsType) {
             RankingsType.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensRankingsViewModel::class.java)

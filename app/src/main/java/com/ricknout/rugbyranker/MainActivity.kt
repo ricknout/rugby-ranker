@@ -34,7 +34,7 @@ class MainActivity : DaggerAppCompatActivity() {
             // https://issuetracker.google.com/issues/110312014
             // TODO: Implement ViewModel event to scroll to top?
         }
-        navController.addOnNavigatedListener { _, destination ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.mensRankingsFragment -> {
                     bottomNavigationView.post {
