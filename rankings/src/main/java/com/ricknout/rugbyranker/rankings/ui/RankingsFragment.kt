@@ -40,8 +40,7 @@ class RankingsFragment : DaggerFragment() {
             = inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sportOrdinal = RankingsFragmentArgs.fromBundle(arguments).sportOrdinal
-        sport = Sport.values()[sportOrdinal]
+        sport = RankingsFragmentArgs.fromBundle(arguments).sport
         viewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensRankingsViewModel::class.java)
@@ -115,10 +114,10 @@ class RankingsFragment : DaggerFragment() {
 
     companion object {
         const val TAG = "RankingsFragment"
-        private const val ARG_SPORT_ORDINAL = "sportOrdinal"
+        private const val ARG_SPORT = "sport"
         fun newInstance(sport: Sport): RankingsFragment {
             val rankingsFragment = RankingsFragment()
-            rankingsFragment.arguments = bundleOf(ARG_SPORT_ORDINAL to sport.ordinal)
+            rankingsFragment.arguments = bundleOf(ARG_SPORT to sport)
             return rankingsFragment
         }
     }

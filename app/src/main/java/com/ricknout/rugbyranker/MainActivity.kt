@@ -79,7 +79,7 @@ class MainActivity : DaggerAppCompatActivity() {
                 R.id.infoFragment -> infoViewModel.reselect()
             }
         }
-        navController.addOnNavigatedListener { _, destination ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.mensFragment -> {
                     bottomNavigationView.post {

@@ -43,10 +43,8 @@ class MatchesFragment : DaggerFragment() {
             = inflater.inflate(R.layout.fragment_matches, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sportOrdinal = MatchesFragmentArgs.fromBundle(arguments).sportOrdinal
-        sport = Sport.values()[sportOrdinal]
-        val matchStatusOrdinal = MatchesFragmentArgs.fromBundle(arguments).matchStatusOrdinal
-        matchStatus = MatchStatus.values()[matchStatusOrdinal]
+        sport = MatchesFragmentArgs.fromBundle(arguments).sport
+        matchStatus = MatchesFragmentArgs.fromBundle(arguments).matchStatus
         viewModel = when (sport) {
             Sport.MENS -> {
                 when (matchStatus) {
@@ -140,11 +138,11 @@ class MatchesFragment : DaggerFragment() {
 
     companion object {
         const val TAG = "MatchesFragment"
-        private const val ARG_SPORT_ORDINAL = "sportOrdinal"
-        private const val ARG_MATCH_STATUS_ORDINAL = "matchStatusOrdinal"
+        private const val ARG_SPORT = "sport"
+        private const val ARG_MATCH_STATUS = "matchStatus"
         fun newInstance(sport: Sport, matchStatus: MatchStatus): MatchesFragment {
             val matchesFragment = MatchesFragment()
-            matchesFragment.arguments = bundleOf(ARG_SPORT_ORDINAL to sport.ordinal, ARG_MATCH_STATUS_ORDINAL to matchStatus.ordinal)
+            matchesFragment.arguments = bundleOf(ARG_SPORT to sport, ARG_MATCH_STATUS to matchStatus)
             return matchesFragment
         }
     }

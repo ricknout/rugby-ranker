@@ -81,8 +81,7 @@ class SportFragment : DaggerFragment() {
             = inflater.inflate(R.layout.fragment_sport, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sportOrdinal = SportFragmentArgs.fromBundle(arguments).sportOrdinal
-        sport = Sport.values()[sportOrdinal]
+        sport = SportFragmentArgs.fromBundle(arguments).sport
         sportViewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensViewModel::class.java)
