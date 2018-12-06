@@ -11,7 +11,7 @@
         android:name="com.ricknout.rugbyranker.ui.SportFragment"
         android:label="MensFragment"
         tools:layout="@layout/fragment_sport">
-        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.vo.Sport" />
+        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
     </fragment>
 
     <fragment
@@ -19,7 +19,7 @@
         android:name="com.ricknout.rugbyranker.ui.SportFragment"
         android:label="WomensFragment"
         tools:layout="@layout/fragment_sport">
-        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.vo.Sport" />
+        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
     </fragment>
 
     <fragment
