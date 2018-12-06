@@ -111,10 +111,10 @@ class RankingsFragment : DaggerFragment() {
 
     companion object {
         const val TAG = "RankingsFragment"
-        private const val ARG_SPORT_ORDINAL = "sportOrdinal"
+        private const val ARG_SPORT = "sport"
         fun newInstance(sport: Sport): RankingsFragment {
             val rankingsFragment = RankingsFragment()
-            rankingsFragment.arguments = bundleOf(ARG_SPORT_ORDINAL to sport.ordinal)
+            rankingsFragment.arguments = bundleOf(ARG_SPORT to sport)
             return rankingsFragment
         }
     }
