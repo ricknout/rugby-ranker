@@ -47,8 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/button_clear"
                 style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/matchPredictionPeekGuideline"
+                app:layout_constraintBaseline_toBaselineOf="@id/matchPredictionTitleTextView"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
