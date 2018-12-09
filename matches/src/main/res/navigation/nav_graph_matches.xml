@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_matches"
+    app:startDestination="@id/mensUnplayedMatchesFragment">
+
+    <fragment
+        android:id="@+id/mensUnplayedMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="MensFixturesFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="matchStatus" android:defaultValue="UNPLAYED" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mensCompleteMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="MensResultsFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="matchStatus" android:defaultValue="COMPLETE" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensUnplayedMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="WomensFixturesFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="matchStatus" android:defaultValue="UNPLAYED" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/womensCompleteMatchesFragment"
+        android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
+        android:label="WomensResultsFragment"
+        tools:layout="@layout/fragment_matches">
+        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="matchStatus" android:defaultValue="COMPLETE" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
+    </fragment>
+
+</navigation>

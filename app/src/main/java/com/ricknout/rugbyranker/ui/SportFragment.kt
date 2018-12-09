@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.PopupMenu
@@ -13,7 +12,6 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.FragmentManager
@@ -25,26 +23,23 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.common.livedata.EventObserver
-import com.ricknout.rugbyranker.common.ui.BackgroundClickOnItemTouchListener
-import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
-import com.ricknout.rugbyranker.ui.common.MatchPredictionListAdapter
-import com.ricknout.rugbyranker.ui.matches.MatchesFragment
-import com.ricknout.rugbyranker.ui.matches.MatchesViewModel
-import com.ricknout.rugbyranker.ui.matches.MensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.ui.matches.WomensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.ui.rankings.RankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.MensRankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.WomensRankingsViewModel
-import com.ricknout.rugbyranker.ui.rankings.RankingsFragment
-import com.ricknout.rugbyranker.util.FlagUtils
-import com.ricknout.rugbyranker.vo.MatchStatus
-import com.ricknout.rugbyranker.vo.Sport
-import com.ricknout.rugbyranker.vo.MatchPrediction
-import com.ricknout.rugbyranker.vo.WorldRugbyRanking
-import com.ricknout.rugbyranker.vo.WorldRugbyMatch
+import com.ricknout.rugbyranker.matches.ui.MatchesFragment
+import com.ricknout.rugbyranker.matches.ui.MatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
+import com.ricknout.rugbyranker.common.util.FlagUtils
+import com.ricknout.rugbyranker.matches.vo.MatchStatus
+import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
+import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
+import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_sport.*
-import kotlinx.android.synthetic.main.include_match_prediction_bottom_sheet.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
@@ -53,6 +48,7 @@ class SportFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var sportViewModel: SportViewModel
     private lateinit var rankingsViewModel: RankingsViewModel
     private lateinit var unplayedMatchesViewModel: MatchesViewModel
 
@@ -73,17 +69,6 @@ class SportFragment : DaggerFragment() {
     private lateinit var homeTeamPopupMenu: PopupMenu
     private lateinit var awayTeamPopupMenu: PopupMenu
 
-    private val matchPredictionAdapter = MatchPredictionListAdapter({ matchPrediction ->
-        rankingsViewModel.beginEditMatchPrediction(matchPrediction)
-        applyMatchPredictionToInput(matchPrediction)
-        showBottomSheet()
-    }, { matchPrediction ->
-        val removedEditingMatchPrediction = rankingsViewModel.removeMatchPrediction(matchPrediction)
-        if (removedEditingMatchPrediction) {
-            clearMatchPredictionInput()
-        }
-    })
-
     private val onBackPressedCallback = OnBackPressedCallback {
         if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             hideBottomSheet()
@@ -97,6 +82,12 @@ class SportFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sport = SportFragmentArgs.fromBundle(arguments).sport
+        sportViewModel = when (sport) {
+            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(MensViewModel::class.java)
+            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(WomensViewModel::class.java)
+        }
         rankingsViewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensRankingsViewModel::class.java)
@@ -184,7 +175,7 @@ class SportFragment : DaggerFragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                updateAlphaForBottomSheetSlide(slideOffset, rankingsViewModel.hasMatchPredictions())
+                this@SportFragment.bottomSheet.updateAlphaForOffset(slideOffset, rankingsViewModel.hasMatchPredictions())
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
                 if (state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) {
@@ -193,8 +184,7 @@ class SportFragment : DaggerFragment() {
                         clearMatchPredictionInput = false
                     }
                     hideSoftInput()
-                    homePointsEditText.clearFocus()
-                    awayPointsEditText.clearFocus()
+                    this@SportFragment.bottomSheet.clearMatchPredictionFocus()
                 }
             }
         })
@@ -205,13 +195,9 @@ class SportFragment : DaggerFragment() {
                 BottomSheetBehavior.STATE_COLLAPSED -> 0f
                 else -> -1f
             }
-            updateAlphaForBottomSheetSlide(slideOffset, rankingsViewModel.hasMatchPredictions())
+            this@SportFragment.bottomSheet.updateAlphaForOffset(slideOffset, rankingsViewModel.hasMatchPredictions())
         }
-        matchePredictionsRecyclerView.adapter = matchPredictionAdapter
-        matchePredictionsRecyclerView.addOnItemTouchListener(BackgroundClickOnItemTouchListener(requireContext()) {
-            showBottomSheet()
-        })
-        homeTeamPopupMenu = PopupMenu(requireContext(), homeTeamEditText).apply {
+        homeTeamPopupMenu = PopupMenu(requireContext(), bottomSheet.getHomeTeamAnchorView()).apply {
             setOnMenuItemClickListener { menuItem ->
                 val intent = menuItem.intent
                 val homeTeamId = intent.extras?.getLong(EXTRA_TEAM_ID)
@@ -221,30 +207,11 @@ class SportFragment : DaggerFragment() {
                 this@SportFragment.homeTeamId = homeTeamId
                 this@SportFragment.homeTeamName = homeTeamName
                 this@SportFragment.homeTeamAbbreviation = homeTeamAbbreviation
-                homeTeamEditText.setText(menuItem.title)
+                bottomSheet.homeTeamText = menuItem.title
                 true
             }
         }
-        homeTeamEditText.apply {
-            setOnClickListener {
-                homeTeamPopupMenu.show()
-            }
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    rankingsViewModel.homeTeamInputValid.value = valid
-                }
-            })
-        }
-        homePointsEditText.apply {
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    rankingsViewModel.homePointsInputValid.value = valid
-                }
-            })
-        }
-        awayTeamPopupMenu = PopupMenu(requireContext(), awayTeamEditText).apply {
+        awayTeamPopupMenu = PopupMenu(requireContext(), bottomSheet.getAwayTeamAnchorView()).apply {
             setOnMenuItemClickListener { menuItem ->
                 val intent = menuItem.intent
                 val awayTeamId = intent.extras?.getLong(EXTRA_TEAM_ID)
@@ -254,58 +221,84 @@ class SportFragment : DaggerFragment() {
                 this@SportFragment.awayTeamId = awayTeamId
                 this@SportFragment.awayTeamName = awayTeamName
                 this@SportFragment.awayTeamAbbreviation = awayTeamAbbreviation
-                awayTeamEditText.setText(menuItem.title)
+                bottomSheet.awayTeamText = menuItem.title
                 true
             }
         }
-        awayTeamEditText.apply {
-            setOnClickListener {
+        bottomSheet.listener = object : MatchPredictionInputView.MatchPredictionInputViewListener {
+
+            override fun onHomeTeamClick() {
+                homeTeamPopupMenu.show()
+            }
+
+            override fun onAwayTeamClick() {
                 awayTeamPopupMenu.show()
             }
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    rankingsViewModel.awayTeamInputValid.value = valid
-                }
-            })
-        }
-        awayPointsEditText.apply {
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    rankingsViewModel.awayPointsInputValid.value = valid
-                }
-            })
-        }
-        clearOrCancelButton.setOnClickListener {
-            if (rankingsViewModel.isEditingMatchPrediction()) {
-                hideBottomSheetAndClearMatchPredictionInput()
-            } else {
+
+            override fun onHomeTeamTextChanged(valid: Boolean) {
+                rankingsViewModel.homeTeamInputValid.value = valid
+            }
+
+            override fun onAwayTeamTextChanged(valid: Boolean) {
+                rankingsViewModel.awayTeamInputValid.value = valid
+            }
+
+            override fun onHomePointsTextChanged(valid: Boolean) {
+                rankingsViewModel.homePointsInputValid.value = valid
+            }
+
+            override fun onAwayPointsTextChanged(valid: Boolean) {
+                rankingsViewModel.awayPointsInputValid.value = valid
+            }
+
+            override fun onAddMatchPredictionClick() {
                 clearMatchPredictionInput()
+                showBottomSheet()
             }
-        }
-        closeButton.setOnClickListener {
-            hideBottomSheet()
-        }
-        addOrEditMatchPredictionButton.setOnClickListener {
-            if (addOrEditMatchPredictionFromInput()) {
-                hideBottomSheetAndClearMatchPredictionInput()
+
+            override fun onClearOrCancelClick() {
+                if (rankingsViewModel.isEditingMatchPrediction()) {
+                    hideBottomSheetAndClearMatchPredictionInput()
+                } else {
+                    clearMatchPredictionInput()
+                }
             }
-        }
-        awayPointsEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+            override fun onCloseClick() {
+                hideBottomSheet()
+            }
+
+            override fun onAddOrEditMatchPredictionClick() {
                 if (addOrEditMatchPredictionFromInput()) {
                     hideBottomSheetAndClearMatchPredictionInput()
-                    return@setOnEditorActionListener true
                 }
             }
-            false
+
+            override fun onAwayPointsImeDoneAction(): Boolean {
+                if (addOrEditMatchPredictionFromInput()) {
+                    hideBottomSheetAndClearMatchPredictionInput()
+                    return true
+                }
+                return false
+            }
+
+            override fun onMatchPredictionClick(matchPrediction: MatchPrediction) {
+                rankingsViewModel.beginEditMatchPrediction(matchPrediction)
+                applyMatchPredictionToInput(matchPrediction)
+                showBottomSheet()
+            }
+
+            override fun onMatchPredictionRemoveClick(matchPrediction: MatchPrediction) {
+                val removedEditingMatchPrediction = rankingsViewModel.removeMatchPrediction(matchPrediction)
+                if (removedEditingMatchPrediction) {
+                    clearMatchPredictionInput()
+                }
+            }
+
+            override fun onMatchPredictionsBackgroundClick() {
+                showBottomSheet()
+            }
         }
-        addMatchPredictionButton.setOnClickListener {
-            clearMatchPredictionInput()
-            showBottomSheet()
-        }
-        TooltipCompat.setTooltipText(addMatchPredictionButton, getString(R.string.tooltip_add_match_prediction))
     }
 
     private fun setupAddMatchFab() {
@@ -316,6 +309,9 @@ class SportFragment : DaggerFragment() {
     }
 
     private fun setupViewModels() {
+        sportViewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+            appBarLayout.setExpanded(true)
+        })
         rankingsViewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->
             val isEmpty = worldRugbyRankings?.isEmpty() ?: true
             addMatchPredictionFab.isEnabled = !isEmpty
@@ -327,21 +323,19 @@ class SportFragment : DaggerFragment() {
             setSubtitle(effectiveTime)
         })
         rankingsViewModel.matchPredictions.observe(viewLifecycleOwner, Observer { matchPredictions ->
-            matchPredictionAdapter.submitList(matchPredictions)
+            bottomSheet.setMatchPredictions(matchPredictions)
         })
         rankingsViewModel.matchPredictionInputValid.observe(viewLifecycleOwner, Observer { matchPredictionInputValid ->
-            addOrEditMatchPredictionButton.isEnabled = matchPredictionInputValid
+            bottomSheet.setAddOrEditMatchPredictionButtonEnabled(matchPredictionInputValid)
         })
         rankingsViewModel.editingMatchPrediction.observe(viewLifecycleOwner, Observer { editingMatchPrediction ->
             val isEditing = editingMatchPrediction != null
-            clearOrCancelButton.setText(if (isEditing) R.string.button_cancel else R.string.button_clear)
-            matchPredictionTitleTextView.setText(if (isEditing) R.string.title_edit_match_prediction else R.string.title_add_match_prediction)
-            addOrEditMatchPredictionButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
+            bottomSheet.adjustForEditing(isEditing)
         })
         rankingsViewModel.matchPredictionInputState.observe(viewLifecycleOwner, Observer { matchPredictionInputState ->
             val showMatchPredictionInput = matchPredictionInputState?.showMatchPredictionInput ?: true
             val hasMatchPredictions = matchPredictionInputState?.hasMatchPredictions ?: false
-            addMatchPredictionButton.isEnabled = hasMatchPredictions
+            bottomSheet.setAddMatchPredictionButtonEnabled(hasMatchPredictions)
             addMatchPredictionFab.apply {
                 if (showMatchPredictionInput && !hasMatchPredictions) show() else hide()
             }
@@ -377,27 +371,6 @@ class SportFragment : DaggerFragment() {
         }
     }
 
-    private fun updateAlphaForBottomSheetSlide(slideOffset: Float, hasMatchPredictions: Boolean) {
-        setAlphaAndVisibility(matchePredictionsRecyclerView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCH_PREDICTIONS))
-        setAlphaAndVisibility(addMatchPredictionButton, if (hasMatchPredictions) {
-            offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_MATCH_PREDICTIONS)
-        } else {
-            0f
-        })
-        setAlphaAndVisibility(matchPredictionTitleTextView, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION))
-        setAlphaAndVisibility(clearOrCancelButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION))
-        setAlphaAndVisibility(closeButton, offsetToAlpha(slideOffset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION))
-    }
-
-    private fun offsetToAlpha(value: Float, rangeMin: Float, rangeMax: Float): Float {
-        return ((value - rangeMin) / (rangeMax - rangeMin)).coerceIn(0f, 1f)
-    }
-
-    private fun setAlphaAndVisibility(view: View, alpha: Float) {
-        view.alpha = alpha
-        view.isInvisible = alpha == 0f
-    }
-
     private fun assignWorldRugbyRankingsToTeamPopupMenus(worldRugbyRankings: List<WorldRugbyRanking>?) {
         homeTeamPopupMenu.menu.clear()
         awayTeamPopupMenu.menu.clear()
@@ -422,21 +395,19 @@ class SportFragment : DaggerFragment() {
         val homeTeamId = homeTeamId ?: return false
         val homeTeamName = homeTeamName ?: return false
         val homeTeamAbbreviation = homeTeamAbbreviation ?: return false
-        val homeTeamScore = if (!homePointsEditText.text.isNullOrEmpty()) {
-            homePointsEditText.text.toString().toInt()
-        } else {
+        val homeTeamScore = bottomSheet.homePointsText
+        if (homeTeamScore == MatchPredictionInputView.NO_POINTS) {
             return false
         }
         val awayTeamId = awayTeamId ?: return false
         val awayTeamName = awayTeamName ?: return false
         val awayTeamAbbreviation = awayTeamAbbreviation ?: return false
-        val awayTeamScore = if (!awayPointsEditText.text.isNullOrEmpty()) {
-            awayPointsEditText.text.toString().toInt()
-        } else {
+        val awayTeamScore = bottomSheet.awayPointsText
+        if (awayTeamScore == MatchPredictionInputView.NO_POINTS) {
             return false
         }
-        val nha = nhaCheckBox.isChecked
-        val rwc = rwcCheckBox.isChecked
+        val nha = bottomSheet.nhaChecked
+        val rwc = bottomSheet.rwcChecked
         val id = when {
             rankingsViewModel.isEditingMatchPrediction() -> rankingsViewModel.editingMatchPrediction.value!!.id
             else -> MatchPrediction.generateId()
@@ -472,17 +443,17 @@ class SportFragment : DaggerFragment() {
         homeTeamAbbreviation = matchPrediction.homeTeamAbbreviation
         val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
                 FlagUtils.getFlagEmojiForTeamAbbreviation(matchPrediction.homeTeamAbbreviation), homeTeamName))
-        homeTeamEditText.setText(homeTeam)
-        homePointsEditText.setText(matchPrediction.homeTeamScore.toString())
+        bottomSheet.homeTeamText = homeTeam
+        bottomSheet.homePointsText = matchPrediction.homeTeamScore
         awayTeamId = matchPrediction.awayTeamId
         awayTeamName = matchPrediction.awayTeamName
         awayTeamAbbreviation = matchPrediction.awayTeamAbbreviation
         val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
                 FlagUtils.getFlagEmojiForTeamAbbreviation(matchPrediction.awayTeamAbbreviation), awayTeamName))
-        awayTeamEditText.setText(awayTeam)
-        awayPointsEditText.setText(matchPrediction.awayTeamScore.toString())
-        nhaCheckBox.isChecked = matchPrediction.noHomeAdvantage
-        rwcCheckBox.isChecked = matchPrediction.rugbyWorldCup
+        bottomSheet.awayTeamText = awayTeam
+        bottomSheet.awayPointsText = matchPrediction.awayTeamScore
+        bottomSheet.nhaChecked = matchPrediction.noHomeAdvantage
+        bottomSheet.rwcChecked = matchPrediction.rugbyWorldCup
     }
 
     private fun applyWorldRugbyMatchToInput(worldRugbyMatch: WorldRugbyMatch) {
@@ -490,20 +461,19 @@ class SportFragment : DaggerFragment() {
         homeTeamName = worldRugbyMatch.firstTeamName
         homeTeamAbbreviation = worldRugbyMatch.firstTeamAbbreviation!!
         val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation), homeTeamName))
-        homeTeamEditText.setText(homeTeam)
-        homePointsEditText.text?.clear()
+                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation!!), homeTeamName))
+        bottomSheet.homeTeamText = homeTeam
         awayTeamId = worldRugbyMatch.secondTeamId
         awayTeamName = worldRugbyMatch.secondTeamName
         awayTeamAbbreviation = worldRugbyMatch.secondTeamAbbreviation!!
         val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation), awayTeamName))
-        awayTeamEditText.setText(awayTeam)
-        awayPointsEditText.text?.clear()
-        nhaCheckBox.isChecked = worldRugbyMatch.venueCountry?.let { venueCountry ->
+                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation!!), awayTeamName))
+        bottomSheet.awayTeamText = awayTeam
+        bottomSheet.clearMatchPredictionPointsInput()
+        bottomSheet.nhaChecked = worldRugbyMatch.venueCountry?.let { venueCountry ->
             venueCountry != worldRugbyMatch.firstTeamName && venueCountry != worldRugbyMatch.secondTeamName
         } ?: false
-        rwcCheckBox.isChecked = worldRugbyMatch.eventLabel?.let { eventLabel ->
+        bottomSheet.rwcChecked = worldRugbyMatch.eventLabel?.let { eventLabel ->
             eventLabel.contains("Rugby World Cup", ignoreCase = true) && !eventLabel.contains("Qualifying", ignoreCase = true)
         } ?: false
     }
@@ -525,12 +495,7 @@ class SportFragment : DaggerFragment() {
         awayTeamId = null
         awayTeamName = null
         awayTeamAbbreviation = null
-        homeTeamEditText.text?.clear()
-        homePointsEditText.text?.clear()
-        awayTeamEditText.text?.clear()
-        awayPointsEditText.text?.clear()
-        nhaCheckBox.isChecked = false
-        rwcCheckBox.isChecked = false
+        bottomSheet.clearMatchPredictionInput()
         rankingsViewModel.endEditMatchPrediction()
     }
 
@@ -575,8 +540,5 @@ class SportFragment : DaggerFragment() {
         private const val EXTRA_TEAM_ID = "team_id"
         private const val EXTRA_TEAM_NAME = "team_name"
         private const val EXTRA_TEAM_ABBREVIATION = "team_abbreviation"
-        private const val ALPHA_CHANGE_OVER = 0.33f
-        private const val ALPHA_MAX_MATCH_PREDICTIONS = 0f
-        private const val ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION = 0.67f
     }
 }

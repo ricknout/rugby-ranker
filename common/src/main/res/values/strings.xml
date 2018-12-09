@@ -4,4 +4,6 @@
     <string name="app_name">Rugby Ranker</string>
     <string name="app_name_debug">Rugby Ranker Debug</string>
 
+    <string name="content_description_add_match_prediction">Add match prediction</string>
+
 </resources>

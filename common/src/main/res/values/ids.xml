@@ -2,6 +2,5 @@
 <resources>
 
     <item name="coordinatorLayout" type="id" />
-    <item name="bottomSheet" type="id" />
 
 </resources>
