@@ -63,9 +63,7 @@ class MatchesRepository(
                 if (response.isSuccessful) {
                     val worldRugbyMatchesResponse = response.body() ?: break
                     val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
-                    executor.execute {
-                        worldRugbyMatchDao.insert(worldRugbyMatches)
-                    }
+                    executor.execute { worldRugbyMatchDao.insert(worldRugbyMatches) }
                     page++
                     pageCount = worldRugbyMatchesResponse.pageInfo.numPages
                     success = true
@@ -112,9 +110,7 @@ class MatchesRepository(
                         return
                     }
                     val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
-                    executor.execute {
-                        worldRugbyMatchDao.insert(worldRugbyMatches)
-                    }
+                    executor.execute { worldRugbyMatchDao.insert(worldRugbyMatches) }
                     onComplete(true)
                 } else {
                     onComplete(false)

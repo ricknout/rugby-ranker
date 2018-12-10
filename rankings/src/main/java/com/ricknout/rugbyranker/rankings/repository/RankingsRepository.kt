@@ -35,9 +35,7 @@ class RankingsRepository(
             if (response.isSuccessful) {
                 val worldRugbyRankingsResponse = response.body() ?: return false
                 val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
-                executor.execute {
-                    worldRugbyRankingDao.insert(worldRugbyRankings)
-                }
+                executor.execute { worldRugbyRankingDao.insert(worldRugbyRankings) }
                 rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
                 return true
             }
@@ -63,9 +61,7 @@ class RankingsRepository(
                         return
                     }
                     val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
-                    executor.execute {
-                        worldRugbyRankingDao.insert(worldRugbyRankings)
-                    }
+                    executor.execute { worldRugbyRankingDao.insert(worldRugbyRankings) }
                     rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
                     onComplete(true)
                 } else {
