@@ -53,6 +53,7 @@
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.ricknout.rugbyranker.common.api.** { *; }
+-keep class com.ricknout.rugbyranker.common.vo.** { *; }
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
