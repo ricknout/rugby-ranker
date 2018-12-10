@@ -356,6 +356,7 @@ class SportFragment : DaggerFragment() {
             applyWorldRugbyMatchToInput(worldRugbyMatch)
             showMatchPredictionInput = true
             viewPager.currentItem = POSITION_RANKINGS
+            rankingsViewModel.endEditMatchPrediction()
         })
     }
 
