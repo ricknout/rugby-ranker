@@ -7,12 +7,16 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
-import com.ricknout.rugbyranker.api.WorldRugbyService
+import com.ricknout.rugbyranker.common.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
-import com.ricknout.rugbyranker.db.WorldRugbyRankingDao
-import com.ricknout.rugbyranker.prefs.RugbyRankerSharedPreferences
-import com.ricknout.rugbyranker.repository.RugbyRankerRepository
-import com.ricknout.rugbyranker.work.RugbyRankerWorkManager
+import com.ricknout.rugbyranker.db.RugbyRankerMigrations
+import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao
+import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
+import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
+import com.ricknout.rugbyranker.matches.repository.MatchesRepository
+import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
+import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
+import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -47,6 +51,7 @@ class AppModule {
     @Singleton
     fun provideDatabase(context: Context): RugbyRankerDb {
         return Room.databaseBuilder(context, RugbyRankerDb::class.java, RugbyRankerDb.DATABASE_NAME)
+                .addMigrations(RugbyRankerMigrations.MIGRATION_1_2)
                 .build()
     }
 
@@ -58,14 +63,20 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences(RugbyRankerSharedPreferences.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    fun provideWorldRugbyMatchDao(database: RugbyRankerDb): WorldRugbyMatchDao {
+        return database.worldRugbyMatchDao()
     }
 
     @Provides
     @Singleton
-    fun provideRugbyRankerSharedPreferences(sharedPreferences: SharedPreferences): RugbyRankerSharedPreferences {
-        return RugbyRankerSharedPreferences(sharedPreferences)
+    fun provideSharedPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRankingsSharedPreferences(sharedPreferences: SharedPreferences): RankingsSharedPreferences {
+        return RankingsSharedPreferences(sharedPreferences)
     }
 
     @Provides
@@ -76,18 +87,38 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRugbyRankerRepository(
+    fun provideRankingsRepository(
             worldRugbyService: WorldRugbyService,
             worldRugbyRankingDao: WorldRugbyRankingDao,
-            rugbyRankerSharedPreferences: RugbyRankerSharedPreferences,
+            rankingsSharedPreferences: RankingsSharedPreferences,
             executor: Executor
-    ) : RugbyRankerRepository {
-        return RugbyRankerRepository(worldRugbyService, worldRugbyRankingDao, rugbyRankerSharedPreferences, executor)
+    ) : RankingsRepository {
+        return RankingsRepository(worldRugbyService, worldRugbyRankingDao, rankingsSharedPreferences, executor)
     }
 
     @Provides
     @Singleton
-    fun provideRugbyRankerWorkManager(): RugbyRankerWorkManager {
-        return RugbyRankerWorkManager()
+    fun provideMatchesRepository(
+            worldRugbyService: WorldRugbyService,
+            worldRugbyMatchDao: WorldRugbyMatchDao,
+            executor: Executor
+    ) : MatchesRepository {
+        return MatchesRepository(worldRugbyService, worldRugbyMatchDao, executor)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRankingsWorkManager(): RankingsWorkManager {
+        return RankingsWorkManager()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchesWorkManager(): MatchesWorkManager {
+        return MatchesWorkManager()
+    }
+
+    companion object {
+        private const val SHARED_PREFERENCES_NAME = "rugby_ranker_shared_preferences"
     }
 }

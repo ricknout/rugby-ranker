@@ -4,22 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/mensRankingsFragment">
+    app:startDestination="@id/mensFragment">
 
     <fragment
-        android:id="@+id/mensRankingsFragment"
-        android:name="com.ricknout.rugbyranker.ui.rankings.RankingsFragment"
-        android:label="MensRankingsFragment"
-        tools:layout="@layout/fragment_rankings">
-        <argument android:name="rankingsType" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.vo.RankingsType" />
+        android:id="@+id/mensFragment"
+        android:name="com.ricknout.rugbyranker.ui.SportFragment"
+        android:label="MensFragment"
+        tools:layout="@layout/fragment_sport">
+        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
     </fragment>
 
     <fragment
-        android:id="@+id/womensRankingsFragment"
-        android:name="com.ricknout.rugbyranker.ui.rankings.RankingsFragment"
-        android:label="WomensRankingsFragment"
-        tools:layout="@layout/fragment_rankings">
-        <argument android:name="rankingsType" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.vo.RankingsType" />
+        android:id="@+id/womensFragment"
+        android:name="com.ricknout.rugbyranker.ui.SportFragment"
+        android:label="WomensFragment"
+        tools:layout="@layout/fragment_sport">
+        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
     </fragment>
 
     <fragment
