@@ -183,4 +183,8 @@ open class RankingsViewModel(
         get() = _matchPredictionInputState
 
     data class MatchPredictionInputState(val showMatchPredictionInput: Boolean = true, val hasMatchPredictions: Boolean = false)
+
+    fun resetMatchPredictionInputState() {
+        showMatchPredictionInput.value = true
+    }
 }

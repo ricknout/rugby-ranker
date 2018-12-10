@@ -84,17 +84,21 @@ class MainActivity : DaggerAppCompatActivity() {
                 R.id.mensFragment -> {
                     bottomNavigationView.post {
                         womensRankingsViewModel.endEditMatchPrediction()
+                        womensRankingsViewModel.resetMatchPredictionInputState()
                     }
                 }
                 R.id.womensFragment -> {
                     bottomNavigationView.post {
                         mensRankingsViewModel.endEditMatchPrediction()
+                        mensRankingsViewModel.resetMatchPredictionInputState()
                     }
                 }
                 R.id.infoFragment -> {
                     bottomNavigationView.post {
                         mensRankingsViewModel.endEditMatchPrediction()
+                        mensRankingsViewModel.resetMatchPredictionInputState()
                         womensRankingsViewModel.endEditMatchPrediction()
+                        womensRankingsViewModel.resetMatchPredictionInputState()
                     }
                 }
             }
