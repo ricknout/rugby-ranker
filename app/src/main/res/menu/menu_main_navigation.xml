@@ -3,17 +3,17 @@
 
     <item
         android:id="@id/mensFragment"
-        android:icon="@drawable/asl_gender_male_black_24dp"
+        android:icon="@drawable/sl_gender_male_black_24dp"
         android:title="@string/title_mens" />
 
     <item
         android:id="@id/womensFragment"
-        android:icon="@drawable/asl_gender_female_black_24dp"
+        android:icon="@drawable/sl_gender_female_black_24dp"
         android:title="@string/title_womens" />
 
     <item
         android:id="@id/infoFragment"
-        android:icon="@drawable/asl_info_outline_black_24dp"
+        android:icon="@drawable/sl_info_outline_black_24dp"
         android:title="@string/title_info" />
 
 </menu>
