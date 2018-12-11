@@ -54,15 +54,15 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         val showScores = worldRugbyMatch.status == MatchStatus.COMPLETE
         val showTime = worldRugbyMatch.status == MatchStatus.UNPLAYED
         val showPredict = worldRugbyMatch.status == MatchStatus.UNPLAYED
-        val firstTeamFlag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: ""))
-        val secondTeamFlag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: ""))
-        val teams = if (showScores) {
+        val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
+        val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
+        val teams = EmojiCompat.get().process(if (showScores) {
             itemView.context.getString(R.string.text_match_teams_with_scores,
                     firstTeamFlag, worldRugbyMatch.firstTeamName, worldRugbyMatch.firstTeamScore, worldRugbyMatch.secondTeamScore, worldRugbyMatch.secondTeamName, secondTeamFlag)
         } else {
             itemView.context.getString(R.string.text_match_teams,
                     firstTeamFlag, worldRugbyMatch.firstTeamName, worldRugbyMatch.secondTeamName, secondTeamFlag)
-        }
+        })
         itemView.teamsTextView.text = teams
         if (showTime) {
             val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
