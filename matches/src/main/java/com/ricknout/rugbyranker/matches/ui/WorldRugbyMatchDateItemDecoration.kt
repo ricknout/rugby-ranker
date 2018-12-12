@@ -131,6 +131,7 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
                     .setIncludePad(false)
                     .build()
         } else {
+            @Suppress("DEPRECATION")
             StaticLayout(text, paint, width, Layout.Alignment.ALIGN_CENTER, 1f, 0f, false)
         }
     }
