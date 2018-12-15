@@ -54,16 +54,21 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         val showScores = worldRugbyMatch.status == MatchStatus.COMPLETE
         val showTime = worldRugbyMatch.status == MatchStatus.UNPLAYED
         val showPredict = worldRugbyMatch.status == MatchStatus.UNPLAYED
-        val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
-        val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
-        val teams = EmojiCompat.get().process(if (showScores) {
-            itemView.context.getString(R.string.text_match_teams_with_scores,
-                    firstTeamFlag, worldRugbyMatch.firstTeamName, worldRugbyMatch.firstTeamScore, worldRugbyMatch.secondTeamScore, worldRugbyMatch.secondTeamName, secondTeamFlag)
+        val firstTeamFlag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: ""))
+        val secondTeamFlag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: ""))
+        itemView.team1FlagTextView.text = firstTeamFlag
+        itemView.team1TextView.text = worldRugbyMatch.firstTeamName
+        itemView.team2FlagTextView.text = secondTeamFlag
+        itemView.team2TextView.text = worldRugbyMatch.secondTeamName
+        if (showScores) {
+            itemView.team1ScoreTextView.isVisible = true
+            itemView.team2ScoreTextView.isVisible = true
+            itemView.team1ScoreTextView.text = worldRugbyMatch.firstTeamScore.toString()
+            itemView.team2ScoreTextView.text = worldRugbyMatch.secondTeamScore.toString()
         } else {
-            itemView.context.getString(R.string.text_match_teams,
-                    firstTeamFlag, worldRugbyMatch.firstTeamName, worldRugbyMatch.secondTeamName, secondTeamFlag)
-        })
-        itemView.teamsTextView.text = teams
+            itemView.team1ScoreTextView.isVisible = false
+            itemView.team2ScoreTextView.isVisible = false
+        }
         if (showTime) {
             val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
             itemView.timeTextView.text = time

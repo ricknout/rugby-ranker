@@ -35,27 +35,106 @@
             app:layout_constraintGuide_end="@dimen/spacing_double" />
 
         <TextView
-            android:id="@+id/teamsTextView"
-            android:layout_width="0dp"
+            android:id="@+id/team1FlagTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="@id/topGuideline"
+            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            tools:text="🏳️" />
+
+        <TextView
+            android:id="@+id/team1TextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_standard"
+            android:layout_marginEnd="@dimen/spacing_double"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="?android:textColorPrimary"
             android:lines="1"
             android:ellipsize="end"
-            android:gravity="center_vertical"
+            android:gravity="start|center_vertical"
             app:autoSizeTextType="uniform"
             app:autoSizeMaxTextSize="@dimen/text_size_match_auto_size_max"
+            app:layout_constraintTop_toTopOf="@id/team1FlagTextView"
+            app:layout_constraintBottom_toBottomOf="@id/team1FlagTextView"
+            app:layout_constraintStart_toEndOf="@id/team1FlagTextView"
+            app:layout_constraintEnd_toStartOf="@id/team1ScoreTextView"
+            tools:text="St Vincent and the Grenadines" />
+
+        <TextView
+            android:id="@+id/team1ScoreTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_standard"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="@id/scoresSeparatorTextView"
+            app:layout_constraintBottom_toBottomOf="@id/scoresSeparatorTextView"
+            app:layout_constraintEnd_toStartOf="@id/scoresSeparatorTextView"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/scoresSeparatorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_match_score_separator"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
             app:layout_constraintTop_toTopOf="@id/topGuideline"
-            app:layout_constraintStart_toStartOf="@id/startGuideline"
+            app:layout_constraintStart_toEndOf="@id/team1FlagTextView"
+            app:layout_constraintEnd_toStartOf="@id/team2FlagTextView" />
+
+        <TextView
+            android:id="@+id/team2ScoreTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_standard"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="@id/scoresSeparatorTextView"
+            app:layout_constraintBottom_toBottomOf="@id/scoresSeparatorTextView"
+            app:layout_constraintStart_toEndOf="@id/scoresSeparatorTextView"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/team2TextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_double"
+            android:layout_marginEnd="@dimen/spacing_standard"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            android:lines="1"
+            android:ellipsize="end"
+            android:gravity="end|center_vertical"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMaxTextSize="@dimen/text_size_match_auto_size_max"
+            app:layout_constraintTop_toTopOf="@id/team2FlagTextView"
+            app:layout_constraintBottom_toBottomOf="@id/team2FlagTextView"
+            app:layout_constraintStart_toEndOf="@id/team2ScoreTextView"
+            app:layout_constraintEnd_toStartOf="@id/team2FlagTextView"
+            tools:text="St Vincent and the Grenadines" />
+
+        <TextView
+            android:id="@+id/team2FlagTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toTopOf="@id/topGuideline"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
-            tools:text="🏳️ Team name - Team name 🏳️" />
+            tools:text="🏳️" />
 
         <TextView
             android:id="@+id/eventTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_standard"
             android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
-            app:layout_constraintTop_toBottomOf="@id/teamsTextView"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/scoresSeparatorTextView"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
             tools:text="Event name" />
@@ -65,6 +144,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/RugbyRankerTextAppearance.Caption"
+            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/eventTextView"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
