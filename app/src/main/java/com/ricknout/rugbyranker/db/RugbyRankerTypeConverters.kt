@@ -1,13 +1,20 @@
 package com.ricknout.rugbyranker.db
 
 import androidx.room.TypeConverter
-import com.ricknout.rugbyranker.vo.RankingsType
+import com.ricknout.rugbyranker.matches.vo.MatchStatus
+import com.ricknout.rugbyranker.common.vo.Sport
 
 class RugbyRankerTypeConverters {
 
     @TypeConverter
-    fun ordinalToRankingsType(ordinal: Int): RankingsType = RankingsType.values()[ordinal]
+    fun ordinalToSport(ordinal: Int): Sport = Sport.values()[ordinal]
 
     @TypeConverter
-    fun rankingsTypeToOrdinal(rankingsType: RankingsType): Int = rankingsType.ordinal
+    fun sportToOrdinal(sport: Sport): Int = sport.ordinal
+
+    @TypeConverter
+    fun ordinalToMatchStatus(ordinal: Int): MatchStatus = MatchStatus.values()[ordinal]
+
+    @TypeConverter
+    fun matchStatusToOrdinal(matchStatus: MatchStatus): Int = matchStatus.ordinal
 }

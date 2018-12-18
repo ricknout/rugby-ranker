@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="width_points">96dp</dimen>
-
-    <dimen name="height_peek">48dp</dimen>
-
-    <dimen name="length_fading_edge">8dp</dimen>
-
-    <dimen name="padding_bottom_rankings">88dp</dimen>
-    <dimen name="padding_horizontal_add_match">12dp</dimen>
-    <dimen name="padding_horizontal_close">12dp</dimen>
-
     <dimen name="margin_fab">16dp</dimen>
-
-    <dimen name="elevation_bottom_sheet">8dp</dimen>
-
-    <dimen name="corner_radius_bottom_sheet">4dp</dimen>
-
-    <dimen name="text_size_ranking_auto_size_max">16sp</dimen>
 
 </resources>
