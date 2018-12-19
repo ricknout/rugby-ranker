@@ -23,7 +23,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "androidx.core:core:$androidx_core_version"
-    api "androidx.core:core-ktx:$androidx_core_ktx_version"
+    api "androidx.core:core-ktx:$androidx_core_version"
     api "androidx.activity:activity-ktx:$androidx_activity_version"
     api "androidx.fragment:fragment-ktx:$androidx_fragment_version"
     api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
