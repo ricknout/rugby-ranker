@@ -7,23 +7,23 @@ buildscript {
     ext.androidx_core_version = '1.1.0-alpha03'
     ext.androidx_activity_version = '1.0.0-alpha03'
     ext.androidx_fragment_version = '1.1.0-alpha03'
-    ext.constraintlayout_version = "2.0.0-alpha2"
+    ext.constraintlayout_version = '2.0.0-alpha2'
     ext.recyclerview_version = '1.1.0-alpha01'
     ext.emoji_version = '1.0.0'
     ext.browser_version = '1.0.0'
-    ext.material_version = "1.1.0-alpha02"
-    ext.lifecycle_version = "2.1.0-alpha01"
-    ext.room_version = "2.1.0-alpha03"
-    ext.navigation_version = "1.0.0-alpha08"
-    ext.work_version = "1.0.0-alpha13"
-    ext.paging_version = "2.1.0-rc01"
-    ext.retrofit_version = "2.5.0"
+    ext.material_version = '1.1.0-alpha02'
+    ext.lifecycle_version = '2.1.0-alpha01'
+    ext.room_version = '2.1.0-alpha03'
+    ext.navigation_version = '1.0.0-alpha08'
+    ext.work_version = '1.0.0-beta01'
+    ext.paging_version = '2.1.0-rc01'
+    ext.retrofit_version = '2.5.0'
     ext.dagger_version = '2.16'
-    ext.oss_licenses_plugin_version = "0.9.4"
-    ext.play_services_oss_licenses_version = "16.0.1"
-    ext.test_junit_version = "4.12"
-    ext.test_runner_version = "1.1.1-beta01"
-    ext.test_espresso_version = "3.1.1-beta01"
+    ext.oss_licenses_plugin_version = '0.9.4'
+    ext.play_services_oss_licenses_version = '16.0.1'
+    ext.test_junit_version = '4.12'
+    ext.test_runner_version = '1.1.1-beta01'
+    ext.test_espresso_version = '3.1.1-beta01'
     repositories {
         google()
         jcenter()
