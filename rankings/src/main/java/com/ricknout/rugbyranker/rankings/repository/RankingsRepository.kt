@@ -15,10 +15,10 @@ import retrofit2.Response
 import java.util.concurrent.Executor
 
 class RankingsRepository(
-        private val worldRugbyService: WorldRugbyService,
-        private val worldRugbyRankingDao: WorldRugbyRankingDao,
-        private val rankingsSharedPreferences: RankingsSharedPreferences,
-        private val executor: Executor
+    private val worldRugbyService: WorldRugbyService,
+    private val worldRugbyRankingDao: WorldRugbyRankingDao,
+    private val rankingsSharedPreferences: RankingsSharedPreferences,
+    private val executor: Executor
 ) {
 
     fun loadLatestWorldRugbyRankings(sport: Sport) = worldRugbyRankingDao.load(sport)

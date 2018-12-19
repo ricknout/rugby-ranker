@@ -8,8 +8,8 @@ import kotlin.math.min
 object RankingsCalculator {
 
     fun allocatePointsForMatchPredictions(
-            worldRugbyRankings: List<WorldRugbyRanking>,
-            matchPredictions: List<MatchPrediction>
+        worldRugbyRankings: List<WorldRugbyRanking>,
+        matchPredictions: List<MatchPrediction>
     ): List<WorldRugbyRanking> {
         if (matchPredictions.isEmpty()) return worldRugbyRankings
         val mutableWorldRugbyRankings = worldRugbyRankings.asSequence().map { worldRugbyRanking ->
@@ -35,9 +35,9 @@ object RankingsCalculator {
     }
 
     fun pointsForMatchPrediction(
-            homeTeam: WorldRugbyRanking,
-            awayTeam: WorldRugbyRanking,
-            matchPrediction: MatchPrediction
+        homeTeam: WorldRugbyRanking,
+        awayTeam: WorldRugbyRanking,
+        matchPrediction: MatchPrediction
     ): Float {
         // The effective ranking of the home team is an additional 3 points
         val homeTeamPoints = if (!matchPrediction.noHomeAdvantage) homeTeam.points + 3f else homeTeam.points

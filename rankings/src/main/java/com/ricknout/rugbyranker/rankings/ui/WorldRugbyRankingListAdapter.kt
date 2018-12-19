@@ -16,8 +16,8 @@ import kotlin.math.abs
 
 class WorldRugbyRankingListAdapter : ListAdapter<WorldRugbyRanking, WorldRugbyRankingViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = WorldRugbyRankingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_ranking, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            WorldRugbyRankingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_ranking, parent, false))
 
     override fun onBindViewHolder(holder: WorldRugbyRankingViewHolder, position: Int) {
         val worldRugbyRanking = getItem(position)

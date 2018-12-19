@@ -9,19 +9,19 @@ interface WorldRugbyService {
 
     @GET("rugby/rankings/{json}")
     fun getRankings(
-            @Path("json") json: String,
-            @Query("date") date: String
+        @Path("json") json: String,
+        @Query("date") date: String
     ): Call<WorldRugbyRankingsResponse>
 
     @GET("rugby/match")
     fun getMatches(
-            @Query("sports") sports: String,
-            @Query("states") states: String,
-            @Query("startDate") startDate: String,
-            @Query("endDate") endDate: String,
-            @Query("sort") sort: String,
-            @Query("page") page: Int,
-            @Query("pageSize") pageSize: Int
+        @Query("sports") sports: String,
+        @Query("states") states: String,
+        @Query("startDate") startDate: String,
+        @Query("endDate") endDate: String,
+        @Query("sort") sort: String,
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
     ): Call<WorldRugbyMatchesResponse>
 
     companion object {

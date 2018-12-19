@@ -17,14 +17,14 @@ import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
 
 class WorldRugbyMatchPagedListAdapter(
-        private val onItemCountChange: () -> Unit,
-        private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
+    private val onItemCountChange: () -> Unit,
+    private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
 ) : PagedListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
     private var itemCount = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = WorldRugbyMatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_match, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        WorldRugbyMatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_match, parent, false))
 
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
@@ -84,7 +84,7 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
                 itemView.context.getString(R.string.text_match_venue_country, worldRugbyMatch.venueName, worldRugbyMatch.venueCountry)
             }
             worldRugbyMatch.venueName != null -> worldRugbyMatch.venueName
-            worldRugbyMatch.venueCountry != null ->  worldRugbyMatch.venueCountry
+            worldRugbyMatch.venueCountry != null -> worldRugbyMatch.venueCountry
             else -> null
         }
         itemView.venueTextView.isVisible = worldRugbyMatch.venueName != null && worldRugbyMatch.venueCountry != null

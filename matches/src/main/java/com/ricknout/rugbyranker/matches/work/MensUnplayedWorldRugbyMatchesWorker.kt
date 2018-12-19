@@ -7,9 +7,9 @@ import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 
 class MensUnplayedWorldRugbyMatchesWorker(
-        context: Context,
-        workerParams: WorkerParameters,
-        matchesRepository: MatchesRepository
+    context: Context,
+    workerParams: WorkerParameters,
+    matchesRepository: MatchesRepository
 ) : WorldRugbyMatchesWorker(context, workerParams, Sport.MENS, MatchStatus.UNPLAYED, matchesRepository) {
 
     companion object {

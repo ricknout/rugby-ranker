@@ -12,12 +12,12 @@ import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import kotlinx.android.synthetic.main.list_item_match_prediction.view.*
 
 class MatchPredictionListAdapter(
-        private val onItemClick: (matchPrediction: MatchPrediction) -> Unit,
-        private val onItemCloseIconClick: (matchPrediction: MatchPrediction) -> Unit
+    private val onItemClick: (matchPrediction: MatchPrediction) -> Unit,
+    private val onItemCloseIconClick: (matchPrediction: MatchPrediction) -> Unit
 ) : ListAdapter<MatchPrediction, MatchPredictionViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchPredictionViewHolder
-            = MatchPredictionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_match_prediction, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchPredictionViewHolder =
+            MatchPredictionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_match_prediction, parent, false))
 
     override fun onBindViewHolder(holder: MatchPredictionViewHolder, position: Int) {
         val matchPrediction = getItem(position)

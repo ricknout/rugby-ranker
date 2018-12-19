@@ -17,8 +17,8 @@ import com.ricknout.rugbyranker.rankings.work.WomensWorldRugbyRankingsWorker
 import javax.inject.Inject
 
 class RugbyRankerWorkerFactory @Inject constructor(
-        private val rankingsRepository: RankingsRepository,
-        private val matchesRepository: MatchesRepository
+    private val rankingsRepository: RankingsRepository,
+    private val matchesRepository: MatchesRepository
 ) : WorkerFactory() {
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {

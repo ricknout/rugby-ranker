@@ -11,10 +11,10 @@ import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 
 open class MatchesViewModel(
-        private val sport: Sport,
-        private val matchStatus: MatchStatus,
-        private val matchesRepository: MatchesRepository,
-        matchesWorkManager: MatchesWorkManager
+    private val sport: Sport,
+    private val matchStatus: MatchStatus,
+    private val matchesRepository: MatchesRepository,
+    matchesWorkManager: MatchesWorkManager
 ) : ReselectViewModel() {
 
     init {

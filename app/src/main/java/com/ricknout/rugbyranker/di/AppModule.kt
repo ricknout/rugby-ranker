@@ -88,22 +88,22 @@ class AppModule {
     @Provides
     @Singleton
     fun provideRankingsRepository(
-            worldRugbyService: WorldRugbyService,
-            worldRugbyRankingDao: WorldRugbyRankingDao,
-            rankingsSharedPreferences: RankingsSharedPreferences,
-            executor: Executor
-    ) : RankingsRepository {
+        worldRugbyService: WorldRugbyService,
+        worldRugbyRankingDao: WorldRugbyRankingDao,
+        rankingsSharedPreferences: RankingsSharedPreferences,
+        executor: Executor
+    ): RankingsRepository {
         return RankingsRepository(worldRugbyService, worldRugbyRankingDao, rankingsSharedPreferences, executor)
     }
 
     @Provides
     @Singleton
     fun provideMatchesRepository(
-            worldRugbyService: WorldRugbyService,
-            worldRugbyMatchDao: WorldRugbyMatchDao,
-            executor: Executor
-    ) : MatchesRepository {
-        return MatchesRepository(worldRugbyService, worldRugbyMatchDao, executor)}
+        worldRugbyService: WorldRugbyService,
+        worldRugbyMatchDao: WorldRugbyMatchDao,
+        executor: Executor
+    ): MatchesRepository {
+        return MatchesRepository(worldRugbyService, worldRugbyMatchDao, executor) }
 
     @Provides
     @Singleton

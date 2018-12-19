@@ -19,9 +19,9 @@ import retrofit2.Response
 import java.util.concurrent.Executor
 
 class MatchesRepository(
-        private val worldRugbyService: WorldRugbyService,
-        private val worldRugbyMatchDao: WorldRugbyMatchDao,
-        private val executor: Executor
+    private val worldRugbyService: WorldRugbyService,
+    private val worldRugbyMatchDao: WorldRugbyMatchDao,
+    private val executor: Executor
 ) {
 
     fun loadLatestWorldRugbyMatches(sport: Sport, matchStatus: MatchStatus, asc: Boolean): LiveData<PagedList<WorldRugbyMatch>> {
