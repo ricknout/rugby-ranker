@@ -1,40 +1,36 @@
 version: 2
-jobs:
-  build:
-    working_directory: ~/code
-    docker:
-      - image: circleci/android:api-25-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
-    steps:
-      - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-#      - run:
-#         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-#         command: sudo chmod +x ./gradlew
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Run KtLint
-          command: ./gradlew ktlint
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
-      - run:
-          name: Run Lint Test
-          command: ./gradlew lintDebug
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
-      - store_test_results:
-          path: app/build/test-results
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+ jobs:
+   build:
+     working_directory: ~/rugby-ranker
+     docker:
+       - image: circleci/android:api-28-alpha
+     environment:
+       JVM_OPTS: -Xmx4g
+     steps:
+       - checkout
+       - restore_cache:
+           key: gradle-{{ checksum "build.gradle" }}
+       - run:
+           name: Download dependencies
+           command: ./gradlew androidDependencies
+       - save_cache:
+           paths:
+             - ~/.gradle
+           key: gradle-{{ checksum "build.gradle" }}
+       - run:
+           name: Run ktlint
+           command: ./gradlew ktlint
+       - store_artifacts:
+           path: app/build/reports
+           destination: reports
+       - run:
+           name: Run lint
+           command: ./gradlew lintDebug
+       - run:
+           name: Run unit tests
+           command: ./gradlew testDebugUnitTest
+       - store_artifacts:
+           path: app/build/reports
+           destination: reports
+       - store_test_results:
+           path: app/build/test-results
