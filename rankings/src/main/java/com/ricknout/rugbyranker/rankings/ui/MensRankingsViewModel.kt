@@ -6,6 +6,6 @@ import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager
 import javax.inject.Inject
 
 class MensRankingsViewModel @Inject constructor(
-        rankingsRepository: RankingsRepository,
-        rankingsWorkManager: RankingsWorkManager
+    rankingsRepository: RankingsRepository,
+    rankingsWorkManager: RankingsWorkManager
 ) : RankingsViewModel(Sport.MENS, rankingsRepository, rankingsWorkManager)

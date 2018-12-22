@@ -8,11 +8,11 @@ import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 
 open class WorldRugbyMatchesWorker(
-        context: Context,
-        workerParams: WorkerParameters,
-        private val sport: Sport,
-        private val matchStatus: MatchStatus,
-        private val matchesRepository: MatchesRepository
+    context: Context,
+    workerParams: WorkerParameters,
+    private val sport: Sport,
+    private val matchStatus: MatchStatus,
+    private val matchesRepository: MatchesRepository
 ) : Worker(context, workerParams) {
 
     override fun doWork() = fetchAndCacheLatestWorldRugbyMatches()

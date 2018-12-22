@@ -39,8 +39,11 @@ class MatchesFragment : DaggerFragment() {
 
     private lateinit var worldRugbyMatchDateItemDecoration: WorldRugbyMatchDateItemDecoration
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inflater.inflate(R.layout.fragment_matches, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_matches, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sport = MatchesFragmentArgs.fromBundle(arguments).sport

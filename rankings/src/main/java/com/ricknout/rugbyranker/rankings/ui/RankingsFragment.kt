@@ -36,8 +36,8 @@ class RankingsFragment : DaggerFragment() {
 
     private val worldRugbyRankingAdapter = WorldRugbyRankingListAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inflater.inflate(R.layout.fragment_rankings, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sport = RankingsFragmentArgs.fromBundle(arguments).sport

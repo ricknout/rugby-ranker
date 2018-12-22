@@ -14,9 +14,9 @@ import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager
 
 open class RankingsViewModel(
-        private val sport: Sport,
-        private val rankingsRepository: RankingsRepository,
-        rankingsWorkManager: RankingsWorkManager
+    private val sport: Sport,
+    private val rankingsRepository: RankingsRepository,
+    rankingsWorkManager: RankingsWorkManager
 ) : ReselectViewModel() {
 
     init {
@@ -165,8 +165,11 @@ open class RankingsViewModel(
         awayPointsInputValid.value = false
     }
 
-    private fun isMatchPredictionInputValid() = homeTeamInputValid.value == true && homePointsInputValid.value == true
-            && awayTeamInputValid.value == true && awayPointsInputValid.value == true
+    private fun isMatchPredictionInputValid() =
+            homeTeamInputValid.value == true &&
+                    homePointsInputValid.value == true &&
+                    awayTeamInputValid.value == true &&
+                    awayPointsInputValid.value == true
 
     val showMatchPredictionInput = MutableLiveData<Boolean>().apply { value = true }
 

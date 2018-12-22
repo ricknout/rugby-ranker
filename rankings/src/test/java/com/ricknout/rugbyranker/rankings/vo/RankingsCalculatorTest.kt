@@ -2,8 +2,6 @@ package com.ricknout.rugbyranker.rankings.vo
 
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
-import com.ricknout.rugbyranker.rankings.vo.RankingsCalculator
-import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 import org.junit.Test
 import org.junit.Assert.assertEquals
 

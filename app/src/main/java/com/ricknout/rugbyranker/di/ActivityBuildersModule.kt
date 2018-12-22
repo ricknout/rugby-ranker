@@ -9,5 +9,4 @@ abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector(modules = [(FragmentBuildersModule::class)])
     abstract fun contributeMainActivity(): MainActivity
-
 }

@@ -3,18 +3,18 @@ package com.ricknout.rugbyranker.prediction.vo
 import java.util.UUID
 
 data class MatchPrediction(
-        val id: String,
-        val homeTeamId: Long,
-        val homeTeamName: String,
-        val homeTeamAbbreviation: String,
-        val homeTeamScore: Int,
-        val awayTeamId: Long,
-        val awayTeamName: String,
-        val awayTeamAbbreviation: String,
-        val awayTeamScore: Int,
-        val noHomeAdvantage: Boolean,
-        val rugbyWorldCup: Boolean,
-        val isEditing: Boolean = false
+    val id: String,
+    val homeTeamId: Long,
+    val homeTeamName: String,
+    val homeTeamAbbreviation: String,
+    val homeTeamScore: Int,
+    val awayTeamId: Long,
+    val awayTeamName: String,
+    val awayTeamAbbreviation: String,
+    val awayTeamScore: Int,
+    val noHomeAdvantage: Boolean,
+    val rugbyWorldCup: Boolean,
+    val isEditing: Boolean = false
 ) {
     companion object {
         fun generateId() = UUID.randomUUID().toString()

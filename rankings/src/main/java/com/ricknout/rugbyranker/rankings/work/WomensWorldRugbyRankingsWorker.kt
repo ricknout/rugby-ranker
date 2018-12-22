@@ -6,9 +6,9 @@ import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 
 class WomensWorldRugbyRankingsWorker(
-        context: Context,
-        workerParams: WorkerParameters,
-        rankingsRepository: RankingsRepository
+    context: Context,
+    workerParams: WorkerParameters,
+    rankingsRepository: RankingsRepository
 ) : WorldRugbyRankingsWorker(context, workerParams, Sport.WOMENS, rankingsRepository) {
 
     companion object {

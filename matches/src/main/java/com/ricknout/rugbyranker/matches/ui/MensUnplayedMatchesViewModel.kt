@@ -7,6 +7,6 @@ import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import javax.inject.Inject
 
 class MensUnplayedMatchesViewModel @Inject constructor(
-        matchesRepository: MatchesRepository,
-        matchesWorkManager: MatchesWorkManager
+    matchesRepository: MatchesRepository,
+    matchesWorkManager: MatchesWorkManager
 ) : MatchesViewModel(Sport.MENS, MatchStatus.UNPLAYED, matchesRepository, matchesWorkManager)
