@@ -1,5 +1,6 @@
 # Rugby Ranker 🏉
 
+[![CircleCI](https://circleci.com/gh/nicholasrout/rugby-ranker/tree/master.svg?style=shield)](https://circleci.com/gh/nicholasrout/rugby-ranker/tree/master)
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 Rugby Ranker is a **work-in-progess** Android app for viewing and predicting the latest World Rugby rankings.
