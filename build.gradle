@@ -18,7 +18,7 @@ buildscript {
     ext.work_version = '1.0.0-beta01'
     ext.paging_version = '2.1.0-rc01'
     ext.retrofit_version = '2.5.0'
-    ext.dagger_version = '2.16'
+    ext.dagger_version = '2.20'
     ext.oss_licenses_plugin_version = '0.9.4'
     ext.play_services_oss_licenses_version = '16.0.1'
     ext.test_junit_version = '4.12'
