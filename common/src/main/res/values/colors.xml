@@ -13,6 +13,7 @@
     <color name="color_navigation_bar_launcher">@color/black_alpha_30</color>
     <color name="color_fab_tint">@color/white</color>
     <color name="color_border">@color/medium_grey</color>
+    <color name="color_progress_bar">@color/grey</color>
 
     <integer-array name="colors_swipe_refresh">
         <item>@color/world_rugby_green_light</item>
@@ -33,6 +34,7 @@
     <color name="white">#ffffff</color>
     <color name="black_alpha_30">#4d000000</color>
     <color name="dark_grey">#666666</color>
+    <color name="grey">#e3e4e7</color>
     <color name="medium_grey">#ecf0f3</color>
     <color name="light_grey">#f6f7f8</color>
 

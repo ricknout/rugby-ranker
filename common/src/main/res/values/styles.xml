@@ -16,6 +16,7 @@
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
         <item name="android:listDivider">@drawable/list_divider</item>
+        <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
     </style>
 
     <style name="RugbyRankerTheme.Secondary">
@@ -62,6 +63,11 @@
         <item name="cardBackgroundColor">@color/light_grey</item>
         <item name="strokeWidth">@dimen/size_border</item>
         <item name="strokeColor">@color/color_border</item>
+    </style>
+    
+    <style name="RugbyRankerProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/color_progress_bar</item>
     </style>
 
     <style name="RugbyRankerWorldRugbyMatchDateHeader">
