@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
@@ -22,17 +22,17 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
-                    appIcon:"@mipmap/ic_launcher",
-                    appName:"@string/app_name",
-                    workManagerInitAuthorities:"com.ricknout.rugbyranker.workmanager-init"
+                    appIcon: "@mipmap/ic_launcher",
+                    appName: "@string/app_name",
+                    workManagerInitAuthorities: "com.ricknout.rugbyranker.workmanager-init"
             ]
         }
         debug {
             applicationIdSuffix ".debug"
             manifestPlaceholders = [
-                    appIcon:"@mipmap/ic_launcher_debug",
-                    appName:"@string/app_name_debug",
-                    workManagerInitAuthorities:"com.ricknout.rugbyranker.debug.workmanager-init"
+                    appIcon: "@mipmap/ic_launcher_debug",
+                    appName: "@string/app_name_debug",
+                    workManagerInitAuthorities: "com.ricknout.rugbyranker.debug.workmanager-init"
             ]
         }
     }
