@@ -110,9 +110,7 @@ class MatchesFragment : DaggerFragment() {
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    doIfVisibleToUser {
-                        root.post { workerSnackBar.dismiss() }
-                    }
+                    root.post { workerSnackBar.dismiss() }
                 }
             }
         })
