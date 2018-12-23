@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.work.WorkerParameters
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
+import javax.inject.Inject
 
-class MensWorldRugbyRankingsWorker(
+class MensWorldRugbyRankingsWorker @Inject constructor(
     context: Context,
     workerParams: WorkerParameters,
     rankingsRepository: RankingsRepository

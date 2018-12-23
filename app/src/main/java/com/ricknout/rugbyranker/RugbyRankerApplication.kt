@@ -6,7 +6,6 @@ import androidx.emoji.bundled.BundledEmojiCompatConfig
 import androidx.emoji.text.EmojiCompat
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import androidx.work.WorkerFactory
 import com.ricknout.rugbyranker.di.AppComponent
 import com.ricknout.rugbyranker.di.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
@@ -19,9 +18,6 @@ class RugbyRankerApplication : Application(), HasActivityInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     private lateinit var appComponent: AppComponent
-
-    @Inject
-    lateinit var workerFactory: WorkerFactory
 
     override fun onCreate() {
         super.onCreate()
@@ -37,7 +33,7 @@ class RugbyRankerApplication : Application(), HasActivityInjector {
 
     private fun initWorkManager() {
         val configuration = Configuration.Builder()
-                .setWorkerFactory(workerFactory)
+                .setWorkerFactory(appComponent.workerFactory())
                 .build()
         WorkManager.initialize(applicationContext, configuration)
     }
