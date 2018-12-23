@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class RugbyRankerWorkerFactory @Inject constructor(
-        private val workerSubcomponent: WorkerSubcomponent.Builder
+    private val workerSubcomponent: WorkerSubcomponent.Builder
 ) : WorkerFactory() {
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {
