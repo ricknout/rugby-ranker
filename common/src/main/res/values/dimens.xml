@@ -5,6 +5,9 @@
     <dimen name="spacing_standard">8dp</dimen>
     <dimen name="spacing_double">16dp</dimen>
 
+    <dimen name="padding_start_world_rugby_match_date_header">@dimen/width_world_rugby_match_date_header</dimen>
+    <dimen name="padding_end_world_rugby_match_date_header">@dimen/spacing_standard</dimen>
+
     <dimen name="elevation_card_view">0dp</dimen>
     <dimen name="corner_radius_card_view">4dp</dimen>
 

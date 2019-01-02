@@ -3,12 +3,14 @@ package com.ricknout.rugbyranker.matches.ui
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Rect
 import android.os.Build
 import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.text.style.AbsoluteSizeSpan
+import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getColorOrThrow
 import androidx.core.content.res.getDimensionOrThrow
@@ -40,6 +42,9 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
     private val paint: TextPaint
     private val width: Int
     private val paddingTop: Int
+    private val paddingStart: Int
+    private val paddingEnd: Int
+    private val datePaddingTop: Int
     private val dayMonthTextSize: Int
     private val yearTextSize: Int
 
@@ -61,6 +66,9 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
         }
         width = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_width)
         paddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_paddingTop)
+        paddingStart = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_paddingStart)
+        paddingEnd = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_paddingEnd)
+        datePaddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_datePaddingTop)
         dayMonthTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_dayMonthTextSize)
         yearTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_yearTextSize)
         attrs.recycle()
@@ -79,10 +87,11 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
                 val position = parent.getChildAdapterPosition(view)
                 matchHeaders[position]?.let { layout ->
                     paint.alpha = (view.alpha * 255).toInt()
-                    val top = (viewTop + paddingTop)
-                            .coerceAtLeast(paddingTop)
+                    val left = paddingStart - width
+                    val top = (viewTop + datePaddingTop)
+                            .coerceAtLeast(datePaddingTop)
                             .coerceAtMost(prevHeaderTop - layout.height)
-                    c.withTranslation(y = top.toFloat()) {
+                    c.withTranslation(x = left.toFloat(), y = top.toFloat()) {
                         layout.draw(c)
                     }
                     earliestFoundHeaderPos = position
@@ -98,14 +107,19 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
         for (headerPos in matchHeaders.keys.reversed()) {
             if (headerPos < earliestFoundHeaderPos) {
                 matchHeaders[headerPos]?.let {
-                    val top = (prevHeaderTop - it.height).coerceAtMost(paddingTop)
-                    c.withTranslation(y = top.toFloat()) {
+                    val left = paddingStart - width
+                    val top = (prevHeaderTop - it.height).coerceAtMost(datePaddingTop)
+                    c.withTranslation(x = left.toFloat(), y = top.toFloat()) {
                         it.draw(c)
                     }
                 }
                 break
             }
         }
+    }
+
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        outRect.set(paddingStart, paddingTop, paddingEnd, 0)
     }
 
     private fun indexMatchHeaders() = matches
@@ -118,7 +132,6 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
                 val dayMonth = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM, millis)
                 append(dayMonth)
             }
-        }.apply {
             append(System.lineSeparator())
             inSpans(AbsoluteSizeSpan(yearTextSize)) {
                 val year = DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY, millis)

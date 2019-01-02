@@ -72,9 +72,12 @@
 
     <style name="RugbyRankerWorldRugbyMatchDateHeader">
         <item name="android:width">@dimen/width_world_rugby_match_date_header</item>
-        <item name="android:paddingTop">@dimen/spacing_double</item>
+        <item name="android:paddingStart">@dimen/padding_start_world_rugby_match_date_header</item>
+        <item name="android:paddingEnd">@dimen/padding_end_world_rugby_match_date_header</item>
+        <item name="android:paddingTop">@dimen/spacing_standard</item>
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:fontFamily">@font/rajdhani</item>
+        <item name="datePaddingTop">@dimen/spacing_double</item>
         <item name="dayMonthTextSize">@dimen/text_size_world_rugby_match_date_header_day_month</item>
         <item name="yearTextSize">@dimen/text_size_world_rugby_match_date_header_year</item>
     </style>

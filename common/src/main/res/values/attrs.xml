@@ -3,9 +3,12 @@
 
     <declare-styleable name="WorldRugbyMatchDateHeader">
         <attr name="android:width" />
+        <attr name="android:paddingStart" />
+        <attr name="android:paddingEnd" />
         <attr name="android:paddingTop" />
         <attr name="android:textColor" />
         <attr name="android:fontFamily" />
+        <attr name="datePaddingTop" format="dimension" />
         <attr name="dayMonthTextSize" format="dimension" />
         <attr name="yearTextSize" format="dimension" />
     </declare-styleable>
