@@ -481,7 +481,7 @@ class SportFragment : DaggerFragment() {
 
     private fun hideSoftInput() {
         val imm: InputMethodManager? = requireContext().getSystemService()
-        imm?.hideSoftInputFromWindow(view?.rootView?.windowToken, 0)
+        imm?.hideSoftInputFromWindow(requireView().rootView.windowToken, 0)
     }
 
     private fun hideBottomSheetAndClearMatchPredictionInput() {
