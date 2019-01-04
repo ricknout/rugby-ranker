@@ -125,6 +125,9 @@ class MatchesFragment : DaggerFragment() {
     private fun setupSwipeRefreshLayout() {
         val swipeRefreshColors = resources.getIntArray(R.array.colors_swipe_refresh)
         swipeRefreshLayout.setColorSchemeColors(*swipeRefreshColors)
+        swipeRefreshLayout.setProgressViewOffset(true,
+                swipeRefreshLayout.progressViewStartOffset + resources.getDimensionPixelSize(R.dimen.spacing_double),
+                swipeRefreshLayout.progressViewEndOffset)
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshLatestWorldRugbyMatches { success ->
                 if (!success) {
