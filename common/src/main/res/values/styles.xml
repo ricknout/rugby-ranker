@@ -17,6 +17,7 @@
         <item name="fontFamily">@font/rajdhani</item>
         <item name="android:listDivider">@drawable/list_divider</item>
         <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
+        <item name="snackbarStyle">@style/RugbyRankerSnackbar</item>
     </style>
 
     <style name="RugbyRankerTheme.Secondary">
@@ -80,6 +81,10 @@
         <item name="datePaddingTop">@dimen/spacing_double</item>
         <item name="dayMonthTextSize">@dimen/text_size_world_rugby_match_date_header_day_month</item>
         <item name="yearTextSize">@dimen/text_size_world_rugby_match_date_header_year</item>
+    </style>
+
+    <style name="RugbyRankerSnackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="animationMode">slide</item>
     </style>
 
 </resources>

@@ -18,6 +18,7 @@
         <item name="fontFamily">@font/rajdhani</item>
         <item name="android:listDivider">@drawable/list_divider</item>
         <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
+        <item name="snackbarStyle">@style/RugbyRankerSnackbar</item>
     </style>
 
 </resources>
