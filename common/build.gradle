@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -33,10 +32,10 @@ dependencies {
     api "androidx.emoji:emoji-bundled:$emoji_version"
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     api "androidx.room:room-runtime:$room_version"
-    api "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
-    api "android.arch.navigation:navigation-ui-ktx:$navigation_version"
-    api "android.arch.work:work-runtime-ktx:$work_version"
     api "androidx.paging:paging-runtime-ktx:$paging_version"
+    api "android.arch.navigation:navigation-ui-ktx:$navigation_version"
+    api "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
+    api "android.arch.work:work-runtime-ktx:$work_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.google.dagger:dagger:$dagger_version"
