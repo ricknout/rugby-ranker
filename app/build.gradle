@@ -51,8 +51,8 @@ dependencies {
     implementation project(':common')
     kapt deps.androidX.lifecycle.compiler
     kapt deps.androidX.room.compiler
-    kapt deps.dagger.compiler
-    kapt deps.dagger.androidProcessor
+    kapt deps.google.dagger.compiler
+    kapt deps.google.dagger.androidProcessor
     testImplementation deps.jUnit
     androidTestImplementation deps.androidX.test.runner
     androidTestImplementation deps.androidX.test.espresso.core

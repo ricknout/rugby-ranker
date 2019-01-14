@@ -6,7 +6,6 @@ buildscript {
             androidGradlePlugin: '3.3.0',
             kotlin: '1.3.11',
             retrofit: '2.5.0',
-            dagger: '2.20',
             jUnit: '4.12',
             ktlint: '0.29.0',
             androidX: [
@@ -29,6 +28,7 @@ buildscript {
             ],
             google: [
                     material: '1.1.0-alpha02',
+                    dagger: '2.20',
                     ossLicenses: [
                             ossLicenses: '16.0.2',
                             gradlePlugin: '0.9.4'
@@ -90,6 +90,13 @@ buildscript {
             ],
             google: [
                     material: "com.google.android.material:material:$versions.google.material",
+                    dagger: [
+                            dagger: "com.google.dagger:dagger:$versions.google.dagger",
+                            compiler: "com.google.dagger:dagger-compiler:$versions.google.dagger",
+                            android: "com.google.dagger:dagger-android:$versions.google.dagger",
+                            androidSupport: "com.google.dagger:dagger-android-support:$versions.google.dagger",
+                            androidProcessor: "com.google.dagger:dagger-android-processor:$versions.google.dagger"
+                    ],
                     ossLicenses: [
                             ossLicenses: "com.google.android.gms:play-services-oss-licenses:$versions.google.ossLicenses.ossLicenses",
                             gradlePlugin: "com.google.android.gms:oss-licenses-plugin:$versions.google.ossLicenses.gradlePlugin"
@@ -98,13 +105,6 @@ buildscript {
             retrofit: [
                     retrofit: "com.squareup.retrofit2:retrofit:$versions.retrofit",
                     gsonConverter: "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-            ],
-            dagger: [
-                    dagger: "com.google.dagger:dagger:$versions.dagger",
-                    compiler: "com.google.dagger:dagger-compiler:$versions.dagger",
-                    android: "com.google.dagger:dagger-android:$versions.dagger",
-                    androidSupport: "com.google.dagger:dagger-android-support:$versions.dagger",
-                    androidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger"
             ]
     ]
     repositories {
