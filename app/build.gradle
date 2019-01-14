@@ -6,15 +6,15 @@ apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
-    compileSdkVersion compile_sdk_version
+    compileSdkVersion versions.compileSdk
     defaultConfig {
-        applicationId "com.ricknout.rugbyranker"
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
+        applicationId 'com.ricknout.rugbyranker'
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
         versionCode 1204
-        versionName "1.2.4"
-        setProperty("archivesBaseName", applicationId + "-v" + versionName)
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName '1.2.4'
+        setProperty('archivesBaseName', applicationId + '-v' + versionName)
+        testInstrumentationRunner deps.androidX.test.instrumentationRunner
     }
     buildTypes {
         release {
@@ -22,17 +22,17 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
-                    appIcon: "@mipmap/ic_launcher",
-                    appName: "@string/app_name",
-                    workManagerInitAuthorities: "com.ricknout.rugbyranker.workmanager-init"
+                    appIcon: '@mipmap/ic_launcher',
+                    appName: '@string/app_name',
+                    workManagerInitAuthorities: 'com.ricknout.rugbyranker.workmanager-init'
             ]
         }
         debug {
-            applicationIdSuffix ".debug"
+            applicationIdSuffix '.debug'
             manifestPlaceholders = [
-                    appIcon: "@mipmap/ic_launcher_debug",
-                    appName: "@string/app_name_debug",
-                    workManagerInitAuthorities: "com.ricknout.rugbyranker.debug.workmanager-init"
+                    appIcon: '@mipmap/ic_launcher_debug',
+                    appName: '@string/app_name_debug',
+                    workManagerInitAuthorities: 'com.ricknout.rugbyranker.debug.workmanager-init'
             ]
         }
     }
@@ -43,18 +43,17 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation deps.kotlin.stdlib
     implementation project(':rankings')
     implementation project(':prediction')
     implementation project(':matches')
     implementation project(':info')
     implementation project(':common')
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-    testImplementation "junit:junit:$test_junit_version"
-    androidTestImplementation "androidx.test:runner:$test_runner_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"
+    kapt deps.androidX.lifecycle.compiler
+    kapt deps.androidX.room.compiler
+    kapt deps.dagger.compiler
+    kapt deps.dagger.androidProcessor
+    testImplementation deps.jUnit
+    androidTestImplementation deps.androidX.test.runner
+    androidTestImplementation deps.androidX.test.espresso.core
 }

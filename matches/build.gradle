@@ -4,13 +4,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
-    compileSdkVersion compile_sdk_version
+    compileSdkVersion versions.compileSdk
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        testInstrumentationRunner deps.androidX.test.instrumentationRunner
     }
     buildTypes {
         release {
@@ -25,11 +23,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation deps.kotlin.stdlib
     implementation project(':rankings')
     implementation project(':common')
-    testImplementation "junit:junit:$test_junit_version"
-    androidTestImplementation "androidx.test:runner:$test_runner_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"
+    testImplementation deps.jUnit
+    androidTestImplementation deps.androidX.test.runner
+    androidTestImplementation deps.androidX.test.espresso.core
 }

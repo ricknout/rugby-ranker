@@ -7,7 +7,7 @@ configurations {
 }
 
 dependencies {
-    ktlint "com.github.shyiko:ktlint:$ktlint_version"
+    ktlint deps.ktlint
 }
 
 task ktlint(type: JavaExec, group: "verification") {

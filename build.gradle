@@ -1,39 +1,121 @@
 buildscript {
-    ext.compile_sdk_version = 28
-    ext.min_sdk_version = 21
-    ext.target_sdk_version = 28
-    ext.gradle_build_tools_version = '3.3.0-rc03'
-    ext.kotlin_version = '1.3.11'
-    ext.androidx_core_version = '1.1.0-alpha03'
-    ext.androidx_activity_version = '1.0.0-alpha03'
-    ext.androidx_fragment_version = '1.1.0-alpha03'
-    ext.constraintlayout_version = '2.0.0-alpha3'
-    ext.recyclerview_version = '1.1.0-alpha01'
-    ext.emoji_version = '1.0.0'
-    ext.browser_version = '1.0.0'
-    ext.material_version = '1.1.0-alpha02'
-    ext.lifecycle_version = '2.1.0-alpha01'
-    ext.room_version = '2.1.0-alpha03'
-    ext.navigation_version = '1.0.0-alpha08' // BUG: This can't be updated until https://issuetracker.google.com/issues/121304903 is fixed
-    ext.work_version = '1.0.0-beta01'
-    ext.paging_version = '2.1.0-rc01'
-    ext.retrofit_version = '2.5.0'
-    ext.dagger_version = '2.20'
-    ext.oss_licenses_plugin_version = '0.9.4'
-    ext.play_services_oss_licenses_version = '16.0.2'
-    ext.test_junit_version = '4.12'
-    ext.test_runner_version = '1.1.1'
-    ext.test_espresso_version = '3.1.1'
-    ext.ktlint_version = '0.29.0'
+    ext.versions = [
+            compileSdk: 28,
+            minSdk: 21,
+            targetSdk: 28,
+            androidGradlePlugin: '3.3.0-rc03',
+            kotlin: '1.3.11',
+            retrofit: '2.5.0',
+            dagger: '2.20',
+            jUnit: '4.12',
+            ktlint: '0.29.0',
+            androidX: [
+                    core: '1.1.0-alpha03',
+                    activity: '1.0.0-alpha03',
+                    fragment: '1.1.0-alpha03',
+                    constraintLayout: '2.0.0-alpha3',
+                    recyclerView: '1.1.0-alpha01',
+                    emoji: '1.0.0',
+                    browser: '1.0.0',
+                    lifecycle: '2.1.0-alpha01',
+                    room: '2.1.0-alpha03',
+                    paging: '2.1.0-rc01',
+                    navigation: '1.0.0-alpha08', // BUG: This can't be updated until https://issuetracker.google.com/issues/121304903 is fixed
+                    work: '1.0.0-beta01',
+                    test: [
+                            runner: '1.1.1',
+                            espresso: '3.1.1'
+                    ]
+            ],
+            google: [
+                    material: '1.1.0-alpha02',
+                    ossLicenses: [
+                            ossLicenses: '16.0.2',
+                            gradlePlugin: '0.9.4'
+                    ]
+            ]
+    ]
+    ext.deps = [
+            androidGradlePlugin: "com.android.tools.build:gradle:$versions.androidGradlePlugin",
+            jUnit: "junit:junit:$versions.jUnit",
+            ktlint: "com.github.shyiko:ktlint:$versions.ktlint",
+            kotlin: [
+                    stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+                    gradlePlugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+            ],
+            androidX: [
+                    constraintLayout: "androidx.constraintlayout:constraintlayout:$versions.androidX.constraintLayout",
+                    recyclerView: "androidx.recyclerview:recyclerview:$versions.androidX.recyclerView",
+                    browser: "androidx.browser:browser:$versions.androidX.browser",
+                    core: [
+                            core: "androidx.core:core:$versions.androidX.core",
+                            ktx: "androidx.core:core-ktx:$versions.androidX.core"
+                    ],
+                    activity: [
+                            ktx: "androidx.activity:activity-ktx:$versions.androidX.activity"
+                    ],
+                    fragment: [
+                            ktx: "androidx.fragment:fragment-ktx:$versions.androidX.fragment"
+                    ],
+                    emoji: [
+                            emoji: "androidx.emoji:emoji:$versions.androidX.emoji",
+                            bundled: "androidx.emoji:emoji-bundled:$versions.androidX.emoji"
+                    ],
+                    lifecycle: [
+                            extensions: "androidx.lifecycle:lifecycle-extensions:$versions.androidX.lifecycle",
+                            compiler: "androidx.lifecycle:lifecycle-compiler:$versions.androidX.lifecycle"
+                    ],
+                    room: [
+                            runtime: "androidx.room:room-runtime:$versions.androidX.room",
+                            compiler: "androidx.room:room-compiler:$versions.androidX.room"
+                    ],
+                    paging: [
+                            runtimeKtx: "androidx.paging:paging-runtime-ktx:$versions.androidX.paging"
+                    ],
+                    navigation: [
+                            uiKtx: "android.arch.navigation:navigation-ui-ktx:$versions.androidX.navigation",
+                            fragmentKtx: "android.arch.navigation:navigation-fragment-ktx:$versions.androidX.navigation",
+                            safeArgsGradlePlugin: "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.androidX.navigation"
+                    ],
+                    work: [
+                            runtimeKtx: "android.arch.work:work-runtime-ktx:$versions.androidX.work"
+                    ],
+                    test: [
+                            runner: "androidx.test:runner:$versions.androidX.test.runner",
+                            instrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
+                            espresso: [
+                                    core: "androidx.test.espresso:espresso-core:$versions.androidX.test.espresso"
+                            ]
+                    ]
+            ],
+            google: [
+                    material: "com.google.android.material:material:$versions.google.material",
+                    ossLicenses: [
+                            ossLicenses: "com.google.android.gms:play-services-oss-licenses:$versions.google.ossLicenses.ossLicenses",
+                            gradlePlugin: "com.google.android.gms:oss-licenses-plugin:$versions.google.ossLicenses.gradlePlugin"
+                    ]
+            ],
+            retrofit: [
+                    retrofit: "com.squareup.retrofit2:retrofit:$versions.retrofit",
+                    gsonConverter: "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+            ],
+            dagger: [
+                    dagger: "com.google.dagger:dagger:$versions.dagger",
+                    compiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+                    android: "com.google.dagger:dagger-android:$versions.dagger",
+                    androidSupport: "com.google.dagger:dagger-android-support:$versions.dagger",
+                    androidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger"
+            ]
+    ]
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_build_tools_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
-        classpath "com.google.android.gms:oss-licenses-plugin:$oss_licenses_plugin_version"
+        classpath deps.androidGradlePlugin
+        classpath deps.kotlin.gradlePlugin
+        classpath deps.androidX.navigation.safeArgsGradlePlugin
+        classpath deps.google.ossLicenses.gradlePlugin
     }
 }
 
