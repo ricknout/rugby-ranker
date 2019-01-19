@@ -3,6 +3,8 @@ package com.ricknout.rugbyranker.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ricknout.rugbyranker.info.ui.InfoViewModel
+import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
+import com.ricknout.rugbyranker.live.ui.WomensLiveMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
@@ -49,6 +51,11 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(MensLiveMatchesViewModel::class)
+    abstract fun bindMensLiveMatchesViewModel(mensLiveMatchesViewModel: MensLiveMatchesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(MensUnplayedMatchesViewModel::class)
     abstract fun bindMensUnplayedMatchesViewModel(mensUnplayedMatchesViewModel: MensUnplayedMatchesViewModel): ViewModel
 
@@ -56,6 +63,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MensCompleteMatchesViewModel::class)
     abstract fun bindMensCompleteMatchesViewModel(mensCompleteMatchesViewModel: MensCompleteMatchesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WomensLiveMatchesViewModel::class)
+    abstract fun bindWomensLiveMatchesViewModel(womensLiveMatchesViewModel: WomensLiveMatchesViewModel): ViewModel
 
     @Binds
     @IntoMap

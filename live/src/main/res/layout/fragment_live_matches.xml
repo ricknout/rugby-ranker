@@ -38,4 +38,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- TODO: Add a proper empty state layout as live matches are not cached -->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

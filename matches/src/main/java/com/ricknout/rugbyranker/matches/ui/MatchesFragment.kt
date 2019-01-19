@@ -55,6 +55,7 @@ class MatchesFragment : DaggerFragment() {
                             .get(MensUnplayedMatchesViewModel::class.java)
                     MatchStatus.COMPLETE -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                             .get(MensCompleteMatchesViewModel::class.java)
+                    else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in MatchesFragment")
                 }
             }
             Sport.WOMENS -> {
@@ -63,6 +64,7 @@ class MatchesFragment : DaggerFragment() {
                             .get(WomensUnplayedMatchesViewModel::class.java)
                     MatchStatus.COMPLETE -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                             .get(WomensCompleteMatchesViewModel::class.java)
+                    else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in MatchesFragment")
                 }
             }
         }

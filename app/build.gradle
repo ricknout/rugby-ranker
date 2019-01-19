@@ -47,6 +47,7 @@ dependencies {
     implementation project(':rankings')
     implementation project(':prediction')
     implementation project(':matches')
+    implementation project(':live')
     implementation project(':info')
     implementation project(':common')
     kapt deps.androidX.lifecycle.compiler

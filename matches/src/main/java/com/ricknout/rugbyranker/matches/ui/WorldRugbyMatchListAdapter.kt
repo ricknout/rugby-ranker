@@ -2,33 +2,21 @@ package com.ricknout.rugbyranker.matches.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 
-class WorldRugbyMatchPagedListAdapter(
-    private val onItemCountChange: () -> Unit,
-    private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
-) : PagedListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
-
-    private var itemCount = 0
+class WorldRugbyMatchListAdapter(
+        private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
+) : ListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        WorldRugbyMatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_match, parent, false))
+            WorldRugbyMatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_match, parent, false))
 
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
         holder.bind(worldRugbyMatch, onPredictClick)
-    }
-
-    override fun getItemCount(): Int {
-        val itemCount = super.getItemCount()
-        if (this.itemCount != itemCount) {
-            onItemCountChange.invoke()
-            this.itemCount = itemCount
-        }
-        return itemCount
     }
 
     companion object {

@@ -48,6 +48,7 @@ object MatchesDataConverter {
         return when (match.status) {
             WorldRugbyService.STATE_UNPLAYED -> MatchStatus.UNPLAYED
             WorldRugbyService.STATE_COMPLETE -> MatchStatus.COMPLETE
+            WorldRugbyService.STATE_LIVE_1ST_HALF, WorldRugbyService.STATE_LIVE_2ND_HALF, WorldRugbyService.STATE_LIVE_HALF_TIME -> MatchStatus.LIVE
             else -> throw IllegalArgumentException("Unknown match status ${match.status}")
         }
     }
