@@ -8,7 +8,7 @@ import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 
 class WorldRugbyMatchListAdapter(
-        private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
+    private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
 ) : ListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

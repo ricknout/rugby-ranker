@@ -14,8 +14,8 @@ import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.random.Random
 
 open class LiveMatchesViewModel(
-        private val sport: Sport,
-        private val matchesRepository: MatchesRepository
+    private val sport: Sport,
+    private val matchesRepository: MatchesRepository
 ) : ReselectViewModel() {
 
     private lateinit var timer: Timer

@@ -5,5 +5,5 @@ import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import javax.inject.Inject
 
 class WomensLiveMatchesViewModel @Inject constructor(
-        matchesRepository: MatchesRepository
+    matchesRepository: MatchesRepository
 ) : LiveMatchesViewModel(Sport.WOMENS, matchesRepository)
