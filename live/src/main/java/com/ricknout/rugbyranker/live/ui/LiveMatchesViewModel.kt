@@ -11,7 +11,6 @@ import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import java.util.Timer
 import kotlin.concurrent.scheduleAtFixedRate
-import kotlin.random.Random
 
 open class LiveMatchesViewModel(
     private val sport: Sport,
@@ -36,45 +35,11 @@ open class LiveMatchesViewModel(
 
     fun refreshLiveWorldRugbyMatches(showRefresh: Boolean = true, onComplete: (success: Boolean) -> Unit) {
         if (showRefresh) _refreshingLiveWorldRugbyMatches.value = true
-
-        // TODO: Implement non-caching version of matchesRepository.fetchAndCacheLatestWorldRugbyMatchesAsync
-        val success = Random.nextBoolean()
-        if (success) {
-            _liveWorldRugbyMatches.postValue(listOf(WorldRugbyMatch(
-                    matchId = Random.nextLong(1000L),
-                    description = "Description",
-                    status = MatchStatus.LIVE,
-                    attendance = 100,
-                    firstTeamId = 1L,
-                    firstTeamName = "First team ${Random.nextInt(100)}",
-                    firstTeamAbbreviation = "F${Random.nextInt(100)}",
-                    firstTeamScore = Random.nextInt(100),
-                    secondTeamId = 2L,
-                    secondTeamName = "Second team ${Random.nextInt(100)}",
-                    secondTeamAbbreviation = "S${Random.nextInt(100)}",
-                    secondTeamScore = Random.nextInt(100),
-                    timeLabel = "Time",
-                    timeMillis = Random.nextLong(1547887749000L),
-                    timeGmtOffset = Random.nextInt(5),
-                    venueId = null,
-                    venueName = "Venue ${Random.nextInt(100)}",
-                    venueCity = "City ${Random.nextInt(100)}",
-                    venueCountry = "Country ${Random.nextInt(100)}",
-                    eventId = null,
-                    eventLabel = "Event ${Random.nextInt(100)}",
-                    eventSport = sport,
-                    eventRankingsWeight = null,
-                    eventStartTimeLabel = null,
-                    eventStartTimeMillis = null,
-                    eventStartTimeGmtOffset = null,
-                    eventEndTimeLabel = null,
-                    eventEndTimeMillis = null,
-                    eventEndTimeGmtOffset = null
-            )))
+        matchesRepository.fetchLatestWorldRugbyMatchesAsync(sport, matchStatus) { success, worldRugbyMatches ->
+            _liveWorldRugbyMatches.postValue(worldRugbyMatches)
+            if (showRefresh) _refreshingLiveWorldRugbyMatches.value = false
+            onComplete(success)
         }
-        onComplete(success)
-
-        if (showRefresh) _refreshingLiveWorldRugbyMatches.value = false
     }
 
     private fun startTimer() {

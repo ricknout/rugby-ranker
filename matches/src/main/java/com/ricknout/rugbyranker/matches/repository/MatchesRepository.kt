@@ -36,7 +36,6 @@ class MatchesRepository(
         val sports = when (sport) {
             Sport.MENS -> WorldRugbyService.SPORT_MENS
             Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
         }
         val states = when (matchStatus) {
             MatchStatus.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
@@ -83,6 +82,18 @@ class MatchesRepository(
     }
 
     fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, onComplete: (success: Boolean) -> Unit) {
+        if (matchStatus == MatchStatus.LIVE) throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
+        fetchLatestWorldRugbyMatchesAsync(sport, matchStatus) { success, worldRugbyMatches ->
+            if (success) {
+                executor.execute { worldRugbyMatchDao.insert(worldRugbyMatches) }
+                onComplete(true)
+            } else {
+                onComplete(false)
+            }
+        }
+    }
+
+    fun fetchLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, onComplete: (success: Boolean, worldRugbyMatches: List<WorldRugbyMatch>) -> Unit) {
         val sports = when (sport) {
             Sport.MENS -> WorldRugbyService.SPORT_MENS
             Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
@@ -90,23 +101,22 @@ class MatchesRepository(
         val states = when (matchStatus) {
             MatchStatus.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
             MatchStatus.COMPLETE -> WorldRugbyService.STATE_COMPLETE
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesAsync")
+            MatchStatus.LIVE -> "${WorldRugbyService.STATE_LIVE_1ST_HALF},${WorldRugbyService.STATE_LIVE_2ND_HALF},${WorldRugbyService.STATE_LIVE_HALF_TIME}"
         }
         val millis = System.currentTimeMillis()
         val startDate = when (matchStatus) {
             MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
             MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesAsync")
+            MatchStatus.LIVE -> ""
         }
         val endDate = when (matchStatus) {
             MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
             MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesAsync")
+            MatchStatus.LIVE -> ""
         }
         val sort = when (matchStatus) {
-            MatchStatus.UNPLAYED -> WorldRugbyService.SORT_ASC
+            MatchStatus.UNPLAYED, MatchStatus.LIVE -> WorldRugbyService.SORT_ASC
             MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesAsync")
         }
         val page = 0
         val callback = object : Callback<WorldRugbyMatchesResponse> {
@@ -115,19 +125,18 @@ class MatchesRepository(
                 if (response.isSuccessful) {
                     val worldRugbyMatchesResponse = response.body()
                     if (worldRugbyMatchesResponse == null) {
-                        onComplete(false)
+                        onComplete(false, emptyList())
                         return
                     }
                     val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
-                    executor.execute { worldRugbyMatchDao.insert(worldRugbyMatches) }
-                    onComplete(true)
+                    onComplete(true, worldRugbyMatches)
                 } else {
-                    onComplete(false)
+                    onComplete(false, emptyList())
                 }
             }
 
             override fun onFailure(call: Call<WorldRugbyMatchesResponse>, t: Throwable) {
-                onComplete(false)
+                onComplete(false, emptyList())
             }
         }
         worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).enqueue(callback)
