@@ -12,6 +12,4 @@
 
     <dimen name="elevation_bottom_sheet">8dp</dimen>
 
-    <dimen name="corner_radius_bottom_sheet">4dp</dimen>
-
 </resources>

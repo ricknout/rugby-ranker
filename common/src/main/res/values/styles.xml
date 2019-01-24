@@ -1,20 +1,29 @@
 <resources>
 
     <style name="RugbyRankerTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Color attributes -->
         <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant_dark</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="colorAccent">@color/color_secondary</item>
-        <item name="android:windowBackground">@color/color_window_background</item>
+        <item name="colorSecondaryVariant">@color/color_secondary_variant_dark</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="colorError">@color/color_error</item>
+        <item name="android:colorBackground">@color/color_background</item>
         <item name="android:statusBarColor">@color/color_status_bar</item>
         <item name="android:navigationBarColor">@color/color_navigation_bar</item>
-        <item name="bottomNavigationStyle">@style/RugbyRankerBottomNavigationView</item>
-        <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
-        <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
-        <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
+        <!-- Type attributes -->
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
+        <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
+        <!-- Shape attributes -->
+        <item name="shapeAppearanceSmallComponent">@style/RugbyRankerShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/RugbyRankerShapeAppearance.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/RugbyRankerShapeAppearance.LargeComponent</item>
+        <!-- Widget style attributes -->
+        <item name="bottomNavigationStyle">@style/RugbyRankerBottomNavigationView</item>
+        <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
+        <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
         <item name="android:listDivider">@drawable/list_divider</item>
         <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
         <item name="snackbarStyle">@style/RugbyRankerSnackbar</item>
@@ -22,7 +31,7 @@
 
     <style name="RugbyRankerTheme.Secondary">
         <item name="colorPrimary">@color/color_secondary</item>
-        <item name="colorPrimaryDark">@color/color_secondary_dark</item>
+        <item name="colorPrimaryVariant">@color/color_secondary_variant_dark</item>
     </style>
 
     <style name="RugbyRankerTheme.Launcher">
@@ -33,8 +42,6 @@
     <style name="RugbyRankerBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
 
     <style name="RugbyRankerTextAppearance.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
-
-    <style name="RugbyRankerTextAppearance.Caption" parent="@style/TextAppearance.MaterialComponents.Caption" />
 
     <style name="RugbyRankerTextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textAllCaps">false</item>
@@ -60,7 +67,6 @@
 
     <style name="RugbyRankerCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">@dimen/elevation_card_view</item>
-        <item name="cardCornerRadius">@dimen/corner_radius_card_view</item>
         <item name="cardBackgroundColor">@color/light_grey</item>
         <item name="strokeWidth">@dimen/size_border</item>
         <item name="strokeColor">@color/color_border</item>
@@ -85,6 +91,21 @@
 
     <style name="RugbyRankerSnackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="animationMode">slide</item>
+    </style>
+
+    <style name="RugbyRankerShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/size_corner</item>
+    </style>
+
+    <style name="RugbyRankerShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/size_corner</item>
+    </style>
+
+    <style name="RugbyRankerShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/size_corner</item>
     </style>
 
 </resources>
