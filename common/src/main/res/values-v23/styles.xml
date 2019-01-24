@@ -1,21 +1,30 @@
 <resources>
 
     <style name="RugbyRankerTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Color attributes -->
         <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant_dark</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="colorAccent">@color/color_secondary</item>
-        <item name="android:windowBackground">@color/color_window_background</item>
+        <item name="colorSecondaryVariant">@color/color_secondary_variant_dark</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="colorError">@color/color_error</item>
+        <item name="android:colorBackground">@color/color_background</item>
         <item name="android:statusBarColor">@color/color_status_bar</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/color_navigation_bar</item>
-        <item name="bottomNavigationStyle">@style/RugbyRankerBottomNavigationView</item>
-        <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
-        <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
-        <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
+        <!-- Type attributes -->
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
+        <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
+        <!-- Shape attributes -->
+        <item name="shapeAppearanceSmallComponent">@style/RugbyRankerShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/RugbyRankerShapeAppearance.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/RugbyRankerShapeAppearance.LargeComponent</item>
+        <!-- Widget style attributes -->
+        <item name="bottomNavigationStyle">@style/RugbyRankerBottomNavigationView</item>
+        <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
+        <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
         <item name="android:listDivider">@drawable/list_divider</item>
         <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
         <item name="snackbarStyle">@style/RugbyRankerSnackbar</item>

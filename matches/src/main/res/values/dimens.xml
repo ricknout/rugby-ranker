@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="text_size_match_auto_size_max">18sp</dimen>
+    <dimen name="text_size_match_auto_size_max">20sp</dimen>
 
 </resources>
