@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_dot_red_24dp">
+
+    <target android:name="dot">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="1000"
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="1.0"
+                    android:valueTo="0.5"
+                    android:repeatMode="reverse"
+                    android:repeatCount="infinite" />
+            </set>
+        </aapt:attr>
+    </target>
+
+</animated-vector>

@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.rugbyranker.R
@@ -179,6 +180,17 @@ class SportFragment : DaggerFragment() {
                 }
             }
         })
+    }
+
+    private fun toggleLiveMatchesTabIcon(show: Boolean) {
+        val tab = tabLayout.getTabAt(POSITION_LIVE) ?: return
+        if (show) {
+            val dotAvd = AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.avd_dot_red_24dp)
+            tab.icon = dotAvd
+            dotAvd?.start()
+        } else {
+            tab.icon = null
+        }
     }
 
     @SuppressWarnings("WrongConstant")
@@ -362,6 +374,10 @@ class SportFragment : DaggerFragment() {
                 this.skipCollapsed = skipCollapsed
                 this.state = state
             }
+        })
+        liveMatchesViewModel.liveWorldRugbyMatches.observe(viewLifecycleOwner, Observer { liveWorldRugbyMatches ->
+            val show = !liveWorldRugbyMatches.isNullOrEmpty()
+            toggleLiveMatchesTabIcon(show)
         })
         liveMatchesViewModel.navigatePredict.observe(viewLifecycleOwner, EventObserver { worldRugbyMatch ->
             applyWorldRugbyMatchToInput(worldRugbyMatch)

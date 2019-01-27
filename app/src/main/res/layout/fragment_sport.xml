@@ -50,7 +50,10 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            app:tabInlineLabel="true"
+            app:tabIconTint="@android:color/transparent"
+            app:tabIconTintMode="src_atop" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
