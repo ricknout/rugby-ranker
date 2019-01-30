@@ -16,7 +16,6 @@ android {
 
 dependencies {
     implementation deps.kotlin.stdlib
-    api deps.androidX.core.core
     api deps.androidX.core.ktx
     api deps.androidX.activity.ktx
     api deps.androidX.fragment.ktx
