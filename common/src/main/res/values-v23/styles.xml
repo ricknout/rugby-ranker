@@ -25,6 +25,7 @@
         <item name="bottomNavigationStyle">@style/RugbyRankerBottomNavigationView</item>
         <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
         <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
+        <item name="chipStyle">@style/RugbyRankerChip</item>
         <item name="android:listDivider">@drawable/list_divider</item>
         <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
         <item name="snackbarStyle">@style/RugbyRankerSnackbar</item>
