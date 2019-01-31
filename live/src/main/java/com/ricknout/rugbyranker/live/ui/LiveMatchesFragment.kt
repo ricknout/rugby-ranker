@@ -73,10 +73,15 @@ class LiveMatchesFragment : DaggerFragment() {
 
     private fun setupViewModel() {
         viewModel.liveWorldRugbyMatches.observe(viewLifecycleOwner, Observer { liveWorldRugbyMatches ->
+            val isNull = liveWorldRugbyMatches == null
+            progressBar.isVisible = isNull
+            if (isNull) {
+                return@Observer
+            }
             worldRugbyMatchListAdapter.submitList(liveWorldRugbyMatches)
             worldRugbyMatchDateItemDecoration.matches = liveWorldRugbyMatches
-            val isEmpty = liveWorldRugbyMatches?.isEmpty() ?: true
-            progressBar.isVisible = isEmpty
+            val isEmpty = liveWorldRugbyMatches.isEmpty()
+            emptyState.isVisible = isEmpty
         })
         viewModel.refreshingLiveWorldRugbyMatches.observe(viewLifecycleOwner, Observer { refreshingLiveWorldRugbyMatches ->
             swipeRefreshLayout.isRefreshing = refreshingLiveWorldRugbyMatches
