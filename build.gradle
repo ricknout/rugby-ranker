@@ -27,7 +27,7 @@ buildscript {
                     ]
             ],
             google: [
-                    material: '1.1.0-alpha02',
+                    material: '1.1.0-alpha03',
                     dagger: '2.21',
                     ossLicenses: [
                             ossLicenses: '16.0.2',
