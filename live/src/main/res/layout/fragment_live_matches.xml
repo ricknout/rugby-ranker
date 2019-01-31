@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/ic_rugby_ranker_logo_live"
+        app:srcCompat="@drawable/ic_empty_state_live"
         tools:ignore="contentDescription" />
 
     <TextView
