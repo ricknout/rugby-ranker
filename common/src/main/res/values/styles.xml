@@ -15,6 +15,7 @@
         <!-- Type attributes -->
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
+        <item name="textAppearanceHeadline6">@style/RugbyRankerTextAppearance.Headline6</item>
         <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
         <!-- Shape attributes -->
         <item name="shapeAppearanceSmallComponent">@style/RugbyRankerShapeAppearance.SmallComponent</item>
@@ -41,6 +42,10 @@
     </style>
 
     <style name="RugbyRankerBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
+
+    <style name="RugbyRankerTextAppearance.Headline6" parent="@style/TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">@dimen/text_size_headline_6</item>
+    </style>
 
     <style name="RugbyRankerTextAppearance.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 

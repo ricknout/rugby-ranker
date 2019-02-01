@@ -16,6 +16,7 @@
         <!-- Type attributes -->
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
+        <item name="textAppearanceHeadline6">@style/RugbyRankerTextAppearance.Headline6</item>
         <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
         <!-- Shape attributes -->
         <item name="shapeAppearanceSmallComponent">@style/RugbyRankerShapeAppearance.SmallComponent</item>
