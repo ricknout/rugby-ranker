@@ -189,7 +189,7 @@ class SportFragment : DaggerFragment() {
             tab.icon = dotAvd
             dotAvd?.start()
         } else {
-            tab.icon = null
+            if (tab.icon != null) tab.icon = null
         }
     }
 
