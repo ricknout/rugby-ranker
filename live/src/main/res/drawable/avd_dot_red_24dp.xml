@@ -11,7 +11,7 @@
                     android:duration="1000"
                     android:propertyName="fillAlpha"
                     android:valueFrom="1.0"
-                    android:valueTo="0.5"
+                    android:valueTo="0.0"
                     android:repeatMode="reverse"
                     android:repeatCount="infinite" />
             </set>
