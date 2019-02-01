@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="WorldRugbyMatchDateHeader">
+    <declare-styleable name="WorldRugbyMatchDateItemDecoration">
         <attr name="android:width" />
+        <attr name="android:paddingTop" />
         <attr name="android:paddingStart" />
         <attr name="android:paddingEnd" />
-        <attr name="android:paddingTop" />
         <attr name="android:textColor" />
         <attr name="android:fontFamily" />
         <attr name="datePaddingTop" format="dimension" />
         <attr name="dayMonthTextSize" format="dimension" />
         <attr name="yearTextSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="WorldRugbyMatchSpaceItemDecoration">
+        <attr name="android:paddingTop" />
+        <attr name="paddingHorizontal" format="dimension" />
     </declare-styleable>
 
 </resources>

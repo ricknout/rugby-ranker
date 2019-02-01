@@ -16,7 +16,7 @@ import com.ricknout.rugbyranker.common.livedata.EventObserver
 import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.live.R
-import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchDateItemDecoration
+import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchSpaceItemDecoration
 import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchListAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_live_matches.*
@@ -35,7 +35,7 @@ class LiveMatchesFragment : DaggerFragment() {
 
     private lateinit var worldRugbyMatchListAdapter: WorldRugbyMatchListAdapter
 
-    private lateinit var worldRugbyMatchDateItemDecoration: WorldRugbyMatchDateItemDecoration
+    private lateinit var worldRugbyMatchSpaceItemDecoration: WorldRugbyMatchSpaceItemDecoration
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,8 +58,8 @@ class LiveMatchesFragment : DaggerFragment() {
     }
 
     private fun setupRecyclerView() {
-        worldRugbyMatchDateItemDecoration = WorldRugbyMatchDateItemDecoration(requireContext())
-        matchesRecyclerView.addItemDecoration(worldRugbyMatchDateItemDecoration, 0)
+        worldRugbyMatchSpaceItemDecoration = WorldRugbyMatchSpaceItemDecoration(requireContext())
+        matchesRecyclerView.addItemDecoration(worldRugbyMatchSpaceItemDecoration, 0)
         worldRugbyMatchListAdapter = WorldRugbyMatchListAdapter { worldRugbyMatch ->
             viewModel.predict(worldRugbyMatch)
         }
@@ -79,7 +79,6 @@ class LiveMatchesFragment : DaggerFragment() {
                 return@Observer
             }
             worldRugbyMatchListAdapter.submitList(liveWorldRugbyMatches)
-            worldRugbyMatchDateItemDecoration.matches = liveWorldRugbyMatches
             val isEmpty = liveWorldRugbyMatches.isEmpty()
             emptyState.isVisible = isEmpty
         })
