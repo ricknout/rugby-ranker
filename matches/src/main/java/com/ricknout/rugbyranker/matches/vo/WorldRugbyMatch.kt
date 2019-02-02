@@ -35,5 +35,6 @@ data class WorldRugbyMatch(
     val eventStartTimeGmtOffset: Int?,
     val eventEndTimeLabel: String?,
     val eventEndTimeMillis: Long?,
-    val eventEndTimeGmtOffset: Int?
+    val eventEndTimeGmtOffset: Int?,
+    val half: MatchHalf?
 )

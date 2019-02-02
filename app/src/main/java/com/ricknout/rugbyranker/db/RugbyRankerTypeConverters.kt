@@ -3,6 +3,7 @@ package com.ricknout.rugbyranker.db
 import androidx.room.TypeConverter
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.matches.vo.MatchHalf
 
 class RugbyRankerTypeConverters {
 
@@ -17,4 +18,10 @@ class RugbyRankerTypeConverters {
 
     @TypeConverter
     fun matchStatusToOrdinal(matchStatus: MatchStatus): Int = matchStatus.ordinal
+
+    @TypeConverter
+    fun ordinalToMatchHalf(ordinal: Int): MatchHalf = MatchHalf.values()[ordinal]
+
+    @TypeConverter
+    fun matchHalfToOrdinal(matchHalf: MatchHalf): Int = matchHalf.ordinal
 }

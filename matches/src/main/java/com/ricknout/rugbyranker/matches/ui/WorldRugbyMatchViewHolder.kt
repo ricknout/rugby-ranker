@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.common.util.FlagUtils
 import com.ricknout.rugbyranker.matches.R
+import com.ricknout.rugbyranker.matches.vo.MatchHalf
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
@@ -34,9 +35,20 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
             itemView.team2ScoreTextView.isVisible = false
         }
         if (showTime) {
-            val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
-            itemView.timeTextView.text = time
-            itemView.timeTextView.isVisible = true
+            if (worldRugbyMatch.status == MatchStatus.LIVE) {
+                val half = when (worldRugbyMatch.half) {
+                    MatchHalf.FIRST_HALF -> itemView.context.getString(R.string.text_match_first_half)
+                    MatchHalf.SECOND_HALF -> itemView.context.getString(R.string.text_match_second_half)
+                    MatchHalf.HALF_TIME -> itemView.context.getString(R.string.text_match_half_time)
+                    else -> null
+                }
+                itemView.timeTextView.text = half
+                itemView.timeTextView.isVisible = true
+            } else {
+                val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)
+                itemView.timeTextView.text = time
+                itemView.timeTextView.isVisible = true
+            }
         } else {
             itemView.timeTextView.text = null
             itemView.timeTextView.isVisible = false
