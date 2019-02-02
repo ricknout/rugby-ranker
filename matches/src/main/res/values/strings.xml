@@ -8,8 +8,8 @@
     <string name="text_match_score_separator" translatable="false">-</string>
     <string name="text_match_venue_country" translatable="false">%1$s, %2$s</string>
 
-    <string name="text_match_first_half">First half</string>
-    <string name="text_match_second_half">Second half</string>
+    <string name="text_match_first_half">1st half</string>
+    <string name="text_match_second_half">2nd half</string>
     <string name="text_match_half_time">Half time</string>
 
 </resources>
