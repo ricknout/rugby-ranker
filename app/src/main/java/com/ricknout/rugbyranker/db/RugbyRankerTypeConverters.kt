@@ -20,8 +20,8 @@ class RugbyRankerTypeConverters {
     fun matchStatusToOrdinal(matchStatus: MatchStatus): Int = matchStatus.ordinal
 
     @TypeConverter
-    fun ordinalToMatchHalf(ordinal: Int): MatchHalf = MatchHalf.values()[ordinal]
+    fun ordinalToMatchHalf(ordinal: Int): MatchHalf? = if (ordinal == -1) null else MatchHalf.values()[ordinal]
 
     @TypeConverter
-    fun matchHalfToOrdinal(matchHalf: MatchHalf): Int = matchHalf.ordinal
+    fun matchHalfToOrdinal(matchHalf: MatchHalf?): Int = if (matchHalf == null) -1 else matchHalf.ordinal
 }
