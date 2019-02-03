@@ -86,7 +86,7 @@ class LiveMatchesFragment : DaggerFragment() {
             swipeRefreshLayout.isRefreshing = refreshingLiveWorldRugbyMatches
         })
         viewModel.worldRugbyRankingsTeamIds.observe(viewLifecycleOwner, Observer { worldRugbyRankingsTeamIds ->
-            worldRugbyMatchListAdapter.worldRugbyRankingsTeamIds = worldRugbyRankingsTeamIds.associateBy({it}, {true})
+            worldRugbyMatchListAdapter.worldRugbyRankingsTeamIds = worldRugbyRankingsTeamIds.associateBy({ it }, { true })
         })
         viewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
             doIfVisibleToUser { matchesRecyclerView.smoothScrollToPosition(0) }
