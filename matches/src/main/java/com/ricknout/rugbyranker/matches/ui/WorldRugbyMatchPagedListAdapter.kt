@@ -12,21 +12,28 @@ class WorldRugbyMatchPagedListAdapter(
     private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
 ) : PagedListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
-    private var itemCount = 0
+    private var currentItemCount = 0
+
+    var worldRugbyRankingsTeamIds: Map<Long, Boolean> = emptyMap()
+        set(value) {
+            field = value
+            notifyItemRangeChanged(0, itemCount)
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         WorldRugbyMatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_match, parent, false))
 
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
-        holder.bind(worldRugbyMatch, onPredictClick)
+        val predictable = worldRugbyRankingsTeamIds[worldRugbyMatch.firstTeamId] == true && worldRugbyRankingsTeamIds[worldRugbyMatch.secondTeamId] == true
+        holder.bind(worldRugbyMatch, predictable, onPredictClick)
     }
 
     override fun getItemCount(): Int {
         val itemCount = super.getItemCount()
-        if (this.itemCount != itemCount) {
+        if (currentItemCount != itemCount) {
             onItemCountChange.invoke()
-            this.itemCount = itemCount
+            currentItemCount = itemCount
         }
         return itemCount
     }

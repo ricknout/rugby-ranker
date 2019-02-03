@@ -11,12 +11,19 @@ class WorldRugbyMatchListAdapter(
     private val onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit
 ) : ListAdapter<WorldRugbyMatch, WorldRugbyMatchViewHolder>(DIFF_CALLBACK) {
 
+    var worldRugbyRankingsTeamIds: Map<Long, Boolean> = emptyMap()
+        set(value) {
+            field = value
+            notifyItemRangeChanged(0, itemCount)
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             WorldRugbyMatchViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_world_rugby_match, parent, false))
 
     override fun onBindViewHolder(holder: WorldRugbyMatchViewHolder, position: Int) {
         val worldRugbyMatch = getItem(position) ?: return
-        holder.bind(worldRugbyMatch, onPredictClick)
+        val predictable = worldRugbyRankingsTeamIds[worldRugbyMatch.firstTeamId] == true && worldRugbyRankingsTeamIds[worldRugbyMatch.secondTeamId] == true
+        holder.bind(worldRugbyMatch, predictable, onPredictClick)
     }
 
     companion object {

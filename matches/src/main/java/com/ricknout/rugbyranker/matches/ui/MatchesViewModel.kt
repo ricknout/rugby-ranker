@@ -9,10 +9,12 @@ import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
+import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 
 open class MatchesViewModel(
     private val sport: Sport,
     private val matchStatus: MatchStatus,
+    rankingsRepository: RankingsRepository,
     private val matchesRepository: MatchesRepository,
     matchesWorkManager: MatchesWorkManager
 ) : ReselectViewModel() {
@@ -20,6 +22,8 @@ open class MatchesViewModel(
     init {
         matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
     }
+
+    val worldRugbyRankingsTeamIds = rankingsRepository.loadLatestWorldRugbyRankingsTeamIds(sport)
 
     val latestWorldRugbyMatches = matchesRepository.loadLatestWorldRugbyMatches(sport, matchStatus, asc = matchStatus == MatchStatus.UNPLAYED)
     val latestWorldRugbyMatchesWorkInfos = matchesWorkManager.getLatestWorldRugbyMatchesWorkInfos(sport, matchStatus)

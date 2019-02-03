@@ -18,6 +18,7 @@ android {
 
 dependencies {
     implementation deps.kotlin.stdlib
+    implementation project(':rankings')
     implementation project(':matches')
     implementation project(':common')
     testImplementation deps.jUnit

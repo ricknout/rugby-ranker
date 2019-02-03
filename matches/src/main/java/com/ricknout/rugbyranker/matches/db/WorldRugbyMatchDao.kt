@@ -17,11 +17,11 @@ interface WorldRugbyMatchDao {
 
     // BUG: Using arg0, arg1, arg2 because of issue with DataSource.Factory
     // https://issuetracker.google.com/issues/119738980
-    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :arg0 AND status = :arg1 AND timeMillis > :arg2 AND EXISTS(SELECT * FROM world_rugby_rankings WHERE teamId = firstTeamId) AND EXISTS(SELECT * FROM world_rugby_rankings WHERE teamId = secondTeamId) ORDER BY timeMillis ASC")
+    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :arg0 AND status = :arg1 AND timeMillis > :arg2 ORDER BY timeMillis ASC")
     fun loadAsc(sport: Sport, matchStatus: MatchStatus, millis: Long): DataSource.Factory<Int, WorldRugbyMatch>
 
     // BUG: Using arg0, arg1, arg2 because of issue with DataSource.Factory
     // https://issuetracker.google.com/issues/119738980
-    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :arg0 AND status = :arg1 AND timeMillis < :arg2 AND EXISTS(SELECT * FROM world_rugby_rankings WHERE teamId = firstTeamId) AND EXISTS(SELECT * FROM world_rugby_rankings WHERE teamId = secondTeamId) ORDER BY timeMillis DESC")
+    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :arg0 AND status = :arg1 AND timeMillis < :arg2 ORDER BY timeMillis DESC")
     fun loadDesc(sport: Sport, matchStatus: MatchStatus, millis: Long): DataSource.Factory<Int, WorldRugbyMatch>
 }

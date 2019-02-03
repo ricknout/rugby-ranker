@@ -15,10 +15,10 @@ import kotlinx.android.synthetic.main.list_item_world_rugby_match.view.*
 
 class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(worldRugbyMatch: WorldRugbyMatch, onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit) {
+    fun bind(worldRugbyMatch: WorldRugbyMatch, predictable: Boolean, onPredictClick: (worldRugbyMatch: WorldRugbyMatch) -> Unit) {
         val showScores = worldRugbyMatch.status == MatchStatus.COMPLETE || worldRugbyMatch.status == MatchStatus.LIVE
         val showTime = worldRugbyMatch.status == MatchStatus.UNPLAYED || worldRugbyMatch.status == MatchStatus.LIVE
-        val showPredict = worldRugbyMatch.status == MatchStatus.UNPLAYED || worldRugbyMatch.status == MatchStatus.LIVE
+        val showPredict = predictable && (worldRugbyMatch.status == MatchStatus.UNPLAYED || worldRugbyMatch.status == MatchStatus.LIVE)
         val firstTeamFlag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: ""))
         val secondTeamFlag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: ""))
         itemView.team1FlagTextView.text = firstTeamFlag

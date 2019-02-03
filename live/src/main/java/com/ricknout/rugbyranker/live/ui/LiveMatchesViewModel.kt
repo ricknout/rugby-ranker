@@ -9,11 +9,13 @@ import com.ricknout.rugbyranker.common.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
+import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 import java.util.Timer
 import kotlin.concurrent.scheduleAtFixedRate
 
 open class LiveMatchesViewModel(
     private val sport: Sport,
+    rankingsRepository: RankingsRepository,
     private val matchesRepository: MatchesRepository
 ) : ReselectViewModel() {
 
@@ -24,6 +26,8 @@ open class LiveMatchesViewModel(
     }
 
     private val matchStatus = MatchStatus.LIVE
+
+    val worldRugbyRankingsTeamIds = rankingsRepository.loadLatestWorldRugbyRankingsTeamIds(sport)
 
     private val _liveWorldRugbyMatches = MutableLiveData<List<WorldRugbyMatch>>()
     val liveWorldRugbyMatches: LiveData<List<WorldRugbyMatch>>
