@@ -10,7 +10,7 @@ import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 
 @Database(
         entities = [WorldRugbyRanking::class, WorldRugbyMatch::class],
-        version = 3,
+        version = 2,
         exportSchema = false
 )
 @TypeConverters(RugbyRankerTypeConverters::class)

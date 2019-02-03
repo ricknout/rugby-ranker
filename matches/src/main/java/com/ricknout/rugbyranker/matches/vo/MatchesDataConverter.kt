@@ -39,9 +39,8 @@ object MatchesDataConverter {
                     eventStartTimeGmtOffset = match.events.firstOrNull()?.start?.gmtOffset?.toInt(),
                     eventEndTimeLabel = match.events.firstOrNull()?.end?.label,
                     eventEndTimeMillis = match.events.firstOrNull()?.end?.millis,
-                    eventEndTimeGmtOffset = match.events.firstOrNull()?.end?.gmtOffset?.toInt(),
-                    half = getMatchHalfFromMatch(match)
-            )
+                    eventEndTimeGmtOffset = match.events.firstOrNull()?.end?.gmtOffset?.toInt()
+            ).apply { half = getMatchHalfFromMatch(match) }
         }
     }
 

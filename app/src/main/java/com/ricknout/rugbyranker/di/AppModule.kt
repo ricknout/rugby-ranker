@@ -51,7 +51,7 @@ class AppModule {
     @Singleton
     fun provideDatabase(context: Context): RugbyRankerDb {
         return Room.databaseBuilder(context, RugbyRankerDb::class.java, RugbyRankerDb.DATABASE_NAME)
-                .addMigrations(RugbyRankerMigrations.MIGRATION_1_2, RugbyRankerMigrations.MIGRATION_2_3)
+                .addMigrations(RugbyRankerMigrations.MIGRATION_1_2)
                 .build()
     }
 
