@@ -14,6 +14,7 @@ import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import androidx.core.view.isVisible
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
@@ -29,7 +30,9 @@ class RankingsFragment : DaggerFragment() {
 
     private lateinit var viewModel: RankingsViewModel
 
-    private lateinit var sport: Sport
+    private val args: RankingsFragmentArgs by navArgs()
+
+    private val sport: Sport by lazy { args.sport }
 
     private lateinit var workerSnackBar: Snackbar
     private lateinit var refreshSnackBar: Snackbar
@@ -40,7 +43,6 @@ class RankingsFragment : DaggerFragment() {
             inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sport = RankingsFragmentArgs.fromBundle(arguments).sport
         viewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensRankingsViewModel::class.java)

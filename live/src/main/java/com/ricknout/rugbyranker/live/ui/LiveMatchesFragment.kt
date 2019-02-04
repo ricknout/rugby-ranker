@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.common.livedata.EventObserver
 import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
@@ -29,7 +30,9 @@ class LiveMatchesFragment : DaggerFragment() {
 
     private lateinit var viewModel: LiveMatchesViewModel
 
-    private lateinit var sport: Sport
+    private val args: LiveMatchesFragmentArgs by navArgs()
+
+    private val sport: Sport by lazy { args.sport }
 
     private lateinit var refreshSnackBar: Snackbar
 
@@ -44,7 +47,6 @@ class LiveMatchesFragment : DaggerFragment() {
     ): View? = inflater.inflate(R.layout.fragment_live_matches, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sport = LiveMatchesFragmentArgs.fromBundle(arguments).sport
         viewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensLiveMatchesViewModel::class.java)

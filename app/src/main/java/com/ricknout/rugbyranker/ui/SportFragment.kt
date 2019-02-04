@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -58,7 +59,9 @@ class SportFragment : DaggerFragment() {
     private lateinit var liveMatchesViewModel: LiveMatchesViewModel
     private lateinit var unplayedMatchesViewModel: MatchesViewModel
 
-    private lateinit var sport: Sport
+    private val args: SportFragmentArgs by navArgs()
+
+    private val sport: Sport by lazy { args.sport }
 
     private var homeTeamId: Long? = null
     private var homeTeamName: String? = null
@@ -87,7 +90,6 @@ class SportFragment : DaggerFragment() {
             inflater.inflate(R.layout.fragment_sport, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sport = SportFragmentArgs.fromBundle(arguments).sport
         sportViewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(MensViewModel::class.java)

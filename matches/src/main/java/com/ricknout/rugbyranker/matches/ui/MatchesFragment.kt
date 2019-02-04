@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.common.livedata.EventObserver
@@ -29,8 +30,10 @@ class MatchesFragment : DaggerFragment() {
 
     private lateinit var viewModel: MatchesViewModel
 
-    private lateinit var sport: Sport
-    private lateinit var matchStatus: MatchStatus
+    private val args: MatchesFragmentArgs by navArgs()
+
+    private val sport: Sport by lazy { args.sport }
+    private val matchStatus: MatchStatus by lazy { args.matchStatus }
 
     private lateinit var workerSnackBar: Snackbar
     private lateinit var refreshSnackBar: Snackbar
@@ -46,8 +49,6 @@ class MatchesFragment : DaggerFragment() {
     ): View? = inflater.inflate(R.layout.fragment_matches, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sport = MatchesFragmentArgs.fromBundle(arguments).sport
-        matchStatus = MatchesFragmentArgs.fromBundle(arguments).matchStatus
         viewModel = when (sport) {
             Sport.MENS -> {
                 when (matchStatus) {
