@@ -25,8 +25,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:scrollbars="vertical"
-            tools:listitem="@layout/list_item_world_rugby_match"
-            tools:ignore="RtlSymmetry" />
+            tools:listitem="@layout/list_item_world_rugby_match" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

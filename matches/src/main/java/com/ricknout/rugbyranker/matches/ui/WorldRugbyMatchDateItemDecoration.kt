@@ -50,27 +50,27 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
 
     init {
         val attrs = context.obtainStyledAttributes(
-                R.style.RugbyRankerWorldRugbyMatchDateHeader,
-                R.styleable.WorldRugbyMatchDateHeader
+                R.style.RugbyRankerWorldRugbyMatchDateItemDecoration,
+                R.styleable.WorldRugbyMatchDateItemDecoration
         )
         paint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrs.getColorOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_textColor)
-            textSize = attrs.getDimensionOrThrow(R.styleable.WorldRugbyMatchDateHeader_dayMonthTextSize)
+            color = attrs.getColorOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_textColor)
+            textSize = attrs.getDimensionOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayMonthTextSize)
             try {
                 typeface = ResourcesCompat.getFont(
                         context,
-                        attrs.getResourceIdOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_fontFamily)
+                        attrs.getResourceIdOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_fontFamily)
                 )
             } catch (_: Exception) {
             }
         }
-        width = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_width)
-        paddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_paddingTop)
-        paddingStart = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_paddingStart)
-        paddingEnd = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_android_paddingEnd)
-        datePaddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_datePaddingTop)
-        dayMonthTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_dayMonthTextSize)
-        yearTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateHeader_yearTextSize)
+        width = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_width)
+        paddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingTop)
+        paddingStart = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingStart)
+        paddingEnd = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingEnd)
+        datePaddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_datePaddingTop)
+        dayMonthTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayMonthTextSize)
+        yearTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_yearTextSize)
         attrs.recycle()
     }
 

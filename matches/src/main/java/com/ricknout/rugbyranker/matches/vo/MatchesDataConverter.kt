@@ -40,7 +40,7 @@ object MatchesDataConverter {
                     eventEndTimeLabel = match.events.firstOrNull()?.end?.label,
                     eventEndTimeMillis = match.events.firstOrNull()?.end?.millis,
                     eventEndTimeGmtOffset = match.events.firstOrNull()?.end?.gmtOffset?.toInt()
-            )
+            ).apply { half = getMatchHalfFromMatch(match) }
         }
     }
 
@@ -48,7 +48,17 @@ object MatchesDataConverter {
         return when (match.status) {
             WorldRugbyService.STATE_UNPLAYED -> MatchStatus.UNPLAYED
             WorldRugbyService.STATE_COMPLETE -> MatchStatus.COMPLETE
+            WorldRugbyService.STATE_LIVE_1ST_HALF, WorldRugbyService.STATE_LIVE_2ND_HALF, WorldRugbyService.STATE_LIVE_HALF_TIME -> MatchStatus.LIVE
             else -> throw IllegalArgumentException("Unknown match status ${match.status}")
+        }
+    }
+
+    private fun getMatchHalfFromMatch(match: Match): MatchHalf? {
+        return when (match.status) {
+            WorldRugbyService.STATE_LIVE_1ST_HALF -> MatchHalf.FIRST_HALF
+            WorldRugbyService.STATE_LIVE_2ND_HALF -> MatchHalf.SECOND_HALF
+            WorldRugbyService.STATE_LIVE_HALF_TIME -> MatchHalf.HALF_TIME
+            else -> null
         }
     }
 }

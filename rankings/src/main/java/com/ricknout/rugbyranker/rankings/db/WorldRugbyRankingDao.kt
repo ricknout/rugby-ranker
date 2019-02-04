@@ -16,4 +16,7 @@ interface WorldRugbyRankingDao {
 
     @Query("SELECT * FROM world_rugby_rankings WHERE sport = :sport ORDER BY position ASC")
     fun load(sport: Sport): LiveData<List<WorldRugbyRanking>>
+
+    @Query("SELECT teamId FROM world_rugby_rankings WHERE sport = :sport")
+    fun loadTeamIds(sport: Sport): LiveData<List<Long>>
 }

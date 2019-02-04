@@ -1,6 +1,7 @@
 package com.ricknout.rugbyranker.matches.vo
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.ricknout.rugbyranker.common.vo.Sport
 
@@ -36,4 +37,7 @@ data class WorldRugbyMatch(
     val eventEndTimeLabel: String?,
     val eventEndTimeMillis: Long?,
     val eventEndTimeGmtOffset: Int?
-)
+) {
+    @Ignore
+    var half: MatchHalf? = null
+}

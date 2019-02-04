@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ricknout.rugbyranker.info.ui.InfoViewModel
+import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
+import com.ricknout.rugbyranker.live.ui.WomensLiveMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
@@ -29,6 +31,8 @@ class MainActivity : DaggerAppCompatActivity() {
     private lateinit var infoViewModel: InfoViewModel
     private lateinit var mensRankingsViewModel: MensRankingsViewModel
     private lateinit var womensRankingsViewModel: WomensRankingsViewModel
+    private lateinit var mensLiveMatchesViewModel: MensLiveMatchesViewModel
+    private lateinit var womensLiveMatchesViewModel: WomensLiveMatchesViewModel
     private lateinit var mensUnplayedMatchesViewModel: MensUnplayedMatchesViewModel
     private lateinit var womensUnplayedMatchesViewModel: WomensUnplayedMatchesViewModel
     private lateinit var mensCompleteMatchesViewModel: MensCompleteMatchesViewModel
@@ -47,6 +51,10 @@ class MainActivity : DaggerAppCompatActivity() {
                 .get(MensRankingsViewModel::class.java)
         womensRankingsViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(WomensRankingsViewModel::class.java)
+        mensLiveMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(MensLiveMatchesViewModel::class.java)
+        womensLiveMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(WomensLiveMatchesViewModel::class.java)
         mensUnplayedMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(MensUnplayedMatchesViewModel::class.java)
         womensUnplayedMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
@@ -67,12 +75,14 @@ class MainActivity : DaggerAppCompatActivity() {
                 R.id.mensFragment -> {
                     mensViewModel.reselect()
                     mensRankingsViewModel.reselect()
+                    mensLiveMatchesViewModel.reselect()
                     mensUnplayedMatchesViewModel.reselect()
                     mensCompleteMatchesViewModel.reselect()
                 }
                 R.id.womensFragment -> {
                     womensViewModel.reselect()
                     womensRankingsViewModel.reselect()
+                    womensLiveMatchesViewModel.reselect()
                     womensUnplayedMatchesViewModel.reselect()
                     womensCompleteMatchesViewModel.reselect()
                 }

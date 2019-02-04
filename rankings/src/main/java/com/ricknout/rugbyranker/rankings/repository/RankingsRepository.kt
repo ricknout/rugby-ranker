@@ -23,6 +23,8 @@ class RankingsRepository(
 
     fun loadLatestWorldRugbyRankings(sport: Sport) = worldRugbyRankingDao.load(sport)
 
+    fun loadLatestWorldRugbyRankingsTeamIds(sport: Sport) = worldRugbyRankingDao.loadTeamIds(sport)
+
     @WorkerThread
     fun fetchAndCacheLatestWorldRugbyRankingsSync(sport: Sport): Boolean {
         val json = when (sport) {

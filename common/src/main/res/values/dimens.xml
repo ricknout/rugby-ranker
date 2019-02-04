@@ -7,6 +7,7 @@
 
     <dimen name="padding_start_world_rugby_match_date_header">@dimen/width_world_rugby_match_date_header</dimen>
     <dimen name="padding_end_world_rugby_match_date_header">@dimen/spacing_standard</dimen>
+    <dimen name="padding_horizontal_world_rugby_match_space">@dimen/spacing_standard</dimen>
 
     <dimen name="elevation_card_view">0dp</dimen>
 

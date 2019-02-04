@@ -40,12 +40,14 @@ class MatchesWorkManager {
                 when (matchStatus) {
                     MatchStatus.UNPLAYED -> mensUnplayedMatchesWorkRequest
                     MatchStatus.COMPLETE -> mensCompleteMatchesWorkRequest
+                    else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndStoreLatestWorldRugbyMatches")
                 }
             }
             Sport.WOMENS -> {
                 when (matchStatus) {
                     MatchStatus.UNPLAYED -> womensUnplayedMatchesWorkRequest
                     MatchStatus.COMPLETE -> womensCompleteMatchesWorkRequest
+                    else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndStoreLatestWorldRugbyMatches")
                 }
             }
         }
@@ -64,12 +66,14 @@ class MatchesWorkManager {
             when (matchStatus) {
                 MatchStatus.UNPLAYED -> MensUnplayedWorldRugbyMatchesWorker.UNIQUE_WORK_NAME
                 MatchStatus.COMPLETE -> MensCompleteWorldRugbyMatchesWorker.UNIQUE_WORK_NAME
+                else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in getMatchesUniqueWorkName")
             }
         }
         Sport.WOMENS -> {
             when (matchStatus) {
                 MatchStatus.UNPLAYED -> WomensUnplayedWorldRugbyMatchesWorker.UNIQUE_WORK_NAME
                 MatchStatus.COMPLETE -> WomensCompleteWorldRugbyMatchesWorker.UNIQUE_WORK_NAME
+                else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in getMatchesUniqueWorkName")
             }
         }
     }

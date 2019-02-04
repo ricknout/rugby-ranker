@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.rugbyranker.R
@@ -34,6 +35,10 @@ import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
 import com.ricknout.rugbyranker.common.util.FlagUtils
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.live.ui.LiveMatchesFragment
+import com.ricknout.rugbyranker.live.ui.LiveMatchesViewModel
+import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
+import com.ricknout.rugbyranker.live.ui.WomensLiveMatchesViewModel
 import com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
@@ -50,6 +55,7 @@ class SportFragment : DaggerFragment() {
 
     private lateinit var sportViewModel: SportViewModel
     private lateinit var rankingsViewModel: RankingsViewModel
+    private lateinit var liveMatchesViewModel: LiveMatchesViewModel
     private lateinit var unplayedMatchesViewModel: MatchesViewModel
 
     private lateinit var sport: Sport
@@ -93,6 +99,12 @@ class SportFragment : DaggerFragment() {
                     .get(MensRankingsViewModel::class.java)
             Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
                     .get(WomensRankingsViewModel::class.java)
+        }
+        liveMatchesViewModel = when (sport) {
+            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(MensLiveMatchesViewModel::class.java)
+            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+                    .get(WomensLiveMatchesViewModel::class.java)
         }
         unplayedMatchesViewModel = when (sport) {
             Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
@@ -157,7 +169,7 @@ class SportFragment : DaggerFragment() {
 
     private fun setupTabsAndViewPager() {
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.offscreenPageLimit = 2
+        viewPager.offscreenPageLimit = 3
         viewPager.adapter = SportFragmentPagerAdapter(childFragmentManager)
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
@@ -168,6 +180,17 @@ class SportFragment : DaggerFragment() {
                 }
             }
         })
+    }
+
+    private fun toggleLiveMatchesTabIcon(show: Boolean) {
+        val tab = tabLayout.getTabAt(POSITION_LIVE) ?: return
+        if (show) {
+            val dotAvd = AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.avd_dot_red_24dp)
+            tab.icon = dotAvd
+            dotAvd?.start()
+        } else {
+            if (tab.icon != null) tab.icon = null
+        }
     }
 
     @SuppressWarnings("WrongConstant")
@@ -352,6 +375,16 @@ class SportFragment : DaggerFragment() {
                 this.state = state
             }
         })
+        liveMatchesViewModel.liveWorldRugbyMatches.observe(viewLifecycleOwner, Observer { liveWorldRugbyMatches ->
+            val show = !liveWorldRugbyMatches.isNullOrEmpty()
+            toggleLiveMatchesTabIcon(show)
+        })
+        liveMatchesViewModel.navigatePredict.observe(viewLifecycleOwner, EventObserver { worldRugbyMatch ->
+            applyWorldRugbyMatchToInput(worldRugbyMatch)
+            showMatchPredictionInput = true
+            viewPager.currentItem = POSITION_RANKINGS
+            rankingsViewModel.endEditMatchPrediction()
+        })
         unplayedMatchesViewModel.navigatePredict.observe(viewLifecycleOwner, EventObserver { worldRugbyMatch ->
             applyWorldRugbyMatchToInput(worldRugbyMatch)
             showMatchPredictionInput = true
@@ -511,15 +544,17 @@ class SportFragment : DaggerFragment() {
 
         override fun getItem(position: Int) = when (position) {
             POSITION_RANKINGS -> RankingsFragment.newInstance(sport)
+            POSITION_LIVE -> LiveMatchesFragment.newInstance(sport)
             POSITION_FIXTURES -> MatchesFragment.newInstance(sport, MatchStatus.UNPLAYED)
             POSITION_RESULTS -> MatchesFragment.newInstance(sport, MatchStatus.COMPLETE)
             else -> throw IllegalArgumentException("Position $position exceeds SportFragmentPagerAdapter count")
         }
 
-        override fun getCount() = 3
+        override fun getCount() = 4
 
         override fun getPageTitle(position: Int) = when (position) {
             POSITION_RANKINGS -> getString(R.string.title_rankings)
+            POSITION_LIVE -> getString(R.string.title_live)
             POSITION_FIXTURES -> getString(R.string.title_fixtures)
             POSITION_RESULTS -> getString(R.string.title_results)
             else -> super.getPageTitle(position)
@@ -529,8 +564,9 @@ class SportFragment : DaggerFragment() {
     companion object {
         const val TAG = "SportFragment"
         private const val POSITION_RANKINGS = 0
-        private const val POSITION_FIXTURES = 1
-        private const val POSITION_RESULTS = 2
+        private const val POSITION_LIVE = 1
+        private const val POSITION_FIXTURES = 2
+        private const val POSITION_RESULTS = 3
         private const val KEY_HOME_TEAM_ID = "home_team_id"
         private const val KEY_HOME_TEAM_NAME = "home_team_name"
         private const val KEY_HOME_TEAM_ABBREVIATION = "home_team_abbreviation"

@@ -3,5 +3,6 @@
 
     <dimen name="padding_start_world_rugby_match_date_header">96dp</dimen>
     <dimen name="padding_end_world_rugby_match_date_header">@dimen/padding_start_world_rugby_match_date_header</dimen>
+    <dimen name="padding_horizontal_world_rugby_match_space">96dp</dimen>
 
 </resources>
