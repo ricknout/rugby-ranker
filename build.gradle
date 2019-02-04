@@ -22,8 +22,8 @@ buildscript {
                     navigation: '1.0.0-alpha08', // BUG: This can't be updated until https://issuetracker.google.com/issues/121304903 is fixed
                     work: '1.0.0-beta03',
                     test: [
-                            runner: '1.1.1',
-                            espresso: '3.1.1'
+                            runner: '1.1.2-alpha01',
+                            espresso: '3.1.2-alpha01'
                     ]
             ],
             google: [
