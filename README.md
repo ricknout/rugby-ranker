@@ -22,7 +22,7 @@ It displays the latest international rankings, live scores, fixtures and results
 ## Android development
 
 Rugby Ranker attempts to make use of the latest Android libraries and best practices:
-* Entirely written in [Kotlin](https://kotlinlang.org/) with [ktlint](https://github.com/shyiko/ktlint) for code style
+* Entirely written in [Kotlin](https://kotlinlang.org/) (including [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)) with [ktlint](https://github.com/shyiko/ktlint) for code style
 * Makes use of [Android Jetpack](https://developer.android.com/jetpack/), including:
   * All appropriate [Architecture Components](https://developer.android.com/jetpack/arch/), including **Lifecycles**, **LiveData**, **ViewModel**, **Room**, **Paging**, **Navigation** and **WorkManager**
   * [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout) 2.0 for layouts
