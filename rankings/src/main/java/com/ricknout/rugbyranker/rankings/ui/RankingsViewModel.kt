@@ -3,6 +3,7 @@ package com.ricknout.rugbyranker.rankings.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ricknout.rugbyranker.common.util.DateUtils
 import com.ricknout.rugbyranker.common.viewmodel.ReselectViewModel
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
@@ -85,8 +86,8 @@ open class RankingsViewModel(
 
     fun refreshLatestWorldRugbyRankings(onComplete: (success: Boolean) -> Unit) {
         _refreshingLatestWorldRugbyRankings.value = true
-        rankingsRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(sport) { success ->
-            _refreshingLatestWorldRugbyRankings.value = false
+        rankingsRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(sport, viewModelScope) { success ->
+            _refreshingLatestWorldRugbyRankings.postValue(false)
             onComplete(success)
         }
     }

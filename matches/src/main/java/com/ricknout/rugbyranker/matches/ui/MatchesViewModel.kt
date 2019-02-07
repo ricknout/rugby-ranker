@@ -2,6 +2,7 @@ package com.ricknout.rugbyranker.matches.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ricknout.rugbyranker.common.livedata.Event
 import com.ricknout.rugbyranker.common.viewmodel.ReselectViewModel
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
@@ -34,8 +35,8 @@ open class MatchesViewModel(
 
     fun refreshLatestWorldRugbyMatches(onComplete: (success: Boolean) -> Unit) {
         _refreshingLatestWorldRugbyMatches.value = true
-        matchesRepository.fetchAndCacheLatestWorldRugbyMatchesAsync(sport, matchStatus) { success ->
-            _refreshingLatestWorldRugbyMatches.value = false
+        matchesRepository.fetchAndCacheLatestWorldRugbyMatchesAsync(sport, matchStatus, viewModelScope) { success ->
+            _refreshingLatestWorldRugbyMatches.postValue(false)
             onComplete(success)
         }
     }

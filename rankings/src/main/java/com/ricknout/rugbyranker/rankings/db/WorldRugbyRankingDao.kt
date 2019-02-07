@@ -12,7 +12,7 @@ import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 interface WorldRugbyRankingDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(worldRugbyRankings: List<WorldRugbyRanking>)
+    suspend fun insert(worldRugbyRankings: List<WorldRugbyRanking>)
 
     @Query("SELECT * FROM world_rugby_rankings WHERE sport = :sport ORDER BY position ASC")
     fun load(sport: Sport): LiveData<List<WorldRugbyRanking>>

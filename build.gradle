@@ -4,7 +4,6 @@ buildscript {
             minSdk: 21,
             targetSdk: 28,
             androidGradlePlugin: '3.4.0-beta03',
-            retrofit: '2.5.0',
             jUnit: '4.12',
             ktlint: '0.29.0',
             kotlin: [
@@ -36,6 +35,10 @@ buildscript {
                             ossLicenses: '16.0.2',
                             gradlePlugin: '0.9.4'
                     ]
+            ],
+            retrofit: [
+                    retrofit: '2.5.0',
+                    kotlinCoroutinesAdapter: '0.9.2'
             ]
     ]
     ext.deps = [
@@ -110,8 +113,9 @@ buildscript {
                     ]
             ],
             retrofit: [
-                    retrofit: "com.squareup.retrofit2:retrofit:$versions.retrofit",
-                    gsonConverter: "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+                    retrofit: "com.squareup.retrofit2:retrofit:$versions.retrofit.retrofit",
+                    gsonConverter: "com.squareup.retrofit2:converter-gson:$versions.retrofit.retrofit",
+                    kotlinCoroutinesAdapter: "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$versions.retrofit.kotlinCoroutinesAdapter"
             ]
     ]
     repositories {

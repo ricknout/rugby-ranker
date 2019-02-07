@@ -13,7 +13,7 @@ import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 interface WorldRugbyMatchDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(worldRugbyMatches: List<WorldRugbyMatch>)
+    suspend fun insert(worldRugbyMatches: List<WorldRugbyMatch>)
 
     // BUG: Using arg0, arg1, arg2 because of issue with DataSource.Factory
     // https://issuetracker.google.com/issues/119738980

@@ -42,9 +42,9 @@ open class LiveMatchesViewModel(
 
     fun refreshLiveWorldRugbyMatches(showRefresh: Boolean = true, onComplete: (success: Boolean) -> Unit) {
         if (showRefresh) _refreshingLiveWorldRugbyMatches.value = true
-        matchesRepository.fetchLatestWorldRugbyMatchesAsync(sport, matchStatus) { success, worldRugbyMatches ->
+        matchesRepository.fetchLatestWorldRugbyMatchesAsync(sport, matchStatus, viewModelScope) { success, worldRugbyMatches ->
             _liveWorldRugbyMatches.postValue(worldRugbyMatches)
-            if (showRefresh) _refreshingLiveWorldRugbyMatches.value = false
+            if (showRefresh) _refreshingLiveWorldRugbyMatches.postValue(false)
             onComplete(success)
         }
     }
