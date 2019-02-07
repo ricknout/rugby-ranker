@@ -7,8 +7,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.TooltipCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isInvisible
-import com.ricknout.rugbyranker.common.ui.BackgroundClickOnItemTouchListener
-import com.ricknout.rugbyranker.common.ui.SimpleTextWatcher
+import com.ricknout.rugbyranker.core.ui.BackgroundClickOnItemTouchListener
+import com.ricknout.rugbyranker.core.ui.SimpleTextWatcher
 import com.ricknout.rugbyranker.prediction.R
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import kotlinx.android.synthetic.main.view_match_prediction_input.view.*

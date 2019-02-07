@@ -10,7 +10,7 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.ricknout.rugbyranker.common.livedata.EventObserver
+import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.info.BuildConfig
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
 import dagger.android.support.DaggerFragment

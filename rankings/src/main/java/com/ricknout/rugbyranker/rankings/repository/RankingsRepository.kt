@@ -2,10 +2,10 @@ package com.ricknout.rugbyranker.rankings.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.ricknout.rugbyranker.common.api.WorldRugbyRankingsResponse
-import com.ricknout.rugbyranker.common.api.WorldRugbyService
-import com.ricknout.rugbyranker.common.util.DateUtils
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.api.WorldRugbyRankingsResponse
+import com.ricknout.rugbyranker.core.api.WorldRugbyService
+import com.ricknout.rugbyranker.core.util.DateUtils
+import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.rankings.vo.RankingsDataConverter

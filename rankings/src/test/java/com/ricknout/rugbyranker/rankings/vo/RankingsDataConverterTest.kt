@@ -1,10 +1,10 @@
 package com.ricknout.rugbyranker.rankings.vo
 
-import com.ricknout.rugbyranker.common.api.Effective
-import com.ricknout.rugbyranker.common.api.Entry
-import com.ricknout.rugbyranker.common.api.Team
-import com.ricknout.rugbyranker.common.api.WorldRugbyRankingsResponse
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.api.Effective
+import com.ricknout.rugbyranker.core.api.Entry
+import com.ricknout.rugbyranker.core.api.Team
+import com.ricknout.rugbyranker.core.api.WorldRugbyRankingsResponse
+import com.ricknout.rugbyranker.core.vo.Sport
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.assertEquals

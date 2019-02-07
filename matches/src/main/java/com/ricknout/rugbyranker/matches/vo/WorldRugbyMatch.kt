@@ -3,7 +3,7 @@ package com.ricknout.rugbyranker.matches.vo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.vo.Sport
 
 @Entity(tableName = "world_rugby_matches")
 data class WorldRugbyMatch(

@@ -1,7 +1,7 @@
 package com.ricknout.rugbyranker.rankings.vo
 
-import com.ricknout.rugbyranker.common.api.WorldRugbyRankingsResponse
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.api.WorldRugbyRankingsResponse
+import com.ricknout.rugbyranker.core.vo.Sport
 
 object RankingsDataConverter {
 

@@ -17,9 +17,9 @@ android {
 }
 
 dependencies {
+    implementation project(':core')
     implementation project(':rankings')
     implementation project(':matches')
-    implementation project(':common')
     testImplementation deps.jUnit
     androidTestImplementation deps.androidX.test.runner
     androidTestImplementation deps.androidX.test.espresso.core

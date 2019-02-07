@@ -21,7 +21,7 @@ import androidx.core.text.inSpans
 import androidx.core.view.get
 import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.RecyclerView
-import com.ricknout.rugbyranker.common.util.DateUtils
+import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.matches.R
 

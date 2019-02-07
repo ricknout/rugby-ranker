@@ -11,7 +11,7 @@
         android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
         android:label="MensFixturesFragment"
         tools:layout="@layout/fragment_matches">
-        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
         <argument android:name="matchStatus" android:defaultValue="UNPLAYED" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
     </fragment>
 
@@ -20,7 +20,7 @@
         android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
         android:label="MensResultsFragment"
         tools:layout="@layout/fragment_matches">
-        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="sport" android:defaultValue="MENS" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
         <argument android:name="matchStatus" android:defaultValue="COMPLETE" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
     </fragment>
 
@@ -29,7 +29,7 @@
         android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
         android:label="WomensFixturesFragment"
         tools:layout="@layout/fragment_matches">
-        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
         <argument android:name="matchStatus" android:defaultValue="UNPLAYED" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
     </fragment>
 
@@ -38,7 +38,7 @@
         android:name="com.ricknout.rugbyranker.matches.ui.MatchesFragment"
         android:label="WomensResultsFragment"
         tools:layout="@layout/fragment_matches">
-        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.common.vo.Sport" />
+        <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
         <argument android:name="matchStatus" android:defaultValue="COMPLETE" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
     </fragment>
 

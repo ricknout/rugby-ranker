@@ -23,7 +23,7 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.rugbyranker.R
-import com.ricknout.rugbyranker.common.livedata.EventObserver
+import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.matches.ui.MatchesFragment
 import com.ricknout.rugbyranker.matches.ui.MatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
@@ -32,9 +32,9 @@ import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
-import com.ricknout.rugbyranker.common.util.FlagUtils
+import com.ricknout.rugbyranker.core.util.FlagUtils
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.ui.LiveMatchesFragment
 import com.ricknout.rugbyranker.live.ui.LiveMatchesViewModel
 import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
