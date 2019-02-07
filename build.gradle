@@ -13,7 +13,7 @@ buildscript {
             androidX: [
                     core: '1.1.0-alpha04',
                     activity: '1.0.0-alpha04',
-                    fragment: '1.1.0-alpha03',
+                    fragment: '1.1.0-alpha04',
                     constraintLayout: '2.0.0-alpha3',
                     recyclerView: '1.1.0-alpha02',
                     emoji: '1.0.0',
