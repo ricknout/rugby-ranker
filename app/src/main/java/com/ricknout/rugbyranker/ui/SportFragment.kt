@@ -2,11 +2,10 @@ package com.ricknout.rugbyranker.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.ContentView
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.getSystemService
@@ -49,6 +48,7 @@ import kotlinx.android.synthetic.main.fragment_sport.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
+@ContentView(R.layout.fragment_sport)
 class SportFragment : DaggerFragment() {
 
     @Inject
@@ -85,9 +85,6 @@ class SportFragment : DaggerFragment() {
         }
         false
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_sport, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sportViewModel = when (sport) {
