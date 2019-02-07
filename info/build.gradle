@@ -16,8 +16,7 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
-    implementation project(':common')
+    implementation project(':core')
     implementation deps.androidX.browser
     implementation deps.google.ossLicenses.ossLicenses
     testImplementation deps.jUnit

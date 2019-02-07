@@ -1,6 +1,6 @@
 package com.ricknout.rugbyranker.rankings.vo
 
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import org.junit.Test
 import org.junit.Assert.assertEquals

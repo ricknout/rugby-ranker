@@ -8,7 +8,7 @@ import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.ricknout.rugbyranker.common.api.WorldRugbyService
+import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.RugbyRankerMigrations
 import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao

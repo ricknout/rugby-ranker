@@ -43,13 +43,12 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
+    implementation project(':core')
     implementation project(':rankings')
     implementation project(':prediction')
     implementation project(':matches')
     implementation project(':live')
     implementation project(':info')
-    implementation project(':common')
     kapt deps.androidX.lifecycle.compiler
     kapt deps.androidX.room.compiler
     kapt deps.google.dagger.compiler

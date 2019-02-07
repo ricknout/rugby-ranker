@@ -5,8 +5,8 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePaddingRelative
 import androidx.emoji.text.EmojiCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.ricknout.rugbyranker.common.util.DateUtils
-import com.ricknout.rugbyranker.common.util.FlagUtils
+import com.ricknout.rugbyranker.core.util.DateUtils
+import com.ricknout.rugbyranker.core.util.FlagUtils
 import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.matches.vo.MatchHalf
 import com.ricknout.rugbyranker.matches.vo.MatchStatus

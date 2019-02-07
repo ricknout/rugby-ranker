@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
-import com.ricknout.rugbyranker.common.livedata.EventObserver
-import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.livedata.EventObserver
+import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
+import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.R
 import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchSpaceItemDecoration
 import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchListAdapter

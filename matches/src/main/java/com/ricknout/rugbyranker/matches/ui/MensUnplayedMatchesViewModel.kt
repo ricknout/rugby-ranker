@@ -1,7 +1,7 @@
 package com.ricknout.rugbyranker.matches.ui
 
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository

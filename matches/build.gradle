@@ -17,9 +17,8 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
+    implementation project(':core')
     implementation project(':rankings')
-    implementation project(':common')
     testImplementation deps.jUnit
     androidTestImplementation deps.androidX.test.runner
     androidTestImplementation deps.androidX.test.espresso.core

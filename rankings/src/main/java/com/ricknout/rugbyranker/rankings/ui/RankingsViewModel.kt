@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ricknout.rugbyranker.common.util.DateUtils
-import com.ricknout.rugbyranker.common.viewmodel.ReselectViewModel
+import com.ricknout.rugbyranker.core.util.DateUtils
+import com.ricknout.rugbyranker.core.viewmodel.ReselectViewModel
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import com.ricknout.rugbyranker.rankings.vo.RankingsCalculator
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager

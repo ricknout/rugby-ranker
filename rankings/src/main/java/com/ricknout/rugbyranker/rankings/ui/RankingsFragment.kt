@@ -18,9 +18,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
-import com.ricknout.rugbyranker.common.livedata.EventObserver
-import com.ricknout.rugbyranker.common.util.doIfVisibleToUser
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.livedata.EventObserver
+import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
+import com.ricknout.rugbyranker.core.vo.Sport
 import kotlinx.android.synthetic.main.fragment_rankings.*
 
 class RankingsFragment : DaggerFragment() {

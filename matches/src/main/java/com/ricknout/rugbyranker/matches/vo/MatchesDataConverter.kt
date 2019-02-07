@@ -1,9 +1,9 @@
 package com.ricknout.rugbyranker.matches.vo
 
-import com.ricknout.rugbyranker.common.api.Match
-import com.ricknout.rugbyranker.common.api.WorldRugbyMatchesResponse
-import com.ricknout.rugbyranker.common.api.WorldRugbyService
-import com.ricknout.rugbyranker.common.vo.Sport
+import com.ricknout.rugbyranker.core.api.Match
+import com.ricknout.rugbyranker.core.api.WorldRugbyMatchesResponse
+import com.ricknout.rugbyranker.core.api.WorldRugbyService
+import com.ricknout.rugbyranker.core.vo.Sport
 import java.lang.IllegalArgumentException
 
 object MatchesDataConverter {
