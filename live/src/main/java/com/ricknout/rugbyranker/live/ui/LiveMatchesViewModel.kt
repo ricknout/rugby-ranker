@@ -52,7 +52,7 @@ open class LiveMatchesViewModel(
     private fun startRefreshJob(delayTimeMillis: Long) {
         viewModelScope.launch {
             val hasNotRefreshedLiveWorldRugbyMatchesOnce = liveWorldRugbyMatches.value == null
-            val hasOngoingLiveWorldRugbyMatches  = !liveWorldRugbyMatches.value.isNullOrEmpty()
+            val hasOngoingLiveWorldRugbyMatches = !liveWorldRugbyMatches.value.isNullOrEmpty()
             val currentTimeMillis = System.currentTimeMillis()
             val hasScheduledWorldRugbyMatches = matchesRepository.hasMatchesBetween(
                     currentTimeMillis - MATCH_PERIOD_BEFORE,
