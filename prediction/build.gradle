@@ -16,7 +16,6 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
     implementation project(':common')
     testImplementation deps.jUnit
     androidTestImplementation deps.androidX.test.runner

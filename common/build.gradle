@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
+    api deps.kotlin.stdlib
     api deps.kotlin.coroutines.core
     api deps.kotlin.coroutines.android
     api deps.androidX.core.ktx

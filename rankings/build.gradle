@@ -17,7 +17,6 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlin.stdlib
     implementation project(':prediction')
     implementation project(':common')
     testImplementation deps.jUnit
