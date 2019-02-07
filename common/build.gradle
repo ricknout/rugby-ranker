@@ -16,6 +16,8 @@ android {
 
 dependencies {
     implementation deps.kotlin.stdlib
+    api deps.kotlin.coroutines.core
+    api deps.kotlin.coroutines.android
     api deps.androidX.core.ktx
     api deps.androidX.activity.ktx
     api deps.androidX.fragment.ktx
@@ -25,6 +27,7 @@ dependencies {
     api deps.androidX.emoji.bundled
     api deps.androidX.lifecycle.extensions
     api deps.androidX.room.runtime
+    api deps.androidX.room.coroutines
     api deps.androidX.paging.runtimeKtx
     api deps.androidX.navigation.uiKtx
     api deps.androidX.navigation.fragmentKtx

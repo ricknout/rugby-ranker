@@ -45,5 +45,6 @@ object DateUtils {
     const val DATE_FORMAT_HH_MM = "HH:mm"
 
     const val DAY_MILLIS = 1000L * 60L * 60L * 24L
+    const val HOUR_MILLIS = 1000L * 60L * 60L
     const val MINUTE_MILLIS = 1000L * 60L
 }

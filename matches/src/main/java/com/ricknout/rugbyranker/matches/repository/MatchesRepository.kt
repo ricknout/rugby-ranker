@@ -24,6 +24,8 @@ class MatchesRepository(
     private val executor: Executor
 ) {
 
+    suspend fun hasMatchesBetween(startMillis: Long, endMillis: Long) = worldRugbyMatchDao.hasMatchesBetween(startMillis, endMillis)
+
     fun loadLatestWorldRugbyMatches(sport: Sport, matchStatus: MatchStatus, asc: Boolean): LiveData<PagedList<WorldRugbyMatch>> {
         val millis = System.currentTimeMillis()
         val dataSourceFactory = if (asc) worldRugbyMatchDao.loadAsc(sport, matchStatus, millis) else worldRugbyMatchDao.loadDesc(sport, matchStatus, millis)
