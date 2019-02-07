@@ -54,7 +54,7 @@ open class LiveMatchesViewModel(
             val hasNotRefreshedLiveWorldRugbyMatchesOnce = liveWorldRugbyMatches.value == null
             val hasOngoingLiveWorldRugbyMatches = !liveWorldRugbyMatches.value.isNullOrEmpty()
             val currentTimeMillis = System.currentTimeMillis()
-            val hasScheduledWorldRugbyMatches = matchesRepository.hasMatchesBetween(
+            val hasScheduledWorldRugbyMatches = matchesRepository.hasWorldRugbyMatchesBetween(
                     currentTimeMillis - MATCH_PERIOD_BEFORE,
                     currentTimeMillis + MATCH_PERIOD_AFTER
             )

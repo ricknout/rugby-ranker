@@ -26,5 +26,5 @@ interface WorldRugbyMatchDao {
     fun loadDesc(sport: Sport, matchStatus: MatchStatus, millis: Long): DataSource.Factory<Int, WorldRugbyMatch>
 
     @Query("SELECT EXISTS(SELECT * FROM world_rugby_matches WHERE timeMillis > :startMillis AND timeMillis < :endMillis)")
-    suspend fun hasMatchesBetween(startMillis: Long, endMillis: Long): Boolean
+    suspend fun hasBetween(startMillis: Long, endMillis: Long): Boolean
 }
