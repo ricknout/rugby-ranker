@@ -1,6 +1,6 @@
 package com.ricknout.rugbyranker.core.api
 
-import retrofit2.Call
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -8,13 +8,13 @@ import retrofit2.http.Query
 interface WorldRugbyService {
 
     @GET("rugby/rankings/{json}")
-    fun getRankings(
+    fun getRankingsAsync(
         @Path("json") json: String,
         @Query("date") date: String
-    ): Call<WorldRugbyRankingsResponse>
+    ): Deferred<WorldRugbyRankingsResponse>
 
     @GET("rugby/match")
-    fun getMatches(
+    fun getMatchesAsync(
         @Query("sports") sports: String,
         @Query("states") states: String,
         @Query("startDate") startDate: String,
@@ -22,7 +22,7 @@ interface WorldRugbyService {
         @Query("sort") sort: String,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
-    ): Call<WorldRugbyMatchesResponse>
+    ): Deferred<WorldRugbyMatchesResponse>
 
     companion object {
         const val JSON_MENS = "mru.json"

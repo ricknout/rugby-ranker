@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.RugbyRankerMigrations
@@ -20,8 +21,6 @@ import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 @Module(includes = [ViewModelModule::class, WorkerModule::class])
 class AppModule {
@@ -37,6 +36,7 @@ class AppModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .baseUrl(WorldRugbyService.BASE_URL)
                 .build()
     }
@@ -81,29 +81,21 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideExecutor(): Executor {
-        return Executors.newSingleThreadExecutor()
-    }
-
-    @Provides
-    @Singleton
     fun provideRankingsRepository(
         worldRugbyService: WorldRugbyService,
         worldRugbyRankingDao: WorldRugbyRankingDao,
-        rankingsSharedPreferences: RankingsSharedPreferences,
-        executor: Executor
+        rankingsSharedPreferences: RankingsSharedPreferences
     ): RankingsRepository {
-        return RankingsRepository(worldRugbyService, worldRugbyRankingDao, rankingsSharedPreferences, executor)
+        return RankingsRepository(worldRugbyService, worldRugbyRankingDao, rankingsSharedPreferences)
     }
 
     @Provides
     @Singleton
     fun provideMatchesRepository(
         worldRugbyService: WorldRugbyService,
-        worldRugbyMatchDao: WorldRugbyMatchDao,
-        executor: Executor
+        worldRugbyMatchDao: WorldRugbyMatchDao
     ): MatchesRepository {
-        return MatchesRepository(worldRugbyService, worldRugbyMatchDao, executor) }
+        return MatchesRepository(worldRugbyService, worldRugbyMatchDao) }
 
     @Provides
     @Singleton
