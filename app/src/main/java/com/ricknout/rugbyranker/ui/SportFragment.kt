@@ -506,7 +506,13 @@ class SportFragment : DaggerFragment() {
         val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
                 FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation!!), awayTeamName))
         matchPredictionInputView.awayTeamText = awayTeam
-        matchPredictionInputView.clearMatchPredictionPointsInput()
+        when (worldRugbyMatch.status) {
+            MatchStatus.UNPLAYED -> matchPredictionInputView.clearMatchPredictionPointsInput()
+            else -> {
+                matchPredictionInputView.homePointsText = worldRugbyMatch.firstTeamScore
+                matchPredictionInputView.awayPointsText = worldRugbyMatch.secondTeamScore
+            }
+        }
         matchPredictionInputView.nhaChecked = worldRugbyMatch.venueCountry?.let { venueCountry ->
             venueCountry != worldRugbyMatch.firstTeamName && venueCountry != worldRugbyMatch.secondTeamName
         } ?: false
