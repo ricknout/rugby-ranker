@@ -56,14 +56,25 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         itemView.eventTextView.text = worldRugbyMatch.eventLabel
         itemView.eventTextView.isVisible = worldRugbyMatch.eventLabel != null
         itemView.venueTextView.text = when {
+            worldRugbyMatch.venueName != null && worldRugbyMatch.venueCity != null && worldRugbyMatch.venueCountry != null -> {
+                itemView.context.getString(R.string.text_match_venue_three,
+                        worldRugbyMatch.venueName, worldRugbyMatch.venueCity, worldRugbyMatch.venueCountry)
+            }
+            worldRugbyMatch.venueName != null && worldRugbyMatch.venueCity != null -> {
+                itemView.context.getString(R.string.text_match_venue_two, worldRugbyMatch.venueName, worldRugbyMatch.venueCity)
+            }
             worldRugbyMatch.venueName != null && worldRugbyMatch.venueCountry != null -> {
-                itemView.context.getString(R.string.text_match_venue_country, worldRugbyMatch.venueName, worldRugbyMatch.venueCountry)
+                itemView.context.getString(R.string.text_match_venue_two, worldRugbyMatch.venueName, worldRugbyMatch.venueCountry)
+            }
+            worldRugbyMatch.venueCity != null && worldRugbyMatch.venueCountry != null -> {
+                itemView.context.getString(R.string.text_match_venue_two, worldRugbyMatch.venueCity, worldRugbyMatch.venueCountry)
             }
             worldRugbyMatch.venueName != null -> worldRugbyMatch.venueName
+            worldRugbyMatch.venueCity != null -> worldRugbyMatch.venueCity
             worldRugbyMatch.venueCountry != null -> worldRugbyMatch.venueCountry
             else -> null
         }
-        itemView.venueTextView.isVisible = worldRugbyMatch.venueName != null && worldRugbyMatch.venueCountry != null
+        itemView.venueTextView.isVisible = worldRugbyMatch.venueName != null || worldRugbyMatch.venueCity != null || worldRugbyMatch.venueCountry != null
         if (showPredict) {
             itemView.predictButton.setOnClickListener {
                 onPredictClick.invoke(worldRugbyMatch)
