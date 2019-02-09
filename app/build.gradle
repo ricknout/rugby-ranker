@@ -53,7 +53,8 @@ dependencies {
     kapt deps.androidX.room.compiler
     kapt deps.google.dagger.compiler
     kapt deps.google.dagger.androidProcessor
-    testImplementation deps.jUnit
+    testImplementation deps.androidX.test.jUnit.ktx
+    androidTestImplementation deps.androidX.test.core.ktx
+    androidTestImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.runner
-    androidTestImplementation deps.androidX.test.espresso.core
 }

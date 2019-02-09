@@ -20,7 +20,8 @@ dependencies {
     implementation project(':core')
     implementation project(':rankings')
     implementation project(':matches')
-    testImplementation deps.jUnit
+    testImplementation deps.androidX.test.jUnit.ktx
+    androidTestImplementation deps.androidX.test.core.ktx
+    androidTestImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.runner
-    androidTestImplementation deps.androidX.test.espresso.core
 }
