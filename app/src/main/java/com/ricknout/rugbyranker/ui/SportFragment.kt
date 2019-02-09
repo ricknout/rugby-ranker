@@ -1,9 +1,11 @@
 package com.ricknout.rugbyranker.ui
 
+import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ContentView
 import androidx.appcompat.widget.PopupMenu
@@ -179,6 +181,8 @@ class SportFragment : DaggerFragment() {
                 }
             }
         })
+        // Animate showing/hiding of live tab icon
+        ((tabLayout.getChildAt(0) as? LinearLayout)?.getChildAt(POSITION_LIVE) as? LinearLayout)?.layoutTransition = LayoutTransition()
     }
 
     private fun toggleLiveMatchesTabIcon(show: Boolean) {
