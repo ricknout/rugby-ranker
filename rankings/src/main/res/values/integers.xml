@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="weight_position">6</integer>
-    <integer name="weight_team">15</integer>
-    <integer name="weight_points">8</integer>
+    <integer name="weight_position">3</integer>
+    <integer name="weight_team">7</integer>
+    <integer name="weight_points">4</integer>
 
 </resources>
