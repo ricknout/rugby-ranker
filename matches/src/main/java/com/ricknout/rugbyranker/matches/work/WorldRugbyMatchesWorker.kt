@@ -1,7 +1,7 @@
 package com.ricknout.rugbyranker.matches.work
 
 import android.content.Context
-import androidx.work.Worker
+import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
@@ -13,11 +13,11 @@ open class WorldRugbyMatchesWorker(
     private val sport: Sport,
     private val matchStatus: MatchStatus,
     private val matchesRepository: MatchesRepository
-) : Worker(context, workerParams) {
+) : CoroutineWorker(context, workerParams) {
 
-    override fun doWork() = fetchAndCacheLatestWorldRugbyMatches()
+    override suspend fun doWork() = fetchAndCacheLatestWorldRugbyMatches()
 
-    private fun fetchAndCacheLatestWorldRugbyMatches(): Result {
+    private suspend fun fetchAndCacheLatestWorldRugbyMatches(): Result {
         val success = matchesRepository.fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus)
         return if (success) Result.success() else Result.retry()
     }

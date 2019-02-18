@@ -1,6 +1,5 @@
 package com.ricknout.rugbyranker.rankings.repository
 
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.core.util.DateUtils
@@ -11,7 +10,6 @@ import com.ricknout.rugbyranker.rankings.vo.RankingsDataConverter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class RankingsRepository(
     private val worldRugbyService: WorldRugbyService,
@@ -23,23 +21,20 @@ class RankingsRepository(
 
     fun loadLatestWorldRugbyRankingsTeamIds(sport: Sport) = worldRugbyRankingDao.loadTeamIds(sport)
 
-    @WorkerThread
-    fun fetchAndCacheLatestWorldRugbyRankingsSync(sport: Sport): Boolean {
-        return runBlocking {
-            val json = when (sport) {
-                Sport.MENS -> WorldRugbyService.JSON_MENS
-                Sport.WOMENS -> WorldRugbyService.JSON_WOMENS
-            }
-            val date = getCurrentDate()
-            try {
-                val worldRugbyRankingsResponse = worldRugbyService.getRankingsAsync(json, date).await()
-                val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
-                worldRugbyRankingDao.insert(worldRugbyRankings)
-                rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
-                true
-            } catch (_: Exception) {
-                false
-            }
+    suspend fun fetchAndCacheLatestWorldRugbyRankingsSync(sport: Sport): Boolean {
+        val json = when (sport) {
+            Sport.MENS -> WorldRugbyService.JSON_MENS
+            Sport.WOMENS -> WorldRugbyService.JSON_WOMENS
+        }
+        val date = getCurrentDate()
+        return try {
+            val worldRugbyRankingsResponse = worldRugbyService.getRankingsAsync(json, date).await()
+            val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
+            worldRugbyRankingDao.insert(worldRugbyRankings)
+            rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
+            true
+        } catch (_: Exception) {
+            false
         }
     }
 
