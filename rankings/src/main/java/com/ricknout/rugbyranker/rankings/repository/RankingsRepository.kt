@@ -10,6 +10,7 @@ import com.ricknout.rugbyranker.rankings.vo.RankingsDataConverter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RankingsRepository(
     private val worldRugbyService: WorldRugbyService,
@@ -50,9 +51,9 @@ class RankingsRepository(
                 val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
                 worldRugbyRankingDao.insert(worldRugbyRankings)
                 rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
-                onComplete(true)
+                withContext(Dispatchers.Main) { onComplete(true) }
             } catch (_: Exception) {
-                onComplete(false)
+                withContext(Dispatchers.Main) { onComplete(false) }
             }
         }
     }

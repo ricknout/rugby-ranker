@@ -36,7 +36,7 @@ open class MatchesViewModel(
     fun refreshLatestWorldRugbyMatches(onComplete: (success: Boolean) -> Unit) {
         _refreshingLatestWorldRugbyMatches.value = true
         matchesRepository.fetchAndCacheLatestWorldRugbyMatchesAsync(sport, matchStatus, viewModelScope) { success ->
-            _refreshingLatestWorldRugbyMatches.postValue(false)
+            _refreshingLatestWorldRugbyMatches.value = false
             onComplete(success)
         }
     }

@@ -14,6 +14,7 @@ import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MatchesRepository(
     private val worldRugbyService: WorldRugbyService,
@@ -75,50 +76,55 @@ class MatchesRepository(
 
     fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
         if (matchStatus == MatchStatus.LIVE) throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
-        fetchLatestWorldRugbyMatchesAsync(sport, matchStatus, coroutineScope) { success, worldRugbyMatches ->
-            if (success) {
-                coroutineScope.launch(Dispatchers.IO) { worldRugbyMatchDao.insert(worldRugbyMatches) }
-                onComplete(true)
-            } else {
-                onComplete(false)
-            }
+        coroutineScope.launch(Dispatchers.IO) {
+            val refresh = refreshLatestWorldRugbyMatchesAsync(sport, matchStatus, cache = true)
+            val success = refresh.first
+            withContext(Dispatchers.Main) { onComplete(success) }
         }
     }
 
     fun fetchLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean, worldRugbyMatches: List<WorldRugbyMatch>) -> Unit) {
         coroutineScope.launch(Dispatchers.IO) {
-            val sports = when (sport) {
-                Sport.MENS -> WorldRugbyService.SPORT_MENS
-                Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
-            }
-            val states = when (matchStatus) {
-                MatchStatus.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
-                MatchStatus.COMPLETE -> WorldRugbyService.STATE_COMPLETE
-                MatchStatus.LIVE -> "${WorldRugbyService.STATE_LIVE_1ST_HALF},${WorldRugbyService.STATE_LIVE_2ND_HALF},${WorldRugbyService.STATE_LIVE_HALF_TIME}"
-            }
-            val millis = System.currentTimeMillis()
-            val startDate = when (matchStatus) {
-                MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
-                MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
-                MatchStatus.LIVE -> ""
-            }
-            val endDate = when (matchStatus) {
-                MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
-                MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
-                MatchStatus.LIVE -> ""
-            }
-            val sort = when (matchStatus) {
-                MatchStatus.UNPLAYED, MatchStatus.LIVE -> WorldRugbyService.SORT_ASC
-                MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
-            }
-            val page = 0
-            try {
-                val worldRugbyMatchesResponse = worldRugbyService.getMatchesAsync(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).await()
-                val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
-                onComplete(true, worldRugbyMatches)
-            } catch (_: Exception) {
-                onComplete(false, emptyList())
-            }
+            val refresh = refreshLatestWorldRugbyMatchesAsync(sport, matchStatus, cache = false)
+            val success = refresh.first
+            val worldRugbyMatches = refresh.second
+            withContext(Dispatchers.Main) { onComplete(success, worldRugbyMatches) }
+        }
+    }
+
+    private suspend fun refreshLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, cache: Boolean): Pair<Boolean, List<WorldRugbyMatch>> {
+        val sports = when (sport) {
+            Sport.MENS -> WorldRugbyService.SPORT_MENS
+            Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
+        }
+        val states = when (matchStatus) {
+            MatchStatus.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
+            MatchStatus.COMPLETE -> WorldRugbyService.STATE_COMPLETE
+            MatchStatus.LIVE -> "${WorldRugbyService.STATE_LIVE_1ST_HALF},${WorldRugbyService.STATE_LIVE_2ND_HALF},${WorldRugbyService.STATE_LIVE_HALF_TIME}"
+        }
+        val millis = System.currentTimeMillis()
+        val startDate = when (matchStatus) {
+            MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
+            MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
+            MatchStatus.LIVE -> ""
+        }
+        val endDate = when (matchStatus) {
+            MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
+            MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
+            MatchStatus.LIVE -> ""
+        }
+        val sort = when (matchStatus) {
+            MatchStatus.UNPLAYED, MatchStatus.LIVE -> WorldRugbyService.SORT_ASC
+            MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
+        }
+        val page = 0
+        return try {
+            val worldRugbyMatchesResponse = worldRugbyService.getMatchesAsync(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).await()
+            val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
+            if (cache) worldRugbyMatchDao.insert(worldRugbyMatches)
+            true to worldRugbyMatches
+        } catch (_: Exception) {
+            false to emptyList()
         }
     }
 
