@@ -18,7 +18,8 @@ open class WorldRugbyMatchesWorker(
     override suspend fun doWork() = fetchAndCacheLatestWorldRugbyMatches()
 
     private suspend fun fetchAndCacheLatestWorldRugbyMatches(): Result {
-        val success = matchesRepository.fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus)
+        val result = matchesRepository.fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus)
+        val success = result.first
         return if (success) Result.success() else Result.retry()
     }
 }

@@ -63,7 +63,7 @@ open class LiveMatchesViewModel(
                     // Do nothing, no need to notify of success / failure here
                 }
             } else {
-                _liveWorldRugbyMatches.postValue(emptyList())
+                _liveWorldRugbyMatches.value = emptyList()
             }
             delay(delayTimeMillis)
             startRefreshJob(delayTimeMillis)

@@ -30,69 +30,7 @@ class MatchesRepository(
         return dataSourceFactory.toLiveData(config = config)
     }
 
-    suspend fun fetchAndCacheLatestWorldRugbyMatchesSync(sport: Sport, matchStatus: MatchStatus): Boolean {
-        val sports = when (sport) {
-            Sport.MENS -> WorldRugbyService.SPORT_MENS
-            Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
-        }
-        val states = when (matchStatus) {
-            MatchStatus.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
-            MatchStatus.COMPLETE -> WorldRugbyService.STATE_COMPLETE
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
-        }
-        val millis = System.currentTimeMillis()
-        val startDate = when (matchStatus) {
-            MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
-            MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
-        }
-        val endDate = when (matchStatus) {
-            MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
-            MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
-        }
-        val sort = when (matchStatus) {
-            MatchStatus.UNPLAYED -> WorldRugbyService.SORT_ASC
-            MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
-            else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
-        }
-        var page = 0
-        var pageCount = Int.MAX_VALUE
-        var success = false
-        return try {
-            while (page < pageCount) {
-                val worldRugbyMatchesResponse = worldRugbyService.getMatchesAsync(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).await()
-                val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
-                worldRugbyMatchDao.insert(worldRugbyMatches)
-                page++
-                pageCount = worldRugbyMatchesResponse.pageInfo.numPages
-                success = true
-            }
-            success
-        } catch (_: Exception) {
-            success
-        }
-    }
-
-    fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
-        if (matchStatus == MatchStatus.LIVE) throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
-        coroutineScope.launch(Dispatchers.IO) {
-            val refresh = refreshLatestWorldRugbyMatchesAsync(sport, matchStatus, cache = true)
-            val success = refresh.first
-            withContext(Dispatchers.Main) { onComplete(success) }
-        }
-    }
-
-    fun fetchLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean, worldRugbyMatches: List<WorldRugbyMatch>) -> Unit) {
-        coroutineScope.launch(Dispatchers.IO) {
-            val refresh = refreshLatestWorldRugbyMatchesAsync(sport, matchStatus, cache = false)
-            val success = refresh.first
-            val worldRugbyMatches = refresh.second
-            withContext(Dispatchers.Main) { onComplete(success, worldRugbyMatches) }
-        }
-    }
-
-    private suspend fun refreshLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, cache: Boolean): Pair<Boolean, List<WorldRugbyMatch>> {
+    suspend fun fetchAndCacheLatestWorldRugbyMatchesSync(sport: Sport, matchStatus: MatchStatus, cache: Boolean = true): Pair<Boolean, List<WorldRugbyMatch>> {
         val sports = when (sport) {
             Sport.MENS -> WorldRugbyService.SPORT_MENS
             Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
@@ -117,14 +55,41 @@ class MatchesRepository(
             MatchStatus.UNPLAYED, MatchStatus.LIVE -> WorldRugbyService.SORT_ASC
             MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
         }
-        val page = 0
+        var page = 0
+        var pageCount = Int.MAX_VALUE
+        var success = false
+        val worldRugbyMatches = mutableListOf<WorldRugbyMatch>()
         return try {
-            val worldRugbyMatchesResponse = worldRugbyService.getMatchesAsync(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).await()
-            val worldRugbyMatches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
-            if (cache) worldRugbyMatchDao.insert(worldRugbyMatches)
-            true to worldRugbyMatches
+            while (page < pageCount) {
+                val worldRugbyMatchesResponse = worldRugbyService.getMatchesAsync(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).await()
+                val matches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
+                if (cache) worldRugbyMatchDao.insert(matches)
+                page++
+                pageCount = worldRugbyMatchesResponse.pageInfo.numPages
+                success = true
+                worldRugbyMatches.addAll(matches)
+            }
+            success to worldRugbyMatches
         } catch (_: Exception) {
-            false to emptyList()
+            success to worldRugbyMatches
+        }
+    }
+
+    fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
+        if (matchStatus == MatchStatus.LIVE) throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) { fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus, cache = true) }
+            val success = result.first
+            onComplete(success)
+        }
+    }
+
+    fun fetchLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean, worldRugbyMatches: List<WorldRugbyMatch>) -> Unit) {
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) { fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus, cache = false) }
+            val success = result.first
+            val worldRugbyMatches = result.second
+            onComplete(success, worldRugbyMatches)
         }
     }
 

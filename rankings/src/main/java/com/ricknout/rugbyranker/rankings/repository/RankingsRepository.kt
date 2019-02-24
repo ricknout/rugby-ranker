@@ -40,21 +40,9 @@ class RankingsRepository(
     }
 
     fun fetchAndCacheLatestWorldRugbyRankingsAsync(sport: Sport, coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
-        coroutineScope.launch(Dispatchers.IO) {
-            val json = when (sport) {
-                Sport.MENS -> WorldRugbyService.JSON_MENS
-                Sport.WOMENS -> WorldRugbyService.JSON_WOMENS
-            }
-            val date = getCurrentDate()
-            try {
-                val worldRugbyRankingsResponse = worldRugbyService.getRankingsAsync(json, date).await()
-                val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
-                worldRugbyRankingDao.insert(worldRugbyRankings)
-                rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
-                withContext(Dispatchers.Main) { onComplete(true) }
-            } catch (_: Exception) {
-                withContext(Dispatchers.Main) { onComplete(false) }
-            }
+        coroutineScope.launch {
+            val success = withContext(Dispatchers.IO) { fetchAndCacheLatestWorldRugbyRankingsSync(sport) }
+            onComplete(success)
         }
     }
 
