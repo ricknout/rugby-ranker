@@ -41,15 +41,6 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/spacing_double" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/clearOrCancelButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_clear"
-                style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
-                app:layout_constraintBaseline_toBaselineOf="@id/matchPredictionTitleTextView"
-                app:layout_constraintStart_toStartOf="parent" />
-
             <TextView
                 android:id="@+id/matchPredictionTitleTextView"
                 android:layout_width="wrap_content"
@@ -79,7 +70,6 @@
                 android:id="@+id/homeTeamTextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_standard"
                 android:layout_marginEnd="@dimen/spacing_standard"
                 android:hint="@string/hint_home_team"
                 app:layout_constraintTop_toBottomOf="@id/matchPredictionPeekGuideline"
@@ -120,7 +110,7 @@
                 android:id="@+id/awayTeamTextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_standard"
+                android:layout_marginTop="@dimen/spacing_half"
                 android:layout_marginEnd="@dimen/spacing_standard"
                 android:hint="@string/hint_away_team"
                 app:layout_constraintTop_toBottomOf="@id/homeTeamTextInputLayout"
@@ -179,15 +169,25 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addOrEditMatchPredictionButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_standard"
                 android:layout_marginBottom="@dimen/spacing_double"
                 android:text="@string/button_add"
                 app:layout_constraintTop_toBottomOf="@id/nhaCheckBox"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toStartOf="@id/homePointsTextInputLayout"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clearOrCancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:text="@string/button_clear"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:layout_constraintTop_toTopOf="@id/addOrEditMatchPredictionButton"
+                app:layout_constraintBottom_toBottomOf="@id/addOrEditMatchPredictionButton"
+                app:layout_constraintEnd_toStartOf="@id/addOrEditMatchPredictionButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
