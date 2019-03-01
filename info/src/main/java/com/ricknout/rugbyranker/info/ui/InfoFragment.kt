@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.ricknout.rugbyranker.info.R
 import kotlinx.android.synthetic.main.fragment_info.*
 import android.content.Intent
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -31,10 +32,11 @@ class InfoFragment : DaggerFragment() {
                 .get(InfoViewModel::class.java)
         setupViewModel()
         setupButtons()
+        setupNestedScrollView()
     }
 
     private fun setupViewModel() {
-        viewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+        viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             infoNestedScrollView.smoothScrollTo(0, 0)
             appBarLayout.setExpanded(true)
         })
@@ -60,6 +62,13 @@ class InfoFragment : DaggerFragment() {
             val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun setupNestedScrollView() {
+        infoNestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            val delta = scrollY - oldScrollY
+            viewModel.onScroll(delta)
+        })
     }
 
     companion object {

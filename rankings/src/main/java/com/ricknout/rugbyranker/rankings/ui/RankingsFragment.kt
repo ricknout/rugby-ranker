@@ -16,6 +16,7 @@ import androidx.core.view.isVisible
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
@@ -59,6 +60,11 @@ class RankingsFragment : DaggerFragment() {
         val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         rankingsRecyclerView.addItemDecoration(dividerItemDecoration, 0)
         rankingsRecyclerView.adapter = worldRugbyRankingAdapter
+        rankingsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                viewModel.onScroll(delta = dy)
+            }
+        })
     }
 
     private fun setupSnackbars() {
@@ -92,7 +98,7 @@ class RankingsFragment : DaggerFragment() {
         viewModel.refreshingLatestWorldRugbyRankings.observe(viewLifecycleOwner, Observer { refreshingLatestWorldRugbyRankings ->
             swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyRankings
         })
-        viewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+        viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             doIfVisibleToUser { rankingsRecyclerView.smoothScrollToPosition(0) }
         })
     }

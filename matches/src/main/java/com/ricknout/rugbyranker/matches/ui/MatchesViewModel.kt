@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ricknout.rugbyranker.core.livedata.Event
-import com.ricknout.rugbyranker.core.viewmodel.ReselectViewModel
+import com.ricknout.rugbyranker.core.viewmodel.ScrollableViewModel
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
@@ -18,7 +18,7 @@ open class MatchesViewModel(
     rankingsRepository: RankingsRepository,
     private val matchesRepository: MatchesRepository,
     matchesWorkManager: MatchesWorkManager
-) : ReselectViewModel() {
+) : ScrollableViewModel() {
 
     init {
         matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)

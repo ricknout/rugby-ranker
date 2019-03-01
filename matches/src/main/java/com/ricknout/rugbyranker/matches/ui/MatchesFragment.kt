@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
@@ -86,6 +87,11 @@ class MatchesFragment : DaggerFragment() {
             viewModel.predict(worldRugbyMatch)
         })
         matchesRecyclerView.adapter = worldRugbyMatchPagedListAdapter
+        matchesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                viewModel.onScroll(delta = dy)
+            }
+        })
     }
 
     private fun setupSnackbars() {
@@ -123,7 +129,7 @@ class MatchesFragment : DaggerFragment() {
         viewModel.worldRugbyRankingsTeamIds.observe(viewLifecycleOwner, Observer { worldRugbyRankingsTeamIds ->
             worldRugbyMatchPagedListAdapter.worldRugbyRankingsTeamIds = worldRugbyRankingsTeamIds.associateBy({ it }, { true })
         })
-        viewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+        viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             doIfVisibleToUser { matchesRecyclerView.smoothScrollToPosition(0) }
         })
     }

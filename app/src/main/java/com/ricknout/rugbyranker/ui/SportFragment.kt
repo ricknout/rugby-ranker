@@ -335,7 +335,7 @@ class SportFragment : DaggerFragment() {
     }
 
     private fun setupViewModels() {
-        sportViewModel.navigateReselect.observe(viewLifecycleOwner, EventObserver {
+        sportViewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             appBarLayout.setExpanded(true)
         })
         rankingsViewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->

@@ -73,20 +73,20 @@ class MainActivity : DaggerAppCompatActivity() {
         bottomNavigationView.setOnNavigationItemReselectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.mensFragment -> {
-                    mensViewModel.reselect()
-                    mensRankingsViewModel.reselect()
-                    mensLiveMatchesViewModel.reselect()
-                    mensUnplayedMatchesViewModel.reselect()
-                    mensCompleteMatchesViewModel.reselect()
+                    mensViewModel.scrollToTop()
+                    mensRankingsViewModel.scrollToTop()
+                    mensLiveMatchesViewModel.scrollToTop()
+                    mensUnplayedMatchesViewModel.scrollToTop()
+                    mensCompleteMatchesViewModel.scrollToTop()
                 }
                 R.id.womensFragment -> {
-                    womensViewModel.reselect()
-                    womensRankingsViewModel.reselect()
-                    womensLiveMatchesViewModel.reselect()
-                    womensUnplayedMatchesViewModel.reselect()
-                    womensCompleteMatchesViewModel.reselect()
+                    womensViewModel.scrollToTop()
+                    womensRankingsViewModel.scrollToTop()
+                    womensLiveMatchesViewModel.scrollToTop()
+                    womensUnplayedMatchesViewModel.scrollToTop()
+                    womensCompleteMatchesViewModel.scrollToTop()
                 }
-                R.id.infoFragment -> infoViewModel.reselect()
+                R.id.infoFragment -> infoViewModel.scrollToTop()
             }
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->

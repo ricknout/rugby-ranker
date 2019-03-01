@@ -1,6 +1,6 @@
 package com.ricknout.rugbyranker.info.ui
 
-import com.ricknout.rugbyranker.core.viewmodel.ReselectViewModel
+import com.ricknout.rugbyranker.core.viewmodel.ScrollableViewModel
 import javax.inject.Inject
 
-class InfoViewModel @Inject constructor() : ReselectViewModel()
+class InfoViewModel @Inject constructor() : ScrollableViewModel()
