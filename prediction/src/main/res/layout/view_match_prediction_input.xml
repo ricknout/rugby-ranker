@@ -72,6 +72,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_standard"
                 android:hint="@string/hint_home_team"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                app:endIconTint="?attr/colorControlNormal"
                 app:layout_constraintTop_toBottomOf="@id/matchPredictionPeekGuideline"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/homePointsTextInputLayout">
@@ -82,9 +85,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textNoSuggestions"
                     android:cursorVisible="false"
-                    android:focusableInTouchMode="false"
-                    android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
-                    android:drawablePadding="@dimen/spacing_standard" />
+                    android:focusableInTouchMode="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,6 +114,9 @@
                 android:layout_marginTop="@dimen/spacing_half"
                 android:layout_marginEnd="@dimen/spacing_standard"
                 android:hint="@string/hint_away_team"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
+                app:endIconTint="?attr/colorControlNormal"
                 app:layout_constraintTop_toBottomOf="@id/homeTeamTextInputLayout"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/awayPointsTextInputLayout">
@@ -123,9 +127,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textNoSuggestions"
                     android:cursorVisible="false"
-                    android:focusableInTouchMode="false"
-                    android:drawableEnd="@drawable/ic_arrow_drop_down_color_control_normal_24dp"
-                    android:drawablePadding="@dimen/spacing_standard" />
+                    android:focusableInTouchMode="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
