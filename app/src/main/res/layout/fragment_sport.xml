@@ -63,16 +63,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addMatchPredictionFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_fab"
         app:fabSize="auto"
-        app:hoveredFocusedTranslationZ="0dp"
-        app:pressedTranslationZ="0dp"
-        app:srcCompat="@drawable/ic_add_match_black_24dp"
+        app:icon="@drawable/ic_add_match_black_24dp"
+        android:text="@string/button_predict"
         android:contentDescription="@string/content_description_add_match_prediction" />
 
     <com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView

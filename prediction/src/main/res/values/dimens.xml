@@ -10,6 +10,6 @@
     <dimen name="padding_horizontal_add_match">12dp</dimen>
     <dimen name="padding_horizontal_close">12dp</dimen>
 
-    <dimen name="elevation_bottom_sheet">8dp</dimen>
+    <dimen name="elevation_bottom_sheet">16dp</dimen>
 
 </resources>
