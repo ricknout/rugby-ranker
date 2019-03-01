@@ -378,6 +378,9 @@ class SportFragment : DaggerFragment() {
                 this.state = state
             }
         })
+        rankingsViewModel.onScroll.observe(viewLifecycleOwner, EventObserver { delta ->
+            if (delta > 0) addMatchPredictionFab.shrink() else addMatchPredictionFab.extend()
+        })
         liveMatchesViewModel.liveWorldRugbyMatches.observe(viewLifecycleOwner, Observer { liveWorldRugbyMatches ->
             val show = !liveWorldRugbyMatches.isNullOrEmpty()
             toggleLiveMatchesTabIcon(show)
