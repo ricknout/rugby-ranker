@@ -86,6 +86,7 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:behavior_hideable="true"
         app:behavior_peekHeight="@dimen/height_peek"
-        app:behavior_skipCollapsed="true" />
+        app:behavior_skipCollapsed="true"
+        app:behavior_saveFlags="all" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
