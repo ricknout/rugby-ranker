@@ -21,7 +21,7 @@ buildscript {
                     room: '2.1.0-alpha04',
                     paging: '2.1.0',
                     navigation: '2.0.0-rc02',
-                    work: '1.0.0',
+                    work: '2.0.0-rc01',
                     test: [
                             core: '1.1.1-alpha01',
                             jUnit: '1.1.1-alpha01',
@@ -87,7 +87,7 @@ buildscript {
                             safeArgsGradlePlugin: "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidX.navigation"
                     ],
                     work: [
-                            runtimeKtx: "android.arch.work:work-runtime-ktx:$versions.androidX.work"
+                            runtimeKtx: "androidx.work:work-runtime-ktx:$versions.androidX.work"
                     ],
                     test: [
                             runner: "androidx.test:runner:$versions.androidX.test.runner",
