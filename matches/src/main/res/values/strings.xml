@@ -9,6 +9,7 @@
     <string name="text_match_venue_three" translatable="false">%1$s, %2$s, %3$s</string>
     <string name="text_match_venue_two" translatable="false">%1$s, %2$s</string>
 
+    <string name="text_today">Today</string>
     <string name="text_match_first_half">1st half</string>
     <string name="text_match_second_half">2nd half</string>
     <string name="text_match_half_time">Half time</string>

@@ -48,6 +48,8 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
     private val dayMonthTextSize: Int
     private val yearTextSize: Int
 
+    private val today by lazy { context.getString(R.string.text_today) }
+
     init {
         val attrs = context.obtainStyledAttributes(
                 R.style.RugbyRankerWorldRugbyMatchDateItemDecoration,
@@ -127,11 +129,13 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
             .distinctBy { DateUtils.getDayMonthYear(it.second) }
 
     private fun createHeader(millis: Long): StaticLayout {
+        val isCurrentDay = DateUtils.isDayCurrentDay(millis)
         val text = SpannableStringBuilder().apply {
             inSpans(AbsoluteSizeSpan(dayMonthTextSize)) {
-                val dayMonth = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM, millis)
+                val dayMonth = if (isCurrentDay) today else DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM, millis)
                 append(dayMonth)
             }
+            if (isCurrentDay) return@apply
             append(System.lineSeparator())
             inSpans(AbsoluteSizeSpan(yearTextSize)) {
                 val year = DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY, millis)

@@ -38,6 +38,15 @@ object DateUtils {
         }
     }
 
+    fun isDayCurrentDay(millis: Long): Boolean {
+        val day = Calendar.getInstance().apply { timeInMillis = millis }.get(Calendar.DAY_OF_YEAR)
+        val year = Calendar.getInstance().apply { timeInMillis = millis }.get(Calendar.YEAR)
+        val currentMillis = System.currentTimeMillis()
+        val currentDay = Calendar.getInstance().apply { timeInMillis = currentMillis }.get(Calendar.DAY_OF_YEAR)
+        val currentYear = Calendar.getInstance().apply { timeInMillis = currentMillis }.get(Calendar.YEAR)
+        return day == currentDay && year == currentYear
+    }
+
     const val DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd"
     const val DATE_FORMAT_D_MMM_YYYY = "d MMM, yyyy"
     const val DATE_FORMAT_D_MMM = "d MMM"
