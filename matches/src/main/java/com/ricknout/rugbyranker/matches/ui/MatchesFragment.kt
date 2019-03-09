@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,6 +19,7 @@ import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
+import com.ricknout.rugbyranker.matches.NavGraphMatchesDirections
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_matches.*
@@ -138,11 +138,9 @@ class MatchesFragment : DaggerFragment() {
 
     companion object {
         const val TAG = "MatchesFragment"
-        private const val ARG_SPORT = "sport"
-        private const val ARG_MATCH_STATUS = "matchStatus"
         fun newInstance(sport: Sport, matchStatus: MatchStatus): MatchesFragment {
             val matchesFragment = MatchesFragment()
-            matchesFragment.arguments = bundleOf(ARG_SPORT to sport, ARG_MATCH_STATUS to matchStatus)
+            matchesFragment.arguments = NavGraphMatchesDirections.matchesFragmentAction(sport, matchStatus).arguments
             return matchesFragment
         }
     }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.core.vo.Sport
+import com.ricknout.rugbyranker.live.NavGraphLiveDirections
 import com.ricknout.rugbyranker.live.R
 import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchSpaceItemDecoration
 import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchListAdapter
@@ -116,10 +116,9 @@ class LiveMatchesFragment : DaggerFragment() {
 
     companion object {
         const val TAG = "LiveMatchesFragment"
-        private const val ARG_SPORT = "sport"
         fun newInstance(sport: Sport): LiveMatchesFragment {
             val matchesFragment = LiveMatchesFragment()
-            matchesFragment.arguments = bundleOf(ARG_SPORT to sport)
+            matchesFragment.arguments = NavGraphLiveDirections.liveMatchesFragmentAction(sport).arguments
             return matchesFragment
         }
     }

@@ -22,4 +22,9 @@
         <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
     </fragment>
 
+    <action
+        android:id="@+id/rankingsFragmentAction">
+        <argument android:name="sport" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
+    </action>
+
 </navigation>

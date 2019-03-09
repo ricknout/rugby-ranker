@@ -42,4 +42,10 @@
         <argument android:name="matchStatus" android:defaultValue="COMPLETE" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
     </fragment>
 
+    <action
+        android:id="@+id/matchesFragmentAction">
+        <argument android:name="sport" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
+        <argument android:name="matchStatus" app:argType="com.ricknout.rugbyranker.matches.vo.MatchStatus" />
+    </action>
+
 </navigation>

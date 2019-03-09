@@ -12,7 +12,6 @@ import com.ricknout.rugbyranker.rankings.R
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import androidx.core.view.isVisible
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -22,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.core.vo.Sport
+import com.ricknout.rugbyranker.rankings.NavGraphRankingsDirections
 import kotlinx.android.synthetic.main.fragment_rankings.*
 
 class RankingsFragment : DaggerFragment() {
@@ -122,10 +122,9 @@ class RankingsFragment : DaggerFragment() {
 
     companion object {
         const val TAG = "RankingsFragment"
-        private const val ARG_SPORT = "sport"
         fun newInstance(sport: Sport): RankingsFragment {
             val rankingsFragment = RankingsFragment()
-            rankingsFragment.arguments = bundleOf(ARG_SPORT to sport)
+            rankingsFragment.arguments = NavGraphRankingsDirections.rankingsFragmentAction(sport).arguments
             return rankingsFragment
         }
     }
