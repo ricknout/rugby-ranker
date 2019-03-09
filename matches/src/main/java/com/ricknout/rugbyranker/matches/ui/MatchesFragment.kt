@@ -8,9 +8,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo.State
@@ -26,50 +26,34 @@ import kotlinx.android.synthetic.main.fragment_matches.*
 
 class MatchesFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewModel: MatchesViewModel
-
     private val args: MatchesFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
     private val matchStatus: MatchStatus by lazy { args.matchStatus }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: MatchesViewModel by lazy {
+        when {
+            sport == Sport.MENS && matchStatus == MatchStatus.UNPLAYED -> viewModels<MensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            sport == Sport.MENS && matchStatus == MatchStatus.COMPLETE -> viewModels<MensCompleteMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            sport == Sport.WOMENS && matchStatus == MatchStatus.UNPLAYED -> viewModels<WomensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            sport == Sport.WOMENS && matchStatus == MatchStatus.COMPLETE -> viewModels<WomensCompleteMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            else -> throw IllegalArgumentException("Cannot handle $sport and $matchStatus combination in MatchesFragment")
+        }
+    }
+
     private lateinit var workerSnackBar: Snackbar
     private lateinit var refreshSnackBar: Snackbar
 
     private lateinit var worldRugbyMatchPagedListAdapter: WorldRugbyMatchPagedListAdapter
-
     private lateinit var worldRugbyMatchDateItemDecoration: WorldRugbyMatchDateItemDecoration
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_matches, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_matches, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = when (sport) {
-            Sport.MENS -> {
-                when (matchStatus) {
-                    MatchStatus.UNPLAYED -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                            .get(MensUnplayedMatchesViewModel::class.java)
-                    MatchStatus.COMPLETE -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                            .get(MensCompleteMatchesViewModel::class.java)
-                    else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in MatchesFragment")
-                }
-            }
-            Sport.WOMENS -> {
-                when (matchStatus) {
-                    MatchStatus.UNPLAYED -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                            .get(WomensUnplayedMatchesViewModel::class.java)
-                    MatchStatus.COMPLETE -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                            .get(WomensCompleteMatchesViewModel::class.java)
-                    else -> throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in MatchesFragment")
-                }
-            }
-        }
         setupRecyclerView()
         setupSnackbars()
         setupViewModel()

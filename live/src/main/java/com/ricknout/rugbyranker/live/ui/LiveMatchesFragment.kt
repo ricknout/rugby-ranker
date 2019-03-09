@@ -8,9 +8,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -26,34 +26,29 @@ import javax.inject.Inject
 
 class LiveMatchesFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewModel: LiveMatchesViewModel
-
     private val args: LiveMatchesFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: LiveMatchesViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> viewModels<MensLiveMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.WOMENS -> viewModels<WomensLiveMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+        }
+    }
+
     private lateinit var refreshSnackBar: Snackbar
 
     private lateinit var worldRugbyMatchListAdapter: WorldRugbyMatchListAdapter
-
     private lateinit var worldRugbyMatchSpaceItemDecoration: WorldRugbyMatchSpaceItemDecoration
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_live_matches, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_live_matches, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = when (sport) {
-            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(MensLiveMatchesViewModel::class.java)
-            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(WomensLiveMatchesViewModel::class.java)
-        }
         setupRecyclerView()
         setupSnackbars()
         setupViewModel()

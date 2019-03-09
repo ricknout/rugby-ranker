@@ -8,12 +8,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.ricknout.rugbyranker.rankings.R
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import androidx.core.view.isVisible
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
@@ -26,14 +26,19 @@ import kotlinx.android.synthetic.main.fragment_rankings.*
 
 class RankingsFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewModel: RankingsViewModel
-
     private val args: RankingsFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: RankingsViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> viewModels<MensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.WOMENS -> viewModels<WomensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
+        }
+    }
 
     private lateinit var workerSnackBar: Snackbar
     private lateinit var refreshSnackBar: Snackbar
@@ -44,12 +49,6 @@ class RankingsFragment : DaggerFragment() {
             inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = when (sport) {
-            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(MensRankingsViewModel::class.java)
-            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(WomensRankingsViewModel::class.java)
-        }
         setupRecyclerView()
         setupSnackbars()
         setupViewModel()

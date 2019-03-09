@@ -1,8 +1,8 @@
 package com.ricknout.rugbyranker
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ricknout.rugbyranker.info.ui.InfoViewModel
@@ -26,43 +26,21 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var mensViewModel: MensViewModel
-    private lateinit var womensViewModel: WomensViewModel
-    private lateinit var infoViewModel: InfoViewModel
-    private lateinit var mensRankingsViewModel: MensRankingsViewModel
-    private lateinit var womensRankingsViewModel: WomensRankingsViewModel
-    private lateinit var mensLiveMatchesViewModel: MensLiveMatchesViewModel
-    private lateinit var womensLiveMatchesViewModel: WomensLiveMatchesViewModel
-    private lateinit var mensUnplayedMatchesViewModel: MensUnplayedMatchesViewModel
-    private lateinit var womensUnplayedMatchesViewModel: WomensUnplayedMatchesViewModel
-    private lateinit var mensCompleteMatchesViewModel: MensCompleteMatchesViewModel
-    private lateinit var womensCompleteMatchesViewModel: WomensCompleteMatchesViewModel
+    private val mensViewModel: MensViewModel by viewModels { viewModelFactory }
+    private val womensViewModel: WomensViewModel by viewModels { viewModelFactory }
+    private val infoViewModel: InfoViewModel by viewModels { viewModelFactory }
+    private val mensRankingsViewModel: MensRankingsViewModel by viewModels { viewModelFactory }
+    private val womensRankingsViewModel: WomensRankingsViewModel by viewModels { viewModelFactory }
+    private val mensLiveMatchesViewModel: MensLiveMatchesViewModel by viewModels { viewModelFactory }
+    private val womensLiveMatchesViewModel: WomensLiveMatchesViewModel by viewModels { viewModelFactory }
+    private val mensUnplayedMatchesViewModel: MensUnplayedMatchesViewModel by viewModels { viewModelFactory }
+    private val womensUnplayedMatchesViewModel: WomensUnplayedMatchesViewModel by viewModels { viewModelFactory }
+    private val mensCompleteMatchesViewModel: MensCompleteMatchesViewModel by viewModels { viewModelFactory }
+    private val womensCompleteMatchesViewModel: WomensCompleteMatchesViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mensViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(MensViewModel::class.java)
-        womensViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(WomensViewModel::class.java)
-        infoViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(InfoViewModel::class.java)
-        mensRankingsViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(MensRankingsViewModel::class.java)
-        womensRankingsViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(WomensRankingsViewModel::class.java)
-        mensLiveMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(MensLiveMatchesViewModel::class.java)
-        womensLiveMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(WomensLiveMatchesViewModel::class.java)
-        mensUnplayedMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(MensUnplayedMatchesViewModel::class.java)
-        womensUnplayedMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(WomensUnplayedMatchesViewModel::class.java)
-        mensCompleteMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(MensCompleteMatchesViewModel::class.java)
-        womensCompleteMatchesViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(WomensCompleteMatchesViewModel::class.java)
         setupBottomNavigation()
         FluidContentResizer.listen(this)
     }

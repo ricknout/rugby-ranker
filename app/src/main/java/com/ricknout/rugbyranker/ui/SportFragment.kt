@@ -17,9 +17,9 @@ import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager.widget.ViewPager
@@ -53,17 +53,37 @@ import javax.inject.Inject
 @ContentView(R.layout.fragment_sport)
 class SportFragment : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var sportViewModel: SportViewModel
-    private lateinit var rankingsViewModel: RankingsViewModel
-    private lateinit var liveMatchesViewModel: LiveMatchesViewModel
-    private lateinit var unplayedMatchesViewModel: MatchesViewModel
-
     private val args: SportFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val sportViewModel: SportViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> viewModels<MensViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.WOMENS -> viewModels<WomensViewModel>({ requireActivity() }, { viewModelFactory }).value
+        }
+    }
+    private val rankingsViewModel: RankingsViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> viewModels<MensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.WOMENS -> viewModels<WomensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
+        }
+    }
+    private val liveMatchesViewModel: LiveMatchesViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> viewModels<MensLiveMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.WOMENS -> viewModels<WomensLiveMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+        }
+    }
+    private val unplayedMatchesViewModel: MatchesViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> viewModels<MensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.WOMENS -> viewModels<WomensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+        }
+    }
 
     private var homeTeamId: Long? = null
     private var homeTeamName: String? = null
@@ -89,30 +109,6 @@ class SportFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sportViewModel = when (sport) {
-            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(MensViewModel::class.java)
-            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(WomensViewModel::class.java)
-        }
-        rankingsViewModel = when (sport) {
-            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(MensRankingsViewModel::class.java)
-            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(WomensRankingsViewModel::class.java)
-        }
-        liveMatchesViewModel = when (sport) {
-            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(MensLiveMatchesViewModel::class.java)
-            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(WomensLiveMatchesViewModel::class.java)
-        }
-        unplayedMatchesViewModel = when (sport) {
-            Sport.MENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(MensUnplayedMatchesViewModel::class.java)
-            Sport.WOMENS -> ViewModelProviders.of(requireActivity(), viewModelFactory)
-                    .get(WomensUnplayedMatchesViewModel::class.java)
-        }
         homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
         homeTeamName = savedInstanceState?.getString(KEY_HOME_TEAM_NAME)
         homeTeamAbbreviation = savedInstanceState?.getString(KEY_HOME_TEAM_ABBREVIATION)
