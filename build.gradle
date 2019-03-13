@@ -23,9 +23,9 @@ buildscript {
                     navigation: '2.0.0-rc02',
                     work: '2.0.0-rc01',
                     test: [
-                            core: '1.1.1-alpha01',
-                            jUnit: '1.1.1-alpha01',
-                            runner: '1.1.2-alpha01'
+                            core: '1.1.1-alpha02',
+                            jUnit: '1.1.1-alpha02',
+                            runner: '1.1.2-alpha02'
                     ]
             ],
             google: [
