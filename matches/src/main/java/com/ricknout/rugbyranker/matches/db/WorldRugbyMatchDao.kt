@@ -15,14 +15,10 @@ interface WorldRugbyMatchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(worldRugbyMatches: List<WorldRugbyMatch>)
 
-    // BUG: Using arg0, arg1, arg2 because of issue with DataSource.Factory
-    // https://issuetracker.google.com/issues/119738980
-    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :arg0 AND status = :arg1 AND timeMillis > :arg2 ORDER BY timeMillis ASC")
+    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :sport AND status = :matchStatus AND timeMillis > :millis ORDER BY timeMillis ASC")
     fun loadAsc(sport: Sport, matchStatus: MatchStatus, millis: Long): DataSource.Factory<Int, WorldRugbyMatch>
 
-    // BUG: Using arg0, arg1, arg2 because of issue with DataSource.Factory
-    // https://issuetracker.google.com/issues/119738980
-    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :arg0 AND status = :arg1 AND timeMillis < :arg2 ORDER BY timeMillis DESC")
+    @Query("SELECT * FROM world_rugby_matches WHERE eventSport = :sport AND status = :matchStatus AND timeMillis < :millis ORDER BY timeMillis DESC")
     fun loadDesc(sport: Sport, matchStatus: MatchStatus, millis: Long): DataSource.Factory<Int, WorldRugbyMatch>
 
     @Query("SELECT EXISTS(SELECT * FROM world_rugby_matches WHERE timeMillis > :startMillis AND timeMillis < :endMillis)")

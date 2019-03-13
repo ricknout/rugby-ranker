@@ -27,7 +27,7 @@ dependencies {
     api deps.androidX.emoji.bundled
     api deps.androidX.lifecycle.extensions
     api deps.androidX.room.runtime
-    api deps.androidX.room.coroutines
+    api deps.androidX.room.ktx
     api deps.androidX.paging.runtimeKtx
     api deps.androidX.navigation.uiKtx
     api deps.androidX.navigation.fragmentKtx
