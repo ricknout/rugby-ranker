@@ -21,7 +21,7 @@ buildscript {
                     room: '2.1.0-alpha05',
                     paging: '2.1.0',
                     navigation: '2.1.0-alpha01',
-                    work: '2.0.0-rc01',
+                    work: '2.0.0',
                     test: [
                             core: '1.1.1-alpha02',
                             jUnit: '1.1.1-alpha02',
