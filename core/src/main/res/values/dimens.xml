@@ -10,6 +10,7 @@
     <dimen name="padding_horizontal_world_rugby_match_space">@dimen/spacing_standard</dimen>
 
     <dimen name="elevation_card_view">0dp</dimen>
+    <dimen name="elevation_bottom_sheet">16dp</dimen>
 
     <dimen name="width_world_rugby_match_date_header">72dp</dimen>
 

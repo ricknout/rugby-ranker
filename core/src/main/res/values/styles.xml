@@ -29,6 +29,7 @@
         <item name="android:listDivider">@drawable/list_divider</item>
         <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
         <item name="snackbarStyle">@style/RugbyRankerSnackbar</item>
+        <item name="bottomSheetStyle">@style/RugbyRankerBottomSheet</item>
     </style>
 
     <style name="RugbyRankerTheme.Secondary">
@@ -105,6 +106,11 @@
 
     <style name="RugbyRankerSnackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="animationMode">slide</item>
+    </style>
+
+    <style name="RugbyRankerBottomSheet">
+        <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
+        <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
     </style>
 
     <style name="RugbyRankerShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
