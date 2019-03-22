@@ -18,7 +18,7 @@ buildscript {
                     emoji: '1.0.0',
                     browser: '1.0.0',
                     lifecycle: '2.1.0-alpha03',
-                    room: '2.1.0-alpha05',
+                    room: '2.1.0-alpha06',
                     paging: '2.1.0',
                     navigation: '2.1.0-alpha01',
                     work: '2.0.0',
