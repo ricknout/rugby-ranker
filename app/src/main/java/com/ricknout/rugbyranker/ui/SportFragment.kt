@@ -3,11 +3,12 @@ package com.ricknout.rugbyranker.ui
 import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.ContentView
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.getSystemService
@@ -50,7 +51,6 @@ import kotlinx.android.synthetic.main.fragment_sport.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
-@ContentView(R.layout.fragment_sport)
 class SportFragment : DaggerFragment() {
 
     private val args: SportFragmentArgs by navArgs()
@@ -108,6 +108,9 @@ class SportFragment : DaggerFragment() {
         false
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_sport, container, false)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
         homeTeamName = savedInstanceState?.getString(KEY_HOME_TEAM_NAME)
@@ -121,7 +124,7 @@ class SportFragment : DaggerFragment() {
         setupAddMatchFab()
         setupBottomSheet(bottomSheetState)
         setupViewModels()
-        requireActivity().addOnBackPressedCallback(onBackPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -544,7 +547,6 @@ class SportFragment : DaggerFragment() {
     override fun onDestroyView() {
         hideSoftInput()
         rankingsViewModel.resetMatchPredictionInputValid()
-        requireActivity().removeOnBackPressedCallback(onBackPressedCallback)
         super.onDestroyView()
     }
 
