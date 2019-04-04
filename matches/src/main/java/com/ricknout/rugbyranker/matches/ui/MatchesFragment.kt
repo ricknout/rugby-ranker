@@ -1,9 +1,7 @@
 package com.ricknout.rugbyranker.matches.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
@@ -15,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
+import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.matches.NavGraphMatchesDirections
-import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_matches.*
 
-class MatchesFragment : DaggerFragment() {
+class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
 
     private val args: MatchesFragmentArgs by navArgs()
 
@@ -49,9 +47,6 @@ class MatchesFragment : DaggerFragment() {
 
     private lateinit var worldRugbyMatchPagedListAdapter: WorldRugbyMatchPagedListAdapter
     private lateinit var worldRugbyMatchDateItemDecoration: WorldRugbyMatchDateItemDecoration
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_matches, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()

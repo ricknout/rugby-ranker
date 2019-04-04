@@ -1,15 +1,12 @@
 package com.ricknout.rugbyranker.rankings.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ricknout.rugbyranker.rankings.R
-import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -19,12 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
+import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.rankings.NavGraphRankingsDirections
 import kotlinx.android.synthetic.main.fragment_rankings.*
 
-class RankingsFragment : DaggerFragment() {
+class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
 
     private val args: RankingsFragmentArgs by navArgs()
 
@@ -44,9 +42,6 @@ class RankingsFragment : DaggerFragment() {
     private lateinit var refreshSnackBar: Snackbar
 
     private val worldRugbyRankingAdapter = WorldRugbyRankingListAdapter()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_rankings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()

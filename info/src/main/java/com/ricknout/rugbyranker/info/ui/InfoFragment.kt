@@ -1,9 +1,7 @@
 package com.ricknout.rugbyranker.info.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.ricknout.rugbyranker.info.R
 import kotlinx.android.synthetic.main.fragment_info.*
 import android.content.Intent
@@ -12,20 +10,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
+import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.info.BuildConfig
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
-import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class InfoFragment : DaggerFragment() {
+class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: InfoViewModel
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_info, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)

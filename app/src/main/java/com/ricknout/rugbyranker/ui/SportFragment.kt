@@ -3,9 +3,7 @@ package com.ricknout.rugbyranker.ui
 import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
@@ -27,6 +25,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.core.livedata.EventObserver
+import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.matches.ui.MatchesFragment
 import com.ricknout.rugbyranker.matches.ui.MatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
@@ -46,12 +45,11 @@ import com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_sport.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
-class SportFragment : DaggerFragment() {
+class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
 
     private val args: SportFragmentArgs by navArgs()
 
@@ -107,9 +105,6 @@ class SportFragment : DaggerFragment() {
         }
         false
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_sport, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
