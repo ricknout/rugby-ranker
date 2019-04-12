@@ -6,6 +6,7 @@ buildscript {
             androidGradlePlugin: '3.4.0-rc03',
             ktlint: '0.31.0',
             kotlin: [
+                    // Can't update to 1.3.30 because of Dagger issue: https://github.com/google/dagger/issues/1478
                     kotlin: '1.3.21',
                     coroutines: '1.1.1'
             ],
