@@ -35,7 +35,8 @@
             android:authorities="${workManagerInitAuthorities}"
             android:enabled="false"
             android:exported="false"
-            tools:replace="android:authorities" />
+            tools:replace="android:authorities"
+            tools:node="remove" />
 
     </application>
 

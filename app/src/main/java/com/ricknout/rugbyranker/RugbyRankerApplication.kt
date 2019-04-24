@@ -5,14 +5,13 @@ import android.app.Application
 import androidx.emoji.bundled.BundledEmojiCompatConfig
 import androidx.emoji.text.EmojiCompat
 import androidx.work.Configuration
-import androidx.work.WorkManager
 import com.ricknout.rugbyranker.di.AppComponent
 import com.ricknout.rugbyranker.di.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class RugbyRankerApplication : Application(), HasActivityInjector {
+class RugbyRankerApplication : Application(), HasActivityInjector, Configuration.Provider {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
@@ -22,7 +21,6 @@ class RugbyRankerApplication : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
         initDagger()
-        initWorkManager()
         initEmojiCompat()
     }
 
@@ -31,17 +29,16 @@ class RugbyRankerApplication : Application(), HasActivityInjector {
         appComponent.inject(this)
     }
 
-    private fun initWorkManager() {
-        val configuration = Configuration.Builder()
-                .setWorkerFactory(appComponent.workerFactory())
-                .build()
-        WorkManager.initialize(applicationContext, configuration)
-    }
-
     private fun initEmojiCompat() {
         val emojiCompatConfig = BundledEmojiCompatConfig(this).apply { setReplaceAll(true) }
         EmojiCompat.init(emojiCompatConfig)
     }
 
     override fun activityInjector() = dispatchingAndroidInjector
+
+    override fun getWorkManagerConfiguration(): Configuration {
+        return Configuration.Builder()
+                .setWorkerFactory(appComponent.workerFactory())
+                .build()
+    }
 }

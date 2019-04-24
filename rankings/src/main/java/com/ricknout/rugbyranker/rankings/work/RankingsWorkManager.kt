@@ -10,7 +10,7 @@ import androidx.work.WorkInfo
 import com.ricknout.rugbyranker.core.vo.Sport
 import java.util.concurrent.TimeUnit
 
-class RankingsWorkManager {
+class RankingsWorkManager(private val workManager: WorkManager) {
 
     private val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -30,7 +30,6 @@ class RankingsWorkManager {
             Sport.MENS -> mensRankingsWorkRequest
             Sport.WOMENS -> womensRankingsWorkRequest
         }
-        val workManager = WorkManager.getInstance()
         workManager.enqueueUniquePeriodicWork(uniqueWorkName, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, workRequest)
     }
 

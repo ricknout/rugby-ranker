@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
@@ -95,18 +96,25 @@ class AppModule {
         worldRugbyService: WorldRugbyService,
         worldRugbyMatchDao: WorldRugbyMatchDao
     ): MatchesRepository {
-        return MatchesRepository(worldRugbyService, worldRugbyMatchDao) }
-
-    @Provides
-    @Singleton
-    fun provideRankingsWorkManager(): RankingsWorkManager {
-        return RankingsWorkManager()
+        return MatchesRepository(worldRugbyService, worldRugbyMatchDao)
     }
 
     @Provides
     @Singleton
-    fun provideMatchesWorkManager(): MatchesWorkManager {
-        return MatchesWorkManager()
+    fun provideWorkManager(context: Context): WorkManager {
+        return WorkManager.getInstance(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRankingsWorkManager(workManager: WorkManager): RankingsWorkManager {
+        return RankingsWorkManager(workManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchesWorkManager(workManager: WorkManager): MatchesWorkManager {
+        return MatchesWorkManager(workManager)
     }
 
     companion object {

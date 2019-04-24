@@ -11,7 +11,7 @@ import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import java.util.concurrent.TimeUnit
 
-class MatchesWorkManager {
+class MatchesWorkManager(private val workManager: WorkManager) {
 
     private val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -51,7 +51,6 @@ class MatchesWorkManager {
                 }
             }
         }
-        val workManager = WorkManager.getInstance()
         workManager.enqueueUniquePeriodicWork(uniqueWorkName, WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY, workRequest)
     }
 
