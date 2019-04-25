@@ -35,7 +35,6 @@ class RankingsWorkManager(private val workManager: WorkManager) {
 
     fun getLatestWorldRugbyRankingsWorkInfos(sport: Sport): LiveData<List<WorkInfo>> {
         val uniqueWorkName = getRankingsUniqueWorkName(sport)
-        val workManager = WorkManager.getInstance()
         return workManager.getWorkInfosForUniqueWorkLiveData(uniqueWorkName)
     }
 

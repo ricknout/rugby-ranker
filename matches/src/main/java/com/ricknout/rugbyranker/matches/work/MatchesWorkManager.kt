@@ -56,7 +56,6 @@ class MatchesWorkManager(private val workManager: WorkManager) {
 
     fun getLatestWorldRugbyMatchesWorkInfos(sport: Sport, matchStatus: MatchStatus): LiveData<List<WorkInfo>> {
         val uniqueWorkName = getMatchesUniqueWorkName(sport, matchStatus)
-        val workManager = WorkManager.getInstance()
         return workManager.getWorkInfosForUniqueWorkLiveData(uniqueWorkName)
     }
 
