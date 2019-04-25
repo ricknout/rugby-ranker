@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.getSystemService
@@ -98,13 +99,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
     private lateinit var homeTeamPopupMenu: PopupMenu
     private lateinit var awayTeamPopupMenu: PopupMenu
 
-    private val onBackPressedCallback = OnBackPressedCallback {
-        if (::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            hideBottomSheet()
-            return@OnBackPressedCallback true
-        }
-        false
-    }
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
@@ -119,7 +114,10 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         setupAddMatchFab()
         setupBottomSheet(bottomSheetState)
         setupViewModels()
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+        val onBackPressCallbackEnabled = ::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED
+        onBackPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, enabled = onBackPressCallbackEnabled) {
+            hideBottomSheet()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -198,6 +196,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
                 matchPredictionInputView.updateAlphaForOffset(slideOffset, rankingsViewModel.hasMatchPredictions())
             }
             override fun onStateChanged(bottomSheet: View, state: Int) {
+                onBackPressedCallback.isEnabled = state == BottomSheetBehavior.STATE_EXPANDED
                 if (state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) {
                     if (clearMatchPredictionInput) {
                         clearMatchPredictionInput()
@@ -545,7 +544,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         super.onDestroyView()
     }
 
-    inner class SportFragmentPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+    inner class SportFragmentPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, FragmentPagerAdapter.RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int) = when (position) {
             POSITION_RANKINGS -> RankingsFragment.newInstance(sport)

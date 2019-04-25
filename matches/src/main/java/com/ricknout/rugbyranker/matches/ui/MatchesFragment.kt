@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.matches.R
-import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
+import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.matches.NavGraphMatchesDirections
@@ -91,7 +91,7 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
             when (workInfo.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
-                    doIfVisibleToUser {
+                    doIfResumed {
                         workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_matches)
                         workerSnackBar.show()
                     }
@@ -109,7 +109,7 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
             worldRugbyMatchPagedListAdapter.worldRugbyRankingsTeamIds = worldRugbyRankingsTeamIds.associateBy({ it }, { true })
         })
         viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
-            doIfVisibleToUser { matchesRecyclerView.smoothScrollToPosition(0) }
+            doIfResumed { matchesRecyclerView.smoothScrollToPosition(0) }
         })
     }
 
@@ -122,7 +122,7 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshLatestWorldRugbyMatches { success ->
                 if (!success) {
-                    doIfVisibleToUser {
+                    doIfResumed {
                         refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_matches)
                         refreshSnackBar.show()
                     }

@@ -17,7 +17,7 @@ import androidx.work.WorkInfo.State
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
-import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
+import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.rankings.NavGraphRankingsDirections
 import kotlinx.android.synthetic.main.fragment_rankings.*
@@ -78,7 +78,7 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
             when (workInfo.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
-                    doIfVisibleToUser {
+                    doIfResumed {
                         workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_rankings)
                         workerSnackBar.show()
                     }
@@ -93,7 +93,7 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
             swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyRankings
         })
         viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
-            doIfVisibleToUser { rankingsRecyclerView.smoothScrollToPosition(0) }
+            doIfResumed { rankingsRecyclerView.smoothScrollToPosition(0) }
         })
     }
 
@@ -106,7 +106,7 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshLatestWorldRugbyRankings { success ->
                 if (!success) {
-                    doIfVisibleToUser {
+                    doIfResumed {
                         refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_rankings)
                         refreshSnackBar.show()
                     }

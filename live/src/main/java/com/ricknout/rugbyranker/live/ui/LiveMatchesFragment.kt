@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
-import com.ricknout.rugbyranker.core.util.doIfVisibleToUser
+import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.NavGraphLiveDirections
 import com.ricknout.rugbyranker.live.R
@@ -87,7 +87,7 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
             worldRugbyMatchListAdapter.worldRugbyRankingsTeamIds = worldRugbyRankingsTeamIds.associateBy({ it }, { true })
         })
         viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
-            doIfVisibleToUser { matchesRecyclerView.smoothScrollToPosition(0) }
+            doIfResumed { matchesRecyclerView.smoothScrollToPosition(0) }
         })
     }
 
@@ -100,7 +100,7 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshLiveWorldRugbyMatches { success ->
                 if (!success) {
-                    doIfVisibleToUser {
+                    doIfResumed {
                         refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_live_world_rugby_matches)
                         refreshSnackBar.show()
                     }

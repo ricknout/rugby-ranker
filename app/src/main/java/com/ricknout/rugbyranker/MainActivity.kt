@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.saket.fluidresize.sample.FluidContentResizer
 import javax.inject.Inject
 
-class MainActivity : DaggerAndroidXAppCompatActivity() {
+class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -40,9 +40,6 @@ class MainActivity : DaggerAndroidXAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // BUG: We can't yet pass the layout ID to the Activity constructor because of a Fragment issue
-        // https://issuetracker.google.com/issues/129907905
-        setContentView(R.layout.activity_main)
         setupBottomNavigation()
         FluidContentResizer.listen(this)
     }
