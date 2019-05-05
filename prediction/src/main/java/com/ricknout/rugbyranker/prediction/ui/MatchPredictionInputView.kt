@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.widget.TooltipCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isInvisible
@@ -18,8 +20,8 @@ class MatchPredictionInputView
         ConstraintLayout(context, attrs, defStyleAttr) {
 
     interface MatchPredictionInputViewListener {
-        fun onHomeTeamClick()
-        fun onAwayTeamClick()
+        fun onHomeTeamClick(position: Int)
+        fun onAwayTeamClick(position: Int)
         fun onHomeTeamTextChanged(valid: Boolean)
         fun onAwayTeamTextChanged(valid: Boolean)
         fun onHomePointsTextChanged(valid: Boolean)
@@ -38,11 +40,11 @@ class MatchPredictionInputView
 
     var homeTeamText: CharSequence?
         get() = homeTeamEditText.text?.toString()
-        set(value) = homeTeamEditText.setText(value)
+        set(value) = homeTeamEditText.setText(value, false)
 
     var awayTeamText: CharSequence?
         get() = awayTeamEditText.text?.toString()
-        set(value) = awayTeamEditText.setText(value)
+        set(value) = awayTeamEditText.setText(value, false)
 
     var homePointsText: Int
         get() = if (homePointsEditText.text.isNullOrEmpty()) NO_POINTS else homePointsEditText.text.toString().toInt()
@@ -85,8 +87,8 @@ class MatchPredictionInputView
 
     private fun setupEditTexts() {
         homeTeamEditText.apply {
-            setOnClickListener {
-                listener?.onHomeTeamClick()
+            onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                listener?.onHomeTeamClick(position)
             }
             addTextChangedListener(object : SimpleTextWatcher() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -96,8 +98,8 @@ class MatchPredictionInputView
             })
         }
         awayTeamEditText.apply {
-            setOnClickListener {
-                listener?.onAwayTeamClick()
+            onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                listener?.onAwayTeamClick(position)
             }
             addTextChangedListener(object : SimpleTextWatcher() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -155,6 +157,13 @@ class MatchPredictionInputView
         }
     }
 
+    fun setTeams(teams: List<CharSequence>) {
+        val homeTeamAdapter = ArrayAdapter<CharSequence>(context, R.layout.list_item_team, teams)
+        homeTeamEditText.setAdapter(homeTeamAdapter)
+        val awayTeamAdapter = ArrayAdapter<CharSequence>(context, R.layout.list_item_team, teams)
+        awayTeamEditText.setAdapter(awayTeamAdapter)
+    }
+
     fun setMatchPredictions(matchPredictions: List<MatchPrediction>?) {
         matchPredictionAdapter.submitList(matchPredictions)
     }
@@ -177,10 +186,6 @@ class MatchPredictionInputView
         homePointsEditText.text?.clear()
         awayPointsEditText.text?.clear()
     }
-
-    fun getHomeTeamAnchorView(): View = homeTeamEditText
-
-    fun getAwayTeamAnchorView(): View = awayTeamEditText
 
     fun adjustForEditing(isEditing: Boolean) {
         matchPredictionTitleTextView.setText(if (isEditing) R.string.title_edit_match_prediction else R.string.title_add_match_prediction)

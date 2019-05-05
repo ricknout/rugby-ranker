@@ -92,6 +92,8 @@ open class RankingsViewModel(
         }
     }
 
+    fun getLatestWorldRugbyRanking(position: Int) = latestWorldRugbyRankings.value?.get(position)
+
     fun hasMatchPredictions() = !(_matchPredictions.value?.isEmpty() ?: true)
 
     fun getMatchPredictionCount() = _matchPredictions.value?.size ?: 0

@@ -1,17 +1,14 @@
 package com.ricknout.rugbyranker.ui
 
 import android.animation.LayoutTransition
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
-import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.getSystemService
-import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
@@ -95,9 +92,6 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
     private var showMatchPredictionInput = false
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
-
-    private lateinit var homeTeamPopupMenu: PopupMenu
-    private lateinit var awayTeamPopupMenu: PopupMenu
 
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
@@ -216,42 +210,38 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
             }
             matchPredictionInputView.updateAlphaForOffset(slideOffset, rankingsViewModel.hasMatchPredictions())
         }
-        homeTeamPopupMenu = PopupMenu(requireContext(), matchPredictionInputView.getHomeTeamAnchorView()).apply {
-            setOnMenuItemClickListener { menuItem ->
-                val intent = menuItem.intent
-                val homeTeamId = intent.extras?.getLong(EXTRA_TEAM_ID)
-                val homeTeamName = intent.extras?.getString(EXTRA_TEAM_NAME)
-                val homeTeamAbbreviation = intent.extras?.getString(EXTRA_TEAM_ABBREVIATION)
-                if (homeTeamId == awayTeamId) return@setOnMenuItemClickListener true
-                this@SportFragment.homeTeamId = homeTeamId
-                this@SportFragment.homeTeamName = homeTeamName
-                this@SportFragment.homeTeamAbbreviation = homeTeamAbbreviation
-                matchPredictionInputView.homeTeamText = menuItem.title
-                true
-            }
-        }
-        awayTeamPopupMenu = PopupMenu(requireContext(), matchPredictionInputView.getAwayTeamAnchorView()).apply {
-            setOnMenuItemClickListener { menuItem ->
-                val intent = menuItem.intent
-                val awayTeamId = intent.extras?.getLong(EXTRA_TEAM_ID)
-                val awayTeamName = intent.extras?.getString(EXTRA_TEAM_NAME)
-                val awayTeamAbbreviation = intent.extras?.getString(EXTRA_TEAM_ABBREVIATION)
-                if (awayTeamId == homeTeamId) return@setOnMenuItemClickListener true
-                this@SportFragment.awayTeamId = awayTeamId
-                this@SportFragment.awayTeamName = awayTeamName
-                this@SportFragment.awayTeamAbbreviation = awayTeamAbbreviation
-                matchPredictionInputView.awayTeamText = menuItem.title
-                true
-            }
-        }
         matchPredictionInputView.listener = object : MatchPredictionInputView.MatchPredictionInputViewListener {
 
-            override fun onHomeTeamClick() {
-                homeTeamPopupMenu.show()
+            override fun onHomeTeamClick(position: Int) {
+                val worldRugbyRanking = rankingsViewModel.getLatestWorldRugbyRanking(position) ?: return
+                if (worldRugbyRanking.teamId == awayTeamId) {
+                    val homeTeamText = if (homeTeamAbbreviation == null || homeTeamName == null) null else EmojiCompat.get().process(
+                            getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(homeTeamAbbreviation!!), homeTeamName!!))
+                    matchPredictionInputView.homeTeamText = homeTeamText
+                    return
+                }
+                homeTeamId = worldRugbyRanking.teamId
+                homeTeamName = worldRugbyRanking.teamName
+                homeTeamAbbreviation = worldRugbyRanking.teamAbbreviation
+                val homeTeamText = if (homeTeamAbbreviation == null || homeTeamName == null) null else EmojiCompat.get().process(
+                        getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(homeTeamAbbreviation!!), homeTeamName!!))
+                matchPredictionInputView.homeTeamText = homeTeamText
             }
 
-            override fun onAwayTeamClick() {
-                awayTeamPopupMenu.show()
+            override fun onAwayTeamClick(position: Int) {
+                val worldRugbyRanking = rankingsViewModel.getLatestWorldRugbyRanking(position) ?: return
+                if (worldRugbyRanking.teamId == homeTeamId) {
+                    val awayTeamText = if (awayTeamAbbreviation == null || awayTeamName == null) null else EmojiCompat.get().process(
+                            getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(awayTeamAbbreviation!!), awayTeamName!!))
+                    matchPredictionInputView.awayTeamText = awayTeamText
+                    return
+                }
+                awayTeamId = worldRugbyRanking.teamId
+                awayTeamName = worldRugbyRanking.teamName
+                awayTeamAbbreviation = worldRugbyRanking.teamAbbreviation
+                val awayTeamText = if (awayTeamAbbreviation == null || awayTeamName == null) null else EmojiCompat.get().process(
+                        getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(awayTeamAbbreviation!!), awayTeamName!!))
+                matchPredictionInputView.awayTeamText = awayTeamText
             }
 
             override fun onHomeTeamTextChanged(valid: Boolean) {
@@ -336,7 +326,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
             addMatchPredictionFab.isEnabled = !isEmpty
         })
         rankingsViewModel.latestWorldRugbyRankings.observe(viewLifecycleOwner, Observer { latestWorldRugbyRankings ->
-            assignWorldRugbyRankingsToTeamPopupMenus(latestWorldRugbyRankings)
+            assignWorldRugbyRankingsToMatchPredictionInputTeams(latestWorldRugbyRankings)
         })
         rankingsViewModel.latestWorldRugbyRankingsEffectiveTime.observe(viewLifecycleOwner, Observer { effectiveTime ->
             setSubtitle(effectiveTime)
@@ -404,24 +394,13 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         }
     }
 
-    private fun assignWorldRugbyRankingsToTeamPopupMenus(worldRugbyRankings: List<WorldRugbyRanking>?) {
-        homeTeamPopupMenu.menu.clear()
-        awayTeamPopupMenu.menu.clear()
-        worldRugbyRankings?.forEach { worldRugbyRanking ->
-            val intent = Intent().apply {
-                replaceExtras(bundleOf(
-                        EXTRA_TEAM_ID to worldRugbyRanking.teamId,
-                        EXTRA_TEAM_NAME to worldRugbyRanking.teamName,
-                        EXTRA_TEAM_ABBREVIATION to worldRugbyRanking.teamAbbreviation
-                ))
-            }
-            val team = EmojiCompat.get().process(getString(R.string.menu_item_team,
+    private fun assignWorldRugbyRankingsToMatchPredictionInputTeams(worldRugbyRankings: List<WorldRugbyRanking>?) {
+        if (worldRugbyRankings == null) return
+        val teams = worldRugbyRankings.map { worldRugbyRanking ->
+            EmojiCompat.get().process(getString(R.string.menu_item_team,
                     FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation), worldRugbyRanking.teamName))
-            val homeTeamMenuItem = homeTeamPopupMenu.menu.add(team)
-            homeTeamMenuItem.intent = intent
-            val awayTeamMenuItem = awayTeamPopupMenu.menu.add(team)
-            awayTeamMenuItem.intent = intent
         }
+        matchPredictionInputView.setTeams(teams)
     }
 
     private fun addOrEditMatchPredictionFromInput(): Boolean {
@@ -578,8 +557,5 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         private const val KEY_AWAY_TEAM_NAME = "away_team_name"
         private const val KEY_AWAY_TEAM_ABBREVIATION = "away_team_abbreviation"
         private const val KEY_BOTTOM_SHEET_STATE = "bottom_sheet_state"
-        private const val EXTRA_TEAM_ID = "team_id"
-        private const val EXTRA_TEAM_NAME = "team_name"
-        private const val EXTRA_TEAM_ABBREVIATION = "team_abbreviation"
     }
 }

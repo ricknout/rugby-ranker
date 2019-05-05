@@ -72,19 +72,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_standard"
                 android:hint="@string/hint_home_team"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
-                app:endIconTint="?attr/colorControlNormal"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 app:layout_constraintTop_toBottomOf="@id/matchPredictionPeekGuideline"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/homePointsTextInputLayout">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:id="@+id/homeTeamEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textNoSuggestions"
-                    android:cursorVisible="false"
+                    android:editable="false"
                     android:focusableInTouchMode="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,19 +111,16 @@
                 android:layout_marginTop="@dimen/spacing_half"
                 android:layout_marginEnd="@dimen/spacing_standard"
                 android:hint="@string/hint_away_team"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_arrow_drop_down_black_24dp"
-                app:endIconTint="?attr/colorControlNormal"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 app:layout_constraintTop_toBottomOf="@id/homeTeamTextInputLayout"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/awayPointsTextInputLayout">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:id="@+id/awayTeamEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textNoSuggestions"
-                    android:cursorVisible="false"
+                    android:editable="false"
                     android:focusableInTouchMode="false" />
 
             </com.google.android.material.textfield.TextInputLayout>

@@ -30,7 +30,7 @@ buildscript {
                     ]
             ],
             google: [
-                    material: '1.1.0-alpha05',
+                    material: '1.1.0-alpha06',
                     dagger: '2.22.1',
                     ossLicenses: [
                             ossLicenses: '16.0.2',
