@@ -11,8 +11,8 @@ buildscript {
             ],
             androidX: [
                     core: '1.1.0-alpha05',
-                    activity: '1.0.0-alpha07',
-                    fragment: '1.1.0-alpha07',
+                    activity: '1.0.0-alpha08',
+                    fragment: '1.1.0-alpha08',
                     appCompat: '1.1.0-alpha04',
                     constraintLayout: '2.0.0-alpha5',
                     recyclerView: '1.1.0-alpha04',

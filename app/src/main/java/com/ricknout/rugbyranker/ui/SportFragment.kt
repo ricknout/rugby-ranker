@@ -523,7 +523,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         super.onDestroyView()
     }
 
-    inner class SportFragmentPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, FragmentPagerAdapter.RESUME_ONLY_CURRENT_FRAGMENT) {
+    inner class SportFragmentPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int) = when (position) {
             POSITION_RANKINGS -> RankingsFragment.newInstance(sport)
