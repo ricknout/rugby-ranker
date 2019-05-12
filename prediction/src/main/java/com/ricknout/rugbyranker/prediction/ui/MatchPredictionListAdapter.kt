@@ -3,7 +3,6 @@ package com.ricknout.rugbyranker.prediction.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +43,7 @@ class MatchPredictionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
             }
             text = itemView.context.getString(R.string.chip_match_prediction,
                     matchPrediction.homeTeamAbbreviation, matchPrediction.homeTeamScore, matchPrediction.awayTeamScore, matchPrediction.awayTeamAbbreviation)
-            @ColorRes val backgroundColorResId = if (matchPrediction.isEditing) {
+            val backgroundColorResId = if (matchPrediction.isEditing) {
                 R.color.world_rugby_blue_dark
             } else {
                 R.color.world_rugby_blue
