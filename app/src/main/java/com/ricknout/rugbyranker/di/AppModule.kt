@@ -1,6 +1,5 @@
 package com.ricknout.rugbyranker.di
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
@@ -9,6 +8,7 @@ import javax.inject.Singleton
 import androidx.room.Room
 import androidx.work.WorkManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.ricknout.rugbyranker.RugbyRankerApplication
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.RugbyRankerMigrations
@@ -28,7 +28,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideContext(application: Application): Context {
+    fun provideContext(application: RugbyRankerApplication): Context {
         return application.applicationContext
     }
 

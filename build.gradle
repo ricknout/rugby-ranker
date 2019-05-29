@@ -31,7 +31,7 @@ buildscript {
             ],
             google: [
                     material: '1.1.0-alpha06',
-                    dagger: '2.22.1',
+                    dagger: '2.23',
                     ossLicenses: [
                             ossLicenses: '16.0.2',
                             gradlePlugin: '0.9.5'
