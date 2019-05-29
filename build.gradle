@@ -34,7 +34,7 @@ buildscript {
                     dagger: '2.22.1',
                     ossLicenses: [
                             ossLicenses: '16.0.2',
-                            gradlePlugin: '0.9.4'
+                            gradlePlugin: '0.9.5'
                     ]
             ],
             retrofit: [
