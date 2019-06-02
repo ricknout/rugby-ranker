@@ -1,5 +1,14 @@
 <resources>
 
+    <string name="title_choose_theme">Choose theme</string>
 
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+
+    <string-array name="themes">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System default</item>
+    </string-array>
 
 </resources>

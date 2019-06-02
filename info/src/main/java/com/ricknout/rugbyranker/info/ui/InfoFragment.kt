@@ -13,6 +13,7 @@ import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.info.BuildConfig
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
+import com.ricknout.rugbyranker.theme.ui.showThemeChooser
 import javax.inject.Inject
 
 class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
@@ -56,6 +57,9 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
         openSourceLicensesButton.setOnClickListener {
             val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
             startActivity(intent)
+        }
+        chooseThemeButton.setOnClickListener {
+            showThemeChooser(requireContext())
         }
     }
 
