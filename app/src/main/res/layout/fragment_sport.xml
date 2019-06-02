@@ -70,7 +70,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_fab"
         app:fabSize="auto"
-        app:icon="@drawable/ic_add_match_black_24dp"
+        app:icon="@drawable/ic_add_match_color_control_normal_24dp"
         android:text="@string/button_predict"
         android:contentDescription="@string/content_description_add_match_prediction" />
 

@@ -1,15 +1,20 @@
 <resources>
 
-    <style name="RugbyRankerTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="RugbyRankerTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Color attributes -->
         <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryVariant">@color/color_primary_variant_dark</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
         <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorSecondaryVariant">@color/color_secondary_variant_dark</item>
+        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
         <item name="colorOnSecondary">@color/color_on_secondary</item>
         <item name="colorError">@color/color_error</item>
+        <item name="colorOnError">@color/color_on_error</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
         <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorOnBackground">@color/color_on_background</item>
+        <!-- System bar attributes -->
         <item name="android:statusBarColor">@color/color_status_bar</item>
         <item name="android:navigationBarColor">@color/color_navigation_bar</item>
         <!-- Type attributes -->
@@ -34,7 +39,7 @@
 
     <style name="RugbyRankerTheme.Secondary">
         <item name="colorPrimary">@color/color_secondary</item>
-        <item name="colorPrimaryVariant">@color/color_secondary_variant_dark</item>
+        <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
     </style>
 
     <style name="RugbyRankerTheme.Launcher">
@@ -77,14 +82,13 @@
 
     <style name="RugbyRankerCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">@dimen/elevation_card_view</item>
-        <item name="cardBackgroundColor">@color/light_grey</item>
-        <item name="strokeWidth">@dimen/size_border</item>
-        <item name="strokeColor">@color/color_border</item>
+        <item name="cardBackgroundColor">@color/color_fill</item>
+        <item name="strokeWidth">@dimen/size_stroke</item>
+        <item name="strokeColor">@color/color_stroke</item>
     </style>
     
     <style name="RugbyRankerProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminate">true</item>
-        <item name="android:indeterminateTint">@color/color_progress_bar</item>
     </style>
 
     <style name="RugbyRankerWorldRugbyMatchDateItemDecoration">

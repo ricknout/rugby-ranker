@@ -100,6 +100,7 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
     private fun setupSwipeRefreshLayout() {
         val swipeRefreshColors = resources.getIntArray(R.array.colors_swipe_refresh)
         swipeRefreshLayout.setColorSchemeColors(*swipeRefreshColors)
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.color_surface)
         swipeRefreshLayout.setProgressViewOffset(true,
                 swipeRefreshLayout.progressViewStartOffset + resources.getDimensionPixelSize(R.dimen.spacing_double),
                 swipeRefreshLayout.progressViewEndOffset)
