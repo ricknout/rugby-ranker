@@ -126,7 +126,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         }
         outState.putString(KEY_AWAY_TEAM_NAME, awayTeamName)
         outState.putString(KEY_AWAY_TEAM_ABBREVIATION, awayTeamAbbreviation)
-        outState.putInt(KEY_BOTTOM_SHEET_STATE, bottomSheetBehavior.state)
+        if (::bottomSheetBehavior.isInitialized) outState.putInt(KEY_BOTTOM_SHEET_STATE, bottomSheetBehavior.state)
     }
 
     private fun setTitle() {
