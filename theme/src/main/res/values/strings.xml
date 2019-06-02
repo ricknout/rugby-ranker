@@ -8,6 +8,12 @@
     <string-array name="themes">
         <item>Light</item>
         <item>Dark</item>
+        <item>Set by battery saver</item>
+    </string-array>
+
+    <string-array name="themes_q">
+        <item>Light</item>
+        <item>Dark</item>
         <item>System default</item>
     </string-array>
 
