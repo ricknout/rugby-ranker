@@ -49,6 +49,7 @@ dependencies {
     implementation project(':matches')
     implementation project(':live')
     implementation project(':info')
+    implementation project(':theme')
     kapt deps.androidX.lifecycle.compiler
     kapt deps.androidX.room.compiler
     kapt deps.google.dagger.compiler

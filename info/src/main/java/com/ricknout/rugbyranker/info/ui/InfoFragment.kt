@@ -13,13 +13,16 @@ import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.info.BuildConfig
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
-import com.ricknout.rugbyranker.theme.ui.showThemeChooser
+import com.ricknout.rugbyranker.theme.ui.ThemeChooser
 import javax.inject.Inject
 
 class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var themeChooser: ThemeChooser
 
     private lateinit var viewModel: InfoViewModel
 
@@ -59,7 +62,7 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
             startActivity(intent)
         }
         chooseThemeButton.setOnClickListener {
-            showThemeChooser(requireContext())
+            themeChooser.showThemeChooser(requireContext())
         }
     }
 

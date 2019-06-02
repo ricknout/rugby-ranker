@@ -5,16 +5,22 @@ import androidx.emoji.text.EmojiCompat
 import androidx.work.Configuration
 import com.ricknout.rugbyranker.di.AppComponent
 import com.ricknout.rugbyranker.di.DaggerAppComponent
+import com.ricknout.rugbyranker.theme.ui.ThemeChooser
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import javax.inject.Inject
 
 class RugbyRankerApplication : DaggerApplication(), Configuration.Provider {
+
+    @Inject
+    lateinit var themeChooser: ThemeChooser
 
     private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         initEmojiCompat()
+        initTheme()
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
@@ -32,5 +38,9 @@ class RugbyRankerApplication : DaggerApplication(), Configuration.Provider {
     private fun initEmojiCompat() {
         val emojiCompatConfig = BundledEmojiCompatConfig(this).apply { setReplaceAll(true) }
         EmojiCompat.init(emojiCompatConfig)
+    }
+
+    private fun initTheme() {
+        themeChooser.setDefaultTheme()
     }
 }
