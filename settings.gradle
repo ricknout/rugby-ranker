@@ -1,1 +1,1 @@
-include ':app', ':core', ':rankings', ':prediction', ':matches', ':live', ':info'
+include ':app', ':core', ':rankings', ':prediction', ':matches', ':live', ':info', ':theme'
