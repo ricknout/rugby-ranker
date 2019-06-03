@@ -10,9 +10,11 @@ class ThemeRepository(
 ) {
 
     fun getTheme(): Theme {
-        val defaultThemeMode = getDefaultTheme().mode
+        val defaultTheme = getDefaultTheme()
+        val defaultThemeMode = defaultTheme.mode
         val themeMode = themeSharedPreferences.getThemeMode(defaultThemeMode)
-        return Theme.values().find { theme -> theme.mode == themeMode } ?: throw RuntimeException("No Theme found for mode: $themeMode")
+        val themes = getThemes()
+        return themes.find { theme -> theme.mode == themeMode } ?: defaultTheme
     }
 
     fun setTheme(theme: Theme) {
