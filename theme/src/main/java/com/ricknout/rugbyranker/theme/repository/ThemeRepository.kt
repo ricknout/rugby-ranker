@@ -31,7 +31,10 @@ class ThemeRepository(
     // https://stackoverflow.com/a/55545280
 
     private fun getDefaultTheme(): Theme {
-        return if (BuildCompat.isAtLeastQ()) Theme.SYSTEM_DEFAULT else Theme.SET_BY_BATTERY_SAVER
+        return when {
+            BuildCompat.isAtLeastQ() -> Theme.SYSTEM_DEFAULT
+            else -> Theme.SET_BY_BATTERY_SAVER
+        }
     }
 
     fun getThemes(): List<Theme> {

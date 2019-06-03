@@ -9,7 +9,7 @@ class ThemeChooser(private val themeRepository: ThemeRepository) {
 
     fun showThemeChooser(context: Context) {
         val themes = themeRepository.getThemes()
-        val themeTitles = themes.map { theme -> context.getString(theme.title) }.toTypedArray()
+        val themeTitles = themes.map { theme -> context.getString(theme.titleResId) }.toTypedArray()
         var theme = themeRepository.getTheme()
         val checkedItem = themes.indexOf(theme)
         MaterialAlertDialogBuilder(context)
