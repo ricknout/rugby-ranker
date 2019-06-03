@@ -2,9 +2,6 @@
 
     <string name="title_choose_theme">Choose theme</string>
 
-    <string name="button_ok">OK</string>
-    <string name="button_cancel">Cancel</string>
-
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_set_by_battery_saver">Set by battery saver</string>
