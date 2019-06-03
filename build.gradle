@@ -1,6 +1,6 @@
 buildscript {
     ext.versions = [
-            compileSdk: 'android-Q',
+            compileSdk: 28,
             minSdk: 21,
             targetSdk: 28,
             androidGradlePlugin: '3.5.0-beta03',
