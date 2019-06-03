@@ -9,23 +9,29 @@ class ThemeRepository(
     private val themeSharedPreferences: ThemeSharedPreferences
 ) {
 
-    fun getThemeMode() = themeSharedPreferences.getThemeMode(getDefaultThemeMode())
+    fun getTheme(): Theme {
+        val defaultThemeMode = getDefaultTheme().mode
+        val themeMode = themeSharedPreferences.getThemeMode(defaultThemeMode)
+        return Theme.values().find { theme -> theme.mode == themeMode } ?: throw RuntimeException("No Theme found for mode: $themeMode")
+    }
 
-    fun setThemeMode(themeMode: Int) {
+    fun setTheme(theme: Theme) {
+        val themeMode = theme.mode
         AppCompatDelegate.setDefaultNightMode(themeMode)
         themeSharedPreferences.setThemeMode(themeMode)
     }
 
-    fun setDefaultThemeMode() {
-        val themeMode = getThemeMode()
+    fun setDefaultTheme() {
+        val theme = getTheme()
+        val themeMode = theme.mode
         AppCompatDelegate.setDefaultNightMode(themeMode)
     }
 
     // TODO: Replace uses of BuildCompat.isAtLeastQ() with regular Build.VERSION check when Android Q finalized
     // https://stackoverflow.com/a/55545280
 
-    private fun getDefaultThemeMode(): Int {
-        return if (BuildCompat.isAtLeastQ()) AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM else AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+    private fun getDefaultTheme(): Theme {
+        return if (BuildCompat.isAtLeastQ()) Theme.SYSTEM_DEFAULT else Theme.SET_BY_BATTERY_SAVER
     }
 
     fun getThemes(): List<Theme> {

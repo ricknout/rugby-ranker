@@ -9,23 +9,20 @@ class ThemeChooser(private val themeRepository: ThemeRepository) {
 
     fun showThemeChooser(context: Context) {
         val themes = themeRepository.getThemes()
-        val themeModes = themes.map { theme -> theme.mode }
-        val themeTitles = themes.map { theme -> context.getString(theme.title) }
-        var themeMode = themeRepository.getThemeMode()
-        val checkedItem = themeModes.indexOf(themeMode)
+        val themeTitles = themes.map { theme -> context.getString(theme.title) }.toTypedArray()
+        var theme = themeRepository.getTheme()
+        val checkedItem = themes.indexOf(theme)
         MaterialAlertDialogBuilder(context)
                 .setTitle(R.string.title_choose_theme)
                 .setPositiveButton(R.string.button_ok) { _, _ ->
-                    themeRepository.setThemeMode(themeMode)
+                    themeRepository.setTheme(theme)
                 }
                 .setNeutralButton(R.string.button_cancel, null)
-                .setSingleChoiceItems(themeTitles.toTypedArray(), checkedItem) { _, which ->
-                    themeMode = themeModes[which]
+                .setSingleChoiceItems(themeTitles, checkedItem) { _, which ->
+                    theme = themes[which]
                 }
                 .show()
     }
 
-    fun setDefaultTheme() {
-        themeRepository.setDefaultThemeMode()
-    }
+    fun setDefaultTheme() = themeRepository.setDefaultTheme()
 }
