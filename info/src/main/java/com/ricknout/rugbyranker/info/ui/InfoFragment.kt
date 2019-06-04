@@ -6,8 +6,8 @@ import com.ricknout.rugbyranker.info.R
 import kotlinx.android.synthetic.main.fragment_info.*
 import android.content.Intent
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
@@ -20,11 +20,9 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: InfoViewModel
+    private val viewModel: InfoViewModel by viewModels({ requireActivity() }, { viewModelFactory })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
-                .get(InfoViewModel::class.java)
         setupViewModel()
         setupButtons()
         setupNestedScrollView()
