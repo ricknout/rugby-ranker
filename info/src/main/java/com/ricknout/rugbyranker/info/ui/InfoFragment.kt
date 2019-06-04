@@ -8,6 +8,7 @@ import android.content.Intent
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
@@ -53,6 +54,9 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
         openSourceLicensesButton.setOnClickListener {
             val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
             startActivity(intent)
+        }
+        chooseThemeButton.setOnClickListener {
+            findNavController().navigate(R.id.infoFragmentToThemeDialogFragmentAction)
         }
     }
 

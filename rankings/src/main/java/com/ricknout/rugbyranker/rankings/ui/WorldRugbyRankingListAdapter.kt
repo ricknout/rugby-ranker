@@ -36,8 +36,8 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
 
     fun bind(worldRugbyRanking: WorldRugbyRanking) {
         itemView.positionTextView.text = "${worldRugbyRanking.position}"
-        val worldRugbyGreenColor = ContextCompat.getColor(itemView.context, R.color.world_rugby_green)
-        val worldRugbyRedColor = ContextCompat.getColor(itemView.context, R.color.world_rugby_red)
+        val worldRugbyGreenColor = ContextCompat.getColor(itemView.context, R.color.color_primary)
+        val worldRugbyRedColor = ContextCompat.getColor(itemView.context, R.color.color_error)
         when {
             worldRugbyRanking.position > worldRugbyRanking.previousPosition -> {
                 val downPreviousPosition = itemView.context.getString(R.string.ranking_previous_position_down, worldRugbyRanking.previousPosition)
@@ -71,9 +71,9 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             else -> itemView.pointsDifferenceTextView.text = ""
         }
         val backgroundColor = if (adapterPosition == 0 || adapterPosition % 2 == 0) {
-            ContextCompat.getColor(itemView.context, R.color.white)
+            ContextCompat.getColor(itemView.context, R.color.color_background)
         } else {
-            ContextCompat.getColor(itemView.context, R.color.light_grey)
+            ContextCompat.getColor(itemView.context, R.color.color_fill)
         }
         itemView.backgroundView.setBackgroundColor(backgroundColor)
     }

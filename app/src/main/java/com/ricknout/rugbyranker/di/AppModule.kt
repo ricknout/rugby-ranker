@@ -19,6 +19,8 @@ import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager
+import com.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
+import com.ricknout.rugbyranker.theme.repository.ThemeRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -82,6 +84,12 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideThemeSharedPreferences(sharedPreferences: SharedPreferences): ThemeSharedPreferences {
+        return ThemeSharedPreferences(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
     fun provideRankingsRepository(
         worldRugbyService: WorldRugbyService,
         worldRugbyRankingDao: WorldRugbyRankingDao,
@@ -97,6 +105,12 @@ class AppModule {
         worldRugbyMatchDao: WorldRugbyMatchDao
     ): MatchesRepository {
         return MatchesRepository(worldRugbyService, worldRugbyMatchDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideThemeRepository(themeSharedPreferences: ThemeSharedPreferences): ThemeRepository {
+        return ThemeRepository(themeSharedPreferences)
     }
 
     @Provides

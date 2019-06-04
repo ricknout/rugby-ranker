@@ -77,6 +77,14 @@
                 style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
                 android:text="@string/button_open_source_licenses" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/chooseThemeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
+                android:text="@string/title_choose_theme" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

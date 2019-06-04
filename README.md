@@ -31,6 +31,7 @@ Rugby Ranker attempts to make use of the latest Android libraries and best pract
 * [Retrofit](https://square.github.io/retrofit/) for networking
 * [Dagger](https://google.github.io/dagger/) for dependency injection
 * Designed and built using Material Design [tools](https://material.io/tools/) and [components](https://material.io/develop/android/)
+* Full dark theme support
 
 ## Inspiration
 

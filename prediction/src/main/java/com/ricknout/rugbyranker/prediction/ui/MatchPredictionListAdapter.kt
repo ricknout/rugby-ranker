@@ -36,17 +36,17 @@ class MatchPredictionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
     fun bind(matchPrediction: MatchPrediction, onItemClick: (matchPrediction: MatchPrediction) -> Unit, onItemCloseIconClick: (matchPrediction: MatchPrediction) -> Unit) {
         itemView.chip.apply {
             when {
-                matchPrediction.isEditing -> setChipIconResource(R.drawable.ic_edit_white_24dp)
-                matchPrediction.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_white_24dp)
-                matchPrediction.noHomeAdvantage -> setChipIconResource(R.drawable.ic_nha_white_24dp)
+                matchPrediction.isEditing -> setChipIconResource(R.drawable.ic_edit_black_24dp)
+                matchPrediction.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_black_24dp)
+                matchPrediction.noHomeAdvantage -> setChipIconResource(R.drawable.ic_nha_black_24dp)
                 else -> chipIcon = null
             }
             text = itemView.context.getString(R.string.chip_match_prediction,
                     matchPrediction.homeTeamAbbreviation, matchPrediction.homeTeamScore, matchPrediction.awayTeamScore, matchPrediction.awayTeamAbbreviation)
             val backgroundColorResId = if (matchPrediction.isEditing) {
-                R.color.world_rugby_blue_dark
+                R.color.color_secondary_variant
             } else {
-                R.color.world_rugby_blue
+                R.color.color_secondary
             }
             itemView.chip.setChipBackgroundColorResource(backgroundColorResId)
             setOnClickListener {

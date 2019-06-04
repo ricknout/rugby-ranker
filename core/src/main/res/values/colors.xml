@@ -2,42 +2,41 @@
 <resources>
 
     <color name="color_primary">@color/world_rugby_green</color>
-    <color name="color_primary_variant_light">@color/world_rugby_green_light</color>
-    <color name="color_primary_variant_dark">@color/world_rugby_green_dark</color>
+    <color name="color_primary_variant">@color/world_rugby_green_dark</color>
     <color name="color_on_primary">@color/white</color>
     <color name="color_secondary">@color/world_rugby_blue</color>
-    <color name="color_secondary_variant_light">@color/world_rugby_blue_light</color>
-    <color name="color_secondary_variant_dark">@color/world_rugby_blue_dark</color>
+    <color name="color_secondary_variant">@color/world_rugby_blue_dark</color>
     <color name="color_on_secondary">@color/white</color>
     <color name="color_error">@color/world_rugby_red</color>
+    <color name="color_on_error">@color/white</color>
+    <color name="color_surface">@color/white</color>
+    <color name="color_on_surface">@color/black</color>
     <color name="color_background">@color/white</color>
-    <color name="color_status_bar">@color/black_alpha_30</color>
-    <color name="color_navigation_bar">@color/color_primary_variant_dark</color>
-    <color name="color_navigation_bar_launcher">@color/black_alpha_30</color>
-    <color name="color_border">@color/medium_grey</color>
-    <color name="color_progress_bar">@color/grey</color>
+    <color name="color_on_background">@color/black</color>
+    <color name="color_status_bar">@color/color_on_background_alpha_32</color>
+    <color name="color_navigation_bar">@color/color_primary_variant</color>
+    <color name="color_navigation_bar_launcher">@color/color_on_background_alpha_32</color>
+    <color name="color_stroke">@color/color_on_background_alpha_8</color>
+    <color name="color_fill">@color/color_on_background_alpha_4</color>
 
     <integer-array name="colors_swipe_refresh">
-        <item>@color/world_rugby_green_light</item>
-        <item>@color/world_rugby_green</item>
-        <item>@color/world_rugby_green_dark</item>
-        <item>@color/world_rugby_blue_light</item>
-        <item>@color/world_rugby_blue</item>
-        <item>@color/world_rugby_blue_dark</item>
+        <item>@color/color_primary</item>
+        <item>@color/color_primary_variant</item>
+        <item>@color/color_secondary_variant</item>
+        <item>@color/color_secondary</item>
     </integer-array>
 
     <color name="world_rugby_green">#2d8626</color>
-    <color name="world_rugby_green_light">#61b754</color>
     <color name="world_rugby_green_dark">#005800</color>
+    <color name="world_rugby_green_light">#61b754</color>
+    <color name="world_rugby_green_lighter">#93ea83</color>
     <color name="world_rugby_blue">#2a3c81</color>
-    <color name="world_rugby_blue_light">#5c66b1</color>
     <color name="world_rugby_blue_dark">#001754</color>
+    <color name="world_rugby_blue_light">#7a89bd</color>
+    <color name="world_rugby_blue_lighter">#c4cbe3</color>
     <color name="world_rugby_red">#e51a19</color>
+    <color name="world_rugby_red_light">#ff5c44</color>
     <color name="white">#ffffff</color>
-    <color name="black_alpha_30">#4d000000</color>
-    <color name="dark_grey">#757575</color>
-    <color name="grey">#e3e4e7</color>
-    <color name="medium_grey">#ecf0f3</color>
-    <color name="light_grey">#f6f7f8</color>
+    <color name="black">#000000</color>
 
 </resources>
