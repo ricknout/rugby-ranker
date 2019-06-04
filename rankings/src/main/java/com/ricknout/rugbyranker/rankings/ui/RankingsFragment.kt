@@ -19,7 +19,7 @@ import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.core.vo.Sport
-import com.ricknout.rugbyranker.rankings.NavGraphRankingsDirections
+import com.ricknout.rugbyranker.rankings.RankingsNavGraphDirections
 import kotlinx.android.synthetic.main.fragment_rankings.*
 
 class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
@@ -119,7 +119,7 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
         const val TAG = "RankingsFragment"
         fun newInstance(sport: Sport): RankingsFragment {
             val rankingsFragment = RankingsFragment()
-            rankingsFragment.arguments = NavGraphRankingsDirections.rankingsFragmentAction(sport).arguments
+            rankingsFragment.arguments = RankingsNavGraphDirections.rankingsFragmentAction(sport).arguments
             return rankingsFragment
         }
     }
