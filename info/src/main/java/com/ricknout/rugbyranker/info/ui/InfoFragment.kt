@@ -8,20 +8,17 @@ import android.content.Intent
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
-import com.ricknout.rugbyranker.theme.ui.ThemeChooser
 import javax.inject.Inject
 
 class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var themeChooser: ThemeChooser
 
     private val viewModel: InfoViewModel by viewModels({ requireActivity() }, { viewModelFactory })
 
@@ -59,7 +56,7 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
             startActivity(intent)
         }
         chooseThemeButton.setOnClickListener {
-            themeChooser.showThemeChooser(requireContext())
+            findNavController().navigate(R.id.infoFragmentToThemeDialogFragmentAction)
         }
     }
 

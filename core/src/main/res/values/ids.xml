@@ -2,5 +2,6 @@
 <resources>
 
     <item name="coordinatorLayout" type="id" />
+    <item name="infoFragmentToThemeDialogFragmentAction" type="id" />
 
 </resources>

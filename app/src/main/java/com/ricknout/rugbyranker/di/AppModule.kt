@@ -21,7 +21,6 @@ import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager
 import com.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
 import com.ricknout.rugbyranker.theme.repository.ThemeRepository
-import com.ricknout.rugbyranker.theme.ui.ThemeChooser
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -130,12 +129,6 @@ class AppModule {
     @Singleton
     fun provideMatchesWorkManager(workManager: WorkManager): MatchesWorkManager {
         return MatchesWorkManager(workManager)
-    }
-
-    @Provides
-    @Singleton
-    fun provideThemeChooser(themeRepository: ThemeRepository): ThemeChooser {
-        return ThemeChooser(themeRepository)
     }
 
     companion object {

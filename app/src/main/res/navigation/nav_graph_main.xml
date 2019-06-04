@@ -26,6 +26,13 @@
         android:id="@+id/infoFragment"
         android:name="com.ricknout.rugbyranker.info.ui.InfoFragment"
         android:label="InfoFragment"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_info">
+        <action android:id="@id/infoFragmentToThemeDialogFragmentAction" app:destination="@id/themeDialogFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/themeDialogFragment"
+        android:name="com.ricknout.rugbyranker.theme.ui.ThemeDialogFragment"
+        android:label="ThemeDialogFragment" />
 
 </navigation>
