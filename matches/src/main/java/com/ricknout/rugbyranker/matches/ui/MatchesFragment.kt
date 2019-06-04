@@ -18,7 +18,7 @@ import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
-import com.ricknout.rugbyranker.matches.NavGraphMatchesDirections
+import com.ricknout.rugbyranker.matches.MatchesNavGraphDirections
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_matches.*
 
@@ -136,7 +136,7 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
         const val TAG = "MatchesFragment"
         fun newInstance(sport: Sport, matchStatus: MatchStatus): MatchesFragment {
             val matchesFragment = MatchesFragment()
-            matchesFragment.arguments = NavGraphMatchesDirections.matchesFragmentAction(sport, matchStatus).arguments
+            matchesFragment.arguments = MatchesNavGraphDirections.matchesFragmentAction(sport, matchStatus).arguments
             return matchesFragment
         }
     }
