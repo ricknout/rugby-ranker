@@ -6,12 +6,11 @@ import com.ricknout.rugbyranker.info.R
 import kotlinx.android.synthetic.main.fragment_info.*
 import android.content.Intent
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
-import com.ricknout.rugbyranker.info.BuildConfig
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
 import com.ricknout.rugbyranker.theme.ui.ThemeChooser
 import javax.inject.Inject
@@ -24,11 +23,9 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
     @Inject
     lateinit var themeChooser: ThemeChooser
 
-    private lateinit var viewModel: InfoViewModel
+    private val viewModel: InfoViewModel by viewModels({ requireActivity() }, { viewModelFactory })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
-                .get(InfoViewModel::class.java)
         setupViewModel()
         setupButtons()
         setupNestedScrollView()
@@ -76,7 +73,7 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
     companion object {
         const val TAG = "InfoFragment"
         private const val RANKINGS_EXPLANATION_URL = "https://www.world.rugby/rankings/explanation"
-        private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+        private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.ricknout.rugbyranker"
         private const val GITHUB_URL = "https://github.com/nicholasrout/rugby-ranker"
     }
 }
