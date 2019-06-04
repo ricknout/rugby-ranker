@@ -6,7 +6,7 @@ import com.ricknout.rugbyranker.theme.vo.Theme
 import javax.inject.Inject
 
 class ThemeViewModel @Inject constructor(
-        private val themeRepository: ThemeRepository
+    private val themeRepository: ThemeRepository
 ) : ViewModel() {
 
     fun getTheme() = themeRepository.getTheme()
