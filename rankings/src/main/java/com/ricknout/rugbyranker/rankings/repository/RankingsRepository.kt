@@ -29,7 +29,7 @@ class RankingsRepository(
         }
         val date = getCurrentDate()
         return try {
-            val worldRugbyRankingsResponse = worldRugbyService.getRankingsAsync(json, date).await()
+            val worldRugbyRankingsResponse = worldRugbyService.getRankings(json, date)
             val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
             worldRugbyRankingDao.insert(worldRugbyRankings)
             rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)

@@ -61,7 +61,7 @@ class MatchesRepository(
         val worldRugbyMatches = mutableListOf<WorldRugbyMatch>()
         return try {
             while (page < pageCount) {
-                val worldRugbyMatchesResponse = worldRugbyService.getMatchesAsync(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK).await()
+                val worldRugbyMatchesResponse = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK)
                 val matches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
                 if (cache) worldRugbyMatchDao.insert(matches)
                 page++

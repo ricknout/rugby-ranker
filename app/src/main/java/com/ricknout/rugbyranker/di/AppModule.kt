@@ -7,7 +7,6 @@ import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
 import androidx.work.WorkManager
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.ricknout.rugbyranker.RugbyRankerApplication
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
@@ -39,7 +38,6 @@ class AppModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .baseUrl(WorldRugbyService.BASE_URL)
                 .build()
     }
