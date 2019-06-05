@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
-                android:text="@string/button_how_are_world_rugby_rankings_calculated" />
+                android:text="@string/button_how_are_rankings_calculated" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/shareThisAppButton"

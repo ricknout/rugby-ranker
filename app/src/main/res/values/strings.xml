@@ -9,7 +9,7 @@
     <string name="title_fixtures">Fixtures</string>
     <string name="title_results">Results</string>
 
-    <string name="subtitle_last_updated_by_world_rugby">Last updated by World Rugby: %s</string>
+    <string name="subtitle_last_updated">Last updated: %s</string>
     <plurals name="subtitle_predicting_matches">
         <item quantity="one">Predicting %d match</item>
         <item quantity="other">Predicting %d matches</item>
