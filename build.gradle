@@ -11,7 +11,7 @@ buildscript {
                     coroutines: '1.2.1'
             ],
             androidX: [
-                    core: '1.1.0-rc01',
+                    core: '1.2.0-alpha01',
                     activity: '1.0.0-beta01',
                     fragment: '1.1.0-beta01',
                     appCompat: '1.1.0-beta01',
