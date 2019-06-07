@@ -7,6 +7,11 @@ jobs:
     environment:
       JVM_OPTS: -Xmx4g
     steps:
+      - run:
+          name: Update SDK
+          command: |
+            yes | sdkmanager --licenses || true
+            sdkmanager "platform-tools" "platforms;android-29"
       - checkout
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}
