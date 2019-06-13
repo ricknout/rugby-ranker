@@ -20,7 +20,7 @@ buildscript {
                     emoji: '1.0.0',
                     browser: '1.0.0',
                     lifecycle: '2.2.0-alpha01',
-                    room: '2.1.0-rc01',
+                    room: '2.1.0',
                     paging: '2.1.0',
                     navigation: '2.1.0-alpha05',
                     work: '2.1.0-alpha03',
@@ -134,8 +134,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        // For Room: https://youtrack.jetbrains.com/issue/KT-27991
-        maven { url "https://kotlin.bintray.com/kotlinx/" }
     }
     apply from: "$rootDir/ktlint.gradle"
 }
