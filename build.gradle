@@ -15,7 +15,7 @@ buildscript {
                     activity: '1.0.0-beta01',
                     fragment: '1.1.0-beta01',
                     appCompat: '1.1.0-beta01',
-                    constraintLayout: '2.0.0-beta1',
+                    constraintLayout: '2.0.0-beta2',
                     recyclerView: '1.1.0-alpha06',
                     emoji: '1.0.0',
                     browser: '1.0.0',
