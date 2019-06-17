@@ -34,7 +34,7 @@ buildscript {
                     material: '1.1.0-alpha07',
                     dagger: '2.23.1',
                     ossLicenses: [
-                            ossLicenses: '16.0.2',
+                            ossLicenses: '17.0.0',
                             gradlePlugin: '0.9.5'
                     ]
             ]
