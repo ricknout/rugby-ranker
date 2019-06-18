@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <bool name="window_light_status_bar">false</bool>
+    <bool name="window_light_system_bar">false</bool>
 
 </resources>

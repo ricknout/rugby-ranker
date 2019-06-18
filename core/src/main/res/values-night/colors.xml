@@ -14,7 +14,8 @@
     <color name="color_background">@color/black</color>
     <color name="color_on_background">@color/white</color>
     <color name="color_status_bar">@color/color_background</color>
-    <color name="color_navigation_bar">@color/color_primary_variant</color>
+    <color name="color_status_bar_main">@color/color_background</color>
+    <color name="color_navigation_bar_main">@color/color_primary_variant</color>
     <color name="color_navigation_bar_launcher">@color/color_background</color>
     <color name="color_stroke">@color/color_on_background_alpha_16</color>
     <color name="color_fill">@color/color_on_background_alpha_8</color>

@@ -1,6 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="RugbyRankerTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="RugbyRankerTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Color attributes -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
@@ -16,7 +16,6 @@
         <item name="colorOnBackground">@color/color_on_background</item>
         <!-- System bar attributes -->
         <item name="android:statusBarColor">@color/color_status_bar</item>
-        <item name="android:navigationBarColor">@color/color_navigation_bar</item>
         <!-- Type attributes -->
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="fontFamily">@font/rajdhani</item>
@@ -37,14 +36,28 @@
         <item name="bottomSheetStyle">@style/RugbyRankerBottomSheet</item>
     </style>
 
-    <style name="RugbyRankerTheme.Secondary">
-        <item name="colorPrimary">@color/color_secondary</item>
-        <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
+    <style name="RugbyRankerTheme.Main">
+        <!-- No action bar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- System bar attributes -->
+        <item name="android:statusBarColor">@color/color_status_bar_main</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="M">@bool/window_light_system_bar</item>
+        <item name="android:navigationBarColor">@color/color_navigation_bar_main</item>
     </style>
 
-    <style name="RugbyRankerTheme.Launcher">
+    <style name="RugbyRankerTheme.Main.Launcher">
+        <!-- Launcher window background -->
         <item name="android:windowBackground">@drawable/bg_launcher</item>
+        <!-- System bar attributes -->
         <item name="android:navigationBarColor">@color/color_navigation_bar_launcher</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">@bool/window_light_system_bar</item>
+    </style>
+
+    <style name="RugbyRankerTheme.Secondary">
+        <!-- Color attributes -->
+        <item name="colorPrimary">@color/color_secondary</item>
+        <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
     </style>
 
     <style name="RugbyRankerBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
