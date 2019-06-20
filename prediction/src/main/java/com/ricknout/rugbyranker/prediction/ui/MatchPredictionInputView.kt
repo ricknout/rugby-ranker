@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.widget.TooltipCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isInvisible
+import androidx.core.widget.doOnTextChanged
 import com.ricknout.rugbyranker.core.ui.BackgroundClickOnItemTouchListener
-import com.ricknout.rugbyranker.core.ui.SimpleTextWatcher
 import com.ricknout.rugbyranker.prediction.R
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import kotlinx.android.synthetic.main.view_match_prediction_input.view.*
@@ -90,45 +90,35 @@ class MatchPredictionInputView
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 listener?.onHomeTeamClick(position)
             }
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    listener?.onHomeTeamTextChanged(valid)
-                }
-            })
+            doOnTextChanged { text, _, _, _ ->
+                val valid = !text.isNullOrEmpty()
+                listener?.onHomeTeamTextChanged(valid)
+            }
         }
         awayTeamEditText.apply {
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 listener?.onAwayTeamClick(position)
             }
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    listener?.onAwayTeamTextChanged(valid)
-                }
-            })
+            doOnTextChanged { text, _, _, _ ->
+                val valid = !text.isNullOrEmpty()
+                listener?.onAwayTeamTextChanged(valid)
+            }
         }
-        homePointsEditText.apply {
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    listener?.onHomePointsTextChanged(valid)
-                }
-            })
+        homePointsEditText.doOnTextChanged { text, _, _, _ ->
+            val valid = !text.isNullOrEmpty()
+            listener?.onHomePointsTextChanged(valid)
         }
         awayPointsEditText.apply {
-            addTextChangedListener(object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val valid = !s.isNullOrEmpty()
-                    listener?.onAwayPointsTextChanged(valid)
-                }
-            })
-        }
-        awayPointsEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                return@setOnEditorActionListener listener?.onAwayPointsImeDoneAction() ?: false
+            doOnTextChanged { text, _, _, _ ->
+                val valid = !text.isNullOrEmpty()
+                listener?.onAwayPointsTextChanged(valid)
             }
-            false
+            setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    return@setOnEditorActionListener listener?.onAwayPointsImeDoneAction() ?: false
+                }
+                false
+            }
         }
     }
 
