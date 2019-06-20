@@ -23,7 +23,7 @@ buildscript {
                     room: '2.1.0',
                     paging: '2.1.0',
                     navigation: '2.1.0-alpha05',
-                    work: '2.1.0-beta01',
+                    work: '2.1.0-beta02',
                     test: [
                             core: '1.2.1-alpha01',
                             jUnit: '1.1.2-alpha01',
