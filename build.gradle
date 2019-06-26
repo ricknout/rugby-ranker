@@ -32,7 +32,7 @@ buildscript {
             ],
             google: [
                     material: '1.1.0-alpha07',
-                    dagger: '2.23.1',
+                    dagger: '2.23.2',
                     ossLicenses: [
                             ossLicenses: '17.0.0',
                             gradlePlugin: '0.9.5'
