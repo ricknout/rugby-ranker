@@ -3,37 +3,37 @@ buildscript {
             compileSdk: 29,
             minSdk: 21,
             targetSdk: 29,
-            androidGradlePlugin: '3.5.0-beta04',
+            androidGradlePlugin: '3.5.0-beta05',
             ktlint: '0.33.0',
             retrofit: '2.6.0',
             kotlin: [
-                    kotlin: '1.3.31',
-                    coroutines: '1.2.1'
+                    kotlin: '1.3.40',
+                    coroutines: '1.2.2'
             ],
             androidX: [
                     core: '1.2.0-alpha02',
-                    activity: '1.0.0-beta01',
-                    fragment: '1.1.0-beta01',
-                    appCompat: '1.1.0-beta01',
+                    activity: '1.1.0-alpha01',
+                    fragment: '1.2.0-alpha01',
+                    appCompat: '1.1.0-rc01',
                     constraintLayout: '2.0.0-beta2',
-                    recyclerView: '1.1.0-alpha06',
+                    recyclerView: '1.1.0-beta01',
                     viewPager2: '1.0.0-alpha05',
                     emoji: '1.0.0',
                     browser: '1.0.0',
-                    lifecycle: '2.2.0-alpha01',
+                    lifecycle: '2.2.0-alpha02',
                     room: '2.1.0',
                     paging: '2.1.0',
-                    navigation: '2.1.0-alpha05',
-                    work: '2.1.0-beta01',
+                    navigation: '2.1.0-alpha06',
+                    work: '2.1.0-rc01',
                     test: [
-                            core: '1.2.0',
-                            jUnit: '1.1.1',
-                            runner: '1.2.0'
+                            core: '1.2.1-alpha01',
+                            jUnit: '1.1.2-alpha01',
+                            runner: '1.3.0-alpha01'
                     ]
             ],
             google: [
                     material: '1.1.0-alpha07',
-                    dagger: '2.23.1',
+                    dagger: '2.23.2',
                     ossLicenses: [
                             ossLicenses: '17.0.0',
                             gradlePlugin: '0.9.5'
