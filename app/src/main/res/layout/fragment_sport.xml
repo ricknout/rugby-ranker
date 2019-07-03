@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/spacing_half"
-        android:theme="@style/RugbyRankerTheme.Secondary"
+        android:theme="@style/RugbyRankerThemeOverlay.Secondary"
         style="?attr/bottomSheetStyle"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:behavior_hideable="true"

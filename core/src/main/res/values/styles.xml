@@ -54,7 +54,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">@bool/window_light_system_bar</item>
     </style>
 
-    <style name="RugbyRankerTheme.Secondary">
+    <style name="RugbyRankerThemeOverlay.Secondary" parent="">
         <!-- Color attributes -->
         <item name="colorPrimary">@color/color_secondary</item>
         <item name="colorPrimaryVariant">@color/color_secondary_variant</item>

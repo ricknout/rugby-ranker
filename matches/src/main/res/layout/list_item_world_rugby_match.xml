@@ -158,7 +158,7 @@
             android:layout_height="wrap_content"
             android:text="@string/button_predict"
             style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
-            android:theme="@style/RugbyRankerTheme.Secondary"
+            android:theme="@style/RugbyRankerThemeOverlay.Secondary"
             app:layout_constraintBaseline_toBaselineOf="@id/timeTextView"
             app:layout_constraintEnd_toEndOf="parent" />
 
