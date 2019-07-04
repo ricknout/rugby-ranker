@@ -16,6 +16,7 @@ import androidx.core.content.res.getColorOrThrow
 import androidx.core.content.res.getDimensionOrThrow
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.getDimensionPixelSizeOrThrow
+import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.withTranslation
 import androidx.core.text.inSpans
 import androidx.core.view.get
@@ -39,41 +40,41 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
         it.first to createHeader(it.second)
     }.toMap()
 
-    private val paint: TextPaint
-    private val width: Int
-    private val paddingTop: Int
-    private val paddingStart: Int
-    private val paddingEnd: Int
-    private val datePaddingTop: Int
-    private val dayMonthTextSize: Int
-    private val yearTextSize: Int
+    private lateinit var paint: TextPaint
+    private var width: Int = 0
+    private var paddingTop: Int = 0
+    private var paddingStart: Int = 0
+    private var paddingEnd: Int = 0
+    private var datePaddingTop: Int = 0
+    private var dayMonthTextSize: Int = 0
+    private var yearTextSize: Int = 0
 
     private val today by lazy { context.getString(R.string.text_today) }
 
     init {
-        val attrs = context.obtainStyledAttributes(
-                R.style.RugbyRankerWorldRugbyMatchDateItemDecoration,
+        context.withStyledAttributes(
+                R.style.ItemDecoration_RugbyRanker_WorldRugbyMatch_Date,
                 R.styleable.WorldRugbyMatchDateItemDecoration
-        )
-        paint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrs.getColorOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_textColor)
-            textSize = attrs.getDimensionOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayMonthTextSize)
-            try {
-                typeface = ResourcesCompat.getFont(
-                        context,
-                        attrs.getResourceIdOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_fontFamily)
-                )
-            } catch (_: Exception) {
+        ) {
+            paint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = getColorOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_textColor)
+                textSize = getDimensionOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayMonthTextSize)
+                try {
+                    typeface = ResourcesCompat.getFont(
+                            context,
+                            getResourceIdOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_fontFamily)
+                    )
+                } catch (_: Exception) {
+                }
             }
+            width = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_width)
+            paddingTop = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingTop)
+            paddingStart = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingStart)
+            paddingEnd = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingEnd)
+            datePaddingTop = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_datePaddingTop)
+            dayMonthTextSize = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayMonthTextSize)
+            yearTextSize = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_yearTextSize)
         }
-        width = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_width)
-        paddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingTop)
-        paddingStart = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingStart)
-        paddingEnd = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingEnd)
-        datePaddingTop = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_datePaddingTop)
-        dayMonthTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayMonthTextSize)
-        yearTextSize = attrs.getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_yearTextSize)
-        attrs.recycle()
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
