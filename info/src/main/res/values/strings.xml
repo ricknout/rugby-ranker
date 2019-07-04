@@ -9,6 +9,6 @@
 
     <string name="title_share">Share %s</string>
     <string name="subject_share">Get the %s app</string>
-    <string name="text_share">View and calculate World Rugby rankings.\n\nGet the %1$s app:\n%2$s</string>
+    <string name="text_share">View and calculate rugby rankings.\n\nGet the %1$s app:\n%2$s</string>
 
 </resources>
