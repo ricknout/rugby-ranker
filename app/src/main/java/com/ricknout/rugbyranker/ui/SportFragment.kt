@@ -12,15 +12,17 @@ import androidx.core.content.getSystemService
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.tabs.TabLayoutMediator
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
@@ -155,10 +157,9 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
     }
 
     private fun setupTabsAndViewPager() {
-        tabLayout.setupWithViewPager(viewPager)
         viewPager.offscreenPageLimit = 3
-        viewPager.adapter = SportFragmentPagerAdapter(childFragmentManager)
-        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+        viewPager.adapter = SportFragmentStateAdapter(this)
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 rankingsViewModel.showMatchPredictionInput.value = position == POSITION_RANKINGS
                 if (showMatchPredictionInput) {
@@ -167,8 +168,22 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
                 }
             }
         })
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                POSITION_RANKINGS -> getString(R.string.title_rankings)
+                POSITION_LIVE -> getString(R.string.title_live)
+                POSITION_FIXTURES -> getString(R.string.title_fixtures)
+                POSITION_RESULTS -> getString(R.string.title_results)
+                else -> null
+            }
+        }.attach()
         // Animate showing/hiding of live tab icon
         ((tabLayout.getChildAt(0) as? LinearLayout)?.getChildAt(POSITION_LIVE) as? LinearLayout)?.layoutTransition = LayoutTransition()
+        // Required to improve nested scrolling of Fragment page RecyclerViews
+        // See: https://issuetracker.google.com/issues/133032785
+        (viewPager.getChildAt(0) as RecyclerView).apply {
+            setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_PAGING)
+        }
     }
 
     private fun toggleLiveMatchesTabIcon(show: Boolean) {
@@ -523,9 +538,9 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         super.onDestroyView()
     }
 
-    inner class SportFragmentPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    inner class SportFragmentStateAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-        override fun getItem(position: Int) = when (position) {
+        override fun createFragment(position: Int) = when (position) {
             POSITION_RANKINGS -> RankingsFragment.newInstance(sport)
             POSITION_LIVE -> LiveMatchesFragment.newInstance(sport)
             POSITION_FIXTURES -> MatchesFragment.newInstance(sport, MatchStatus.UNPLAYED)
@@ -533,15 +548,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
             else -> throw IllegalArgumentException("Position $position exceeds SportFragmentPagerAdapter count")
         }
 
-        override fun getCount() = 4
-
-        override fun getPageTitle(position: Int) = when (position) {
-            POSITION_RANKINGS -> getString(R.string.title_rankings)
-            POSITION_LIVE -> getString(R.string.title_live)
-            POSITION_FIXTURES -> getString(R.string.title_fixtures)
-            POSITION_RESULTS -> getString(R.string.title_results)
-            else -> super.getPageTitle(position)
-        }
+        override fun getItemCount() = 4
     }
 
     companion object {
