@@ -105,7 +105,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         awayTeamAbbreviation = savedInstanceState?.getString(KEY_AWAY_TEAM_ABBREVIATION)
         val bottomSheetState = savedInstanceState?.getInt(KEY_BOTTOM_SHEET_STATE)
         setTitle()
-        setupTabsAndViewPager2()
+        setupTabsAndViewPager()
         setupAddMatchFab()
         setupBottomSheet(bottomSheetState)
         setupViewModels()
@@ -155,7 +155,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         }
     }
 
-    private fun setupTabsAndViewPager2() {
+    private fun setupTabsAndViewPager() {
         viewPager.offscreenPageLimit = 3
         viewPager.adapter = SportFragmentStateAdapter(this)
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
