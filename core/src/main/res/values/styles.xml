@@ -1,89 +1,15 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <style name="RugbyRankerTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Color attributes -->
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
-        <item name="colorOnPrimary">@color/color_on_primary</item>
-        <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
-        <item name="colorOnSecondary">@color/color_on_secondary</item>
-        <item name="colorError">@color/color_error</item>
-        <item name="colorOnError">@color/color_on_error</item>
-        <item name="colorSurface">@color/color_surface</item>
-        <item name="colorOnSurface">@color/color_on_surface</item>
-        <item name="android:colorBackground">@color/color_background</item>
-        <item name="colorOnBackground">@color/color_on_background</item>
-        <!-- System bar attributes -->
-        <item name="android:statusBarColor">@color/color_status_bar</item>
-        <!-- Type attributes -->
-        <item name="android:fontFamily">@font/rajdhani</item>
-        <item name="fontFamily">@font/rajdhani</item>
-        <item name="textAppearanceHeadline6">@style/RugbyRankerTextAppearance.Headline6</item>
-        <item name="textAppearanceButton">@style/RugbyRankerTextAppearance.Button</item>
-        <!-- Shape attributes -->
-        <item name="shapeAppearanceSmallComponent">@style/RugbyRankerShapeAppearance.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/RugbyRankerShapeAppearance.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/RugbyRankerShapeAppearance.LargeComponent</item>
-        <!-- Widget style attributes -->
-        <item name="bottomNavigationStyle">@style/RugbyRankerBottomNavigationView</item>
-        <item name="textInputStyle">@style/RugbyRankerTextInputLayout</item>
-        <item name="materialCardViewStyle">@style/RugbyRankerCardView</item>
-        <item name="chipStyle">@style/RugbyRankerChip</item>
-        <item name="android:listDivider">@drawable/list_divider</item>
-        <item name="android:progressBarStyle">@style/RugbyRankerProgressBar</item>
-        <item name="snackbarStyle">@style/RugbyRankerSnackbar</item>
-        <item name="bottomSheetStyle">@style/RugbyRankerBottomSheet</item>
-    </style>
+    <style name="Widget.RugbyRanker.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
 
-    <style name="RugbyRankerTheme.Main">
-        <!-- No action bar -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- System bar attributes -->
-        <item name="android:statusBarColor">@color/color_status_bar_main</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="M">@bool/window_light_system_bar</item>
-        <item name="android:navigationBarColor">@color/color_navigation_bar_main</item>
-    </style>
-
-    <style name="RugbyRankerTheme.Main.Launcher">
-        <!-- Launcher window background -->
-        <item name="android:windowBackground">@drawable/bg_launcher</item>
-        <!-- System bar attributes -->
-        <item name="android:navigationBarColor">@color/color_navigation_bar_launcher</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">@bool/window_light_system_bar</item>
-    </style>
-
-    <style name="RugbyRankerTheme.Secondary">
-        <!-- Color attributes -->
-        <item name="colorPrimary">@color/color_secondary</item>
-        <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
-    </style>
-
-    <style name="RugbyRankerBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
-
-    <style name="RugbyRankerTextAppearance.Headline6" parent="@style/TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textSize">@dimen/text_size_headline_6</item>
-    </style>
-
-    <style name="RugbyRankerTextAppearance.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
-
-    <style name="RugbyRankerTextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
-        <item name="android:textAllCaps">false</item>
-    </style>
-
-    <style name="RugbyRankerTextAppearance.Chip" parent="TextAppearance.MaterialComponents.Chip">
-        <item name="android:fontFamily">@font/rajdhani</item>
-    </style>
-
-    <style name="RugbyRankerMaterialButton.TextButton.DoublePadding" parent="Widget.MaterialComponents.Button.TextButton">
+    <style name="Widget.RugbyRanker.Button.TextButton.DoublePadding" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:minWidth">0dp</item>
         <item name="android:paddingStart">@dimen/spacing_double</item>
         <item name="android:paddingEnd">@dimen/spacing_double</item>
     </style>
 
-    <style name="RugbyRankerChip" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="android:textAppearance">@style/RugbyRankerTextAppearance.Chip</item>
+    <style name="Widget.RugbyRanker.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:textAppearance">@style/TextAppearance.RugbyRanker.Chip</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="chipBackgroundColor">?attr/colorSecondary</item>
         <item name="rippleColor">?attr/colorOnSecondary</item>
@@ -91,20 +17,29 @@
         <item name="chipIconTint">?attr/colorOnSecondary</item>
     </style>
 
-    <style name="RugbyRankerTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+    <style name="Widget.RugbyRanker.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
 
-    <style name="RugbyRankerCardView" parent="Widget.MaterialComponents.CardView">
+    <style name="Widget.RugbyRanker.CardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">@dimen/elevation_card_view</item>
         <item name="cardBackgroundColor">@color/color_fill</item>
         <item name="strokeWidth">@dimen/size_stroke</item>
         <item name="strokeColor">@color/color_stroke</item>
     </style>
     
-    <style name="RugbyRankerProgressBar" parent="Widget.AppCompat.ProgressBar">
+    <style name="Widget.RugbyRanker.ProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminate">true</item>
     </style>
 
-    <style name="RugbyRankerWorldRugbyMatchDateItemDecoration">
+    <style name="Widget.RugbyRanker.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="animationMode">slide</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.BottomSheet" parent="">
+        <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
+        <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
+    </style>
+
+    <style name="ItemDecoration.RugbyRanker.WorldRugbyMatch.Date" parent="">
         <item name="android:width">@dimen/width_world_rugby_match_date_header</item>
         <item name="android:paddingTop">@dimen/spacing_standard</item>
         <item name="android:paddingStart">@dimen/padding_start_world_rugby_match_date_header</item>
@@ -116,33 +51,9 @@
         <item name="yearTextSize">@dimen/text_size_world_rugby_match_date_header_year</item>
     </style>
 
-    <style name="RugbyRankerWorldRugbyMatchSpaceItemDecoration">
+    <style name="ItemDecoration.RugbyRanker.WorldRugbyMatch.Space" parent="">
         <item name="android:paddingTop">@dimen/spacing_standard</item>
         <item name="paddingHorizontal">@dimen/padding_horizontal_world_rugby_match_space</item>
-    </style>
-
-    <style name="RugbyRankerSnackbar" parent="Widget.MaterialComponents.Snackbar">
-        <item name="animationMode">slide</item>
-    </style>
-
-    <style name="RugbyRankerBottomSheet">
-        <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
-        <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
-    </style>
-
-    <style name="RugbyRankerShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/size_corner</item>
-    </style>
-
-    <style name="RugbyRankerShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/size_corner</item>
-    </style>
-
-    <style name="RugbyRankerShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/size_corner</item>
     </style>
 
 </resources>

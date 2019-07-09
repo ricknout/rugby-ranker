@@ -22,7 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="?attr/actionBarSize"
                 android:gravity="center"
-                android:textAppearance="@style/RugbyRankerTextAppearance.ToolbarTitle"
+                android:textAppearance="@style/TextAppearance.RugbyRanker.Toolbar.Title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,14 +43,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:theme="@style/RugbyRankerTheme.Secondary">
+            android:theme="@style/ThemeOverlay.RugbyRanker.Secondary">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/howAreWorldRugbyRankingsCalculatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
+                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
                 android:text="@string/button_how_are_rankings_calculated" />
 
             <com.google.android.material.button.MaterialButton
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
+                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
                 android:text="@string/button_share_this_app" />
 
             <com.google.android.material.button.MaterialButton
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
+                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
                 android:text="@string/button_view_source_code" />
 
             <com.google.android.material.button.MaterialButton
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
+                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
                 android:text="@string/button_open_source_licenses" />
 
             <com.google.android.material.button.MaterialButton
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
-                style="@style/RugbyRankerMaterialButton.TextButton.DoublePadding"
+                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
                 android:text="@string/title_choose_theme" />
 
         </LinearLayout>

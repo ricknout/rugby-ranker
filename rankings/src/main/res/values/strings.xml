@@ -5,7 +5,7 @@
     <string name="ranking_points_difference_positive" translatable="false">(+%s)</string>
     <string name="ranking_points_difference_negative" translatable="false">(−%s)</string>
 
-    <string name="snackbar_fetching_world_rugby_rankings">Fetching World Rugby Rankings&#8230;</string>
-    <string name="snackbar_failed_to_refresh_world_rugby_rankings">Failed to refresh World Rugby Rankings</string>
+    <string name="snackbar_fetching_world_rugby_rankings">Fetching rankings&#8230;</string>
+    <string name="snackbar_failed_to_refresh_world_rugby_rankings">Failed to refresh rankings</string>
 
 </resources>
