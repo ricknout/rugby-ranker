@@ -113,6 +113,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         val onBackPressCallbackEnabled = ::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED
         onBackPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, enabled = onBackPressCallbackEnabled) {
             hideBottomSheet()
+            matchPredictionInputView.dismissTeamDropDowns()
         }
     }
 

@@ -203,6 +203,11 @@ class MatchPredictionInputView
         setAlphaAndVisibility(closeButton, offsetToAlpha(offset, ALPHA_CHANGE_OVER, ALPHA_MAX_ADD_OR_EDIT_MATCH_PREDICTION))
     }
 
+    fun dismissTeamDropDowns() {
+        homeTeamEditText.dismissDropDown()
+        awayTeamEditText.dismissDropDown()
+    }
+
     private fun offsetToAlpha(value: Float, rangeMin: Float, rangeMax: Float): Float {
         return ((value - rangeMin) / (rangeMax - rangeMin)).coerceIn(0f, 1f)
     }
