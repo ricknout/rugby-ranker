@@ -26,28 +26,28 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
-import com.ricknout.rugbyranker.matches.ui.MatchesFragment
-import com.ricknout.rugbyranker.matches.ui.MatchesViewModel
-import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
-import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
-import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
-import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
-import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
 import com.ricknout.rugbyranker.core.util.FlagUtils
-import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.ui.LiveMatchesFragment
 import com.ricknout.rugbyranker.live.ui.LiveMatchesViewModel
 import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
 import com.ricknout.rugbyranker.live.ui.WomensLiveMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.MatchesFragment
+import com.ricknout.rugbyranker.matches.ui.MatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.matches.vo.MatchStatus
+import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
+import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
+import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
-import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
-import kotlinx.android.synthetic.main.fragment_sport.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_sport.*
 
 class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
 

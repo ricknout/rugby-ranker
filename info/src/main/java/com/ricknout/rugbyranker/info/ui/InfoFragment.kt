@@ -1,10 +1,8 @@
 package com.ricknout.rugbyranker.info.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.ricknout.rugbyranker.info.R
-import kotlinx.android.synthetic.main.fragment_info.*
-import android.content.Intent
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -12,8 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
+import com.ricknout.rugbyranker.info.R
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_info.*
 
 class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
 

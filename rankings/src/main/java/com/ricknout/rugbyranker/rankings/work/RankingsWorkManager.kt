@@ -2,11 +2,11 @@ package com.ricknout.rugbyranker.rankings.work
 
 import androidx.lifecycle.LiveData
 import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.ricknout.rugbyranker.core.vo.Sport
 import java.util.concurrent.TimeUnit
 

@@ -1,10 +1,10 @@
 package com.ricknout.rugbyranker.rankings.prefs
 
 import android.content.SharedPreferences
-import com.ricknout.rugbyranker.core.vo.Sport
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import com.ricknout.rugbyranker.core.prefs.LongSharedPreferenceLiveData
+import com.ricknout.rugbyranker.core.vo.Sport
 
 class RankingsSharedPreferences(private val sharedPreferences: SharedPreferences) {
 

@@ -8,11 +8,11 @@ import androidx.emoji.text.EmojiCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ricknout.rugbyranker.rankings.R
 import com.ricknout.rugbyranker.core.util.FlagUtils
+import com.ricknout.rugbyranker.rankings.R
 import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
-import kotlinx.android.synthetic.main.list_item_world_rugby_ranking.view.*
 import kotlin.math.abs
+import kotlinx.android.synthetic.main.list_item_world_rugby_ranking.view.*
 
 class WorldRugbyRankingListAdapter : ListAdapter<WorldRugbyRanking, WorldRugbyRankingViewHolder>(DIFF_CALLBACK) {
 

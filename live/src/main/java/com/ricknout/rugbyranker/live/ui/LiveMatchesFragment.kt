@@ -17,10 +17,10 @@ import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.NavGraphLiveDirections
 import com.ricknout.rugbyranker.live.R
-import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchSpaceItemDecoration
 import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchListAdapter
-import kotlinx.android.synthetic.main.fragment_live_matches.*
+import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchSpaceItemDecoration
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_live_matches.*
 
 class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matches) {
 

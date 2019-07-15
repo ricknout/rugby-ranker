@@ -14,8 +14,8 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getColorOrThrow
 import androidx.core.content.res.getDimensionOrThrow
-import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.res.getDimensionPixelSizeOrThrow
+import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.withTranslation
 import androidx.core.text.inSpans
@@ -23,8 +23,8 @@ import androidx.core.view.get
 import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.core.util.DateUtils
-import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 import com.ricknout.rugbyranker.matches.R
+import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
 
 class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 

@@ -1,7 +1,7 @@
 package com.ricknout.rugbyranker.core.util
 
-import org.junit.Test
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class FlagUtilsTest {
 

@@ -5,9 +5,9 @@ import com.ricknout.rugbyranker.core.api.Entry
 import com.ricknout.rugbyranker.core.api.Team
 import com.ricknout.rugbyranker.core.api.WorldRugbyRankingsResponse
 import com.ricknout.rugbyranker.core.vo.Sport
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.assertEquals
 
 class RankingsDataConverterTest {
 

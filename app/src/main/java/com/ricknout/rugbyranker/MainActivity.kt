@@ -17,9 +17,9 @@ import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.ui.MensViewModel
 import com.ricknout.rugbyranker.ui.WomensViewModel
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.*
 import me.saket.fluidresize.sample.FluidContentResizer
-import javax.inject.Inject
 
 class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
 

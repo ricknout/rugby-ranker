@@ -3,9 +3,9 @@ package com.ricknout.rugbyranker.matches.work
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
+import com.ricknout.rugbyranker.matches.vo.MatchStatus
 
 open class WorldRugbyMatchesWorker(
     context: Context,

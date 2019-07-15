@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.ricknout.rugbyranker.rankings.R
-import javax.inject.Inject
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +17,9 @@ import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.core.vo.Sport
+import com.ricknout.rugbyranker.rankings.R
 import com.ricknout.rugbyranker.rankings.RankingsNavGraphDirections
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_rankings.*
 
 class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {

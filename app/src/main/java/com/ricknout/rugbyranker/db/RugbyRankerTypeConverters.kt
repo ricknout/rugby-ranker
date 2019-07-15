@@ -1,8 +1,8 @@
 package com.ricknout.rugbyranker.db
 
 import androidx.room.TypeConverter
-import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.core.vo.Sport
+import com.ricknout.rugbyranker.matches.vo.MatchStatus
 
 class RugbyRankerTypeConverters {
 

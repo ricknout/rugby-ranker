@@ -1,8 +1,8 @@
 package com.ricknout.rugbyranker.rankings.vo
 
 import com.ricknout.rugbyranker.core.vo.Sport
-import org.junit.Test
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class WorldRugbyRankingTest {
 
