@@ -23,7 +23,7 @@ buildscript {
                     lifecycle: '2.2.0-alpha02',
                     room: '2.2.0-alpha01',
                     paging: '2.1.0',
-                    navigation: '2.1.0-alpha06',
+                    navigation: '2.1.0-beta01',
                     work: '2.1.0',
                     test: [
                             core: '1.2.1-alpha02',
