@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -180,11 +179,6 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         }.attach()
         // Animate showing/hiding of live tab icon
         ((tabLayout.getChildAt(0) as? LinearLayout)?.getChildAt(POSITION_LIVE) as? LinearLayout)?.layoutTransition = LayoutTransition()
-        // Required to improve nested scrolling of Fragment page RecyclerViews
-        // See: https://issuetracker.google.com/issues/133032785
-        (viewPager.getChildAt(0) as RecyclerView).apply {
-            setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_PAGING)
-        }
     }
 
     private fun toggleLiveMatchesTabIcon(show: Boolean) {
