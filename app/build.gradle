@@ -53,7 +53,9 @@ dependencies {
     implementation project(':live')
     implementation project(':info')
     implementation project(':theme')
-    implementation deps.androidX.viewPager2
+    implementation(deps.androidX.viewPager2) {
+        exclude group: 'org.jacoco' // BUG: Workaround for lint failing in ViewPager2 1.0.0-beta01
+    }
     kapt deps.androidX.lifecycle.compiler
     kapt deps.androidX.room.compiler
     kapt deps.google.dagger.compiler
