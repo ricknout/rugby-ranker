@@ -33,8 +33,12 @@ dependencies {
     api deps.androidX.room.runtime
     api deps.androidX.room.ktx
     api deps.androidX.paging.runtimeKtx
-    api deps.androidX.navigation.uiKtx
-    api deps.androidX.navigation.fragmentKtx
+    api(deps.androidX.navigation.uiKtx) {
+        exclude group: 'org.jacoco' // BUG: Workaround for lint failing in Navigation 2.1.0-beta01
+    }
+    api(deps.androidX.navigation.fragmentKtx) {
+        exclude group: 'org.jacoco' // BUG: Workaround for lint failing in Navigation 2.1.0-beta01
+    }
     api deps.androidX.work.runtimeKtx
     api deps.google.material
     api deps.google.dagger.dagger
