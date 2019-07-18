@@ -138,6 +138,9 @@ allprojects {
         jcenter()
     }
     apply from: "$rootDir/ktlint.gradle"
+    configurations.all {
+        exclude group: 'org.jacoco' // BUG: Workaround for lint failing in Navigation, ViewPager2, etc.
+    }
 }
 
 task clean(type: Delete) {
