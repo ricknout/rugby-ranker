@@ -56,6 +56,7 @@ buildscript {
                     constraintLayout: "androidx.constraintlayout:constraintlayout:$versions.androidX.constraintLayout",
                     recyclerView: "androidx.recyclerview:recyclerview:$versions.androidX.recyclerView",
                     viewPager2: "androidx.viewpager2:viewpager2:$versions.androidX.viewPager2",
+                    emoji: "androidx.emoji:emoji:$versions.androidX.emoji",
                     browser: "androidx.browser:browser:$versions.androidX.browser",
                     core: [
                             ktx: "androidx.core:core-ktx:$versions.androidX.core"
@@ -65,10 +66,6 @@ buildscript {
                     ],
                     fragment: [
                             ktx: "androidx.fragment:fragment-ktx:$versions.androidX.fragment"
-                    ],
-                    emoji: [
-                            emoji: "androidx.emoji:emoji:$versions.androidX.emoji",
-                            bundled: "androidx.emoji:emoji-bundled:$versions.androidX.emoji"
                     ],
                     lifecycle: [
                             extensions: "androidx.lifecycle:lifecycle-extensions:$versions.androidX.lifecycle",

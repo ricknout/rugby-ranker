@@ -27,8 +27,7 @@ dependencies {
     api deps.androidX.appCompat
     api deps.androidX.constraintLayout
     api deps.androidX.recyclerView
-    api deps.androidX.emoji.emoji
-    api deps.androidX.emoji.bundled
+    api deps.androidX.emoji
     api deps.androidX.lifecycle.extensions
     api deps.androidX.room.runtime
     api deps.androidX.room.ktx
