@@ -1,7 +1,8 @@
 package com.ricknout.rugbyranker
 
-import androidx.emoji.bundled.BundledEmojiCompatConfig
+import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
+import androidx.emoji.text.FontRequestEmojiCompatConfig
 import androidx.work.Configuration
 import com.ricknout.rugbyranker.di.AppComponent
 import com.ricknout.rugbyranker.di.DaggerAppComponent
@@ -36,7 +37,12 @@ class RugbyRankerApplication : DaggerApplication(), Configuration.Provider {
     }
 
     private fun initEmojiCompat() {
-        val emojiCompatConfig = BundledEmojiCompatConfig(this).apply { setReplaceAll(true) }
+        val fontRequest = FontRequest(
+                "com.google.android.gms.fonts",
+                "com.google.android.gms",
+                "Noto Color Emoji Compat",
+                R.array.com_google_android_gms_fonts_certs)
+        val emojiCompatConfig = FontRequestEmojiCompatConfig(this, fontRequest).apply { setReplaceAll(true) }
         EmojiCompat.init(emojiCompatConfig)
     }
 
