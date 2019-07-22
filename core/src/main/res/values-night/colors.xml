@@ -9,9 +9,9 @@
     <color name="color_on_secondary">@color/black</color>
     <color name="color_error">@color/world_rugby_red_light</color>
     <color name="color_on_error">@color/black</color>
-    <color name="color_surface">@color/black</color>
+    <color name="color_surface">@color/dark_grey</color>
     <color name="color_on_surface">@color/white</color>
-    <color name="color_background">@color/black</color>
+    <color name="color_background">@color/dark_grey</color>
     <color name="color_on_background">@color/white</color>
     <color name="color_status_bar">@color/color_background</color>
     <color name="color_status_bar_main">@color/color_background</color>

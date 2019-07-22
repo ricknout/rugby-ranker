@@ -39,5 +39,6 @@
     <color name="world_rugby_red_light">#ff5c44</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="dark_grey">#121212</color>
 
 </resources>
