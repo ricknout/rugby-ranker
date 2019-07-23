@@ -34,8 +34,7 @@
         <item name="animationMode">slide</item>
     </style>
 
-    <style name="Widget.RugbyRanker.BottomSheet" parent="">
-        <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
+    <style name="Widget.RugbyRanker.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
         <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
     </style>
 

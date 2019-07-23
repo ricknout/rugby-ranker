@@ -192,9 +192,10 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         }
     }
 
-    @SuppressWarnings("WrongConstant")
+    @SuppressWarnings("WrongConstant", "VisibleForTests")
     private fun setupBottomSheet(bottomSheetState: Int?) {
         bottomSheetBehavior = BottomSheetBehavior.from(matchPredictionInputView)
+        bottomSheetBehavior.disableShapeAnimations()
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 matchPredictionInputView.updateAlphaForOffset(slideOffset, rankingsViewModel.hasMatchPredictions())
