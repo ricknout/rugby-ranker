@@ -17,6 +17,7 @@ buildscript {
                     appCompat: '1.1.0-rc01',
                     constraintLayout: '2.0.0-beta2',
                     recyclerView: '1.1.0-beta01',
+                    swipeRefreshLayout: '1.1.0-alpha02',
                     viewPager2: '1.0.0-beta02',
                     emoji: '1.0.0',
                     browser: '1.0.0',
@@ -32,7 +33,7 @@ buildscript {
                     ]
             ],
             google: [
-                    material: '1.1.0-alpha08',
+                    material: '1.1.0-alpha09',
                     dagger: '2.24',
                     ossLicenses: [
                             ossLicenses: '17.0.0',
@@ -55,6 +56,7 @@ buildscript {
                     appCompat: "androidx.appcompat:appcompat:$versions.androidX.appCompat",
                     constraintLayout: "androidx.constraintlayout:constraintlayout:$versions.androidX.constraintLayout",
                     recyclerView: "androidx.recyclerview:recyclerview:$versions.androidX.recyclerView",
+                    swipeRefreshLayout: "androidx.swiperefreshlayout:swiperefreshlayout:$versions.androidX.swipeRefreshLayout",
                     viewPager2: "androidx.viewpager2:viewpager2:$versions.androidX.viewPager2",
                     emoji: "androidx.emoji:emoji:$versions.androidX.emoji",
                     browser: "androidx.browser:browser:$versions.androidX.browser",
