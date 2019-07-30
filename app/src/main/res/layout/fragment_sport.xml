@@ -61,7 +61,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addMatchPredictionFab"
@@ -81,7 +81,7 @@
         android:layout_marginBottom="@dimen/spacing_half"
         android:theme="@style/ThemeOverlay.RugbyRanker.Secondary"
         style="?attr/bottomSheetStyle"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:layout_behavior="@string/bottom_sheet_behavior"
         app:behavior_hideable="true"
         app:behavior_peekHeight="@dimen/height_peek"
         app:behavior_skipCollapsed="true"
