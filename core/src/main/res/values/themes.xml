@@ -28,6 +28,7 @@
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.RugbyRanker.LargeComponent</item>
         <!-- Widget style attributes -->
         <item name="bottomNavigationStyle">@style/Widget.RugbyRanker.BottomNavigationView</item>
+        <item name="appBarLayoutStyle">@style/Widget.RugbyRanker.AppBarLayout</item>
         <item name="textInputStyle">@style/Widget.RugbyRanker.TextInputLayout</item>
         <item name="materialCardViewStyle">@style/Widget.RugbyRanker.CardView</item>
         <item name="chipStyle">@style/Widget.RugbyRanker.Chip</item>
