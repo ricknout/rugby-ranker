@@ -192,7 +192,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         }
     }
 
-    @SuppressWarnings("WrongConstant", "VisibleForTests")
+    @SuppressWarnings("WrongConstant", "VisibleForTests", "RestrictedApi")
     private fun setupBottomSheet(bottomSheetState: Int?) {
         bottomSheetBehavior = BottomSheetBehavior.from(matchPredictionInputView)
         bottomSheetBehavior.disableShapeAnimations()
