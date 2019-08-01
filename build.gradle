@@ -5,7 +5,7 @@ buildscript {
             targetSdk: 29,
             androidGradlePlugin: '3.5.0-rc01',
             ktlint: '0.34.2',
-            retrofit: '2.6.0',
+            retrofit: '2.6.1',
             kotlin: [
                     kotlin: '1.3.41',
                     coroutines: '1.2.2'
