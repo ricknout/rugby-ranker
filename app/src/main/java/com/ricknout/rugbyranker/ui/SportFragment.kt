@@ -480,23 +480,24 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
     }
 
     private fun applyWorldRugbyMatchToInput(worldRugbyMatch: WorldRugbyMatch) {
-        homeTeamId = worldRugbyMatch.firstTeamId
-        homeTeamName = worldRugbyMatch.firstTeamName
-        homeTeamAbbreviation = worldRugbyMatch.firstTeamAbbreviation!!
+        val switched = worldRugbyMatch.secondTeamName == worldRugbyMatch.venueName
+        homeTeamId = if (!switched) worldRugbyMatch.firstTeamId else worldRugbyMatch.secondTeamId
+        homeTeamName = if (!switched) worldRugbyMatch.firstTeamName else worldRugbyMatch.secondTeamName
+        homeTeamAbbreviation = if (!switched) worldRugbyMatch.firstTeamAbbreviation!! else worldRugbyMatch.secondTeamAbbreviation!!
         val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation!!), homeTeamName))
+                FlagUtils.getFlagEmojiForTeamAbbreviation(homeTeamAbbreviation!!), homeTeamName))
         matchPredictionInputView.homeTeamText = homeTeam
-        awayTeamId = worldRugbyMatch.secondTeamId
-        awayTeamName = worldRugbyMatch.secondTeamName
-        awayTeamAbbreviation = worldRugbyMatch.secondTeamAbbreviation!!
+        awayTeamId = if (!switched) worldRugbyMatch.secondTeamId else worldRugbyMatch.firstTeamId
+        awayTeamName = if (!switched) worldRugbyMatch.secondTeamName else worldRugbyMatch.firstTeamName
+        awayTeamAbbreviation = if (!switched) worldRugbyMatch.secondTeamAbbreviation!! else worldRugbyMatch.firstTeamAbbreviation!!
         val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation!!), awayTeamName))
+                FlagUtils.getFlagEmojiForTeamAbbreviation(awayTeamAbbreviation!!), awayTeamName))
         matchPredictionInputView.awayTeamText = awayTeam
         when (worldRugbyMatch.status) {
             MatchStatus.UNPLAYED -> matchPredictionInputView.clearMatchPredictionPointsInput()
             else -> {
-                matchPredictionInputView.homePointsText = worldRugbyMatch.firstTeamScore
-                matchPredictionInputView.awayPointsText = worldRugbyMatch.secondTeamScore
+                matchPredictionInputView.homePointsText = if (!switched) worldRugbyMatch.firstTeamScore else worldRugbyMatch.secondTeamScore
+                matchPredictionInputView.awayPointsText = if (!switched) worldRugbyMatch.secondTeamScore else worldRugbyMatch.firstTeamScore
             }
         }
         matchPredictionInputView.nhaChecked = worldRugbyMatch.venueCountry?.let { venueCountry ->
