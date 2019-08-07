@@ -22,7 +22,7 @@ buildscript {
                     emoji: '1.0.0',
                     browser: '1.0.0',
                     lifecycle: '2.2.0-alpha02',
-                    room: '2.2.0-alpha01',
+                    room: '2.2.0-alpha02',
                     paging: '2.1.0',
                     navigation: '2.1.0-beta02',
                     work: '2.2.0-rc01',
