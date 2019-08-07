@@ -12,6 +12,7 @@ import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.info.R
 import com.ricknout.rugbyranker.info.util.CustomTabsUtils
+import com.ricknout.rugbyranker.theme.ui.ThemeViewModel
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_info.*
 
@@ -20,7 +21,9 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: InfoViewModel by viewModels({ requireActivity() }, { viewModelFactory })
+    private val infoViewModel: InfoViewModel by viewModels({ requireActivity() }, { viewModelFactory })
+
+    private val themeViewModel: ThemeViewModel by viewModels({ requireActivity() }, { viewModelFactory })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViewModel()
@@ -29,7 +32,7 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
     }
 
     private fun setupViewModel() {
-        viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
+        infoViewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             infoNestedScrollView.smoothScrollTo(0, 0)
             appBarLayout.setExpanded(true)
         })
@@ -37,7 +40,7 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
 
     private fun setupButtons() {
         howAreWorldRugbyRankingsCalculatedButton.setOnClickListener {
-            CustomTabsUtils.launchCustomTab(requireContext(), RANKINGS_EXPLANATION_URL)
+            CustomTabsUtils.launchCustomTab(requireContext(), RANKINGS_EXPLANATION_URL, themeViewModel.getTheme())
         }
         shareThisAppButton.setOnClickListener {
             val appName = getString(R.string.app_name)
@@ -49,7 +52,7 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
             startActivity(Intent.createChooser(intent, requireContext().getString(R.string.title_share, appName)))
         }
         viewSourceCodeButton.setOnClickListener {
-            CustomTabsUtils.launchCustomTab(requireContext(), GITHUB_URL)
+            CustomTabsUtils.launchCustomTab(requireContext(), GITHUB_URL, themeViewModel.getTheme())
         }
         openSourceLicensesButton.setOnClickListener {
             val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
@@ -63,7 +66,7 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
     private fun setupNestedScrollView() {
         infoNestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
             val delta = scrollY - oldScrollY
-            viewModel.onScroll(delta)
+            infoViewModel.onScroll(delta)
         })
     }
 

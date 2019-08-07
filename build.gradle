@@ -20,7 +20,7 @@ buildscript {
                     swipeRefreshLayout: '1.1.0-alpha02',
                     viewPager2: '1.0.0-beta03',
                     emoji: '1.0.0',
-                    browser: '1.0.0',
+                    browser: '1.2.0-alpha07',
                     lifecycle: '2.2.0-alpha02',
                     room: '2.2.0-alpha02',
                     paging: '2.1.0',
