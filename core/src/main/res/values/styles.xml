@@ -40,6 +40,13 @@
         <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
     </style>
 
+    <style name="Widget.RugbyRanker.RecyclerView" parent="">
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
     <style name="ItemDecoration.RugbyRanker.WorldRugbyMatch.Date" parent="">
         <item name="android:width">@dimen/width_world_rugby_match_date_header</item>
         <item name="android:paddingTop">@dimen/spacing_standard</item>

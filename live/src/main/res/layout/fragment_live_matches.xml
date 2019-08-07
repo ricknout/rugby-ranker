@@ -57,10 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/spacing_standard"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            android:scrollbars="vertical"
             tools:listitem="@layout/list_item_world_rugby_match" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

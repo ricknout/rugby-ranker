@@ -36,6 +36,7 @@
         <item name="android:progressBarStyle">@style/Widget.RugbyRanker.ProgressBar</item>
         <item name="snackbarStyle">@style/Widget.RugbyRanker.Snackbar</item>
         <item name="bottomSheetStyle">@style/Widget.RugbyRanker.BottomSheet</item>
+        <item name="recyclerViewStyle">@style/Widget.RugbyRanker.RecyclerView</item>
     </style>
 
     <style name="Theme.RugbyRanker.Main">
