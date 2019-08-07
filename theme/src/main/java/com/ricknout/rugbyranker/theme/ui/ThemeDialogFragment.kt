@@ -2,7 +2,7 @@ package com.ricknout.rugbyranker.theme.ui
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ricknout.rugbyranker.theme.R
@@ -14,7 +14,7 @@ class ThemeDialogFragment : DaggerDialogFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: ThemeViewModel by viewModels({ requireActivity() }, { viewModelFactory })
+    private val viewModel: ThemeViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val themes = viewModel.getThemes()

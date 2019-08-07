@@ -63,7 +63,7 @@ class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
                     womensUnplayedMatchesViewModel.scrollToTop()
                     womensCompleteMatchesViewModel.scrollToTop()
                 }
-                R.id.infoFragment -> infoViewModel.scrollToTop()
+                R.id.infoNavGraph -> infoViewModel.scrollToTop()
             }
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -80,7 +80,7 @@ class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
                         mensRankingsViewModel.resetMatchPredictionInputState()
                     }
                 }
-                R.id.infoFragment -> {
+                R.id.infoNavGraph -> {
                     bottomNavigationView.post {
                         mensRankingsViewModel.endEditMatchPrediction()
                         mensRankingsViewModel.resetMatchPredictionInputState()

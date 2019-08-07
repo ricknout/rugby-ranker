@@ -12,8 +12,8 @@ buildscript {
             ],
             androidX: [
                     core: '1.2.0-alpha03',
-                    activity: '1.1.0-alpha01',
-                    fragment: '1.2.0-alpha01',
+                    activity: '1.1.0-alpha02',
+                    fragment: '1.2.0-alpha02',
                     appCompat: '1.1.0-rc01',
                     constraintLayout: '2.0.0-beta2',
                     recyclerView: '1.1.0-beta02',
@@ -21,10 +21,10 @@ buildscript {
                     viewPager2: '1.0.0-beta03',
                     emoji: '1.0.0',
                     browser: '1.2.0-alpha07',
-                    lifecycle: '2.2.0-alpha02',
+                    lifecycle: '2.2.0-alpha03',
                     room: '2.2.0-alpha02',
                     paging: '2.1.0',
-                    navigation: '2.1.0-beta02',
+                    navigation: '2.2.0-alpha01',
                     work: '2.2.0-rc01',
                     test: [
                             core: '1.2.1-alpha02',

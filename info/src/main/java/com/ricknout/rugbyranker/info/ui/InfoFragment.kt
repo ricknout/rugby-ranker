@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -21,9 +21,9 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val infoViewModel: InfoViewModel by viewModels({ requireActivity() }, { viewModelFactory })
+    private val infoViewModel: InfoViewModel by activityViewModels { viewModelFactory }
 
-    private val themeViewModel: ThemeViewModel by viewModels({ requireActivity() }, { viewModelFactory })
+    private val themeViewModel: ThemeViewModel by activityViewModels { viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViewModel()

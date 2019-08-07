@@ -13,7 +13,7 @@ import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -59,26 +59,26 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
 
     private val sportViewModel: SportViewModel by lazy {
         when (sport) {
-            Sport.MENS -> viewModels<MensViewModel>({ requireActivity() }, { viewModelFactory }).value
-            Sport.WOMENS -> viewModels<WomensViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.MENS -> activityViewModels<MensViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensViewModel> { viewModelFactory }.value
         }
     }
     private val rankingsViewModel: RankingsViewModel by lazy {
         when (sport) {
-            Sport.MENS -> viewModels<MensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
-            Sport.WOMENS -> viewModels<WomensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.MENS -> activityViewModels<MensRankingsViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensRankingsViewModel> { viewModelFactory }.value
         }
     }
     private val liveMatchesViewModel: LiveMatchesViewModel by lazy {
         when (sport) {
-            Sport.MENS -> viewModels<MensLiveMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
-            Sport.WOMENS -> viewModels<WomensLiveMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.MENS -> activityViewModels<MensLiveMatchesViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensLiveMatchesViewModel> { viewModelFactory }.value
         }
     }
     private val unplayedMatchesViewModel: MatchesViewModel by lazy {
         when (sport) {
-            Sport.MENS -> viewModels<MensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
-            Sport.WOMENS -> viewModels<WomensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.MENS -> activityViewModels<MensUnplayedMatchesViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensUnplayedMatchesViewModel> { viewModelFactory }.value
         }
     }
 

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -33,8 +33,8 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
 
     private val viewModel: RankingsViewModel by lazy {
         when (sport) {
-            Sport.MENS -> viewModels<MensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
-            Sport.WOMENS -> viewModels<WomensRankingsViewModel>({ requireActivity() }, { viewModelFactory }).value
+            Sport.MENS -> activityViewModels<MensRankingsViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensRankingsViewModel> { viewModelFactory }.value
         }
     }
 

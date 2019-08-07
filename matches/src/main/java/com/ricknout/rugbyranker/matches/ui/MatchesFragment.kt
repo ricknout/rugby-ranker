@@ -5,7 +5,7 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -34,10 +34,10 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
 
     private val viewModel: MatchesViewModel by lazy {
         when {
-            sport == Sport.MENS && matchStatus == MatchStatus.UNPLAYED -> viewModels<MensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
-            sport == Sport.MENS && matchStatus == MatchStatus.COMPLETE -> viewModels<MensCompleteMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
-            sport == Sport.WOMENS && matchStatus == MatchStatus.UNPLAYED -> viewModels<WomensUnplayedMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
-            sport == Sport.WOMENS && matchStatus == MatchStatus.COMPLETE -> viewModels<WomensCompleteMatchesViewModel>({ requireActivity() }, { viewModelFactory }).value
+            sport == Sport.MENS && matchStatus == MatchStatus.UNPLAYED -> activityViewModels<MensUnplayedMatchesViewModel> { viewModelFactory }.value
+            sport == Sport.MENS && matchStatus == MatchStatus.COMPLETE -> activityViewModels<MensCompleteMatchesViewModel> { viewModelFactory }.value
+            sport == Sport.WOMENS && matchStatus == MatchStatus.UNPLAYED -> activityViewModels<WomensUnplayedMatchesViewModel> { viewModelFactory }.value
+            sport == Sport.WOMENS && matchStatus == MatchStatus.COMPLETE -> activityViewModels<WomensCompleteMatchesViewModel> { viewModelFactory }.value
             else -> throw IllegalArgumentException("Cannot handle $sport and $matchStatus combination in MatchesFragment")
         }
     }
