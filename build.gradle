@@ -3,7 +3,7 @@ buildscript {
             compileSdk: 29,
             minSdk: 21,
             targetSdk: 29,
-            androidGradlePlugin: '3.5.0-rc02',
+            androidGradlePlugin: '3.5.0-rc03',
             ktlint: '0.34.2',
             retrofit: '2.6.1',
             kotlin: [
