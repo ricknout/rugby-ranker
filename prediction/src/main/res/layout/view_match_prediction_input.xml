@@ -199,8 +199,6 @@
         android:id="@+id/matchPredictionsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
         android:requiresFadingEdge="horizontal"
         android:fadingEdgeLength="@dimen/length_fading_edge"
