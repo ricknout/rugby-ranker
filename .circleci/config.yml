@@ -14,14 +14,14 @@ jobs:
             sdkmanager "platform-tools" "platforms;android-29"
       - checkout
       - restore_cache:
-          key: gradle-{{ checksum "build.gradle" }}
+          key: gradle-{{ checksum "dependencies.gradle" }}
       - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
-          key: gradle-{{ checksum "build.gradle" }}
+          key: gradle-{{ checksum "dependencies.gradle" }}
       - run:
           name: Run ktlint
           command: ./gradlew ktlint
