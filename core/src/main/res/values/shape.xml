@@ -3,17 +3,17 @@
 
     <style name="ShapeAppearance.RugbyRanker.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/size_corner</item>
+        <item name="cornerSize">@dimen/size_corner_small</item>
     </style>
 
     <style name="ShapeAppearance.RugbyRanker.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/size_corner</item>
+        <item name="cornerSize">@dimen/size_corner_medium</item>
     </style>
 
     <style name="ShapeAppearance.RugbyRanker.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/size_corner</item>
+        <item name="cornerSize">@dimen/size_corner_large</item>
     </style>
 
 </resources>

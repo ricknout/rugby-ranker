@@ -15,7 +15,9 @@
     <dimen name="width_world_rugby_match_date_header">72dp</dimen>
 
     <dimen name="size_stroke">1dp</dimen>
-    <dimen name="size_corner">4dp</dimen>
+    <dimen name="size_corner_small">8dp</dimen>
+    <dimen name="size_corner_medium">12dp</dimen>
+    <dimen name="size_corner_large">24dp</dimen>
 
     <dimen name="text_size_headline_6">18sp</dimen>
     <dimen name="text_size_world_rugby_match_date_header_day_month">@dimen/text_size_headline_6</dimen>
