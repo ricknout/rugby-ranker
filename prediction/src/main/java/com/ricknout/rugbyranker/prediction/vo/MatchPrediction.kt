@@ -1,8 +1,8 @@
 package com.ricknout.rugbyranker.prediction.vo
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import java.util.UUID
+import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MatchPrediction(

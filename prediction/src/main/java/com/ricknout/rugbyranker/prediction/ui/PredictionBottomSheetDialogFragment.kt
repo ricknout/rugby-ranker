@@ -14,13 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ricknout.rugbyranker.core.ui.NoFilterArrayAdapter
-import com.ricknout.rugbyranker.prediction.R
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerBottomSheetDialogFragment
 import com.ricknout.rugbyranker.core.util.FlagUtils
 import com.ricknout.rugbyranker.core.vo.Sport
+import com.ricknout.rugbyranker.prediction.R
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
-import kotlinx.android.synthetic.main.bottom_sheet_dialog_fragment_prediction.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.bottom_sheet_dialog_fragment_prediction.*
 
 class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
 
