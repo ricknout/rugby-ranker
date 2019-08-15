@@ -6,9 +6,9 @@ import retrofit2.http.Query
 
 interface WorldRugbyService {
 
-    @GET("rugby/rankings/{json}")
+    @GET("rugby/rankings/{sports}")
     suspend fun getRankings(
-        @Path("json") json: String,
+        @Path("sports") sports: String,
         @Query("date") date: String
     ): WorldRugbyRankingsResponse
 
@@ -24,8 +24,6 @@ interface WorldRugbyService {
     ): WorldRugbyMatchesResponse
 
     companion object {
-        const val JSON_MENS = "mru.json"
-        const val JSON_WOMENS = "wru.json"
         const val SPORT_MENS = "mru"
         const val SPORT_WOMENS = "wru"
         const val STATE_UNPLAYED = "U"

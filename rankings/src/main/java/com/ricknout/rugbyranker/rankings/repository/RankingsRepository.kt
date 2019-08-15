@@ -23,13 +23,13 @@ class RankingsRepository(
     fun loadLatestWorldRugbyRankingsTeamIds(sport: Sport) = worldRugbyRankingDao.loadTeamIds(sport)
 
     suspend fun fetchAndCacheLatestWorldRugbyRankingsSync(sport: Sport): Boolean {
-        val json = when (sport) {
-            Sport.MENS -> WorldRugbyService.JSON_MENS
-            Sport.WOMENS -> WorldRugbyService.JSON_WOMENS
+        val sports = when (sport) {
+            Sport.MENS -> WorldRugbyService.SPORT_MENS
+            Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
         }
         val date = getCurrentDate()
         return try {
-            val worldRugbyRankingsResponse = worldRugbyService.getRankings(json, date)
+            val worldRugbyRankingsResponse = worldRugbyService.getRankings(sports, date)
             val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
             worldRugbyRankingDao.insert(worldRugbyRankings)
             rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
