@@ -16,7 +16,7 @@ ext {
                     fragment: '1.2.0-alpha02',
                     appCompat: '1.1.0-rc01',
                     constraintLayout: '2.0.0-beta2',
-                    recyclerView: '1.1.0-beta02',
+                    recyclerView: '1.1.0-beta03',
                     swipeRefreshLayout: '1.1.0-alpha02',
                     viewPager2: '1.0.0-beta03',
                     emoji: '1.0.0',
