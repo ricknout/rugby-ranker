@@ -12,11 +12,11 @@
 
     <style name="Widget.RugbyRanker.Chip" parent="Widget.MaterialComponents.Chip.Action">
         <item name="android:textAppearance">@style/TextAppearance.RugbyRanker.Chip</item>
-        <item name="android:textColor">?attr/colorOnSecondary</item>
-        <item name="chipBackgroundColor">?attr/colorSecondary</item>
-        <item name="rippleColor">?attr/colorOnSecondary</item>
-        <item name="closeIconTint">?attr/colorOnSecondary</item>
-        <item name="chipIconTint">?attr/colorOnSecondary</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="chipBackgroundColor">?attr/colorSurface</item>
+        <item name="rippleColor">?attr/colorOnSurface</item>
+        <item name="closeIconTint">?attr/colorOnSurface</item>
+        <item name="chipIconTint">?attr/colorOnSurface</item>
     </style>
 
     <style name="Widget.RugbyRanker.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
@@ -38,6 +38,11 @@
 
     <style name="Widget.RugbyRanker.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
         <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="behavior_peekHeight">@dimen/peek_height_bottom_sheet_modal</item>
+        <item name="behavior_skipCollapsed">true</item>
     </style>
 
     <style name="Widget.RugbyRanker.RecyclerView" parent="">

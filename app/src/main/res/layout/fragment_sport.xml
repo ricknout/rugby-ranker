@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -63,28 +64,22 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <com.ricknout.rugbyranker.prediction.ui.PredictionBarView
+        android:id="@+id/predictionBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/addMatchPredictionFab"
+        android:id="@+id/addPredictionFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margin_fab"
+        android:layout_margin="@dimen/spacing_double"
         app:fabSize="auto"
-        app:icon="@drawable/ic_add_match_color_control_normal_24dp"
+        app:icon="@drawable/ic_add_black_24dp"
         android:text="@string/button_predict"
         android:contentDescription="@string/content_description_add_match_prediction" />
-
-    <com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
-        android:id="@+id/matchPredictionInputView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_half"
-        android:theme="@style/ThemeOverlay.RugbyRanker.Secondary"
-        style="?attr/bottomSheetStyle"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="@dimen/height_peek"
-        app:behavior_skipCollapsed="true"
-        app:behavior_saveFlags="all" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

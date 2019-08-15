@@ -36,6 +36,7 @@
         <item name="android:progressBarStyle">@style/Widget.RugbyRanker.ProgressBar</item>
         <item name="snackbarStyle">@style/Widget.RugbyRanker.Snackbar</item>
         <item name="bottomSheetStyle">@style/Widget.RugbyRanker.BottomSheet</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.RugbyRanker.BottomSheetDialog</item>
         <item name="recyclerViewStyle">@style/Widget.RugbyRanker.RecyclerView</item>
     </style>
 
@@ -61,6 +62,14 @@
         <!-- Color attributes -->
         <item name="colorPrimary">@color/color_secondary</item>
         <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
+    </style>
+
+    <style name="ThemeOverlay.RugbyRanker.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">@bool/window_light_system_bar</item>
+        <item name="bottomSheetStyle">@style/Widget.RugbyRanker.BottomSheet.Modal</item>
     </style>
 
 </resources>

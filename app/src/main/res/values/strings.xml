@@ -15,6 +15,4 @@
         <item quantity="other">Predicting %d matches</item>
     </plurals>
 
-    <string name="menu_item_team" translatable="false">%1$s %2$s</string>
-
 </resources>

@@ -3,29 +3,22 @@ package com.ricknout.rugbyranker.ui
 import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.appcompat.widget.TooltipCompat
-import androidx.core.content.getSystemService
-import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
-import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
-import com.ricknout.rugbyranker.core.util.FlagUtils
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.ui.LiveMatchesFragment
 import com.ricknout.rugbyranker.live.ui.LiveMatchesViewModel
@@ -33,17 +26,21 @@ import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
 import com.ricknout.rugbyranker.live.ui.WomensLiveMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MatchesFragment
 import com.ricknout.rugbyranker.matches.ui.MatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.MensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
-import com.ricknout.rugbyranker.prediction.ui.MatchPredictionInputView
+import com.ricknout.rugbyranker.prediction.ui.MensPredictionViewModel
+import com.ricknout.rugbyranker.prediction.ui.PredictionBarView
+import com.ricknout.rugbyranker.prediction.ui.PredictionViewModel
+import com.ricknout.rugbyranker.prediction.ui.WomensPredictionViewModel
 import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
 import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
 import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
-import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_sport.*
@@ -69,6 +66,12 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
             Sport.WOMENS -> activityViewModels<WomensRankingsViewModel> { viewModelFactory }.value
         }
     }
+    private val predictionViewModel: PredictionViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> activityViewModels<MensPredictionViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensPredictionViewModel> { viewModelFactory }.value
+        }
+    }
     private val liveMatchesViewModel: LiveMatchesViewModel by lazy {
         when (sport) {
             Sport.MENS -> activityViewModels<MensLiveMatchesViewModel> { viewModelFactory }.value
@@ -81,54 +84,19 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
             Sport.WOMENS -> activityViewModels<WomensUnplayedMatchesViewModel> { viewModelFactory }.value
         }
     }
-
-    private var homeTeamId: Long? = null
-    private var homeTeamName: String? = null
-    private var homeTeamAbbreviation: String? = null
-    private var awayTeamId: Long? = null
-    private var awayTeamName: String? = null
-    private var awayTeamAbbreviation: String? = null
-
-    private var clearMatchPredictionInput = false
-    private var showMatchPredictionInput = false
-
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
-
-    private lateinit var onBackPressedCallback: OnBackPressedCallback
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeTeamId = savedInstanceState?.getLong(KEY_HOME_TEAM_ID)
-        homeTeamName = savedInstanceState?.getString(KEY_HOME_TEAM_NAME)
-        homeTeamAbbreviation = savedInstanceState?.getString(KEY_HOME_TEAM_ABBREVIATION)
-        awayTeamId = savedInstanceState?.getLong(KEY_AWAY_TEAM_ID)
-        awayTeamName = savedInstanceState?.getString(KEY_AWAY_TEAM_NAME)
-        awayTeamAbbreviation = savedInstanceState?.getString(KEY_AWAY_TEAM_ABBREVIATION)
-        val bottomSheetState = savedInstanceState?.getInt(KEY_BOTTOM_SHEET_STATE)
-        setTitle()
-        setupTabsAndViewPager()
-        setupAddMatchFab()
-        setupBottomSheet(bottomSheetState)
-        setupViewModels()
-        val onBackPressCallbackEnabled = ::bottomSheetBehavior.isInitialized && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED
-        onBackPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, enabled = onBackPressCallbackEnabled) {
-            hideBottomSheet()
-            matchPredictionInputView.dismissTeamDropDowns()
+    private val completedMatchesViewModel: MatchesViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> activityViewModels<MensCompleteMatchesViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensCompleteMatchesViewModel> { viewModelFactory }.value
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        homeTeamId?.let { homeTeamId ->
-            outState.putLong(KEY_HOME_TEAM_ID, homeTeamId)
-        }
-        outState.putString(KEY_HOME_TEAM_NAME, homeTeamName)
-        outState.putString(KEY_HOME_TEAM_ABBREVIATION, homeTeamAbbreviation)
-        awayTeamId?.let { awayTeamId ->
-            outState.putLong(KEY_AWAY_TEAM_ID, awayTeamId)
-        }
-        outState.putString(KEY_AWAY_TEAM_NAME, awayTeamName)
-        outState.putString(KEY_AWAY_TEAM_ABBREVIATION, awayTeamAbbreviation)
-        if (::bottomSheetBehavior.isInitialized) outState.putInt(KEY_BOTTOM_SHEET_STATE, bottomSheetBehavior.state)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setTitle()
+        setupTabsAndViewPager()
+        setupAddPredictionFab()
+        setupPredictionBarView()
+        setupViewModels()
     }
 
     private fun setTitle() {
@@ -144,9 +112,9 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
                 subtitleTextView.text = getString(R.string.subtitle_last_updated, effectiveTime)
                 subtitleTextView.isVisible = true
             }
-            rankingsViewModel.hasMatchPredictions() -> {
-                val matchPredictionCount = rankingsViewModel.getMatchPredictionCount()
-                subtitleTextView.text = resources.getQuantityString(R.plurals.subtitle_predicting_matches, matchPredictionCount, matchPredictionCount)
+            predictionViewModel.hasPredictions() -> {
+                val predictionCount = predictionViewModel.getPredictionCount()
+                subtitleTextView.text = resources.getQuantityString(R.plurals.subtitle_predicting_matches, predictionCount, predictionCount)
                 subtitleTextView.isVisible = true
             }
             else -> {
@@ -159,15 +127,6 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
     private fun setupTabsAndViewPager() {
         viewPager.offscreenPageLimit = 3
         viewPager.adapter = SportFragmentStateAdapter(this)
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                rankingsViewModel.showMatchPredictionInput.value = position == POSITION_RANKINGS
-                if (showMatchPredictionInput) {
-                    showBottomSheet()
-                    showMatchPredictionInput = false
-                }
-            }
-        })
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 POSITION_RANKINGS -> getString(R.string.title_rankings)
@@ -192,140 +151,28 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         }
     }
 
-    @SuppressWarnings("WrongConstant", "VisibleForTests", "RestrictedApi")
-    private fun setupBottomSheet(bottomSheetState: Int?) {
-        bottomSheetBehavior = BottomSheetBehavior.from(matchPredictionInputView)
-        bottomSheetBehavior.disableShapeAnimations()
-        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                matchPredictionInputView.updateAlphaForOffset(slideOffset, rankingsViewModel.hasMatchPredictions())
-            }
-            override fun onStateChanged(bottomSheet: View, state: Int) {
-                onBackPressedCallback.isEnabled = state == BottomSheetBehavior.STATE_EXPANDED
-                if (state == BottomSheetBehavior.STATE_COLLAPSED || state == BottomSheetBehavior.STATE_HIDDEN) {
-                    if (clearMatchPredictionInput) {
-                        clearMatchPredictionInput()
-                        clearMatchPredictionInput = false
-                    }
-                    hideSoftInput()
-                    matchPredictionInputView.clearMatchPredictionFocus()
-                }
-            }
-        })
-        matchPredictionInputView.doOnLayout {
-            bottomSheetState?.let { state -> bottomSheetBehavior.state = state }
-            val slideOffset = when (bottomSheetBehavior.state) {
-                BottomSheetBehavior.STATE_EXPANDED -> 1f
-                BottomSheetBehavior.STATE_COLLAPSED -> 0f
-                else -> -1f
-            }
-            matchPredictionInputView.updateAlphaForOffset(slideOffset, rankingsViewModel.hasMatchPredictions())
+    private fun setupAddPredictionFab() {
+        addPredictionFab.setOnClickListener {
+            navigateToPrediction()
         }
-        matchPredictionInputView.listener = object : MatchPredictionInputView.MatchPredictionInputViewListener {
-
-            override fun onHomeTeamClick(position: Int) {
-                val worldRugbyRanking = rankingsViewModel.getLatestWorldRugbyRanking(position) ?: return
-                if (worldRugbyRanking.teamId == awayTeamId) {
-                    val homeTeamText = if (homeTeamAbbreviation == null || homeTeamName == null) null else EmojiCompat.get().process(
-                            getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(homeTeamAbbreviation!!), homeTeamName!!))
-                    matchPredictionInputView.homeTeamText = homeTeamText
-                    return
-                }
-                homeTeamId = worldRugbyRanking.teamId
-                homeTeamName = worldRugbyRanking.teamName
-                homeTeamAbbreviation = worldRugbyRanking.teamAbbreviation
-                val homeTeamText = if (homeTeamAbbreviation == null || homeTeamName == null) null else EmojiCompat.get().process(
-                        getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(homeTeamAbbreviation!!), homeTeamName!!))
-                matchPredictionInputView.homeTeamText = homeTeamText
-            }
-
-            override fun onAwayTeamClick(position: Int) {
-                val worldRugbyRanking = rankingsViewModel.getLatestWorldRugbyRanking(position) ?: return
-                if (worldRugbyRanking.teamId == homeTeamId) {
-                    val awayTeamText = if (awayTeamAbbreviation == null || awayTeamName == null) null else EmojiCompat.get().process(
-                            getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(awayTeamAbbreviation!!), awayTeamName!!))
-                    matchPredictionInputView.awayTeamText = awayTeamText
-                    return
-                }
-                awayTeamId = worldRugbyRanking.teamId
-                awayTeamName = worldRugbyRanking.teamName
-                awayTeamAbbreviation = worldRugbyRanking.teamAbbreviation
-                val awayTeamText = if (awayTeamAbbreviation == null || awayTeamName == null) null else EmojiCompat.get().process(
-                        getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(awayTeamAbbreviation!!), awayTeamName!!))
-                matchPredictionInputView.awayTeamText = awayTeamText
-            }
-
-            override fun onHomeTeamTextChanged(valid: Boolean) {
-                rankingsViewModel.homeTeamInputValid.value = valid
-            }
-
-            override fun onAwayTeamTextChanged(valid: Boolean) {
-                rankingsViewModel.awayTeamInputValid.value = valid
-            }
-
-            override fun onHomePointsTextChanged(valid: Boolean) {
-                rankingsViewModel.homePointsInputValid.value = valid
-            }
-
-            override fun onAwayPointsTextChanged(valid: Boolean) {
-                rankingsViewModel.awayPointsInputValid.value = valid
-            }
-
-            override fun onAddMatchPredictionClick() {
-                clearMatchPredictionInput()
-                showBottomSheet()
-            }
-
-            override fun onClearOrCancelClick() {
-                if (rankingsViewModel.isEditingMatchPrediction()) {
-                    hideBottomSheetAndClearMatchPredictionInput()
-                } else {
-                    clearMatchPredictionInput()
-                }
-            }
-
-            override fun onCloseClick() {
-                hideBottomSheet()
-            }
-
-            override fun onAddOrEditMatchPredictionClick() {
-                if (addOrEditMatchPredictionFromInput()) {
-                    hideBottomSheetAndClearMatchPredictionInput()
-                }
-            }
-
-            override fun onAwayPointsImeDoneAction(): Boolean {
-                if (addOrEditMatchPredictionFromInput()) {
-                    hideBottomSheetAndClearMatchPredictionInput()
-                    return true
-                }
-                return false
-            }
-
-            override fun onMatchPredictionClick(matchPrediction: MatchPrediction) {
-                rankingsViewModel.beginEditMatchPrediction(matchPrediction)
-                applyMatchPredictionToInput(matchPrediction)
-                showBottomSheet()
-            }
-
-            override fun onMatchPredictionRemoveClick(matchPrediction: MatchPrediction) {
-                val removedEditingMatchPrediction = rankingsViewModel.removeMatchPrediction(matchPrediction)
-                if (removedEditingMatchPrediction) {
-                    clearMatchPredictionInput()
-                }
-            }
-
-            override fun onMatchPredictionsBackgroundClick() {
-                showBottomSheet()
-            }
-        }
+        TooltipCompat.setTooltipText(addPredictionFab, getString(R.string.tooltip_add_match_prediction))
     }
 
-    private fun setupAddMatchFab() {
-        addMatchPredictionFab.setOnClickListener {
-            showBottomSheet()
+    private fun setupPredictionBarView() {
+        predictionBarView.listener = object : PredictionBarView.PredictionBarViewListener {
+
+            override fun onAddPredictionClick() {
+                navigateToPrediction()
+            }
+
+            override fun onPredictionClick(prediction: MatchPrediction) {
+                navigateToPrediction(isEditing = true, prediction = prediction)
+            }
+
+            override fun onPredictionRemoveClick(prediction: MatchPrediction) {
+                predictionViewModel.removePrediction(prediction)
+            }
         }
-        TooltipCompat.setTooltipText(addMatchPredictionFab, getString(R.string.tooltip_add_match_prediction))
     }
 
     private fun setupViewModels() {
@@ -334,109 +181,82 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         })
         rankingsViewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->
             val isEmpty = worldRugbyRankings?.isEmpty() ?: true
-            addMatchPredictionFab.isEnabled = !isEmpty
-        })
-        rankingsViewModel.latestWorldRugbyRankings.observe(viewLifecycleOwner, Observer { latestWorldRugbyRankings ->
-            assignWorldRugbyRankingsToMatchPredictionInputTeams(latestWorldRugbyRankings)
+            addPredictionFab.isEnabled = !isEmpty
         })
         rankingsViewModel.latestWorldRugbyRankingsEffectiveTime.observe(viewLifecycleOwner, Observer { effectiveTime ->
             setSubtitle(effectiveTime)
         })
-        rankingsViewModel.matchPredictions.observe(viewLifecycleOwner, Observer { matchPredictions ->
-            matchPredictionInputView.setMatchPredictions(matchPredictions)
-        })
-        rankingsViewModel.matchPredictionInputValid.observe(viewLifecycleOwner, Observer { matchPredictionInputValid ->
-            matchPredictionInputView.setAddOrEditMatchPredictionButtonEnabled(matchPredictionInputValid)
-        })
-        rankingsViewModel.editingMatchPrediction.observe(viewLifecycleOwner, Observer { editingMatchPrediction ->
-            val isEditing = editingMatchPrediction != null
-            matchPredictionInputView.adjustForEditing(isEditing)
-        })
-        rankingsViewModel.matchPredictionInputState.observe(viewLifecycleOwner, Observer { matchPredictionInputState ->
-            val showMatchPredictionInput = matchPredictionInputState?.showMatchPredictionInput ?: true
-            val hasMatchPredictions = matchPredictionInputState?.hasMatchPredictions ?: false
-            matchPredictionInputView.setAddMatchPredictionButtonEnabled(hasMatchPredictions)
-            addMatchPredictionFab.apply {
-                if (showMatchPredictionInput && !hasMatchPredictions) show() else hide()
-            }
-            bottomSheetBehavior.apply {
-                val isHideable = !showMatchPredictionInput || !hasMatchPredictions
-                val skipCollapsed = !showMatchPredictionInput || !hasMatchPredictions
-                val state = when {
-                    !showMatchPredictionInput || !hasMatchPredictions -> BottomSheetBehavior.STATE_HIDDEN
-                    hasMatchPredictions && state == BottomSheetBehavior.STATE_HIDDEN -> BottomSheetBehavior.STATE_COLLAPSED
-                    else -> state
-                }
-                this.isHideable = isHideable
-                this.skipCollapsed = skipCollapsed
-                this.state = state
-            }
-        })
         rankingsViewModel.onScroll.observe(viewLifecycleOwner, EventObserver { delta ->
-            if (delta > 0) addMatchPredictionFab.shrink() else addMatchPredictionFab.extend()
+            if (delta > 0) addPredictionFab.shrink() else addPredictionFab.extend()
+        })
+        predictionViewModel.predictions.observe(viewLifecycleOwner, Observer { predictions ->
+            rankingsViewModel.predictions.value = predictions
+            predictionBarView.setPredictions(predictions)
+            if (predictions.isNullOrEmpty()) {
+                addPredictionFab.show(object : ExtendedFloatingActionButton.OnChangedListener() {
+                    override fun onShown(extendedFab: ExtendedFloatingActionButton?) {
+                        super.onShown(extendedFab)
+                        predictionBarView.isVisible = false
+                    }
+                })
+            } else {
+                addPredictionFab.hide(object : ExtendedFloatingActionButton.OnChangedListener() {
+                    override fun onHidden(extendedFab: ExtendedFloatingActionButton?) {
+                        super.onHidden(extendedFab)
+                        predictionBarView.isVisible = true
+                    }
+                })
+            }
         })
         liveMatchesViewModel.liveWorldRugbyMatches.observe(viewLifecycleOwner, Observer { liveWorldRugbyMatches ->
             val show = !liveWorldRugbyMatches.isNullOrEmpty()
             toggleLiveMatchesTabIcon(show)
         })
         liveMatchesViewModel.navigatePredict.observe(viewLifecycleOwner, EventObserver { worldRugbyMatch ->
-            applyWorldRugbyMatchToInput(worldRugbyMatch)
-            showMatchPredictionInput = true
-            viewPager.currentItem = POSITION_RANKINGS
-            rankingsViewModel.endEditMatchPrediction()
+            val prediction = getPredictionFromWorldRugbyMatch(worldRugbyMatch)
+            navigateToPrediction(prediction = prediction)
+        })
+        liveMatchesViewModel.onScroll.observe(viewLifecycleOwner, EventObserver { delta ->
+            if (delta > 0) addPredictionFab.shrink() else addPredictionFab.extend()
         })
         unplayedMatchesViewModel.navigatePredict.observe(viewLifecycleOwner, EventObserver { worldRugbyMatch ->
-            applyWorldRugbyMatchToInput(worldRugbyMatch)
-            showMatchPredictionInput = true
-            viewPager.currentItem = POSITION_RANKINGS
-            rankingsViewModel.endEditMatchPrediction()
+            val prediction = getPredictionFromWorldRugbyMatch(worldRugbyMatch)
+            navigateToPrediction(prediction = prediction)
+        })
+        unplayedMatchesViewModel.onScroll.observe(viewLifecycleOwner, EventObserver { delta ->
+            if (delta > 0) addPredictionFab.shrink() else addPredictionFab.extend()
+        })
+        completedMatchesViewModel.onScroll.observe(viewLifecycleOwner, EventObserver { delta ->
+            if (delta > 0) addPredictionFab.shrink() else addPredictionFab.extend()
         })
     }
 
-    private fun showBottomSheet() {
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun hideBottomSheet() {
-        if (bottomSheetBehavior.isHideable && bottomSheetBehavior.skipCollapsed) {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        } else {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    private fun getPredictionFromWorldRugbyMatch(worldRugbyMatch: WorldRugbyMatch): MatchPrediction {
+        val switched = worldRugbyMatch.secondTeamName == worldRugbyMatch.venueName
+        val homeTeamId = if (!switched) worldRugbyMatch.firstTeamId else worldRugbyMatch.secondTeamId
+        val homeTeamName = if (!switched) worldRugbyMatch.firstTeamName else worldRugbyMatch.secondTeamName
+        val homeTeamAbbreviation = if (!switched) worldRugbyMatch.firstTeamAbbreviation!! else worldRugbyMatch.secondTeamAbbreviation!!
+        val homeTeamScore = when {
+            worldRugbyMatch.status == MatchStatus.UNPLAYED -> MatchPrediction.NO_SCORE
+            !switched -> worldRugbyMatch.firstTeamScore
+            else -> worldRugbyMatch.secondTeamScore
         }
-    }
-
-    private fun assignWorldRugbyRankingsToMatchPredictionInputTeams(worldRugbyRankings: List<WorldRugbyRanking>?) {
-        if (worldRugbyRankings == null) return
-        val teams = worldRugbyRankings.map { worldRugbyRanking ->
-            EmojiCompat.get().process(getString(R.string.menu_item_team,
-                    FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation), worldRugbyRanking.teamName))
+        val awayTeamId = if (!switched) worldRugbyMatch.secondTeamId else worldRugbyMatch.firstTeamId
+        val awayTeamName = if (!switched) worldRugbyMatch.secondTeamName else worldRugbyMatch.firstTeamName
+        val awayTeamAbbreviation = if (!switched) worldRugbyMatch.secondTeamAbbreviation!! else worldRugbyMatch.firstTeamAbbreviation!!
+        val awayTeamScore = when {
+            worldRugbyMatch.status == MatchStatus.UNPLAYED -> MatchPrediction.NO_SCORE
+            !switched -> worldRugbyMatch.secondTeamScore
+            else -> worldRugbyMatch.firstTeamScore
         }
-        matchPredictionInputView.setTeams(teams)
-    }
-
-    private fun addOrEditMatchPredictionFromInput(): Boolean {
-        val homeTeamId = homeTeamId ?: return false
-        val homeTeamName = homeTeamName ?: return false
-        val homeTeamAbbreviation = homeTeamAbbreviation ?: return false
-        val homeTeamScore = matchPredictionInputView.homePointsText
-        if (homeTeamScore == MatchPredictionInputView.NO_POINTS) {
-            return false
-        }
-        val awayTeamId = awayTeamId ?: return false
-        val awayTeamName = awayTeamName ?: return false
-        val awayTeamAbbreviation = awayTeamAbbreviation ?: return false
-        val awayTeamScore = matchPredictionInputView.awayPointsText
-        if (awayTeamScore == MatchPredictionInputView.NO_POINTS) {
-            return false
-        }
-        val nha = matchPredictionInputView.nhaChecked
-        val rwc = matchPredictionInputView.rwcChecked
-        val id = when {
-            rankingsViewModel.isEditingMatchPrediction() -> rankingsViewModel.editingMatchPrediction.value!!.id
-            else -> MatchPrediction.generateId()
-        }
-        val matchPrediction = MatchPrediction(
-                id = id,
+        val noHomeAdvantage = worldRugbyMatch.venueCountry?.let { venueCountry ->
+            venueCountry != worldRugbyMatch.firstTeamName && venueCountry != worldRugbyMatch.secondTeamName
+        } ?: false
+        val rugbyWorldCup = worldRugbyMatch.eventLabel?.let { eventLabel ->
+            eventLabel.contains("Rugby World Cup", ignoreCase = true) && !eventLabel.contains("Qualifying", ignoreCase = true)
+        } ?: false
+        return MatchPrediction(
+                id = MatchPrediction.generateId(),
                 homeTeamId = homeTeamId,
                 homeTeamName = homeTeamName,
                 homeTeamAbbreviation = homeTeamAbbreviation,
@@ -445,94 +265,15 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
                 awayTeamName = awayTeamName,
                 awayTeamAbbreviation = awayTeamAbbreviation,
                 awayTeamScore = awayTeamScore,
-                noHomeAdvantage = nha,
-                rugbyWorldCup = rwc
+                noHomeAdvantage = noHomeAdvantage,
+                rugbyWorldCup = rugbyWorldCup
         )
-        return when {
-            rankingsViewModel.isEditingMatchPrediction() -> {
-                rankingsViewModel.editMatchPrediction(matchPrediction)
-                true
-            }
-            else -> {
-                rankingsViewModel.addMatchPrediction(matchPrediction)
-                true
-            }
-        }
     }
 
-    private fun applyMatchPredictionToInput(matchPrediction: MatchPrediction) {
-        homeTeamId = matchPrediction.homeTeamId
-        homeTeamName = matchPrediction.homeTeamName
-        homeTeamAbbreviation = matchPrediction.homeTeamAbbreviation
-        val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(matchPrediction.homeTeamAbbreviation), homeTeamName))
-        matchPredictionInputView.homeTeamText = homeTeam
-        matchPredictionInputView.homePointsText = matchPrediction.homeTeamScore
-        awayTeamId = matchPrediction.awayTeamId
-        awayTeamName = matchPrediction.awayTeamName
-        awayTeamAbbreviation = matchPrediction.awayTeamAbbreviation
-        val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(matchPrediction.awayTeamAbbreviation), awayTeamName))
-        matchPredictionInputView.awayTeamText = awayTeam
-        matchPredictionInputView.awayPointsText = matchPrediction.awayTeamScore
-        matchPredictionInputView.nhaChecked = matchPrediction.noHomeAdvantage
-        matchPredictionInputView.rwcChecked = matchPrediction.rugbyWorldCup
-    }
-
-    private fun applyWorldRugbyMatchToInput(worldRugbyMatch: WorldRugbyMatch) {
-        val switched = worldRugbyMatch.secondTeamName == worldRugbyMatch.venueName
-        homeTeamId = if (!switched) worldRugbyMatch.firstTeamId else worldRugbyMatch.secondTeamId
-        homeTeamName = if (!switched) worldRugbyMatch.firstTeamName else worldRugbyMatch.secondTeamName
-        homeTeamAbbreviation = if (!switched) worldRugbyMatch.firstTeamAbbreviation!! else worldRugbyMatch.secondTeamAbbreviation!!
-        val homeTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(homeTeamAbbreviation!!), homeTeamName))
-        matchPredictionInputView.homeTeamText = homeTeam
-        awayTeamId = if (!switched) worldRugbyMatch.secondTeamId else worldRugbyMatch.firstTeamId
-        awayTeamName = if (!switched) worldRugbyMatch.secondTeamName else worldRugbyMatch.firstTeamName
-        awayTeamAbbreviation = if (!switched) worldRugbyMatch.secondTeamAbbreviation!! else worldRugbyMatch.firstTeamAbbreviation!!
-        val awayTeam = EmojiCompat.get().process(getString(R.string.menu_item_team,
-                FlagUtils.getFlagEmojiForTeamAbbreviation(awayTeamAbbreviation!!), awayTeamName))
-        matchPredictionInputView.awayTeamText = awayTeam
-        when (worldRugbyMatch.status) {
-            MatchStatus.UNPLAYED -> matchPredictionInputView.clearMatchPredictionPointsInput()
-            else -> {
-                matchPredictionInputView.homePointsText = if (!switched) worldRugbyMatch.firstTeamScore else worldRugbyMatch.secondTeamScore
-                matchPredictionInputView.awayPointsText = if (!switched) worldRugbyMatch.secondTeamScore else worldRugbyMatch.firstTeamScore
-            }
-        }
-        matchPredictionInputView.nhaChecked = worldRugbyMatch.venueCountry?.let { venueCountry ->
-            venueCountry != worldRugbyMatch.firstTeamName && venueCountry != worldRugbyMatch.secondTeamName
-        } ?: false
-        matchPredictionInputView.rwcChecked = worldRugbyMatch.eventLabel?.let { eventLabel ->
-            eventLabel.contains("Rugby World Cup", ignoreCase = true) && !eventLabel.contains("Qualifying", ignoreCase = true)
-        } ?: false
-    }
-
-    private fun hideSoftInput() {
-        val imm: InputMethodManager? = requireContext().getSystemService()
-        imm?.hideSoftInputFromWindow(requireView().rootView.windowToken, 0)
-    }
-
-    private fun hideBottomSheetAndClearMatchPredictionInput() {
-        clearMatchPredictionInput = true
-        hideBottomSheet()
-    }
-
-    private fun clearMatchPredictionInput() {
-        homeTeamId = null
-        homeTeamName = null
-        homeTeamAbbreviation = null
-        awayTeamId = null
-        awayTeamName = null
-        awayTeamAbbreviation = null
-        matchPredictionInputView.clearMatchPredictionInput()
-        rankingsViewModel.endEditMatchPrediction()
-    }
-
-    override fun onDestroyView() {
-        hideSoftInput()
-        rankingsViewModel.resetMatchPredictionInputValid()
-        super.onDestroyView()
+    private fun navigateToPrediction(isEditing: Boolean = false, prediction: MatchPrediction? = null) {
+        viewPager.currentItem = POSITION_RANKINGS
+        findNavController().navigate(SportFragmentDirections.sportFragmentToPredictionBottomSheetDialogFragment(
+                sport = sport, isEditing = isEditing, prediction = prediction))
     }
 
     inner class SportFragmentStateAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -554,12 +295,5 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         private const val POSITION_LIVE = 1
         private const val POSITION_FIXTURES = 2
         private const val POSITION_RESULTS = 3
-        private const val KEY_HOME_TEAM_ID = "home_team_id"
-        private const val KEY_HOME_TEAM_NAME = "home_team_name"
-        private const val KEY_HOME_TEAM_ABBREVIATION = "home_team_abbreviation"
-        private const val KEY_AWAY_TEAM_ID = "away_team_id"
-        private const val KEY_AWAY_TEAM_NAME = "away_team_name"
-        private const val KEY_AWAY_TEAM_ABBREVIATION = "away_team_abbreviation"
-        private const val KEY_BOTTOM_SHEET_STATE = "bottom_sheet_state"
     }
 }

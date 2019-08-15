@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="size_add_prediction_button">32dp</dimen>
+
     <dimen name="width_points">96dp</dimen>
 
-    <dimen name="height_peek">48dp</dimen>
+    <dimen name="height_prediction_bar">48dp</dimen>
 
-    <dimen name="length_fading_edge">8dp</dimen>
+    <dimen name="corner_radius_add_prediction_button">32dp</dimen>
 
-    <dimen name="padding_horizontal_add_match">12dp</dimen>
-    <dimen name="padding_horizontal_close">12dp</dimen>
+    <dimen name="length_fading_edge">16dp</dimen>
 
 </resources>

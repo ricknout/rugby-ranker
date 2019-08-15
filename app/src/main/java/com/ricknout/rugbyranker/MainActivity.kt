@@ -19,7 +19,6 @@ import com.ricknout.rugbyranker.ui.MensViewModel
 import com.ricknout.rugbyranker.ui.WomensViewModel
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.*
-import me.saket.fluidresize.sample.FluidContentResizer
 
 class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
 
@@ -41,7 +40,6 @@ class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupBottomNavigation()
-        FluidContentResizer.listen(this)
     }
 
     private fun setupBottomNavigation() {
@@ -66,34 +64,5 @@ class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
                 R.id.infoNavGraph -> infoViewModel.scrollToTop()
             }
         }
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.mensFragment -> {
-                    bottomNavigationView.post {
-                        womensRankingsViewModel.endEditMatchPrediction()
-                        womensRankingsViewModel.resetMatchPredictionInputState()
-                    }
-                }
-                R.id.womensFragment -> {
-                    bottomNavigationView.post {
-                        mensRankingsViewModel.endEditMatchPrediction()
-                        mensRankingsViewModel.resetMatchPredictionInputState()
-                    }
-                }
-                R.id.infoNavGraph -> {
-                    bottomNavigationView.post {
-                        mensRankingsViewModel.endEditMatchPrediction()
-                        mensRankingsViewModel.resetMatchPredictionInputState()
-                        womensRankingsViewModel.endEditMatchPrediction()
-                        womensRankingsViewModel.resetMatchPredictionInputState()
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onBackPressed() {
-        if (FluidContentResizer.isAnimating()) return
-        super.onBackPressed()
     }
 }

@@ -17,6 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:closeIconEnabled="true"
         tools:text="NZL 100 - 100 RSA"
-        tools:chipIcon="@drawable/ic_rwc_white_24dp" />
+        tools:chipIcon="@drawable/ic_rwc_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

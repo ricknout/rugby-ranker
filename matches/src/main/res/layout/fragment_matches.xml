@@ -20,7 +20,7 @@
             android:id="@+id/matchesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/spacing_standard"
+            android:paddingBottom="@dimen/padding_bottom_fab"
             tools:listitem="@layout/list_item_world_rugby_match" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
