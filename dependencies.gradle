@@ -25,7 +25,7 @@ ext {
                     room: '2.2.0-alpha02',
                     paging: '2.1.0',
                     navigation: '2.2.0-alpha01',
-                    work: '2.2.0-rc01',
+                    work: '2.2.0',
                     test: [
                             core: '1.2.1-alpha02',
                             jUnit: '1.1.2-alpha02',
