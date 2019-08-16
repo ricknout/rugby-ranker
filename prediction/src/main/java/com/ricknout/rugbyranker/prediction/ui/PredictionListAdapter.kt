@@ -11,8 +11,8 @@ import com.ricknout.rugbyranker.prediction.vo.Prediction
 import kotlinx.android.synthetic.main.list_item_prediction.view.*
 
 class PredictionListAdapter(
-        private val onItemClick: (prediction: Prediction) -> Unit,
-        private val onItemCloseIconClick: (prediction: Prediction) -> Unit
+    private val onItemClick: (prediction: Prediction) -> Unit,
+    private val onItemCloseIconClick: (prediction: Prediction) -> Unit
 ) : ListAdapter<Prediction, PredictionViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PredictionViewHolder =
