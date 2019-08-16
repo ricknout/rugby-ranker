@@ -49,6 +49,7 @@ dependencies {
     implementation project(':core')
     implementation project(':rankings')
     implementation project(':prediction')
+    implementation project(':teams')
     implementation project(':matches')
     implementation project(':live')
     implementation project(':info')

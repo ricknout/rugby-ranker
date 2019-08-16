@@ -19,6 +19,10 @@ import com.ricknout.rugbyranker.core.util.FlagUtils
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.prediction.R
 import com.ricknout.rugbyranker.prediction.vo.Prediction
+import com.ricknout.rugbyranker.teams.ui.MensTeamsViewModel
+import com.ricknout.rugbyranker.teams.ui.TeamsViewModel
+import com.ricknout.rugbyranker.teams.ui.WomensTeamsViewModel
+import com.ricknout.rugbyranker.teams.vo.WorldRugbyTeam
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_fragment_prediction.*
 
@@ -35,10 +39,16 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: PredictionViewModel by lazy {
+    private val predictionViewModel: PredictionViewModel by lazy {
         when (sport) {
             Sport.MENS -> activityViewModels<MensPredictionViewModel> { viewModelFactory }.value
             Sport.WOMENS -> activityViewModels<WomensPredictionViewModel> { viewModelFactory }.value
+        }
+    }
+    private val teamsViewModel: TeamsViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> activityViewModels<MensTeamsViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensTeamsViewModel> { viewModelFactory }.value
         }
     }
 
@@ -49,27 +59,12 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
     private var awayTeamName: String? = null
     private var awayTeamAbbreviation: String? = null
 
-    // TODO: These need to come from some kind of a teams VM, Repository, etc...
-    private val dummyTeamIds = listOf(37L, 33L, 36L, 34L, 39L)
-    private val dummyTeamNames = listOf("New Zealand", "Wales", "Ireland", "England", "South Africa")
-    private val dummyTeamAbbreviations = listOf("NZL", "WAL", "IRE", "ENG", "RSA")
-    private fun setupDummyTeams() {
-        val teams = dummyTeamAbbreviations.mapIndexed { index, teamAbbreviaton ->
-            val teamName = dummyTeamNames[index]
-            getTeamText(teamAbbreviaton, teamName)
-        }
-        val homeTeamAdapter = NoFilterArrayAdapter(requireContext(), R.layout.list_item_team, teams)
-        homeTeamEditText.setAdapter(homeTeamAdapter)
-        val awayTeamAdapter = NoFilterArrayAdapter(requireContext(), R.layout.list_item_team, teams)
-        awayTeamEditText.setAdapter(awayTeamAdapter)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.bottom_sheet_dialog_fragment_prediction, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewModel()
+        setupViewModels()
         setupEditTexts()
         if (savedInstanceState == null) {
             if (prediction != null) applyPredictionToInput(prediction!!)
@@ -85,7 +80,6 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         setupClearOrCancelButton()
         setupAddOrEditButton()
         adjustForEditing(isEditing)
-        setupDummyTeams()
     }
 
     @SuppressWarnings("VisibleForTests", "RestrictedApi")
@@ -117,9 +111,10 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
     private fun setupEditTexts() {
         homeTeamEditText.apply {
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                val teamId = dummyTeamIds[position]
-                val teamName = dummyTeamNames[position]
-                val teamAbbreviation = dummyTeamAbbreviations[position]
+                val worldRugbyTeam = teamsViewModel.getLatestWorldRugbyTeam(position) ?: return@OnItemClickListener
+                val teamId = worldRugbyTeam.id
+                val teamName = worldRugbyTeam.name
+                val teamAbbreviation = worldRugbyTeam.abbreviation
                 if (teamId == awayTeamId) {
                     val teamText = if (homeTeamAbbreviation == null || homeTeamName == null) {
                         null
@@ -137,14 +132,15 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
             }
             doOnTextChanged { text, _, _, _ ->
                 val valid = !text.isNullOrEmpty()
-                viewModel.homeTeamInputValid.value = valid
+                predictionViewModel.homeTeamInputValid.value = valid
             }
         }
         awayTeamEditText.apply {
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                val teamId = dummyTeamIds[position]
-                val teamName = dummyTeamNames[position]
-                val teamAbbreviation = dummyTeamAbbreviations[position]
+                val worldRugbyTeam = teamsViewModel.getLatestWorldRugbyTeam(position) ?: return@OnItemClickListener
+                val teamId = worldRugbyTeam.id
+                val teamName = worldRugbyTeam.name
+                val teamAbbreviation = worldRugbyTeam.abbreviation
                 if (teamId == homeTeamId) {
                     val teamText = if (awayTeamAbbreviation == null || awayTeamName == null) {
                         null
@@ -162,17 +158,17 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
             }
             doOnTextChanged { text, _, _, _ ->
                 val valid = !text.isNullOrEmpty()
-                viewModel.awayTeamInputValid.value = valid
+                predictionViewModel.awayTeamInputValid.value = valid
             }
         }
         homePointsEditText.doOnTextChanged { text, _, _, _ ->
             val valid = !text.isNullOrEmpty()
-            viewModel.homePointsInputValid.value = valid
+            predictionViewModel.homePointsInputValid.value = valid
         }
         awayPointsEditText.apply {
             doOnTextChanged { text, _, _, _ ->
                 val valid = !text.isNullOrEmpty()
-                viewModel.awayPointsInputValid.value = valid
+                predictionViewModel.awayPointsInputValid.value = valid
             }
             setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -195,9 +191,12 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         }
     }
 
-    private fun setupViewModel() {
-        viewModel.predictionInputValid.observe(viewLifecycleOwner, Observer { predictionInputValid ->
+    private fun setupViewModels() {
+        predictionViewModel.predictionInputValid.observe(viewLifecycleOwner, Observer { predictionInputValid ->
             addOrEditButton.isEnabled = predictionInputValid
+        })
+        teamsViewModel.latestWorldRugbyTeams.observe(viewLifecycleOwner, Observer { worldRugbyTeams ->
+            applyWorldRugbyTeamsToInput(worldRugbyTeams)
         })
     }
 
@@ -262,9 +261,9 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
                 rugbyWorldCup = rwc
         )
         if (isEditing) {
-            viewModel.editPrediction(prediction)
+            predictionViewModel.editPrediction(prediction)
         } else {
-            viewModel.addPrediction(prediction)
+            predictionViewModel.addPrediction(prediction)
         }
         dismiss()
         return true
@@ -279,13 +278,23 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         rwcCheckBox.isChecked = false
     }
 
+    private fun applyWorldRugbyTeamsToInput(worldRugbyTeams: List<WorldRugbyTeam>) {
+        val teams = worldRugbyTeams.map { worldRugbyTeam ->
+            getTeamText(worldRugbyTeam.abbreviation, worldRugbyTeam.name)
+        }
+        val homeTeamAdapter = NoFilterArrayAdapter(requireContext(), R.layout.list_item_team, teams)
+        homeTeamEditText.setAdapter(homeTeamAdapter)
+        val awayTeamAdapter = NoFilterArrayAdapter(requireContext(), R.layout.list_item_team, teams)
+        awayTeamEditText.setAdapter(awayTeamAdapter)
+    }
+
     private fun getTeamText(teamAbbreviation: String, teamName: String): CharSequence {
         return EmojiCompat.get().process(
                 getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(teamAbbreviation), teamName))
     }
 
     override fun dismiss() {
-        viewModel.resetPredictionInputValid()
+        predictionViewModel.resetPredictionInputValid()
         super.dismiss()
     }
 

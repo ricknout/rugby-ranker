@@ -66,3 +66,18 @@ data class WorldRugbyMatchesResponse(
     val pageInfo: PageInfo,
     val content: List<Match>
 )
+
+data class TeamDetail(
+    val id: Long,
+    val country: String,
+    val naming: Naming
+)
+
+data class Naming(
+    val name: String,
+    val abbr: String
+)
+
+data class WorldRugbyTeamsResponse(
+    val teams: List<TeamDetail>
+)

@@ -23,6 +23,11 @@ interface WorldRugbyService {
         @Query("pageSize") pageSize: Int
     ): WorldRugbyMatchesResponse
 
+    @GET("rugby/team/{id}")
+    suspend fun getTeams(
+        @Path("id") id: Long
+    ): WorldRugbyTeamsResponse
+
     companion object {
         const val SPORT_MENS = "mru"
         const val SPORT_WOMENS = "wru"

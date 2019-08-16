@@ -7,6 +7,8 @@ import com.ricknout.rugbyranker.matches.work.WomensCompleteWorldRugbyMatchesWork
 import com.ricknout.rugbyranker.matches.work.WomensUnplayedWorldRugbyMatchesWorker
 import com.ricknout.rugbyranker.rankings.work.MensWorldRugbyRankingsWorker
 import com.ricknout.rugbyranker.rankings.work.WomensWorldRugbyRankingsWorker
+import com.ricknout.rugbyranker.teams.work.MensWorldRugbyTeamsWorker
+import com.ricknout.rugbyranker.teams.work.WomensWorldRugbyTeamsWorker
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -43,4 +45,14 @@ abstract class WorkerModule {
     @IntoMap
     @WorkerKey(WomensCompleteWorldRugbyMatchesWorker::class)
     abstract fun bindWomensCompleteWorldRugbyMatchesWorker(womensCompleteWorldRugbyMatchesWorker: WomensCompleteWorldRugbyMatchesWorker): ListenableWorker
+
+    @Binds
+    @IntoMap
+    @WorkerKey(MensWorldRugbyTeamsWorker::class)
+    abstract fun bindMensWorldRugbyTeamsWorker(mensWorldRugbyTeamsWorker: MensWorldRugbyTeamsWorker): ListenableWorker
+
+    @Binds
+    @IntoMap
+    @WorkerKey(WomensWorldRugbyTeamsWorker::class)
+    abstract fun bindWomensWorldRugbyTeamsWorker(womensWorldRugbyTeamsWorker: WomensWorldRugbyTeamsWorker): ListenableWorker
 }

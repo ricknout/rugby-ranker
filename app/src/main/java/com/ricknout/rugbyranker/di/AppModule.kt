@@ -15,6 +15,9 @@ import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 import com.ricknout.rugbyranker.rankings.work.RankingsWorkManager
+import com.ricknout.rugbyranker.teams.db.WorldRugbyTeamDao
+import com.ricknout.rugbyranker.teams.repository.TeamsRepository
+import com.ricknout.rugbyranker.teams.work.TeamsWorkManager
 import com.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
 import com.ricknout.rugbyranker.theme.repository.ThemeRepository
 import dagger.Module
@@ -52,7 +55,7 @@ class AppModule {
     @Singleton
     fun provideDatabase(context: Context): RugbyRankerDb {
         return Room.databaseBuilder(context, RugbyRankerDb::class.java, RugbyRankerDb.DATABASE_NAME)
-                .addMigrations(RugbyRankerMigrations.MIGRATION_1_2)
+                .addMigrations(RugbyRankerMigrations.MIGRATION_1_2, RugbyRankerMigrations.MIGRATION_2_3)
                 .build()
     }
 
@@ -66,6 +69,12 @@ class AppModule {
     @Singleton
     fun provideWorldRugbyMatchDao(database: RugbyRankerDb): WorldRugbyMatchDao {
         return database.worldRugbyMatchDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWorldRugbyTeamDao(database: RugbyRankerDb): WorldRugbyTeamDao {
+        return database.worldRugbyTeamDao()
     }
 
     @Provides
@@ -113,6 +122,15 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideTeamsRepository(
+        worldRugbyService: WorldRugbyService,
+        worldRugbyTeamDao: WorldRugbyTeamDao
+    ): TeamsRepository {
+        return TeamsRepository(worldRugbyService, worldRugbyTeamDao)
+    }
+
+    @Provides
+    @Singleton
     fun provideWorkManager(context: Context): WorkManager {
         return WorkManager.getInstance(context)
     }
@@ -127,6 +145,12 @@ class AppModule {
     @Singleton
     fun provideMatchesWorkManager(workManager: WorkManager): MatchesWorkManager {
         return MatchesWorkManager(workManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTeamsWorkManager(workManager: WorkManager): TeamsWorkManager {
+        return TeamsWorkManager(workManager)
     }
 
     companion object {

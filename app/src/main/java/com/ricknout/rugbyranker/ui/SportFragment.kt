@@ -41,6 +41,9 @@ import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
 import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
+import com.ricknout.rugbyranker.teams.ui.MensTeamsViewModel
+import com.ricknout.rugbyranker.teams.ui.TeamsViewModel
+import com.ricknout.rugbyranker.teams.ui.WomensTeamsViewModel
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_sport.*
@@ -70,6 +73,12 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         when (sport) {
             Sport.MENS -> activityViewModels<MensPredictionViewModel> { viewModelFactory }.value
             Sport.WOMENS -> activityViewModels<WomensPredictionViewModel> { viewModelFactory }.value
+        }
+    }
+    private val teamsViewModel: TeamsViewModel by lazy {
+        when (sport) {
+            Sport.MENS -> activityViewModels<MensTeamsViewModel> { viewModelFactory }.value
+            Sport.WOMENS -> activityViewModels<WomensTeamsViewModel> { viewModelFactory }.value
         }
     }
     private val liveMatchesViewModel: LiveMatchesViewModel by lazy {
@@ -179,10 +188,6 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         sportViewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             appBarLayout.setExpanded(true)
         })
-        rankingsViewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->
-            val isEmpty = worldRugbyRankings?.isEmpty() ?: true
-            addPredictionFab.isEnabled = !isEmpty
-        })
         rankingsViewModel.latestWorldRugbyRankingsEffectiveTime.observe(viewLifecycleOwner, Observer { effectiveTime ->
             setSubtitle(effectiveTime)
         })
@@ -207,6 +212,10 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
                     }
                 })
             }
+        })
+        teamsViewModel.latestWorldRugbyTeams.observe(viewLifecycleOwner, Observer { latestWorldRugbyTeams ->
+            val isEmpty = latestWorldRugbyTeams?.isEmpty() ?: true
+            addPredictionFab.isEnabled = !isEmpty
         })
         liveMatchesViewModel.liveWorldRugbyMatches.observe(viewLifecycleOwner, Observer { liveWorldRugbyMatches ->
             val show = !liveWorldRugbyMatches.isNullOrEmpty()
