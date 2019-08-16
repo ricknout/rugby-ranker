@@ -13,7 +13,7 @@
         tools:layout="@layout/bottom_sheet_dialog_fragment_prediction">
         <argument android:name="sport" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
         <argument android:name="isEditing" app:argType="boolean" />
-        <argument android:name="prediction" app:nullable="true" app:argType="com.ricknout.rugbyranker.prediction.vo.MatchPrediction" />
+        <argument android:name="prediction" app:nullable="true" app:argType="com.ricknout.rugbyranker.prediction.vo.Prediction" />
     </dialog>
 
 </navigation>

@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.prediction.R
-import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.Prediction
 import kotlinx.android.synthetic.main.list_item_prediction.view.*
 
 class PredictionListAdapter(
-    private val onItemClick: (prediction: MatchPrediction) -> Unit,
-    private val onItemCloseIconClick: (prediction: MatchPrediction) -> Unit
-) : ListAdapter<MatchPrediction, PredictionViewHolder>(DIFF_CALLBACK) {
+        private val onItemClick: (prediction: Prediction) -> Unit,
+        private val onItemCloseIconClick: (prediction: Prediction) -> Unit
+) : ListAdapter<Prediction, PredictionViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PredictionViewHolder =
             PredictionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_prediction, parent, false))
@@ -24,16 +24,16 @@ class PredictionListAdapter(
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MatchPrediction>() {
-            override fun areItemsTheSame(oldItem: MatchPrediction, newItem: MatchPrediction) = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: MatchPrediction, newItem: MatchPrediction) = oldItem == newItem
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Prediction>() {
+            override fun areItemsTheSame(oldItem: Prediction, newItem: Prediction) = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: Prediction, newItem: Prediction) = oldItem == newItem
         }
     }
 }
 
 class PredictionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(prediction: MatchPrediction, onItemClick: (prediction: MatchPrediction) -> Unit, onItemCloseIconClick: (prediction: MatchPrediction) -> Unit) {
+    fun bind(prediction: Prediction, onItemClick: (prediction: Prediction) -> Unit, onItemCloseIconClick: (prediction: Prediction) -> Unit) {
         itemView.chip.apply {
             when {
                 prediction.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_black_24dp)

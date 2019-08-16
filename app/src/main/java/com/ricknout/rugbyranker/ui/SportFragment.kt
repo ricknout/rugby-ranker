@@ -36,7 +36,7 @@ import com.ricknout.rugbyranker.prediction.ui.MensPredictionViewModel
 import com.ricknout.rugbyranker.prediction.ui.PredictionBarView
 import com.ricknout.rugbyranker.prediction.ui.PredictionViewModel
 import com.ricknout.rugbyranker.prediction.ui.WomensPredictionViewModel
-import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.Prediction
 import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
 import com.ricknout.rugbyranker.rankings.ui.RankingsViewModel
@@ -165,11 +165,11 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
                 navigateToPrediction()
             }
 
-            override fun onPredictionClick(prediction: MatchPrediction) {
+            override fun onPredictionClick(prediction: Prediction) {
                 navigateToPrediction(isEditing = true, prediction = prediction)
             }
 
-            override fun onPredictionRemoveClick(prediction: MatchPrediction) {
+            override fun onPredictionRemoveClick(prediction: Prediction) {
                 predictionViewModel.removePrediction(prediction)
             }
         }
@@ -231,13 +231,13 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         })
     }
 
-    private fun getPredictionFromWorldRugbyMatch(worldRugbyMatch: WorldRugbyMatch): MatchPrediction {
+    private fun getPredictionFromWorldRugbyMatch(worldRugbyMatch: WorldRugbyMatch): Prediction {
         val switched = worldRugbyMatch.secondTeamName == worldRugbyMatch.venueName
         val homeTeamId = if (!switched) worldRugbyMatch.firstTeamId else worldRugbyMatch.secondTeamId
         val homeTeamName = if (!switched) worldRugbyMatch.firstTeamName else worldRugbyMatch.secondTeamName
         val homeTeamAbbreviation = if (!switched) worldRugbyMatch.firstTeamAbbreviation!! else worldRugbyMatch.secondTeamAbbreviation!!
         val homeTeamScore = when {
-            worldRugbyMatch.status == MatchStatus.UNPLAYED -> MatchPrediction.NO_SCORE
+            worldRugbyMatch.status == MatchStatus.UNPLAYED -> Prediction.NO_SCORE
             !switched -> worldRugbyMatch.firstTeamScore
             else -> worldRugbyMatch.secondTeamScore
         }
@@ -245,7 +245,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         val awayTeamName = if (!switched) worldRugbyMatch.secondTeamName else worldRugbyMatch.firstTeamName
         val awayTeamAbbreviation = if (!switched) worldRugbyMatch.secondTeamAbbreviation!! else worldRugbyMatch.firstTeamAbbreviation!!
         val awayTeamScore = when {
-            worldRugbyMatch.status == MatchStatus.UNPLAYED -> MatchPrediction.NO_SCORE
+            worldRugbyMatch.status == MatchStatus.UNPLAYED -> Prediction.NO_SCORE
             !switched -> worldRugbyMatch.secondTeamScore
             else -> worldRugbyMatch.firstTeamScore
         }
@@ -255,8 +255,8 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         val rugbyWorldCup = worldRugbyMatch.eventLabel?.let { eventLabel ->
             eventLabel.contains("Rugby World Cup", ignoreCase = true) && !eventLabel.contains("Qualifying", ignoreCase = true)
         } ?: false
-        return MatchPrediction(
-                id = MatchPrediction.generateId(),
+        return Prediction(
+                id = Prediction.generateId(),
                 homeTeamId = homeTeamId,
                 homeTeamName = homeTeamName,
                 homeTeamAbbreviation = homeTeamAbbreviation,
@@ -270,7 +270,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
         )
     }
 
-    private fun navigateToPrediction(isEditing: Boolean = false, prediction: MatchPrediction? = null) {
+    private fun navigateToPrediction(isEditing: Boolean = false, prediction: Prediction? = null) {
         viewPager.currentItem = POSITION_RANKINGS
         findNavController().navigate(SportFragmentDirections.sportFragmentToPredictionBottomSheetDialogFragment(
                 sport = sport, isEditing = isEditing, prediction = prediction))

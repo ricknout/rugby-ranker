@@ -5,7 +5,7 @@ import java.util.UUID
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class MatchPrediction(
+data class Prediction(
     val id: String,
     val homeTeamId: Long,
     val homeTeamName: String,

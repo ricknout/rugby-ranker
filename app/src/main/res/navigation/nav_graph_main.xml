@@ -29,7 +29,7 @@
     <action android:id="@+id/sportFragmentToPredictionBottomSheetDialogFragment" app:destination="@id/predictionNavGraph">
         <argument android:name="sport" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
         <argument android:name="isEditing" app:argType="boolean" />
-        <argument android:name="prediction" app:nullable="true" app:argType="com.ricknout.rugbyranker.prediction.vo.MatchPrediction" />
+        <argument android:name="prediction" app:nullable="true" app:argType="com.ricknout.rugbyranker.prediction.vo.Prediction" />
     </action>
 
 </navigation>

@@ -18,7 +18,7 @@ import com.ricknout.rugbyranker.core.ui.dagger.DaggerBottomSheetDialogFragment
 import com.ricknout.rugbyranker.core.util.FlagUtils
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.prediction.R
-import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.Prediction
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_fragment_prediction.*
 
@@ -30,7 +30,7 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
 
     private val isEditing: Boolean by lazy { args.isEditing }
 
-    private val prediction: MatchPrediction? by lazy { args.prediction }
+    private val prediction: Prediction? by lazy { args.prediction }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -206,13 +206,13 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         addOrEditButton.setText(if (isEditing) R.string.button_edit else R.string.button_add)
     }
 
-    private fun applyPredictionToInput(prediction: MatchPrediction) {
+    private fun applyPredictionToInput(prediction: Prediction) {
         homeTeamId = prediction.homeTeamId
         homeTeamName = prediction.homeTeamName
         homeTeamAbbreviation = prediction.homeTeamAbbreviation
         val homeTeamText = getTeamText(prediction.homeTeamAbbreviation, homeTeamName!!)
         homeTeamEditText.setText(homeTeamText, false)
-        if (prediction.homeTeamScore != MatchPrediction.NO_SCORE) {
+        if (prediction.homeTeamScore != Prediction.NO_SCORE) {
             homePointsEditText.setText(prediction.homeTeamScore.toString())
         }
         awayTeamId = prediction.awayTeamId
@@ -220,7 +220,7 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         awayTeamAbbreviation = prediction.awayTeamAbbreviation
         val awayTeamText = getTeamText(prediction.awayTeamAbbreviation, awayTeamName!!)
         awayTeamEditText.setText(awayTeamText, false)
-        if (prediction.awayTeamScore != MatchPrediction.NO_SCORE) {
+        if (prediction.awayTeamScore != Prediction.NO_SCORE) {
             awayPointsEditText.setText(prediction.awayTeamScore.toString())
         }
         nhaCheckBox.isChecked = prediction.noHomeAdvantage
@@ -246,9 +246,9 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         val rwc = rwcCheckBox.isChecked
         val id = when {
             isEditing -> prediction!!.id
-            else -> MatchPrediction.generateId()
+            else -> Prediction.generateId()
         }
-        val prediction = MatchPrediction(
+        val prediction = Prediction(
                 id = id,
                 homeTeamId = homeTeamId,
                 homeTeamName = homeTeamName,

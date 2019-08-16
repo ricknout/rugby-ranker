@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.core.viewmodel.ScrollableViewModel
 import com.ricknout.rugbyranker.core.vo.Sport
-import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.Prediction
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
 import com.ricknout.rugbyranker.rankings.vo.RankingsCalculator
@@ -24,7 +24,7 @@ open class RankingsViewModel(
         rankingsWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
     }
 
-    val predictions = MutableLiveData<List<MatchPrediction>>()
+    val predictions = MutableLiveData<List<Prediction>>()
 
     private fun hasPredictions() = !(predictions.value?.isEmpty() ?: true)
 
@@ -58,9 +58,9 @@ open class RankingsViewModel(
         addSource(predictions) { predictions ->
             val latestWorldRugbyRankings = latestWorldRugbyRankings.value ?: return@addSource
             if (predictions == null) return@addSource
-            value = RankingsCalculator.allocatePointsForMatchPredictions(
+            value = RankingsCalculator.allocatePointsForPredictions(
                     worldRugbyRankings = latestWorldRugbyRankings,
-                    matchPredictions = predictions
+                    predictions = predictions
             )
         }
     }

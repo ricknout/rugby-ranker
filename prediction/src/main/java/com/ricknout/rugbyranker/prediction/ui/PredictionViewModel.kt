@@ -5,21 +5,21 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ricknout.rugbyranker.core.vo.Sport
-import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.Prediction
 
 open class PredictionViewModel(private val sport: Sport) : ViewModel() {
 
-    private val _predictions = MediatorLiveData<List<MatchPrediction>>()
-    val predictions: LiveData<List<MatchPrediction>>
+    private val _predictions = MediatorLiveData<List<Prediction>>()
+    val predictions: LiveData<List<Prediction>>
         get() = _predictions
 
-    fun addPrediction(prediction: MatchPrediction) {
+    fun addPrediction(prediction: Prediction) {
         val currentPredictions = (_predictions.value ?: emptyList()).toMutableList()
         currentPredictions.add(prediction)
         _predictions.value = currentPredictions
     }
 
-    fun editPrediction(prediction: MatchPrediction) {
+    fun editPrediction(prediction: Prediction) {
         val currentPredictions = _predictions.value!!.map { currentPrediction ->
             if (currentPrediction.id == prediction.id) {
                 prediction
@@ -30,7 +30,7 @@ open class PredictionViewModel(private val sport: Sport) : ViewModel() {
         _predictions.value = currentPredictions
     }
 
-    fun removePrediction(prediction: MatchPrediction) {
+    fun removePrediction(prediction: Prediction) {
         val currentPredictions = _predictions.value!!.toMutableList()
         currentPredictions.remove(prediction)
         _predictions.value = currentPredictions

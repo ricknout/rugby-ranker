@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.widget.TooltipCompat
 import com.ricknout.rugbyranker.prediction.R
-import com.ricknout.rugbyranker.prediction.vo.MatchPrediction
+import com.ricknout.rugbyranker.prediction.vo.Prediction
 import kotlinx.android.synthetic.main.view_prediction_bar.view.*
 
 class PredictionBarView
@@ -14,8 +14,8 @@ class PredictionBarView
 
     interface PredictionBarViewListener {
         fun onAddPredictionClick()
-        fun onPredictionClick(prediction: MatchPrediction)
-        fun onPredictionRemoveClick(prediction: MatchPrediction)
+        fun onPredictionClick(prediction: Prediction)
+        fun onPredictionRemoveClick(prediction: Prediction)
     }
 
     var listener: PredictionBarViewListener? = null
@@ -43,7 +43,7 @@ class PredictionBarView
         TooltipCompat.setTooltipText(addPredictionButton, context.getString(R.string.tooltip_add_match_prediction))
     }
 
-    fun setPredictions(predictions: List<MatchPrediction>?) {
+    fun setPredictions(predictions: List<Prediction>?) {
         predictionAdapter.submitList(predictions)
     }
 }
