@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/predictionNavGraph"
-    app:startDestination="@id/predictionBottomSheetDialogFragment">
+    app:startDestination="@id/predictionBottomSheetDialogFragment"
+    tools:ignore="UnusedNavigation">
 
     <dialog
         android:id="@+id/predictionBottomSheetDialogFragment"

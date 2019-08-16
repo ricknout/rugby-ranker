@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/infoNavGraph"
-    app:startDestination="@id/infoFragment">
+    app:startDestination="@id/infoFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/infoFragment"
