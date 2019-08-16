@@ -6,6 +6,6 @@ import com.ricknout.rugbyranker.teams.work.TeamsWorkManager
 import javax.inject.Inject
 
 class WomensTeamsViewModel @Inject constructor(
-        teamsRepository: TeamsRepository,
-        teamsWorkManager: TeamsWorkManager
+    teamsRepository: TeamsRepository,
+    teamsWorkManager: TeamsWorkManager
 ) : TeamsViewModel(Sport.WOMENS, teamsRepository, teamsWorkManager)
