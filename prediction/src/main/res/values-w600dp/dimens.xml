@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Match card padding + 8dp -->
+    <dimen name="margin_horizontal_prediction_bar">104dp</dimen>
+
+</resources>

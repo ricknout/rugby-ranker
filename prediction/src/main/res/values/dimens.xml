@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Match card padding + 8dp -->
+    <dimen name="margin_horizontal_prediction_bar">@dimen/spacing_standard</dimen>
+
     <dimen name="size_add_prediction_button">32dp</dimen>
 
     <dimen name="width_points">96dp</dimen>

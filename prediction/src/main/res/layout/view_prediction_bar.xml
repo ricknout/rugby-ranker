@@ -10,7 +10,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_prediction_bar"
-        android:layout_margin="@dimen/spacing_double"
+        android:layout_marginBottom="@dimen/spacing_double"
+        android:layout_marginStart="@dimen/margin_horizontal_prediction_bar"
+        android:layout_marginEnd="@dimen/margin_horizontal_prediction_bar"
         app:cardBackgroundColor="?attr/colorSecondary"
         app:shapeAppearance="?attr/shapeAppearanceLargeComponent"
         app:strokeWidth="0dp">
