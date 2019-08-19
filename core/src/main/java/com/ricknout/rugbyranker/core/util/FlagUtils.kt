@@ -4,7 +4,7 @@ object FlagUtils {
 
     fun getFlagEmojiForTeamAbbreviation(teamAbbreviation: String) = when (teamAbbreviation) {
         "NZL" -> "\uD83C\uDDF3\uD83C\uDDFF" // New Zealand
-        "IRE" -> "\uD83C\uDDEE\uD83C\uDDEA" // Ireland
+        "IRE" -> "\u2618\uFE0F" // Ireland (using a shamrock for IRFU)
         "WAL" -> "\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73\uDB40\uDC7F" // Wales
         "ENG" -> "\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F" // England
         "RSA" -> "\uD83C\uDDFF\uD83C\uDDE6" // South Africa
