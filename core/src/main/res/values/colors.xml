@@ -33,8 +33,8 @@
     <color name="world_rugby_green_lighter">#93ea83</color>
     <color name="world_rugby_blue">#0000ac</color>
     <color name="world_rugby_blue_dark">#001754</color>
-    <color name="world_rugby_blue_light">#7a89bd</color>
-    <color name="world_rugby_blue_lighter">#c4cbe3</color>
+    <color name="world_rugby_blue_light">#768fff</color>
+    <color name="world_rugby_blue_lighter">#acbfff</color>
     <color name="world_rugby_red">#e51a19</color>
     <color name="world_rugby_red_light">#ff5c44</color>
     <color name="white">#ffffff</color>
