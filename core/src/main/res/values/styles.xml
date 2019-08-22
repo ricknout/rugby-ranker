@@ -66,9 +66,9 @@
         <item name="yearTextSize">@dimen/text_size_world_rugby_match_date_header_year</item>
     </style>
 
-    <style name="ItemDecoration.RugbyRanker.WorldRugbyMatch.Space" parent="">
+    <style name="ItemDecoration.RugbyRanker.Space" parent="">
         <item name="android:paddingTop">@dimen/spacing_standard</item>
-        <item name="paddingHorizontal">@dimen/padding_horizontal_world_rugby_match_space</item>
+        <item name="paddingHorizontal">@dimen/padding_horizontal_space</item>
     </style>
 
 </resources>
