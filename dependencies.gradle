@@ -5,7 +5,6 @@ ext {
             targetSdk: 29,
             androidGradlePlugin: '3.5.0',
             ktlint: '0.34.2',
-            retrofit: '2.6.1',
             glide: '4.9.0',
             kotlin: [
                     kotlin: '1.3.50',
@@ -40,6 +39,10 @@ ext {
                             ossLicenses: '17.0.0',
                             gradlePlugin: '0.9.5'
                     ]
+            ],
+            square: [
+                    okhttp: '4.1.0',
+                    retrofit: '2.6.1'
             ]
     ]
     deps = [
@@ -115,9 +118,12 @@ ext {
                             gradlePlugin: "com.google.android.gms:oss-licenses-plugin:$versions.google.ossLicenses.gradlePlugin"
                     ]
             ],
-            retrofit: [
-                    retrofit: "com.squareup.retrofit2:retrofit:$versions.retrofit",
-                    gsonConverter: "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+            square: [
+                    okhttp: "com.squareup.okhttp3:okhttp:$versions.square.retrofit",
+                    retrofit: [
+                            retrofit: "com.squareup.retrofit2:retrofit:$versions.square.retrofit",
+                            gsonConverter: "com.squareup.retrofit2:converter-gson:$versions.square.retrofit"
+                    ]
             ],
             glide: [
                     glide: "com.github.bumptech.glide:glide:$versions.glide",
