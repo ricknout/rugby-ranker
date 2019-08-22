@@ -12,7 +12,7 @@ import com.ricknout.rugbyranker.news.R
 import com.ricknout.rugbyranker.news.vo.WorldRugbyArticle
 import kotlinx.android.synthetic.main.list_item_world_rugby_article.view.*
 
-class WorldRugbyArticlePagedListAdapter (
+class WorldRugbyArticlePagedListAdapter(
     private val onClick: (worldRugbyArticle: WorldRugbyArticle) -> Unit
 ) : PagedListAdapter<WorldRugbyArticle, WorldRugbyArticleViewHolder>(DIFF_CALLBACK) {
 

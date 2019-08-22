@@ -16,8 +16,8 @@ import com.ricknout.rugbyranker.core.util.CustomTabsUtils
 import com.ricknout.rugbyranker.news.R
 import com.ricknout.rugbyranker.theme.ui.ThemeViewModel
 import com.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
-import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_news.*
 
 class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
 

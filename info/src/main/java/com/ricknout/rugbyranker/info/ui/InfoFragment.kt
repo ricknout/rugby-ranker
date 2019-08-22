@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
-import com.ricknout.rugbyranker.info.R
 import com.ricknout.rugbyranker.core.util.CustomTabsUtils
+import com.ricknout.rugbyranker.info.R
 import com.ricknout.rugbyranker.theme.ui.ThemeViewModel
 import com.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
 import javax.inject.Inject
