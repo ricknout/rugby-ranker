@@ -12,6 +12,7 @@ import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import com.ricknout.rugbyranker.news.db.WorldRugbyNewsDao
+import com.ricknout.rugbyranker.news.repository.NewsRepository
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
@@ -138,6 +139,15 @@ class AppModule {
         worldRugbyTeamDao: WorldRugbyTeamDao
     ): TeamsRepository {
         return TeamsRepository(worldRugbyService, worldRugbyTeamDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(
+        worldRugbyService: WorldRugbyService,
+        worldRugbyNewsDao: WorldRugbyNewsDao
+    ): NewsRepository {
+        return NewsRepository(worldRugbyService, worldRugbyNewsDao)
     }
 
     @Provides

@@ -29,7 +29,7 @@ interface WorldRugbyService {
     ): WorldRugbyTeamsResponse
 
     @GET("content/worldrugby/text/{lang}")
-    suspend fun getTeams(
+    suspend fun getNews(
         @Path("lang") language: String,
         @Query("tagNames") tagNames: String,
         @Query("page") page: Int,
