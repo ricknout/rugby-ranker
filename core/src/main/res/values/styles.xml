@@ -1,6 +1,8 @@
 <resources>
 
-    <style name="Widget.RugbyRanker.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
+    <style name="Widget.RugbyRanker.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
 
     <style name="Widget.RugbyRanker.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface" />
 
