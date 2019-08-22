@@ -13,6 +13,7 @@ import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import com.ricknout.rugbyranker.news.db.WorldRugbyNewsDao
 import com.ricknout.rugbyranker.news.repository.NewsRepository
+import com.ricknout.rugbyranker.news.work.NewsWorkManager
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
@@ -172,6 +173,12 @@ class AppModule {
     @Singleton
     fun provideTeamsWorkManager(workManager: WorkManager): TeamsWorkManager {
         return TeamsWorkManager(workManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsWorkManager(workManager: WorkManager): NewsWorkManager {
+        return NewsWorkManager(workManager)
     }
 
     companion object {
