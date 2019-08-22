@@ -35,7 +35,6 @@ class WorldRugbyArticlePagedListAdapter(
 class WorldRugbyArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyArticle: WorldRugbyArticle, onClick: (worldRugbyArticle: WorldRugbyArticle) -> Unit) {
-        // TODO: Placeholder?
         GlideApp.with(itemView)
                 .load(worldRugbyArticle.imageUrl)
                 .centerCrop()
