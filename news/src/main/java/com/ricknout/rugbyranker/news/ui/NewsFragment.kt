@@ -81,6 +81,7 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
         })
         viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             newsRecyclerView.smoothScrollToPosition(0)
+            appBarLayout.setExpanded(true)
         })
     }
 

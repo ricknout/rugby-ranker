@@ -22,6 +22,12 @@
         <argument android:name="sport" android:defaultValue="WOMENS" app:argType="com.ricknout.rugbyranker.core.vo.Sport" />
     </fragment>
 
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.ricknout.rugbyranker.news.ui.NewsFragment"
+        android:label="NewsFragment"
+        tools:layout="@layout/fragment_news" />
+
     <include app:graph="@navigation/nav_graph_info" />
 
     <include app:graph="@navigation/nav_graph_prediction" />

@@ -47,6 +47,6 @@ class NewsRepository(
 
     companion object {
         private const val PAGE_SIZE_WORLD_RUGBY_NEWS_DATABASE = 10
-        private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK = 1000
+        private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK = 100 // TODO: Make this bigger (1000) but first need to increase OkHttp timeout
     }
 }
