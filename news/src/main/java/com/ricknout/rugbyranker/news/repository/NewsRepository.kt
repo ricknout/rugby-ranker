@@ -38,7 +38,7 @@ class NewsRepository(
         }
     }
 
-    fun fetchAndCacheLatestWorldRugbyRankingsAsync(coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
+    fun fetchAndCacheLatestWorldRugbyNewsAsync(coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
         coroutineScope.launch {
             val success = withContext(Dispatchers.IO) { fetchAndCacheLatestWorldRugbyNewsSync() }
             onComplete(success)

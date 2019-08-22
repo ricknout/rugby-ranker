@@ -9,6 +9,7 @@ import com.ricknout.rugbyranker.matches.ui.MensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
+import com.ricknout.rugbyranker.news.ui.NewsViewModel
 import com.ricknout.rugbyranker.prediction.ui.MensPredictionViewModel
 import com.ricknout.rugbyranker.prediction.ui.WomensPredictionViewModel
 import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
@@ -108,4 +109,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(WomensTeamsViewModel::class)
     abstract fun bindWomensTeamsViewModel(womensTeamsViewModel: WomensTeamsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewsViewModel::class)
+    abstract fun bindNewsViewModel(newsViewModel: NewsViewModel): ViewModel
 }
