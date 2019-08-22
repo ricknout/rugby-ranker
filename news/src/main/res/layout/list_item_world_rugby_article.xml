@@ -42,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/categoryTextView"
+            android:id="@+id/subtitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_double"
@@ -56,7 +56,7 @@
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toBaselineOf="@id/categoryTextView"
+            app:layout_constraintBaseline_toBaselineOf="@id/subtitleTextView"
             app:layout_constraintEnd_toStartOf="@id/endGuideline"
             android:textAppearance="?attr/textAppearanceCaption"
             tools:text="20/08/2019" />
@@ -66,14 +66,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_standard"
-            app:layout_constraintTop_toBottomOf="@id/categoryTextView"
+            app:layout_constraintTop_toBottomOf="@id/subtitleTextView"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
             app:layout_constraintEnd_toStartOf="@id/endGuideline"
             android:textAppearance="?attr/textAppearanceHeadline6"
             tools:text="Annelies Acda: “I’m using this opportunity as a learning curve”" />
 
         <TextView
-            android:id="@+id/subtitleTextView"
+            android:id="@+id/summaryTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_standard"
