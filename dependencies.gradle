@@ -8,7 +8,7 @@ ext {
             retrofit: '2.6.1',
             glide: '4.9.0',
             kotlin: [
-                    kotlin: '1.3.41',
+                    kotlin: '1.3.50',
                     coroutines: '1.2.2'
             ],
             androidX: [
