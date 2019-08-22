@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_news">News</string>
+
+    <string name="snackbar_fetching_world_rugby_news">Fetching news&#8230;</string>
+    <string name="snackbar_failed_to_refresh_world_rugby_news">Failed to refresh news</string>
+
+</resources>
