@@ -11,10 +11,9 @@
         android:icon="@drawable/sl_gender_female_black_24dp"
         android:title="@string/title_womens" />
 
-    <!-- TODO: Use an AVD selector for this news item -->
     <item
         android:id="@id/newsFragment"
-        android:icon="@drawable/ic_news_black_24dp"
+        android:icon="@drawable/sl_news_black_24dp"
         android:title="@string/title_news" />
 
     <item

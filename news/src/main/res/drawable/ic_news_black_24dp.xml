@@ -1,36 +1,38 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+
   <path
+      android:name="rectangle"
       android:pathData="M7,16L20,16C20.5523,16 21,15.5523 21,15L21,5C21,4.4477 20.5523,4 20,4L8,4C7.4477,4 7,4.4477 7,5L7,16Z"
       android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:fillType="evenOdd"/>
+      android:strokeColor="#000000" />
+
   <path
-      android:pathData="M14,12L10,12"
+      android:name="largeInnerLine"
+      android:pathData="M10,8L18,8"
       android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:fillType="evenOdd"/>
+      android:strokeColor="#000000" />
+
   <path
-      android:pathData="M18,8L10,8"
+      android:name="smallInnerLine"
+      android:pathData="M10,12L14,12"
       android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:fillType="evenOdd"/>
+      android:strokeColor="#000000" />
+
   <path
+      android:name="horizontalOuterLine"
       android:pathData="M2,20L18,20"
       android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:fillType="evenOdd"/>
+      android:strokeColor="#000000" />
+
   <path
+      android:name="verticalOuterLine"
       android:pathData="M3,8L3,21"
       android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:fillType="evenOdd"/>
+      android:strokeColor="#000000" />
+
 </vector>
