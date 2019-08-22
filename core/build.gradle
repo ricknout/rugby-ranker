@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -43,6 +44,8 @@ dependencies {
     api deps.google.dagger.androidSupport
     api deps.retrofit.retrofit
     api deps.retrofit.gsonConverter
+    api deps.glide.glide
+    kapt deps.glide.compiler
     testImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.core.ktx
     androidTestImplementation deps.androidX.test.jUnit.ktx

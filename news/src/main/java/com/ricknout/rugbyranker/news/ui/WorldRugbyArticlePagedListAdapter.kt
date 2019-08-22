@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ricknout.rugbyranker.core.glide.GlideApp
 import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.news.R
 import com.ricknout.rugbyranker.news.vo.WorldRugbyArticle
@@ -34,7 +35,11 @@ class WorldRugbyArticlePagedListAdapter (
 class WorldRugbyArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyArticle: WorldRugbyArticle, onClick: (worldRugbyArticle: WorldRugbyArticle) -> Unit) {
-        // TODO: Load imageUrl into imageView with Glide (placeholder?)
+        // TODO: Placeholder?
+        GlideApp.with(itemView)
+                .load(worldRugbyArticle.imageUrl)
+                .centerCrop()
+                .into(itemView.imageView)
         itemView.subtitleTextView.text = worldRugbyArticle.subtitle
         val date = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, worldRugbyArticle.timeMillis)
         itemView.dateTextView.text = date

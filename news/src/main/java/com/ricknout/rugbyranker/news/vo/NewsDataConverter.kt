@@ -11,11 +11,13 @@ object NewsDataConverter {
                     title = article.title,
                     subtitle = article.subtitle,
                     summary = article.description,
-                    imageUrl = article.imageUrl,
+                    imageUrl = if (article.onDemandUrl != null) "${article.onDemandUrl}?width=$WIDTH_IMAGE" else article.imageUrl,
                     articleUrl = article.canonicalUrl,
                     timeMillis = article.publishFrom,
                     language = article.language
             )
         }
     }
+
+    private const val WIDTH_IMAGE = 1000
 }

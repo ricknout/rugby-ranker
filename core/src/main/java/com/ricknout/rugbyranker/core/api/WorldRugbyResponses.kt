@@ -90,7 +90,8 @@ data class Article(
     val language: String,
     val canonicalUrl: String,
     val subtitle: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val onDemandUrl: String?
 )
 
 data class WorldRugbyNewsResponse(
