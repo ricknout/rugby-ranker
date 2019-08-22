@@ -52,6 +52,7 @@ dependencies {
     implementation project(':teams')
     implementation project(':matches')
     implementation project(':live')
+    implementation project(':news')
     implementation project(':info')
     implementation project(':theme')
     implementation deps.androidX.viewPager2
