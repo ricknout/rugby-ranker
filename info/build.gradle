@@ -21,7 +21,6 @@ android {
 dependencies {
     implementation project(':core')
     implementation project(':theme')
-    implementation deps.androidX.browser
     implementation deps.google.ossLicenses.ossLicenses
     testImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.core.ktx

@@ -29,6 +29,7 @@ dependencies {
     api deps.androidX.recyclerView
     api deps.androidX.swipeRefreshLayout
     api deps.androidX.emoji
+    api deps.androidX.browser
     api deps.androidX.lifecycle.extensions
     api deps.androidX.room.runtime
     api deps.androidX.room.ktx

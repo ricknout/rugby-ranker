@@ -12,7 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.SpaceItemDecoration
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
+import com.ricknout.rugbyranker.core.util.CustomTabsUtils
 import com.ricknout.rugbyranker.news.R
+import com.ricknout.rugbyranker.theme.ui.ThemeViewModel
+import com.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
 import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
@@ -21,7 +24,9 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: NewsViewModel by activityViewModels { viewModelFactory }
+    private val newsViewModel: NewsViewModel by activityViewModels { viewModelFactory }
+
+    private val themeViewModel: ThemeViewModel by activityViewModels { viewModelFactory }
 
     private lateinit var workerSnackBar: Snackbar
     private lateinit var refreshSnackBar: Snackbar
@@ -41,12 +46,13 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
         spaceItemDecoration = SpaceItemDecoration(requireContext())
         newsRecyclerView.addItemDecoration(spaceItemDecoration, 0)
         worldRugbyNewsPagedListAdapter = WorldRugbyArticlePagedListAdapter { worldRugbyArticle ->
-            // TODO: Open article in Chrome Custom Tab
+            CustomTabsUtils.launchCustomTab(requireContext(), worldRugbyArticle.articleUrl,
+                    themeViewModel.getTheme().getCustomTabsIntentColorScheme())
         }
         newsRecyclerView.adapter = worldRugbyNewsPagedListAdapter
         newsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                viewModel.onScroll(delta = dy)
+                newsViewModel.onScroll(delta = dy)
             }
         })
     }
@@ -57,12 +63,12 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
     }
 
     private fun setupViewModel() {
-        viewModel.latestWorldRugbyNews.observe(viewLifecycleOwner, Observer { latestWorldRugbyNews ->
+        newsViewModel.latestWorldRugbyNews.observe(viewLifecycleOwner, Observer { latestWorldRugbyNews ->
             worldRugbyNewsPagedListAdapter.submitList(latestWorldRugbyNews)
             val isEmpty = latestWorldRugbyNews?.isEmpty() ?: true
             progressBar.isVisible = isEmpty
         })
-        viewModel.latestWorldRugbyNewsWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
+        newsViewModel.latestWorldRugbyNewsWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
             val workInfo = workInfos?.firstOrNull() ?: return@Observer
             when (workInfo.state) {
                 State.RUNNING -> {
@@ -76,10 +82,10 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
                 }
             }
         })
-        viewModel.refreshingLatestWorldRugbyNews.observe(viewLifecycleOwner, Observer { refreshingLatestWorldRugbyNews ->
+        newsViewModel.refreshingLatestWorldRugbyNews.observe(viewLifecycleOwner, Observer { refreshingLatestWorldRugbyNews ->
             swipeRefreshLayout.isRefreshing = refreshingLatestWorldRugbyNews
         })
-        viewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
+        newsViewModel.scrollToTop.observe(viewLifecycleOwner, EventObserver {
             newsRecyclerView.smoothScrollToPosition(0)
             appBarLayout.setExpanded(true)
         })
@@ -93,7 +99,7 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
                 swipeRefreshLayout.progressViewStartOffset + resources.getDimensionPixelSize(R.dimen.spacing_double),
                 swipeRefreshLayout.progressViewEndOffset)
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.refreshLatestWorldRugbyNews { success ->
+            newsViewModel.refreshLatestWorldRugbyNews { success ->
                 if (!success) {
                     refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_news)
                     refreshSnackBar.show()
