@@ -30,7 +30,13 @@ class MatchesRepository(
         return dataSourceFactory.toLiveData(config = config)
     }
 
-    suspend fun fetchAndCacheLatestWorldRugbyMatchesSync(sport: Sport, matchStatus: MatchStatus, cache: Boolean = true): Pair<Boolean, List<WorldRugbyMatch>> {
+    suspend fun fetchAndCacheLatestWorldRugbyMatchesSync(
+        sport: Sport,
+        matchStatus: MatchStatus,
+        cache: Boolean = true,
+        pageSize: Int = PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK,
+        loadMultiplePages: Boolean = true
+    ): Pair<Boolean, List<WorldRugbyMatch>> {
         val sports = when (sport) {
             Sport.MENS -> WorldRugbyService.SPORT_MENS
             Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
@@ -61,11 +67,11 @@ class MatchesRepository(
         val worldRugbyMatches = mutableListOf<WorldRugbyMatch>()
         return try {
             while (page < pageCount) {
-                val worldRugbyMatchesResponse = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK)
+                val worldRugbyMatchesResponse = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, pageSize)
                 val matches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
                 if (cache) worldRugbyMatchDao.insert(matches)
                 page++
-                pageCount = worldRugbyMatchesResponse.pageInfo.numPages
+                pageCount = if (loadMultiplePages) worldRugbyMatchesResponse.pageInfo.numPages else 1
                 success = true
                 worldRugbyMatches.addAll(matches)
             }
@@ -78,7 +84,9 @@ class MatchesRepository(
     fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
         if (matchStatus == MatchStatus.LIVE) throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
         coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) { fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus, cache = true) }
+            val result = withContext(Dispatchers.IO) {
+                fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus, cache = true, loadMultiplePages = false)
+            }
             val success = result.first
             onComplete(success)
         }
