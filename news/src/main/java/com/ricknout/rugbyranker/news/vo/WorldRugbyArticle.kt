@@ -8,9 +8,9 @@ data class WorldRugbyArticle(
     @PrimaryKey
     val id: Long,
     val title: String,
-    val subtitle: String,
+    val subtitle: String?,
     val summary: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val articleUrl: String,
     val timeMillis: Long,
     val language: String

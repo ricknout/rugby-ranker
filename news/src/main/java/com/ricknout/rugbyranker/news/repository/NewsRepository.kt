@@ -24,24 +24,34 @@ class NewsRepository(
         return dataSourceFactory.toLiveData(config = config)
     }
 
-    suspend fun fetchAndCacheLatestWorldRugbyNewsSync(pageSize: Int = PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK): Boolean {
+    suspend fun fetchAndCacheLatestWorldRugbyNewsSync(
+        pageSize: Int = PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK,
+        loadMultiplePages: Boolean = true
+    ): Boolean {
         val language = WorldRugbyService.LANGUAGE_EN
         val tagNames = WorldRugbyService.TAG_NAME_NEWS
-        val page = 0
-        return try {
-            val worldRugbyNewsResponse = worldRugbyService.getNews(language, tagNames, page, pageSize)
-            val worldRugbyArticles = NewsDataConverter.getWorldRugbyArticlesFromWorldRugbyNewsResponse(worldRugbyNewsResponse)
-            worldRugbyNewsDao.insert(worldRugbyArticles)
-            true
-        } catch (_: Exception) {
-            false
+        var page = 0
+        var pageCount = Int.MAX_VALUE
+        var success = false
+        while (page < pageCount) {
+            try {
+                val worldRugbyNewsResponse = worldRugbyService.getNews(language, tagNames, page, pageSize)
+                val worldRugbyArticles = NewsDataConverter.getWorldRugbyArticlesFromWorldRugbyNewsResponse(worldRugbyNewsResponse)
+                worldRugbyNewsDao.insert(worldRugbyArticles)
+                page++
+                pageCount = if (loadMultiplePages) worldRugbyNewsResponse.pageInfo.numPages.coerceAtMost(MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK) else 1
+                success = true
+            } catch (_: Exception) {
+                // If we have successfully loaded other pages of articles, do not consider this a failure
+            }
         }
+        return success
     }
 
     fun fetchAndCacheLatestWorldRugbyNewsAsync(coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
         coroutineScope.launch {
             val success = withContext(Dispatchers.IO) {
-                fetchAndCacheLatestWorldRugbyNewsSync(pageSize = PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK_REFRESH)
+                fetchAndCacheLatestWorldRugbyNewsSync(pageSize = PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK_REFRESH, loadMultiplePages = false)
             }
             onComplete(success)
         }
@@ -51,5 +61,6 @@ class NewsRepository(
         private const val PAGE_SIZE_WORLD_RUGBY_NEWS_DATABASE = 10
         private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK = 100
         private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK_REFRESH = 10
+        private const val MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK = 10
     }
 }

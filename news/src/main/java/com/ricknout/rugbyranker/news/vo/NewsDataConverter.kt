@@ -10,7 +10,11 @@ object NewsDataConverter {
                     id = article.id,
                     title = article.title,
                     subtitle = article.subtitle,
-                    summary = article.description,
+                    summary = when {
+                        article.description != null -> article.description!!
+                        article.summary != null -> article.summary!!
+                        else -> article.title
+                    },
                     imageUrl = if (article.onDemandUrl != null) "${article.onDemandUrl}?width=$WIDTH_IMAGE" else article.imageUrl,
                     articleUrl = article.canonicalUrl,
                     timeMillis = article.publishFrom,

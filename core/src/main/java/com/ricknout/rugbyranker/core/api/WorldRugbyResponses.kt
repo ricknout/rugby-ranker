@@ -85,12 +85,13 @@ data class WorldRugbyTeamsResponse(
 data class Article(
     val id: Long,
     val title: String,
-    val description: String,
+    val description: String?,
     val publishFrom: Long,
     val language: String,
     val canonicalUrl: String,
-    val subtitle: String,
-    val imageUrl: String,
+    val subtitle: String?,
+    val summary: String?,
+    val imageUrl: String?,
     val onDemandUrl: String?
 )
 

@@ -39,7 +39,7 @@ class WorldRugbyArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(item
                 .load(worldRugbyArticle.imageUrl)
                 .centerCrop()
                 .into(itemView.imageView)
-        itemView.subtitleTextView.text = worldRugbyArticle.subtitle
+        itemView.subtitleTextView.text = worldRugbyArticle.subtitle ?: itemView.context.getString(R.string.title_news)
         val date = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, worldRugbyArticle.timeMillis)
         itemView.dateTextView.text = date
         itemView.titleTextView.text = worldRugbyArticle.title
