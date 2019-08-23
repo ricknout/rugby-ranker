@@ -42,11 +42,7 @@ class NewsRepository(
                 val worldRugbyArticles = NewsDataConverter.getWorldRugbyArticlesFromWorldRugbyNewsResponse(worldRugbyNewsResponse)
                 worldRugbyNewsDao.insert(worldRugbyArticles)
                 page++
-                pageCount = if (fetchMultiplePages && !initialNewsFetched) {
-                    worldRugbyNewsResponse.pageInfo.numPages.coerceAtMost(MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK)
-                } else {
-                    1
-                }
+                pageCount = if (fetchMultiplePages && !initialNewsFetched) worldRugbyNewsResponse.pageInfo.numPages.coerceAtMost(MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK) else 1
                 success = true
             } catch (_: Exception) {
                 // If we have successfully loaded other pages of articles, do not consider this a failure
