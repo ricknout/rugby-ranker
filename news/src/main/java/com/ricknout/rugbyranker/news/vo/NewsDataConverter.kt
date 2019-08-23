@@ -19,5 +19,5 @@ object NewsDataConverter {
         }
     }
 
-    private const val WIDTH_IMAGE = 1000
+    private const val WIDTH_IMAGE = 500
 }

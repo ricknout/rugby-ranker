@@ -6,12 +6,6 @@
     android:viewportHeight="24">
 
   <path
-      android:name="rectangle"
-      android:pathData="M7,16L20,16C20.5523,16 21,15.5523 21,15L21,5C21,4.4477 20.5523,4 20,4L8,4C7.4477,4 7,4.4477 7,5L7,16Z"
-      android:strokeWidth="2"
-      android:strokeColor="#000000" />
-
-  <path
       android:name="largeInnerLine"
       android:pathData="M10,8L18,8"
       android:strokeWidth="2"
@@ -24,15 +18,15 @@
       android:strokeColor="#000000" />
 
   <path
-      android:name="horizontalOuterLine"
-      android:pathData="M2,20L18,20"
-      android:strokeWidth="2"
-      android:strokeColor="#000000" />
+      android:pathData="M4,21L18,21L18,21L18,19L2,19C2,20.1046 2.8954,21 4,21Z"
+      android:fillColor="#000000" />
 
   <path
-      android:name="verticalOuterLine"
-      android:pathData="M3,8L3,21"
-      android:strokeWidth="2"
-      android:strokeColor="#000000" />
+      android:pathData="M2,7L2,19C2,20.1046 2.8954,21 4,21L4,21L4,21L4,7L2,7Z"
+      android:fillColor="#000000" />
+
+  <path
+      android:pathData="M8,3L20,3C21.1046,3 22,3.8954 22,5L22,15C22,16.1046 21.1046,17 20,17L8,17C6.8954,17 6,16.1046 6,15L6,5C6,3.8954 6.8954,3 8,3ZM8,5L8,15L20,15L20,5L8,5Z"
+      android:fillColor="#000000" />
 
 </vector>
