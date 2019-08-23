@@ -18,7 +18,7 @@ class MatchesSharedPreferences(private val sharedPreferences: SharedPreferences)
     companion object {
         private const val KEY_INITIAL_MATCHES_FETCHED = "initial_matches_fetched"
         private fun getInitialMatchesFetchedKey(sport: Sport, matchStatus: MatchStatus): String {
-            return "${KEY_INITIAL_MATCHES_FETCHED}_${sport}_${matchStatus}"
+            return "${KEY_INITIAL_MATCHES_FETCHED}_${sport}_$matchStatus"
         }
     }
 }
