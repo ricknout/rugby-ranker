@@ -12,6 +12,7 @@ import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import com.ricknout.rugbyranker.news.db.WorldRugbyNewsDao
+import com.ricknout.rugbyranker.news.prefs.NewsSharedPreferences
 import com.ricknout.rugbyranker.news.repository.NewsRepository
 import com.ricknout.rugbyranker.news.work.NewsWorkManager
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
@@ -122,6 +123,12 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideNewsSharedPreferences(sharedPreferences: SharedPreferences): NewsSharedPreferences {
+        return NewsSharedPreferences(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
     fun provideRankingsRepository(
         worldRugbyService: WorldRugbyService,
         worldRugbyRankingDao: WorldRugbyRankingDao,
@@ -158,9 +165,10 @@ class AppModule {
     @Singleton
     fun provideNewsRepository(
         worldRugbyService: WorldRugbyService,
-        worldRugbyNewsDao: WorldRugbyNewsDao
+        worldRugbyNewsDao: WorldRugbyNewsDao,
+        newsSharedPreferences: NewsSharedPreferences
     ): NewsRepository {
-        return NewsRepository(worldRugbyService, worldRugbyNewsDao)
+        return NewsRepository(worldRugbyService, worldRugbyNewsDao, newsSharedPreferences)
     }
 
     @Provides
