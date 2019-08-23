@@ -9,6 +9,7 @@ import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.db.RugbyRankerDb
 import com.ricknout.rugbyranker.db.RugbyRankerMigrations
 import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao
+import com.ricknout.rugbyranker.matches.prefs.MatchesSharedPreferences
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
@@ -91,6 +92,12 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideMatchesSharedPreferences(sharedPreferences: SharedPreferences): MatchesSharedPreferences {
+        return MatchesSharedPreferences(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
     fun provideThemeSharedPreferences(sharedPreferences: SharedPreferences): ThemeSharedPreferences {
         return ThemeSharedPreferences(sharedPreferences)
     }
@@ -109,9 +116,10 @@ class AppModule {
     @Singleton
     fun provideMatchesRepository(
         worldRugbyService: WorldRugbyService,
-        worldRugbyMatchDao: WorldRugbyMatchDao
+        worldRugbyMatchDao: WorldRugbyMatchDao,
+        matchesSharedPreferences: MatchesSharedPreferences
     ): MatchesRepository {
-        return MatchesRepository(worldRugbyService, worldRugbyMatchDao)
+        return MatchesRepository(worldRugbyService, worldRugbyMatchDao, matchesSharedPreferences)
     }
 
     @Provides
