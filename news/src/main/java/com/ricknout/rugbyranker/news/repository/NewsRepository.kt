@@ -52,7 +52,7 @@ class NewsRepository(
                 // If we have successfully loaded other pages of articles, do not consider this a failure
             }
         }
-        newsSharedPreferences.setInitialNewsFetched(true)
+        if (fetchMultiplePages) newsSharedPreferences.setInitialNewsFetched(true)
         return success
     }
 
