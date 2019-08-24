@@ -64,6 +64,6 @@ class NewsRepository(
     companion object {
         private const val PAGE_SIZE_WORLD_RUGBY_NEWS_DATABASE = 20
         private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK = 10
-        private const val MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK = 20
+        private const val MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK = 10
     }
 }
