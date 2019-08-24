@@ -68,8 +68,8 @@ class MatchesRepository(
         var success = false
         val worldRugbyMatches = mutableListOf<WorldRugbyMatch>()
         val initialMatchesFetched = matchesSharedPreferences.isInitialMatchesFetched(sport, matchStatus)
-        while (page < pageCount) {
-            try {
+        return try {
+            while (page < pageCount) {
                 val worldRugbyMatchesResponse = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, pageSize)
                 val matches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
                 if (cache) worldRugbyMatchDao.insert(matches)
@@ -77,12 +77,12 @@ class MatchesRepository(
                 pageCount = if (fetchMultiplePages && !initialMatchesFetched) worldRugbyMatchesResponse.pageInfo.numPages else 1
                 success = true
                 worldRugbyMatches.addAll(matches)
-            } catch (_: Exception) {
-                // If we have successfully loaded other pages of matches, do not consider this a failure
             }
+            if (fetchMultiplePages) matchesSharedPreferences.setInitialMatchesFetched(sport, matchStatus, true)
+            success to worldRugbyMatches
+        } catch (_: Exception) {
+            success to worldRugbyMatches
         }
-        if (fetchMultiplePages) matchesSharedPreferences.setInitialMatchesFetched(sport, matchStatus, true)
-        return success to worldRugbyMatches
     }
 
     fun fetchAndCacheLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
