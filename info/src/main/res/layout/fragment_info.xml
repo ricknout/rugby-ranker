@@ -42,6 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingStart="@dimen/padding_horizontal_info_buttons"
+            android:paddingEnd="@dimen/padding_horizontal_info_buttons"
             android:theme="@style/ThemeOverlay.RugbyRanker.Secondary">
 
             <com.google.android.material.button.MaterialButton
