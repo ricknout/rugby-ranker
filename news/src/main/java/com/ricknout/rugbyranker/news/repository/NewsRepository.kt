@@ -36,20 +36,20 @@ class NewsRepository(
         var pageCount = Int.MAX_VALUE
         var success = false
         val initialNewsFetched = newsSharedPreferences.isInitialNewsFetched()
-        while (page < pageCount) {
-            try {
+        return try {
+            while (page < pageCount) {
                 val worldRugbyNewsResponse = worldRugbyService.getNews(language, tagNames, page, pageSize)
                 val worldRugbyArticles = NewsDataConverter.getWorldRugbyArticlesFromWorldRugbyNewsResponse(worldRugbyNewsResponse)
                 worldRugbyNewsDao.insert(worldRugbyArticles)
                 page++
                 pageCount = if (fetchMultiplePages && !initialNewsFetched) worldRugbyNewsResponse.pageInfo.numPages.coerceAtMost(MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK) else 1
                 success = true
-            } catch (_: Exception) {
-                // If we have successfully loaded other pages of articles, do not consider this a failure
             }
+            if (fetchMultiplePages) newsSharedPreferences.setInitialNewsFetched(true)
+            success
+        } catch (_: Exception) {
+            false
         }
-        if (fetchMultiplePages) newsSharedPreferences.setInitialNewsFetched(true)
-        return success
     }
 
     fun fetchAndCacheLatestWorldRugbyNewsAsync(coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
