@@ -55,16 +55,15 @@ class NewsRepository(
     fun fetchAndCacheLatestWorldRugbyNewsAsync(coroutineScope: CoroutineScope, onComplete: (success: Boolean) -> Unit) {
         coroutineScope.launch {
             val success = withContext(Dispatchers.IO) {
-                fetchAndCacheLatestWorldRugbyNewsSync(pageSize = PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK_REFRESH, fetchMultiplePages = false)
+                fetchAndCacheLatestWorldRugbyNewsSync(fetchMultiplePages = false)
             }
             onComplete(success)
         }
     }
 
     companion object {
-        private const val PAGE_SIZE_WORLD_RUGBY_NEWS_DATABASE = 10
-        private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK = 100
-        private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK_REFRESH = 10
-        private const val MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK = 5
+        private const val PAGE_SIZE_WORLD_RUGBY_NEWS_DATABASE = 20
+        private const val PAGE_SIZE_WORLD_RUGBY_NEWS_NETWORK = 10
+        private const val MAX_PAGES_WORLD_RUGBY_NEWS_NETWORK = 20
     }
 }
