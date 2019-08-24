@@ -48,7 +48,7 @@ class NewsRepository(
             if (fetchMultiplePages) newsSharedPreferences.setInitialNewsFetched(true)
             success
         } catch (_: Exception) {
-            false
+            success
         }
     }
 
