@@ -12,6 +12,10 @@ import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.matches.prefs.MatchesSharedPreferences
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
+import com.ricknout.rugbyranker.news.db.WorldRugbyNewsDao
+import com.ricknout.rugbyranker.news.prefs.NewsSharedPreferences
+import com.ricknout.rugbyranker.news.repository.NewsRepository
+import com.ricknout.rugbyranker.news.work.NewsWorkManager
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
@@ -23,7 +27,9 @@ import com.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
 import com.ricknout.rugbyranker.theme.repository.ThemeRepository
 import dagger.Module
 import dagger.Provides
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -39,8 +45,18 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
+                .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(WorldRugbyService.BASE_URL)
                 .build()
@@ -56,7 +72,11 @@ class AppModule {
     @Singleton
     fun provideDatabase(context: Context): RugbyRankerDb {
         return Room.databaseBuilder(context, RugbyRankerDb::class.java, RugbyRankerDb.DATABASE_NAME)
-                .addMigrations(RugbyRankerMigrations.MIGRATION_1_2, RugbyRankerMigrations.MIGRATION_2_3)
+                .addMigrations(
+                        RugbyRankerMigrations.MIGRATION_1_2,
+                        RugbyRankerMigrations.MIGRATION_2_3,
+                        RugbyRankerMigrations.MIGRATION_3_4
+                )
                 .build()
     }
 
@@ -76,6 +96,12 @@ class AppModule {
     @Singleton
     fun provideWorldRugbyTeamDao(database: RugbyRankerDb): WorldRugbyTeamDao {
         return database.worldRugbyTeamDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWorldRugbyNewsDao(database: RugbyRankerDb): WorldRugbyNewsDao {
+        return database.worldRugbyNewsDao()
     }
 
     @Provides
@@ -100,6 +126,12 @@ class AppModule {
     @Singleton
     fun provideThemeSharedPreferences(sharedPreferences: SharedPreferences): ThemeSharedPreferences {
         return ThemeSharedPreferences(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsSharedPreferences(sharedPreferences: SharedPreferences): NewsSharedPreferences {
+        return NewsSharedPreferences(sharedPreferences)
     }
 
     @Provides
@@ -139,6 +171,16 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideNewsRepository(
+        worldRugbyService: WorldRugbyService,
+        worldRugbyNewsDao: WorldRugbyNewsDao,
+        newsSharedPreferences: NewsSharedPreferences
+    ): NewsRepository {
+        return NewsRepository(worldRugbyService, worldRugbyNewsDao, newsSharedPreferences)
+    }
+
+    @Provides
+    @Singleton
     fun provideWorkManager(context: Context): WorkManager {
         return WorkManager.getInstance(context)
     }
@@ -159,6 +201,12 @@ class AppModule {
     @Singleton
     fun provideTeamsWorkManager(workManager: WorkManager): TeamsWorkManager {
         return TeamsWorkManager(workManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsWorkManager(workManager: WorkManager): NewsWorkManager {
+        return NewsWorkManager(workManager)
     }
 
     companion object {

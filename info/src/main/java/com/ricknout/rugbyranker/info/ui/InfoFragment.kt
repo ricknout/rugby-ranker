@@ -10,9 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
+import com.ricknout.rugbyranker.core.util.CustomTabsUtils
 import com.ricknout.rugbyranker.info.R
-import com.ricknout.rugbyranker.info.util.CustomTabsUtils
 import com.ricknout.rugbyranker.theme.ui.ThemeViewModel
+import com.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_info.*
 
@@ -40,7 +41,8 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
 
     private fun setupButtons() {
         howAreWorldRugbyRankingsCalculatedButton.setOnClickListener {
-            CustomTabsUtils.launchCustomTab(requireContext(), RANKINGS_EXPLANATION_URL, themeViewModel.getTheme())
+            CustomTabsUtils.launchCustomTab(requireContext(), RANKINGS_EXPLANATION_URL,
+                    themeViewModel.getTheme().getCustomTabsIntentColorScheme())
         }
         shareThisAppButton.setOnClickListener {
             val appName = getString(R.string.app_name)
@@ -52,7 +54,8 @@ class InfoFragment : DaggerAndroidXFragment(R.layout.fragment_info) {
             startActivity(Intent.createChooser(intent, requireContext().getString(R.string.title_share, appName)))
         }
         viewSourceCodeButton.setOnClickListener {
-            CustomTabsUtils.launchCustomTab(requireContext(), GITHUB_URL, themeViewModel.getTheme())
+            CustomTabsUtils.launchCustomTab(requireContext(), GITHUB_URL,
+                    themeViewModel.getTheme().getCustomTabsIntentColorScheme())
         }
         openSourceLicensesButton.setOnClickListener {
             val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)

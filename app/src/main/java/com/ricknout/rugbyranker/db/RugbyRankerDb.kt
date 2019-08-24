@@ -5,14 +5,21 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.matches.vo.WorldRugbyMatch
+import com.ricknout.rugbyranker.news.db.WorldRugbyNewsDao
+import com.ricknout.rugbyranker.news.vo.WorldRugbyArticle
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.rankings.vo.WorldRugbyRanking
 import com.ricknout.rugbyranker.teams.db.WorldRugbyTeamDao
 import com.ricknout.rugbyranker.teams.vo.WorldRugbyTeam
 
 @Database(
-        entities = [WorldRugbyRanking::class, WorldRugbyMatch::class, WorldRugbyTeam::class],
-        version = 3,
+        entities = [
+            WorldRugbyRanking::class,
+            WorldRugbyMatch::class,
+            WorldRugbyTeam::class,
+            WorldRugbyArticle::class
+        ],
+        version = 4,
         exportSchema = false
 )
 @TypeConverters(RugbyRankerTypeConverters::class)
@@ -23,6 +30,8 @@ abstract class RugbyRankerDb : RoomDatabase() {
     abstract fun worldRugbyMatchDao(): WorldRugbyMatchDao
 
     abstract fun worldRugbyTeamDao(): WorldRugbyTeamDao
+
+    abstract fun worldRugbyNewsDao(): WorldRugbyNewsDao
 
     companion object {
         const val DATABASE_NAME = "rugby_ranker.db"

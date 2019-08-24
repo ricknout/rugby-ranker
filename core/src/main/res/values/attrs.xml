@@ -13,7 +13,7 @@
         <attr name="yearTextSize" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="WorldRugbyMatchSpaceItemDecoration">
+    <declare-styleable name="SpaceItemDecoration">
         <attr name="android:paddingTop" />
         <attr name="paddingHorizontal" format="dimension" />
     </declare-styleable>

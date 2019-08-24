@@ -12,13 +12,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
+import com.ricknout.rugbyranker.core.ui.SpaceItemDecoration
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.NavGraphLiveDirections
 import com.ricknout.rugbyranker.live.R
 import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchListAdapter
-import com.ricknout.rugbyranker.matches.ui.WorldRugbyMatchSpaceItemDecoration
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_live_matches.*
 
@@ -41,7 +41,7 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
     private lateinit var refreshSnackBar: Snackbar
 
     private lateinit var worldRugbyMatchListAdapter: WorldRugbyMatchListAdapter
-    private lateinit var worldRugbyMatchSpaceItemDecoration: WorldRugbyMatchSpaceItemDecoration
+    private lateinit var spaceItemDecoration: SpaceItemDecoration
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
@@ -51,8 +51,8 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
     }
 
     private fun setupRecyclerView() {
-        worldRugbyMatchSpaceItemDecoration = WorldRugbyMatchSpaceItemDecoration(requireContext())
-        matchesRecyclerView.addItemDecoration(worldRugbyMatchSpaceItemDecoration, 0)
+        spaceItemDecoration = SpaceItemDecoration(requireContext())
+        matchesRecyclerView.addItemDecoration(spaceItemDecoration, 0)
         worldRugbyMatchListAdapter = WorldRugbyMatchListAdapter { worldRugbyMatch ->
             viewModel.predict(worldRugbyMatch)
         }

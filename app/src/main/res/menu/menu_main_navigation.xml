@@ -12,6 +12,11 @@
         android:title="@string/title_womens" />
 
     <item
+        android:id="@id/newsFragment"
+        android:icon="@drawable/sl_news_black_24dp"
+        android:title="@string/title_news" />
+
+    <item
         android:id="@id/infoNavGraph"
         android:icon="@drawable/sl_info_outline_black_24dp"
         android:title="@string/title_info" />
