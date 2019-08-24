@@ -12,8 +12,8 @@ It displays the latest international rankings, live scores, fixtures, results an
 | Rankings | Predict | Predictions | Live |
 | ------ | ----- | ------ | ----- |
 | ![Rankings](/art/screenshots/screenshot-1.png) | ![Predict](/art/screenshots/screenshot-2.png) | ![Predictions](/art/screenshots/screenshot-3.png) | ![Live](/art/screenshots/screenshot-4.png) |
-| ------ | ----- | ------ | ----- |
 | Fixtures | Results | News | Info |
+| ------ | ----- | ------ | ----- |
 | ![Fixtures](/art/screenshots/screenshot-5.png) | ![Results](/art/screenshots/screenshot-6.png) | ![News](/art/screenshots/screenshot-7.png) | ![Info](/art/screenshots/screenshot-8.png) |
 
 <p align="center">
