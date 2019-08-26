@@ -134,7 +134,6 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
     }
 
     private fun setupTabsAndViewPager() {
-        viewPager.offscreenPageLimit = 3
         viewPager.adapter = SportFragmentStateAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
