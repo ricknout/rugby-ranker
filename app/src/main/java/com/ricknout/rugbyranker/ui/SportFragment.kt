@@ -44,7 +44,6 @@ import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.teams.ui.MensTeamsViewModel
 import com.ricknout.rugbyranker.teams.ui.TeamsViewModel
 import com.ricknout.rugbyranker.teams.ui.WomensTeamsViewModel
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_sport.*
 
