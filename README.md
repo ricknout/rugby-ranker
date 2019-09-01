@@ -5,7 +5,7 @@
 
 Rugby Ranker is a **work-in-progess** Android app for viewing and predicting the latest World Rugby rankings.
 
-It displays the latest international rankings, live scores, fixtures, results and news. It makes use of the [World Rugby 'Points Exchange' system](https://www.world.rugby/rankings/explanation) in order to predict changes in team positions and points.
+It displays the latest international rankings, live scores, fixtures, results and news/videos. It makes use of the [World Rugby 'Points Exchange' system](https://www.world.rugby/rankings/explanation) in order to predict changes in team positions and points.
 
 <br>
 
