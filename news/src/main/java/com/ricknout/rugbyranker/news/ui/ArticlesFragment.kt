@@ -43,8 +43,11 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
 
     private val themeViewModel: ThemeViewModel by activityViewModels { viewModelFactory }
 
-    private lateinit var workerSnackBar: Snackbar
-    private lateinit var refreshSnackBar: Snackbar
+    private val coordinatorLayout by lazy {
+        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
+    }
+
+    private var workerSnackBar: Snackbar? = null
 
     private lateinit var worldRugbyArticlePagedListAdapter: WorldRugbyArticlePagedListAdapter
     private lateinit var spaceItemDecoration: SpaceItemDecoration
@@ -52,7 +55,6 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
     }
@@ -72,12 +74,6 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
         })
     }
 
-    private fun setupSnackbars() {
-        val coordinatorLayout = ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-        workerSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_INDEFINITE)
-        refreshSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_SHORT)
-    }
-
     private fun setupViewModel() {
         articlesViewModel.latestWorldRugbyArticles.observe(viewLifecycleOwner, Observer { latestWorldRugbyArticles ->
             worldRugbyArticlePagedListAdapter.submitList(latestWorldRugbyArticles)
@@ -90,16 +86,19 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
                 WorkInfo.State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
                     doIfResumed {
-                        workerSnackBar.setText(when (articleType) {
-                            ArticleType.TEXT -> R.string.snackbar_fetching_world_rugby_news
-                            ArticleType.VIDEO -> R.string.snackbar_fetching_world_rugby_videos
-                        })
-                        workerSnackBar.show()
+                        workerSnackBar = Snackbar.make(
+                                coordinatorLayout,
+                                when (articleType) {
+                                    ArticleType.TEXT -> R.string.snackbar_fetching_world_rugby_news
+                                    ArticleType.VIDEO -> R.string.snackbar_fetching_world_rugby_videos
+                                },
+                                Snackbar.LENGTH_INDEFINITE
+                        ).apply { show() }
                     }
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    root.post { workerSnackBar.dismiss() }
+                    root.post { workerSnackBar?.dismiss() }
                 }
             }
         })
@@ -122,11 +121,14 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
             articlesViewModel.refreshLatestWorldRugbyArticles { success ->
                 if (!success) {
                     doIfResumed {
-                        refreshSnackBar.setText(when (articleType) {
-                            ArticleType.TEXT -> R.string.snackbar_failed_to_refresh_world_rugby_news
-                            ArticleType.VIDEO -> R.string.snackbar_failed_to_refresh_world_rugby_videos
-                        })
-                        refreshSnackBar.show()
+                        Snackbar.make(
+                                coordinatorLayout,
+                                when (articleType) {
+                                    ArticleType.TEXT -> R.string.snackbar_failed_to_refresh_world_rugby_news
+                                    ArticleType.VIDEO -> R.string.snackbar_failed_to_refresh_world_rugby_videos
+                                },
+                                Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
