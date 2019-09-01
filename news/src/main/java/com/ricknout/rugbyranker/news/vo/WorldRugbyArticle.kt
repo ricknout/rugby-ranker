@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class WorldRugbyArticle(
     @PrimaryKey
     val id: Long,
+    val type: ArticleType,
     val title: String,
     val subtitle: String?,
     val summary: String,

@@ -55,6 +55,7 @@
 -keep class com.ricknout.rugbyranker.core.api.** { *; }
 -keep class com.ricknout.rugbyranker.core.vo.** { *; }
 -keep class com.ricknout.rugbyranker.prediction.vo.** { *; }
+-keep class com.ricknout.rugbyranker.news.vo.** { *; }
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)

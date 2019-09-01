@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/matchesNavGraph"
-    app:startDestination="@id/mensUnplayedMatchesFragment">
+    app:startDestination="@id/mensUnplayedMatchesFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/mensUnplayedMatchesFragment"

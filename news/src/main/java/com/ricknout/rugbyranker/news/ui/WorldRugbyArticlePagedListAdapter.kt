@@ -3,12 +3,14 @@ package com.ricknout.rugbyranker.news.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ricknout.rugbyranker.core.glide.GlideApp
 import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.news.R
+import com.ricknout.rugbyranker.news.vo.ArticleType
 import com.ricknout.rugbyranker.news.vo.WorldRugbyArticle
 import kotlinx.android.synthetic.main.list_item_world_rugby_article.view.*
 
@@ -35,11 +37,17 @@ class WorldRugbyArticlePagedListAdapter(
 class WorldRugbyArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyArticle: WorldRugbyArticle, onClick: (worldRugbyArticle: WorldRugbyArticle) -> Unit) {
+        val placeHolderImageResId = when (worldRugbyArticle.type) {
+            ArticleType.TEXT -> R.drawable.ic_image_black_24dp
+            ArticleType.VIDEO -> R.drawable.ic_video_black_24dp
+        }
+        itemView.placeHolderImageView.setImageResource(placeHolderImageResId)
         GlideApp.with(itemView)
                 .load(worldRugbyArticle.imageUrl)
                 .centerCrop()
                 .into(itemView.imageView)
-        itemView.subtitleTextView.text = worldRugbyArticle.subtitle ?: itemView.context.getString(R.string.title_news)
+        itemView.subtitleTextView.text = worldRugbyArticle.subtitle
+        itemView.subtitleTextView.isVisible = worldRugbyArticle.subtitle != null
         val date = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, worldRugbyArticle.timeMillis)
         itemView.dateTextView.text = date
         itemView.titleTextView.text = worldRugbyArticle.title

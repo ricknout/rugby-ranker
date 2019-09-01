@@ -12,10 +12,10 @@ import com.ricknout.rugbyranker.matches.db.WorldRugbyMatchDao
 import com.ricknout.rugbyranker.matches.prefs.MatchesSharedPreferences
 import com.ricknout.rugbyranker.matches.repository.MatchesRepository
 import com.ricknout.rugbyranker.matches.work.MatchesWorkManager
-import com.ricknout.rugbyranker.news.db.WorldRugbyNewsDao
-import com.ricknout.rugbyranker.news.prefs.NewsSharedPreferences
-import com.ricknout.rugbyranker.news.repository.NewsRepository
-import com.ricknout.rugbyranker.news.work.NewsWorkManager
+import com.ricknout.rugbyranker.news.db.WorldRugbyArticleDao
+import com.ricknout.rugbyranker.news.prefs.ArticlesSharedPreferences
+import com.ricknout.rugbyranker.news.repository.ArticlesRepository
+import com.ricknout.rugbyranker.news.work.ArticlesWorkManager
 import com.ricknout.rugbyranker.rankings.db.WorldRugbyRankingDao
 import com.ricknout.rugbyranker.rankings.prefs.RankingsSharedPreferences
 import com.ricknout.rugbyranker.rankings.repository.RankingsRepository
@@ -75,7 +75,8 @@ class AppModule {
                 .addMigrations(
                         RugbyRankerMigrations.MIGRATION_1_2,
                         RugbyRankerMigrations.MIGRATION_2_3,
-                        RugbyRankerMigrations.MIGRATION_3_4
+                        RugbyRankerMigrations.MIGRATION_3_4,
+                        RugbyRankerMigrations.MIGRATION_4_5
                 )
                 .build()
     }
@@ -100,8 +101,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideWorldRugbyNewsDao(database: RugbyRankerDb): WorldRugbyNewsDao {
-        return database.worldRugbyNewsDao()
+    fun provideWorldRugbyArticleDao(database: RugbyRankerDb): WorldRugbyArticleDao {
+        return database.worldRugbyArticleDao()
     }
 
     @Provides
@@ -130,8 +131,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsSharedPreferences(sharedPreferences: SharedPreferences): NewsSharedPreferences {
-        return NewsSharedPreferences(sharedPreferences)
+    fun provideArticlesSharedPreferences(sharedPreferences: SharedPreferences): ArticlesSharedPreferences {
+        return ArticlesSharedPreferences(sharedPreferences)
     }
 
     @Provides
@@ -171,12 +172,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(
+    fun provideArticlesRepository(
         worldRugbyService: WorldRugbyService,
-        worldRugbyNewsDao: WorldRugbyNewsDao,
-        newsSharedPreferences: NewsSharedPreferences
-    ): NewsRepository {
-        return NewsRepository(worldRugbyService, worldRugbyNewsDao, newsSharedPreferences)
+        worldRugbyArticleDao: WorldRugbyArticleDao,
+        articlesSharedPreferences: ArticlesSharedPreferences
+    ): ArticlesRepository {
+        return ArticlesRepository(worldRugbyService, worldRugbyArticleDao, articlesSharedPreferences)
     }
 
     @Provides
@@ -205,8 +206,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsWorkManager(workManager: WorkManager): NewsWorkManager {
-        return NewsWorkManager(workManager)
+    fun provideArticlesWorkManager(workManager: WorkManager): ArticlesWorkManager {
+        return ArticlesWorkManager(workManager)
     }
 
     companion object {

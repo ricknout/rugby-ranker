@@ -14,6 +14,8 @@ import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.news.ui.NewsViewModel
+import com.ricknout.rugbyranker.news.ui.TextArticlesViewModel
+import com.ricknout.rugbyranker.news.ui.VideoArticlesViewModel
 import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.ui.MensViewModel
@@ -29,6 +31,8 @@ class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
     private val mensViewModel: MensViewModel by viewModels { viewModelFactory }
     private val womensViewModel: WomensViewModel by viewModels { viewModelFactory }
     private val newsViewModel: NewsViewModel by viewModels { viewModelFactory }
+    private val textArticlesViewModel: TextArticlesViewModel by viewModels { viewModelFactory }
+    private val videoArticlesViewModel: VideoArticlesViewModel by viewModels { viewModelFactory }
     private val infoViewModel: InfoViewModel by viewModels { viewModelFactory }
     private val mensRankingsViewModel: MensRankingsViewModel by viewModels { viewModelFactory }
     private val womensRankingsViewModel: WomensRankingsViewModel by viewModels { viewModelFactory }
@@ -63,7 +67,11 @@ class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
                     womensUnplayedMatchesViewModel.scrollToTop()
                     womensCompleteMatchesViewModel.scrollToTop()
                 }
-                R.id.newsFragment -> newsViewModel.scrollToTop()
+                R.id.newsFragment -> {
+                    newsViewModel.scrollToTop()
+                    textArticlesViewModel.scrollToTop()
+                    videoArticlesViewModel.scrollToTop()
+                }
                 R.id.infoNavGraph -> infoViewModel.scrollToTop()
             }
         }

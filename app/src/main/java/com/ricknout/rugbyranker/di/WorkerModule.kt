@@ -5,7 +5,8 @@ import com.ricknout.rugbyranker.matches.work.MensCompleteWorldRugbyMatchesWorker
 import com.ricknout.rugbyranker.matches.work.MensUnplayedWorldRugbyMatchesWorker
 import com.ricknout.rugbyranker.matches.work.WomensCompleteWorldRugbyMatchesWorker
 import com.ricknout.rugbyranker.matches.work.WomensUnplayedWorldRugbyMatchesWorker
-import com.ricknout.rugbyranker.news.work.WorldRugbyNewsWorker
+import com.ricknout.rugbyranker.news.work.TextWorldRugbyArticlesWorker
+import com.ricknout.rugbyranker.news.work.VideoWorldRugbyArticlesWorker
 import com.ricknout.rugbyranker.rankings.work.MensWorldRugbyRankingsWorker
 import com.ricknout.rugbyranker.rankings.work.WomensWorldRugbyRankingsWorker
 import com.ricknout.rugbyranker.teams.work.MensWorldRugbyTeamsWorker
@@ -59,6 +60,11 @@ abstract class WorkerModule {
 
     @Binds
     @IntoMap
-    @WorkerKey(WorldRugbyNewsWorker::class)
-    abstract fun bindWorldRugbyNewsWorker(worldRugbyNewsWorker: WorldRugbyNewsWorker): ListenableWorker
+    @WorkerKey(TextWorldRugbyArticlesWorker::class)
+    abstract fun bindTextWorldRugbyArticlesWorker(textWorldRugbyArticlesWorker: TextWorldRugbyArticlesWorker): ListenableWorker
+
+    @Binds
+    @IntoMap
+    @WorkerKey(VideoWorldRugbyArticlesWorker::class)
+    abstract fun bindVideoWorldRugbyArticlesWorker(videoWorldRugbyArticlesWorker: VideoWorldRugbyArticlesWorker): ListenableWorker
 }

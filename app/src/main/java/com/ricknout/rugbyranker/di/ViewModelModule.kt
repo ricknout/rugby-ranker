@@ -10,6 +10,8 @@ import com.ricknout.rugbyranker.matches.ui.MensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensCompleteMatchesViewModel
 import com.ricknout.rugbyranker.matches.ui.WomensUnplayedMatchesViewModel
 import com.ricknout.rugbyranker.news.ui.NewsViewModel
+import com.ricknout.rugbyranker.news.ui.TextArticlesViewModel
+import com.ricknout.rugbyranker.news.ui.VideoArticlesViewModel
 import com.ricknout.rugbyranker.prediction.ui.MensPredictionViewModel
 import com.ricknout.rugbyranker.prediction.ui.WomensPredictionViewModel
 import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
@@ -114,4 +116,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(NewsViewModel::class)
     abstract fun bindNewsViewModel(newsViewModel: NewsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TextArticlesViewModel::class)
+    abstract fun bindTextArticlesViewModel(textArticlesViewModel: TextArticlesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VideoArticlesViewModel::class)
+    abstract fun bindVideoArticlesViewModel(videoArticlesViewModel: VideoArticlesViewModel): ViewModel
 }

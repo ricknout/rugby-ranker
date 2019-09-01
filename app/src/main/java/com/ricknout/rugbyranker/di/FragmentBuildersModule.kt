@@ -3,6 +3,7 @@ package com.ricknout.rugbyranker.di
 import com.ricknout.rugbyranker.info.ui.InfoFragment
 import com.ricknout.rugbyranker.live.ui.LiveMatchesFragment
 import com.ricknout.rugbyranker.matches.ui.MatchesFragment
+import com.ricknout.rugbyranker.news.ui.ArticlesFragment
 import com.ricknout.rugbyranker.news.ui.NewsFragment
 import com.ricknout.rugbyranker.prediction.ui.PredictionBottomSheetDialogFragment
 import com.ricknout.rugbyranker.rankings.ui.RankingsFragment
@@ -19,6 +20,9 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeNewsFragment(): NewsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeArticlesFragment(): ArticlesFragment
 
     @ContributesAndroidInjector
     abstract fun contributeInfoFragment(): InfoFragment
