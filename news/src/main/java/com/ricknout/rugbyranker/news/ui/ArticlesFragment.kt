@@ -136,7 +136,7 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
     }
 
     companion object {
-        const val TAG = "RankingsFragment"
+        const val TAG = "ArticlesFragment"
         fun newInstance(articleType: ArticleType): ArticlesFragment {
             val articlesFragment = ArticlesFragment()
             articlesFragment.arguments = ArticlesNavGraphDirections.articlesFragmentAction(articleType).arguments

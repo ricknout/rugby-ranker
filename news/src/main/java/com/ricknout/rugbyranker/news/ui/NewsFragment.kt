@@ -56,6 +56,7 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
     }
 
     companion object {
+        const val TAG = "NewsFragment"
         private const val POSITION_TEXT = 0
         private const val POSITION_VIDEO = 1
     }
