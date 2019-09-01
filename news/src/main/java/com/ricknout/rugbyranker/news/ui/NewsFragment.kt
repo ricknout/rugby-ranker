@@ -31,8 +31,8 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
         viewPager.adapter = NewsFragmentStateAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                POSITION_NEWS -> getString(R.string.title_news)
-                POSITION_VIDEO -> getString(R.string.title_video)
+                POSITION_TEXT -> getString(R.string.title_news)
+                POSITION_VIDEO -> getString(R.string.title_videos)
                 else -> null
             }
         }.attach()
@@ -47,16 +47,16 @@ class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
     inner class NewsFragmentStateAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
         override fun createFragment(position: Int) = when (position) {
-            POSITION_NEWS -> ArticlesFragment.newInstance(ArticleType.TEXT)
+            POSITION_TEXT -> ArticlesFragment.newInstance(ArticleType.TEXT)
             POSITION_VIDEO -> ArticlesFragment.newInstance(ArticleType.VIDEO)
-            else -> throw IllegalArgumentException("Position $position exceeds SportFragmentPagerAdapter count")
+            else -> throw IllegalArgumentException("Position $position exceeds NewsFragmentStateAdapter count")
         }
 
         override fun getItemCount() = 2
     }
 
     companion object {
-        private const val POSITION_NEWS = 0
+        private const val POSITION_TEXT = 0
         private const val POSITION_VIDEO = 1
     }
 }
