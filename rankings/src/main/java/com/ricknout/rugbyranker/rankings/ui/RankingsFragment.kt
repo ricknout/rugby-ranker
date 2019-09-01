@@ -38,14 +38,16 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
         }
     }
 
-    private lateinit var workerSnackBar: Snackbar
-    private lateinit var refreshSnackBar: Snackbar
+    private val coordinatorLayout by lazy {
+        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
+    }
+
+    private var workerSnackBar: Snackbar? = null
 
     private val worldRugbyRankingAdapter = WorldRugbyRankingListAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
-        setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
     }
@@ -61,12 +63,6 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
         })
     }
 
-    private fun setupSnackbars() {
-        val coordinatorLayout = ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-        workerSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_INDEFINITE)
-        refreshSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_SHORT)
-    }
-
     private fun setupViewModel() {
         viewModel.worldRugbyRankings.observe(viewLifecycleOwner, Observer { worldRugbyRankings ->
             worldRugbyRankingAdapter.submitList(worldRugbyRankings)
@@ -79,13 +75,16 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
                     doIfResumed {
-                        workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_rankings)
-                        workerSnackBar.show()
+                        workerSnackBar = Snackbar.make(
+                                coordinatorLayout,
+                                R.string.snackbar_fetching_world_rugby_rankings,
+                                Snackbar.LENGTH_INDEFINITE
+                        ).apply { show() }
                     }
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    root.post { workerSnackBar.dismiss() }
+                    root.post { workerSnackBar?.dismiss() }
                 }
             }
         })
@@ -108,8 +107,11 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
             viewModel.refreshLatestWorldRugbyRankings { success ->
                 if (!success) {
                     doIfResumed {
-                        refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_rankings)
-                        refreshSnackBar.show()
+                        Snackbar.make(
+                                coordinatorLayout,
+                                R.string.snackbar_failed_to_refresh_world_rugby_rankings,
+                                Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
