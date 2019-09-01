@@ -42,15 +42,17 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
         }
     }
 
-    private lateinit var workerSnackBar: Snackbar
-    private lateinit var refreshSnackBar: Snackbar
+    private val coordinatorLayout by lazy {
+        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
+    }
+
+    private var workerSnackBar: Snackbar? = null
 
     private lateinit var worldRugbyMatchPagedListAdapter: WorldRugbyMatchPagedListAdapter
     private lateinit var worldRugbyMatchDateItemDecoration: WorldRugbyMatchDateItemDecoration
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
-        setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
     }
@@ -73,12 +75,6 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
         })
     }
 
-    private fun setupSnackbars() {
-        val coordinatorLayout = ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-        workerSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_INDEFINITE)
-        refreshSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_SHORT)
-    }
-
     private fun setupViewModel() {
         viewModel.latestWorldRugbyMatches.observe(viewLifecycleOwner, Observer { latestWorldRugbyMatches ->
             worldRugbyMatchPagedListAdapter.submitList(latestWorldRugbyMatches)
@@ -92,13 +88,16 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
                     doIfResumed {
-                        workerSnackBar.setText(R.string.snackbar_fetching_world_rugby_matches)
-                        workerSnackBar.show()
+                        workerSnackBar = Snackbar.make(
+                                coordinatorLayout,
+                                R.string.snackbar_fetching_world_rugby_matches,
+                                Snackbar.LENGTH_INDEFINITE
+                        ).apply { show() }
                     }
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    root.post { workerSnackBar.dismiss() }
+                    root.post { workerSnackBar?.dismiss() }
                 }
             }
         })
@@ -124,8 +123,11 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
             viewModel.refreshLatestWorldRugbyMatches { success ->
                 if (!success) {
                     doIfResumed {
-                        refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_world_rugby_matches)
-                        refreshSnackBar.show()
+                        Snackbar.make(
+                                coordinatorLayout,
+                                R.string.snackbar_failed_to_refresh_world_rugby_matches,
+                                Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

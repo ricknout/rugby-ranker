@@ -38,14 +38,15 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
         }
     }
 
-    private lateinit var refreshSnackBar: Snackbar
+    private val coordinatorLayout by lazy {
+        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
+    }
 
     private lateinit var worldRugbyMatchListAdapter: WorldRugbyMatchListAdapter
     private lateinit var spaceItemDecoration: SpaceItemDecoration
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
-        setupSnackbars()
         setupViewModel()
         setupSwipeRefreshLayout()
     }
@@ -62,11 +63,6 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
                 viewModel.onScroll(delta = dy)
             }
         })
-    }
-
-    private fun setupSnackbars() {
-        val coordinatorLayout = ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-        refreshSnackBar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_SHORT)
     }
 
     private fun setupViewModel() {
@@ -102,8 +98,11 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
             viewModel.refreshLiveWorldRugbyMatches { success ->
                 if (!success) {
                     doIfResumed {
-                        refreshSnackBar.setText(R.string.snackbar_failed_to_refresh_live_world_rugby_matches)
-                        refreshSnackBar.show()
+                        Snackbar.make(
+                                coordinatorLayout,
+                                R.string.snackbar_failed_to_refresh_live_world_rugby_matches,
+                                Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
