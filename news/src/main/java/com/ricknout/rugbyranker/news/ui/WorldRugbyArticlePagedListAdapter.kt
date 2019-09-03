@@ -3,6 +3,7 @@ package com.ricknout.rugbyranker.news.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -37,11 +38,22 @@ class WorldRugbyArticlePagedListAdapter(
 class WorldRugbyArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(worldRugbyArticle: WorldRugbyArticle, onClick: (worldRugbyArticle: WorldRugbyArticle) -> Unit) {
-        val placeHolderImageResId = when (worldRugbyArticle.type) {
+        (itemView.imageCardView.layoutParams as ConstraintLayout.LayoutParams).apply {
+            when (worldRugbyArticle.type) {
+                ArticleType.TEXT -> {
+                    width = itemView.resources.getDimensionPixelSize(R.dimen.width_article_image)
+                    dimensionRatio = "1:1"
+                }
+                ArticleType.VIDEO -> {
+                    width = itemView.resources.getDimensionPixelSize(R.dimen.width_article_video)
+                    dimensionRatio = "16:9"
+                }
+            }
+        }
+        itemView.placeHolderImageView.setImageResource(when (worldRugbyArticle.type) {
             ArticleType.TEXT -> R.drawable.ic_image_black_24dp
             ArticleType.VIDEO -> R.drawable.ic_video_black_24dp
-        }
-        itemView.placeHolderImageView.setImageResource(placeHolderImageResId)
+        })
         GlideApp.with(itemView)
                 .load(worldRugbyArticle.imageUrl)
                 .centerCrop()
