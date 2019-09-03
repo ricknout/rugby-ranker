@@ -84,6 +84,7 @@ data class WorldRugbyTeamsResponse(
 
 data class Article(
     val id: Long,
+    val type: String,
     val title: String,
     val description: String?,
     val publishFrom: Long,
@@ -95,7 +96,7 @@ data class Article(
     val onDemandUrl: String?
 )
 
-data class WorldRugbyNewsResponse(
+data class WorldRugbyArticlesResponse(
     val pageInfo: PageInfo,
     val content: List<Article>
 )

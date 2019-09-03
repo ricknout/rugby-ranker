@@ -28,13 +28,14 @@ interface WorldRugbyService {
         @Path("id") id: Long
     ): WorldRugbyTeamsResponse
 
-    @GET("content/worldrugby/text/{lang}")
-    suspend fun getNews(
+    @GET("content/worldrugby/{type}/{lang}")
+    suspend fun getArticles(
+        @Path("type") type: String,
         @Path("lang") language: String,
         @Query("tagNames") tagNames: String,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
-    ): WorldRugbyNewsResponse
+    ): WorldRugbyArticlesResponse
 
     companion object {
         const val SPORT_MENS = "mru"
@@ -46,6 +47,8 @@ interface WorldRugbyService {
         const val STATE_LIVE_HALF_TIME = "LHT"
         const val SORT_ASC = "asc"
         const val SORT_DESC = "desc"
+        const val TYPE_TEXT = "text"
+        const val TYPE_VIDEO = "video"
         const val LANGUAGE_EN = "en"
         const val TAG_NAME_NEWS = "News"
         const val BASE_URL = "https://cmsapi.pulselive.com/"

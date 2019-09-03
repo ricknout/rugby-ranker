@@ -26,4 +26,10 @@ object RugbyRankerMigrations {
             database.execSQL("CREATE TABLE world_rugby_articles (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL, subtitle TEXT, summary TEXT NOT NULL, imageUrl TEXT, articleUrl TEXT NOT NULL, timeMillis INTEGER NOT NULL, language TEXT NOT NULL)")
         }
     }
+
+    val MIGRATION_4_5 = object : Migration(4, 5) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE world_rugby_articles ADD COLUMN type INTEGER NOT NULL DEFAULT 0")
+        }
+    }
 }
