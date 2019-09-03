@@ -8,38 +8,34 @@ import com.ricknout.rugbyranker.core.vo.Sport
 
 class RankingsSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
-    fun setLatestWorldRugbyRankingsEffectiveTimeMillis(millis: Long, sport: Sport) {
-        when (sport) {
-            Sport.MENS -> setMensEffectiveTimeMillis(millis)
-            Sport.WOMENS -> setWomensEffectiveTimeMillis(millis)
-        }
+    fun setLatestWorldRugbyRankingsEffectiveTimeMillis(millis: Long, sport: Sport) = sharedPreferences.edit {
+        putLong(getEffectiveTimeMillisKey(sport), millis)
     }
 
-    private fun setMensEffectiveTimeMillis(millis: Long) = sharedPreferences.edit { putLong(KEY_EFFECTIVE_TIME_MILLIS_MENS, millis) }
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillis(sport: Sport) = sharedPreferences.getLong(
+        getEffectiveTimeMillisKey(sport), DEFAULT_EFFECTIVE_TIME_MILLIS
+    )
 
-    private fun setWomensEffectiveTimeMillis(millis: Long) = sharedPreferences.edit { putLong(KEY_EFFECTIVE_TIME_MILLIS_WOMENS, millis) }
+    fun getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport: Sport): LiveData<Long> =
+            LongSharedPreferenceLiveData(sharedPreferences, getEffectiveTimeMillisKey(sport), DEFAULT_EFFECTIVE_TIME_MILLIS)
 
-    fun getLatestWorldRugbyRankingsEffectiveTimeMillis(sport: Sport) = when (sport) {
-        Sport.MENS -> getMensEffectiveTimeMillis()
-        Sport.WOMENS -> getWomensEffectiveTimeMillis()
+    fun setInitialRankingsFetched(sport: Sport, fetched: Boolean) = sharedPreferences.edit {
+        putBoolean(getInitialRankingsFetchedKey(sport), fetched)
     }
 
-    private fun getMensEffectiveTimeMillis() = sharedPreferences.getLong(KEY_EFFECTIVE_TIME_MILLIS_MENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
-
-    private fun getWomensEffectiveTimeMillis() = sharedPreferences.getLong(KEY_EFFECTIVE_TIME_MILLIS_WOMENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
-
-    fun getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport: Sport): LiveData<Long> = when (sport) {
-        Sport.MENS -> getMensEffectiveTimeMillisLiveData()
-        Sport.WOMENS -> getWomensEffectiveTimeMillisLiveData()
-    }
-
-    private fun getMensEffectiveTimeMillisLiveData() = LongSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_MILLIS_MENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
-
-    private fun getWomensEffectiveTimeMillisLiveData() = LongSharedPreferenceLiveData(sharedPreferences, KEY_EFFECTIVE_TIME_MILLIS_WOMENS, DEFAULT_EFFECTIVE_TIME_MILLIS)
+    fun isInitialRankingsFetched(sport: Sport) = sharedPreferences.getBoolean(
+        getInitialRankingsFetchedKey(sport), false
+    )
 
     companion object {
         const val DEFAULT_EFFECTIVE_TIME_MILLIS = -1L
-        private const val KEY_EFFECTIVE_TIME_MILLIS_MENS = "effective_time_millis_mens"
-        private const val KEY_EFFECTIVE_TIME_MILLIS_WOMENS = "effective_time_millis_womens"
+        private const val KEY_EFFECTIVE_TIME_MILLIS = "effective_time_millis"
+        private const val KEY_INITIAL_RANKINGS_FETCHED = "initial_rankings_fetched"
+        private fun getEffectiveTimeMillisKey(sport: Sport): String {
+            return "${KEY_EFFECTIVE_TIME_MILLIS}_$sport"
+        }
+        private fun getInitialRankingsFetchedKey(sport: Sport): String {
+            return "${KEY_INITIAL_RANKINGS_FETCHED}_$sport"
+        }
     }
 }

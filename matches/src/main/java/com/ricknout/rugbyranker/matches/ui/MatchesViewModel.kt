@@ -20,10 +20,6 @@ open class MatchesViewModel(
     matchesWorkManager: MatchesWorkManager
 ) : ScrollableViewModel() {
 
-    init {
-        matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
-    }
-
     val worldRugbyRankingsTeamIds = rankingsRepository.loadLatestWorldRugbyRankingsTeamIds(sport)
 
     val latestWorldRugbyMatches = matchesRepository.loadLatestWorldRugbyMatches(sport, matchStatus, asc = matchStatus == MatchStatus.UNPLAYED)
@@ -33,11 +29,20 @@ open class MatchesViewModel(
     val refreshingLatestWorldRugbyMatches: LiveData<Boolean>
         get() = _refreshingLatestWorldRugbyMatches
 
-    fun refreshLatestWorldRugbyMatches(onComplete: (success: Boolean) -> Unit) {
-        _refreshingLatestWorldRugbyMatches.value = true
+    fun refreshLatestWorldRugbyMatches(showRefreshing: Boolean = true, onComplete: (success: Boolean) -> Unit) {
+        if (showRefreshing) _refreshingLatestWorldRugbyMatches.value = true
         matchesRepository.fetchAndCacheLatestWorldRugbyMatchesAsync(sport, matchStatus, viewModelScope) { success ->
-            _refreshingLatestWorldRugbyMatches.value = false
+            if (showRefreshing) _refreshingLatestWorldRugbyMatches.value = false
             onComplete(success)
+        }
+    }
+
+    init {
+        matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
+        if (matchesRepository.isInitialMatchesFetched(sport, matchStatus)) {
+            refreshLatestWorldRugbyMatches(showRefreshing = false) {
+                // Silent initial refresh, do nothing on success/failure
+            }
         }
     }
 

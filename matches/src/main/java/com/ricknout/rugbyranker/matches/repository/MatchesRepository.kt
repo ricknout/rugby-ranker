@@ -32,6 +32,9 @@ class MatchesRepository(
         return dataSourceFactory.toLiveData(config = config)
     }
 
+    fun isInitialMatchesFetched(sport: Sport, matchStatus: MatchStatus) =
+            matchesSharedPreferences.isInitialMatchesFetched(sport, matchStatus)
+
     suspend fun fetchAndCacheLatestWorldRugbyMatchesSync(
         sport: Sport,
         matchStatus: MatchStatus,
@@ -67,7 +70,7 @@ class MatchesRepository(
         var pageCount = Int.MAX_VALUE
         var success = false
         val worldRugbyMatches = mutableListOf<WorldRugbyMatch>()
-        val initialMatchesFetched = matchesSharedPreferences.isInitialMatchesFetched(sport, matchStatus)
+        val initialMatchesFetched = isInitialMatchesFetched(sport, matchStatus)
         return try {
             while (page < pageCount) {
                 val worldRugbyMatchesResponse = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, pageSize)

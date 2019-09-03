@@ -22,6 +22,9 @@ class RankingsRepository(
 
     fun loadLatestWorldRugbyRankingsTeamIds(sport: Sport) = worldRugbyRankingDao.loadTeamIds(sport)
 
+    fun isInitialRankingsFetched(sport: Sport) =
+            rankingsSharedPreferences.isInitialRankingsFetched(sport)
+
     suspend fun fetchAndCacheLatestWorldRugbyRankingsSync(sport: Sport): Boolean {
         val sports = when (sport) {
             Sport.MENS -> WorldRugbyService.SPORT_MENS
@@ -33,6 +36,7 @@ class RankingsRepository(
             val worldRugbyRankings = RankingsDataConverter.getWorldRugbyRankingsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
             worldRugbyRankingDao.insert(worldRugbyRankings)
             rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
+            rankingsSharedPreferences.setInitialRankingsFetched(sport, true)
             true
         } catch (_: Exception) {
             false

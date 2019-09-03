@@ -20,10 +20,6 @@ open class RankingsViewModel(
     rankingsWorkManager: RankingsWorkManager
 ) : ScrollableViewModel() {
 
-    init {
-        rankingsWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
-    }
-
     val predictions = MutableLiveData<List<Prediction>>()
 
     private fun hasPredictions() = !(predictions.value?.isEmpty() ?: true)
@@ -71,11 +67,20 @@ open class RankingsViewModel(
     val refreshingLatestWorldRugbyRankings: LiveData<Boolean>
         get() = _refreshingLatestWorldRugbyRankings
 
-    fun refreshLatestWorldRugbyRankings(onComplete: (success: Boolean) -> Unit) {
-        _refreshingLatestWorldRugbyRankings.value = true
+    fun refreshLatestWorldRugbyRankings(showRefreshing: Boolean = true, onComplete: (success: Boolean) -> Unit) {
+        if (showRefreshing) _refreshingLatestWorldRugbyRankings.value = true
         rankingsRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(sport, viewModelScope) { success ->
-            _refreshingLatestWorldRugbyRankings.value = false
+            if (showRefreshing) _refreshingLatestWorldRugbyRankings.value = false
             onComplete(success)
+        }
+    }
+
+    init {
+        rankingsWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
+        if (rankingsRepository.isInitialRankingsFetched(sport)) {
+            refreshLatestWorldRugbyRankings(showRefreshing = false) {
+                // Silent initial refresh, do nothing for success/failure
+            }
         }
     }
 }

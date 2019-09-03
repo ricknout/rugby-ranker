@@ -27,6 +27,9 @@ class ArticlesRepository(
         return dataSourceFactory.toLiveData(config = config)
     }
 
+    fun isInitialArticlesFetched(articleType: ArticleType) =
+            articlesSharedPreferences.isInitialArticlesFetched(articleType)
+
     suspend fun fetchAndCacheLatestWorldRugbyArticlesSync(
         articleType: ArticleType,
         pageSize: Int = PAGE_SIZE_WORLD_RUGBY_ARTICLES_NETWORK,
@@ -44,7 +47,7 @@ class ArticlesRepository(
         var page = 0
         var pageCount = Int.MAX_VALUE
         var success = false
-        val initialArticlesFetched = articlesSharedPreferences.isInitialArticlesFetched(articleType)
+        val initialArticlesFetched = isInitialArticlesFetched(articleType)
         return try {
             while (page < pageCount) {
                 val worldRugbyArticlesResponse = worldRugbyService.getArticles(type, language, tagNames, page, pageSize)

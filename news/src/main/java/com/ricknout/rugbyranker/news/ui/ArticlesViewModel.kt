@@ -26,11 +26,19 @@ open class ArticlesViewModel @Inject constructor(
     val refreshingLatestWorldRugbyArticles: LiveData<Boolean>
         get() = _refreshingLatestWorldRugbyArticles
 
-    fun refreshLatestWorldRugbyArticles(onComplete: (success: Boolean) -> Unit) {
-        _refreshingLatestWorldRugbyArticles.value = true
+    fun refreshLatestWorldRugbyArticles(showRefreshing: Boolean = true, onComplete: (success: Boolean) -> Unit) {
+        if (showRefreshing) _refreshingLatestWorldRugbyArticles.value = true
         articlesRepository.fetchAndCacheLatestWorldRugbyArticlesAsync(articleType, viewModelScope) { success ->
-            _refreshingLatestWorldRugbyArticles.value = false
+            if (showRefreshing) _refreshingLatestWorldRugbyArticles.value = false
             onComplete(success)
+        }
+    }
+
+    init {
+        if (articlesRepository.isInitialArticlesFetched(articleType)) {
+            refreshLatestWorldRugbyArticles(showRefreshing = false) {
+                // Silent initial refresh, do nothing on success/failure
+            }
         }
     }
 }
