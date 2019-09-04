@@ -46,6 +46,6 @@ class ArticlesWorkManager(private val workManager: WorkManager) {
     companion object {
         private const val WORK_REQUEST_REPEAT_INTERVAL = 1L
         private val WORK_REQUEST_REPEAT_INTERVAL_TIME_UNIT = TimeUnit.DAYS
-        private val WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY = ExistingPeriodicWorkPolicy.KEEP
+        private val WORK_REQUEST_EXISTING_PERIODIC_WORK_POLICY = ExistingPeriodicWorkPolicy.REPLACE
     }
 }

@@ -3,6 +3,7 @@ package com.ricknout.rugbyranker.rankings.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.core.viewmodel.ScrollableViewModel
@@ -20,12 +21,21 @@ open class RankingsViewModel(
     rankingsWorkManager: RankingsWorkManager
 ) : ScrollableViewModel() {
 
+    init {
+        rankingsWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
+    }
+
     val predictions = MutableLiveData<List<Prediction>>()
 
     private fun hasPredictions() = !(predictions.value?.isEmpty() ?: true)
 
     private val latestWorldRugbyRankings = rankingsRepository.loadLatestWorldRugbyRankings(sport)
-    val latestWorldRugbyRankingsWorkInfos = rankingsWorkManager.getLatestWorldRugbyRankingsWorkInfos(sport)
+
+    val latestWorldRugbyRankingsWorkInfos = Transformations.map(
+        rankingsWorkManager.getLatestWorldRugbyRankingsWorkInfos(sport)
+    ) { workInfos ->
+        if (rankingsRepository.isInitialRankingsFetched(sport)) null else workInfos
+    }
 
     private val _latestWorldRugbyRankingsEffectiveTime = MediatorLiveData<String>().apply {
         addSource(rankingsRepository.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)) { effectiveTimeMillis ->
@@ -67,20 +77,11 @@ open class RankingsViewModel(
     val refreshingLatestWorldRugbyRankings: LiveData<Boolean>
         get() = _refreshingLatestWorldRugbyRankings
 
-    fun refreshLatestWorldRugbyRankings(showRefreshing: Boolean = true, onComplete: (success: Boolean) -> Unit) {
-        if (showRefreshing) _refreshingLatestWorldRugbyRankings.value = true
+    fun refreshLatestWorldRugbyRankings(onComplete: (success: Boolean) -> Unit) {
+        _refreshingLatestWorldRugbyRankings.value = true
         rankingsRepository.fetchAndCacheLatestWorldRugbyRankingsAsync(sport, viewModelScope) { success ->
-            if (showRefreshing) _refreshingLatestWorldRugbyRankings.value = false
+            _refreshingLatestWorldRugbyRankings.value = false
             onComplete(success)
-        }
-    }
-
-    init {
-        rankingsWorkManager.fetchAndStoreLatestWorldRugbyRankings(sport)
-        if (rankingsRepository.isInitialRankingsFetched(sport)) {
-            refreshLatestWorldRugbyRankings(showRefreshing = false) {
-                // Silent initial refresh, do nothing for success/failure
-            }
         }
     }
 }

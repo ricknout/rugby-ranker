@@ -83,8 +83,8 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
             progressBar.isVisible = isEmpty
         })
         viewModel.latestWorldRugbyMatchesWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
-            val workInfo = workInfos?.firstOrNull() ?: return@Observer
-            when (workInfo.state) {
+            val workInfo = workInfos?.firstOrNull()
+            when (workInfo?.state) {
                 State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
                     doIfResumed {

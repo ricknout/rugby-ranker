@@ -2,6 +2,7 @@ package com.ricknout.rugbyranker.news.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.ricknout.rugbyranker.core.viewmodel.ScrollableViewModel
 import com.ricknout.rugbyranker.news.repository.ArticlesRepository
@@ -20,7 +21,12 @@ open class ArticlesViewModel @Inject constructor(
     }
 
     val latestWorldRugbyArticles = articlesRepository.loadLatestWorldRugbyArticles(articleType)
-    val latestWorldRugbyArticlesWorkInfos = articlesWorkManager.getLatestWorldRugbyArticlesWorkInfos(articleType)
+
+    val latestWorldRugbyArticlesWorkInfos = Transformations.map(
+        articlesWorkManager.getLatestWorldRugbyArticlesWorkInfos(articleType)
+    ) { workInfos ->
+        if (articlesRepository.isInitialArticlesFetched(articleType)) null else workInfos
+    }
 
     private val _refreshingLatestWorldRugbyArticles = MutableLiveData<Boolean>().apply { value = false }
     val refreshingLatestWorldRugbyArticles: LiveData<Boolean>
@@ -31,14 +37,6 @@ open class ArticlesViewModel @Inject constructor(
         articlesRepository.fetchAndCacheLatestWorldRugbyArticlesAsync(articleType, viewModelScope) { success ->
             if (showRefreshing) _refreshingLatestWorldRugbyArticles.value = false
             onComplete(success)
-        }
-    }
-
-    init {
-        if (articlesRepository.isInitialArticlesFetched(articleType)) {
-            refreshLatestWorldRugbyArticles(showRefreshing = false) {
-                // Silent initial refresh, do nothing on success/failure
-            }
         }
     }
 }

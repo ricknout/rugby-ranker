@@ -2,6 +2,7 @@ package com.ricknout.rugbyranker.matches.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.ricknout.rugbyranker.core.livedata.Event
 import com.ricknout.rugbyranker.core.viewmodel.ScrollableViewModel
@@ -20,10 +21,19 @@ open class MatchesViewModel(
     matchesWorkManager: MatchesWorkManager
 ) : ScrollableViewModel() {
 
+    init {
+        matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
+    }
+
     val worldRugbyRankingsTeamIds = rankingsRepository.loadLatestWorldRugbyRankingsTeamIds(sport)
 
     val latestWorldRugbyMatches = matchesRepository.loadLatestWorldRugbyMatches(sport, matchStatus, asc = matchStatus == MatchStatus.UNPLAYED)
-    val latestWorldRugbyMatchesWorkInfos = matchesWorkManager.getLatestWorldRugbyMatchesWorkInfos(sport, matchStatus)
+
+    val latestWorldRugbyMatchesWorkInfos = Transformations.map(
+        matchesWorkManager.getLatestWorldRugbyMatchesWorkInfos(sport, matchStatus)
+    ) { workInfos ->
+        if (matchesRepository.isInitialMatchesFetched(sport, matchStatus)) null else workInfos
+    }
 
     private val _refreshingLatestWorldRugbyMatches = MutableLiveData<Boolean>().apply { value = false }
     val refreshingLatestWorldRugbyMatches: LiveData<Boolean>
@@ -34,15 +44,6 @@ open class MatchesViewModel(
         matchesRepository.fetchAndCacheLatestWorldRugbyMatchesAsync(sport, matchStatus, viewModelScope) { success ->
             if (showRefreshing) _refreshingLatestWorldRugbyMatches.value = false
             onComplete(success)
-        }
-    }
-
-    init {
-        matchesWorkManager.fetchAndStoreLatestWorldRugbyMatches(sport, matchStatus)
-        if (matchesRepository.isInitialMatchesFetched(sport, matchStatus)) {
-            refreshLatestWorldRugbyMatches(showRefreshing = false) {
-                // Silent initial refresh, do nothing on success/failure
-            }
         }
     }
 

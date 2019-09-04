@@ -81,8 +81,8 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
             progressBar.isVisible = isEmpty
         })
         articlesViewModel.latestWorldRugbyArticlesWorkInfos.observe(viewLifecycleOwner, Observer { workInfos ->
-            val workInfo = workInfos?.firstOrNull() ?: return@Observer
-            when (workInfo.state) {
+            val workInfo = workInfos?.firstOrNull()
+            when (workInfo?.state) {
                 WorkInfo.State.RUNNING -> {
                     swipeRefreshLayout.isEnabled = false
                     doIfResumed {
