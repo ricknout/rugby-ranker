@@ -9,7 +9,7 @@ import com.ricknout.rugbyranker.prediction.vo.Prediction
 
 open class PredictionViewModel(private val sport: Sport) : ViewModel() {
 
-    private val _predictions = MediatorLiveData<List<Prediction>>()
+    private val _predictions = MutableLiveData<List<Prediction>>()
     val predictions: LiveData<List<Prediction>>
         get() = _predictions
 
