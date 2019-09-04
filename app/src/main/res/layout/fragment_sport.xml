@@ -53,8 +53,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
             app:tabInlineLabel="true"
-            app:tabIconTint="@android:color/transparent"
-            app:tabIconTintMode="src_atop" />
+            app:tabIconTint="?attr/colorError" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

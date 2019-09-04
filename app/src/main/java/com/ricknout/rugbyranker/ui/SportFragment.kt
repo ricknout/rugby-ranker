@@ -150,7 +150,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
     private fun toggleLiveMatchesTabIcon(show: Boolean) {
         val tab = tabLayout.getTabAt(POSITION_LIVE) ?: return
         if (show) {
-            val dotAvd = AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.avd_dot_red_24dp)
+            val dotAvd = AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.avd_dot_black_24dp)
             tab.icon = dotAvd
             dotAvd?.start()
         } else {

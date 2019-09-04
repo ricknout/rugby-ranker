@@ -8,5 +8,5 @@
   <path
       android:name="dot"
       android:pathData="M12,12m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0"
-      android:fillColor="?attr/colorError" />
+      android:fillColor="#FF000000" />
 </vector>

@@ -2,7 +2,7 @@
 <animated-vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:drawable="@drawable/ic_dot_red_24dp">
+    android:drawable="@drawable/ic_dot_black_24dp">
 
     <target android:name="dot">
         <aapt:attr name="android:animation">
