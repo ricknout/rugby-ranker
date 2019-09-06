@@ -196,14 +196,14 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
             rankingsViewModel.predictions.value = predictions
             predictionBarView.setPredictions(predictions)
             if (predictions.isNullOrEmpty()) {
-                addPredictionFab.show(object : ExtendedFloatingActionButton.OnChangedListener() {
+                addPredictionFab.show(object : ExtendedFloatingActionButton.OnChangedCallback() {
                     override fun onShown(extendedFab: ExtendedFloatingActionButton?) {
                         super.onShown(extendedFab)
                         predictionBarView.isVisible = false
                     }
                 })
             } else {
-                addPredictionFab.hide(object : ExtendedFloatingActionButton.OnChangedListener() {
+                addPredictionFab.hide(object : ExtendedFloatingActionButton.OnChangedCallback() {
                     override fun onHidden(extendedFab: ExtendedFloatingActionButton?) {
                         super.onHidden(extendedFab)
                         predictionBarView.isVisible = true

@@ -85,7 +85,10 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
     @SuppressWarnings("VisibleForTests", "RestrictedApi")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (requireDialog() as BottomSheetDialog).behavior.disableShapeAnimations()
+        (requireDialog() as BottomSheetDialog).apply {
+            behavior.disableShapeAnimations()
+            dismissWithAnimation = true
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
