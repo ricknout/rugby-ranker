@@ -32,7 +32,8 @@ Rugby Ranker attempts to make use of the latest Android libraries and best pract
   * [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout) 2.0, [ViewPager2](https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2) and more for layouts and UI
   * [EmojiCompat](https://developer.android.com/guide/topics/ui/look-and-feel/emoji-compat) for emoji compatibility on older platforms
   * [Android KTX](https://developer.android.com/kotlin/ktx) for more fluent use of Android APIs
-* [Retrofit](https://square.github.io/retrofit/) for networking
+* [Retrofit](https://square.github.io/retrofit/)/[OkHttp](https://square.github.io/okhttp/) for networking
+* [Glide](https://bumptech.github.io/glide/) for image loading
 * [Dagger](https://google.github.io/dagger/) for dependency injection
 * Designed and built using Material Design [tools](https://material.io/tools/) and [components](https://material.io/develop/android/)
 * Full dark theme support
