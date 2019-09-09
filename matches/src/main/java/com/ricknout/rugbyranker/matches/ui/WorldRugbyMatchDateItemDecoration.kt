@@ -47,7 +47,7 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
     private var paddingEnd: Int = 0
     private var datePaddingTop: Int = 0
     private var dayMonthTextSize: Int = 0
-    private var yearTextSize: Int = 0
+    private var dayYearTextSize: Int = 0
 
     private val today by lazy { context.getString(R.string.text_today) }
 
@@ -73,7 +73,7 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
             paddingEnd = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_android_paddingEnd)
             datePaddingTop = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_datePaddingTop)
             dayMonthTextSize = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayMonthTextSize)
-            yearTextSize = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_yearTextSize)
+            dayYearTextSize = getDimensionPixelSizeOrThrow(R.styleable.WorldRugbyMatchDateItemDecoration_dayYearTextSize)
         }
     }
 
@@ -138,9 +138,9 @@ class WorldRugbyMatchDateItemDecoration(context: Context) : RecyclerView.ItemDec
             }
             if (isCurrentDay) return@apply
             append(System.lineSeparator())
-            inSpans(AbsoluteSizeSpan(yearTextSize)) {
-                val year = DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY, millis)
-                append(year)
+            inSpans(AbsoluteSizeSpan(dayYearTextSize)) {
+                val dayYear = DateUtils.getDate(DateUtils.DATE_FORMAT_E_YYYY, millis)
+                append(dayYear)
             }
         }
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

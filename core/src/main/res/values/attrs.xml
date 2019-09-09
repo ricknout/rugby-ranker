@@ -10,7 +10,7 @@
         <attr name="android:fontFamily" />
         <attr name="datePaddingTop" format="dimension" />
         <attr name="dayMonthTextSize" format="dimension" />
-        <attr name="yearTextSize" format="dimension" />
+        <attr name="dayYearTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="SpaceItemDecoration">
