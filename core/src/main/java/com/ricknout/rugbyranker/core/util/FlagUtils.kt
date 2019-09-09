@@ -1,5 +1,7 @@
 package com.ricknout.rugbyranker.core.util
 
+import androidx.emoji.text.EmojiCompat
+
 object FlagUtils {
 
     fun getFlagEmojiForTeamAbbreviation(teamAbbreviation: String) = when (teamAbbreviation) {
@@ -109,5 +111,11 @@ object FlagUtils {
         "VAN" -> "\uD83C\uDDFB\uD83C\uDDFA" // Vanuatu
         "ASM", "ASA" -> "\uD83C\uDDE6\uD83C\uDDF8" // American Samoa
         else -> "\uD83C\uDFF3" // White flag if team can't be found
+    }
+
+    fun processFlagEmoji(flagEmoji: String): CharSequence = try {
+        EmojiCompat.get().process(flagEmoji)
+    } catch (_: Exception) {
+        flagEmoji
     }
 }

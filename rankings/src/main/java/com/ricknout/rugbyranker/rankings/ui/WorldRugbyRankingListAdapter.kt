@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.emoji.text.EmojiCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -51,7 +50,7 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             }
             else -> itemView.previousPositionTextView.text = ""
         }
-        val flag = EmojiCompat.get().process(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation))
+        val flag = FlagUtils.processFlagEmoji(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation))
         itemView.flagTextView.text = flag
         itemView.teamTextView.text = worldRugbyRanking.teamName
         val pointsFormat = "%.2f"

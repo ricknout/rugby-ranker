@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import androidx.core.widget.doOnTextChanged
-import androidx.emoji.text.EmojiCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -292,7 +291,7 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
     }
 
     private fun getTeamText(teamAbbreviation: String, teamName: String): CharSequence {
-        return EmojiCompat.get().process(
+        return FlagUtils.processFlagEmoji(
                 getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(teamAbbreviation), teamName))
     }
 
