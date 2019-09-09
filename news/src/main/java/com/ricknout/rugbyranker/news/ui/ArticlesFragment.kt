@@ -43,9 +43,8 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
 
     private val themeViewModel: ThemeViewModel by activityViewModels { viewModelFactory }
 
-    private val coordinatorLayout by lazy {
-        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-    }
+    private val coordinatorLayout: CoordinatorLayout
+        get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
 
     private var workerSnackBar: Snackbar? = null
 
@@ -57,6 +56,11 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
         setupRecyclerView()
         setupViewModel()
         setupSwipeRefreshLayout()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismissWorkerSnackbar()
     }
 
     private fun setupRecyclerView() {
@@ -98,7 +102,7 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    root.post { workerSnackBar?.dismiss() }
+                    dismissWorkerSnackbar()
                 }
             }
         })
@@ -133,6 +137,11 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
                 }
             }
         }
+    }
+
+    private fun dismissWorkerSnackbar() {
+        workerSnackBar?.dismiss()
+        workerSnackBar = null
     }
 
     companion object {

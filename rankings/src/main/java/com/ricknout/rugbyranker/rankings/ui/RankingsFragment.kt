@@ -38,9 +38,8 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
         }
     }
 
-    private val coordinatorLayout by lazy {
-        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-    }
+    private val coordinatorLayout: CoordinatorLayout
+        get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
 
     private var workerSnackBar: Snackbar? = null
 
@@ -61,6 +60,11 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
                 viewModel.onScroll(delta = dy)
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismissWorkerSnackbar()
     }
 
     private fun setupViewModel() {
@@ -84,7 +88,7 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    root.post { workerSnackBar?.dismiss() }
+                    dismissWorkerSnackbar()
                 }
             }
         })
@@ -116,6 +120,11 @@ class RankingsFragment : DaggerAndroidXFragment(R.layout.fragment_rankings) {
                 }
             }
         }
+    }
+
+    private fun dismissWorkerSnackbar() {
+        workerSnackBar?.dismiss()
+        workerSnackBar = null
     }
 
     companion object {

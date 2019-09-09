@@ -42,9 +42,8 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
         }
     }
 
-    private val coordinatorLayout by lazy {
-        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-    }
+    private val coordinatorLayout: CoordinatorLayout
+        get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
 
     private var workerSnackBar: Snackbar? = null
 
@@ -55,6 +54,11 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
         setupRecyclerView()
         setupViewModel()
         setupSwipeRefreshLayout()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismissWorkerSnackbar()
     }
 
     private fun setupRecyclerView() {
@@ -97,7 +101,7 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
                 }
                 else -> {
                     swipeRefreshLayout.isEnabled = true
-                    root.post { workerSnackBar?.dismiss() }
+                    dismissWorkerSnackbar()
                 }
             }
         })
@@ -132,6 +136,11 @@ class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
                 }
             }
         }
+    }
+
+    private fun dismissWorkerSnackbar() {
+        workerSnackBar?.dismiss()
+        workerSnackBar = null
     }
 
     companion object {

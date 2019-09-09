@@ -38,9 +38,8 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
         }
     }
 
-    private val coordinatorLayout by lazy {
-        ActivityCompat.requireViewById<CoordinatorLayout>(requireActivity(), R.id.coordinatorLayout)
-    }
+    private val coordinatorLayout: CoordinatorLayout
+        get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
 
     private lateinit var worldRugbyMatchListAdapter: WorldRugbyMatchListAdapter
     private lateinit var spaceItemDecoration: SpaceItemDecoration
