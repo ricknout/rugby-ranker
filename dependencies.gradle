@@ -41,7 +41,7 @@ ext {
                     ]
             ],
             square: [
-                    okhttp: '4.1.0',
+                    okhttp: '4.1.1',
                     retrofit: '2.6.1'
             ]
     ]
