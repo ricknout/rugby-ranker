@@ -32,7 +32,7 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/spacing_double" />
 
-        <TextView
+        <androidx.emoji.widget.EmojiTextView
             android:id="@+id/team1FlagTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
             app:layout_constraintEnd_toStartOf="@id/team2FlagTextView"
             tools:text="St Vincent and the Grenadines" />
 
-        <TextView
+        <androidx.emoji.widget.EmojiTextView
             android:id="@+id/team2FlagTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

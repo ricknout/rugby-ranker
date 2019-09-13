@@ -290,10 +290,8 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         awayTeamEditText.setAdapter(awayTeamAdapter)
     }
 
-    private fun getTeamText(teamAbbreviation: String, teamName: String): CharSequence {
-        return FlagUtils.processFlagEmoji(
-                getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(teamAbbreviation), teamName))
-    }
+    private fun getTeamText(teamAbbreviation: String, teamName: String) =
+            getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(teamAbbreviation), teamName)
 
     override fun dismiss() {
         predictionViewModel.resetPredictionInputValid()

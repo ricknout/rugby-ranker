@@ -18,8 +18,8 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         val showScores = worldRugbyMatch.status == MatchStatus.COMPLETE || worldRugbyMatch.status == MatchStatus.LIVE
         val showTime = worldRugbyMatch.status == MatchStatus.UNPLAYED || worldRugbyMatch.status == MatchStatus.LIVE
         val showPredict = predictable && (worldRugbyMatch.status == MatchStatus.UNPLAYED || worldRugbyMatch.status == MatchStatus.LIVE)
-        val firstTeamFlag = FlagUtils.processFlagEmoji(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: ""))
-        val secondTeamFlag = FlagUtils.processFlagEmoji(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: ""))
+        val firstTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.firstTeamAbbreviation ?: "")
+        val secondTeamFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyMatch.secondTeamAbbreviation ?: "")
         itemView.team1FlagTextView.text = firstTeamFlag
         itemView.team1TextView.text = worldRugbyMatch.firstTeamName
         itemView.team2FlagTextView.text = secondTeamFlag

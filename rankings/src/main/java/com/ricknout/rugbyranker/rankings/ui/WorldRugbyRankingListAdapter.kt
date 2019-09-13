@@ -50,7 +50,7 @@ class WorldRugbyRankingViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             }
             else -> itemView.previousPositionTextView.text = ""
         }
-        val flag = FlagUtils.processFlagEmoji(FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation))
+        val flag = FlagUtils.getFlagEmojiForTeamAbbreviation(worldRugbyRanking.teamAbbreviation)
         itemView.flagTextView.text = flag
         itemView.teamTextView.text = worldRugbyRanking.teamName
         val pointsFormat = "%.2f"

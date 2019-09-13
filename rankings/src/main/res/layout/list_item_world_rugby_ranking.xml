@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toStartOf="@id/pointsTextViews"
         app:layout_constraintHorizontal_weight="@integer/weight_team">
 
-        <TextView
+        <androidx.emoji.widget.EmojiTextView
             android:id="@+id/flagTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
