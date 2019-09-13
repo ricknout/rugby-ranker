@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ricknout.rugbyranker.core.glide.GlideApp
+import coil.api.load
 import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.news.R
 import com.ricknout.rugbyranker.news.vo.ArticleType
@@ -54,10 +54,9 @@ class WorldRugbyArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(item
             ArticleType.TEXT -> R.drawable.ic_image_black_24dp
             ArticleType.VIDEO -> R.drawable.ic_video_black_24dp
         })
-        GlideApp.with(itemView)
-                .load(worldRugbyArticle.imageUrl)
-                .centerCrop()
-                .into(itemView.imageView)
+        itemView.imageView.load(worldRugbyArticle.imageUrl) {
+            crossfade(true)
+        }
         itemView.subtitleTextView.text = worldRugbyArticle.subtitle
         itemView.subtitleTextView.isVisible = worldRugbyArticle.subtitle != null
         val date = DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, worldRugbyArticle.timeMillis)
