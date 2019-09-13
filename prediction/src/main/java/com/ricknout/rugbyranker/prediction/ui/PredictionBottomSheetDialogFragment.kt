@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ricknout.rugbyranker.core.ui.NoFilterArrayAdapter
 import com.ricknout.rugbyranker.core.ui.dagger.DaggerBottomSheetDialogFragment
+import com.ricknout.rugbyranker.core.util.EmojiUtils
 import com.ricknout.rugbyranker.core.util.FlagUtils
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.prediction.R
@@ -291,7 +292,7 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
     }
 
     private fun getTeamText(teamAbbreviation: String, teamName: String) =
-            getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(teamAbbreviation), teamName)
+            EmojiUtils.processEmoji(getString(R.string.menu_item_team, FlagUtils.getFlagEmojiForTeamAbbreviation(teamAbbreviation), teamName))
 
     override fun dismiss() {
         predictionViewModel.resetPredictionInputValid()
