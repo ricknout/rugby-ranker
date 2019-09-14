@@ -22,6 +22,6 @@
 
     <string name="content_description_close">Close</string>
 
-    <string name="menu_item_team" translatable="false">%1$s %2$s</string>
+    <string name="title_team" translatable="false">%1$s %2$s</string>
 
 </resources>
