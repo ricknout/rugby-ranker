@@ -40,7 +40,8 @@ class MatchesRepository(
         matchStatus: MatchStatus,
         cache: Boolean = true,
         pageSize: Int = PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK,
-        fetchMultiplePages: Boolean = true
+        fetchMultiplePages: Boolean = true,
+        fetchMinutes: Boolean = false
     ): Pair<Boolean, List<WorldRugbyMatch>> {
         val sports = when (sport) {
             Sport.MENS -> WorldRugbyService.SPORT_MENS
@@ -74,7 +75,15 @@ class MatchesRepository(
         return try {
             while (page < pageCount) {
                 val worldRugbyMatchesResponse = worldRugbyService.getMatches(sports, states, startDate, endDate, sort, page, pageSize)
-                val matches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport)
+                val matches = MatchesDataConverter.getWorldRugbyMatchesFromWorldRugbyMatchesResponse(worldRugbyMatchesResponse, sport).map { match ->
+                    if (fetchMinutes) {
+                        val worldRugbyMatchSummaryResponse = worldRugbyService.getMatchSummary(match.matchId)
+                        val minute = MatchesDataConverter.getMinuteFromWorldRugbyMatchSummaryResponse(worldRugbyMatchSummaryResponse)
+                        match.copy(minute = minute)
+                    } else {
+                        match
+                    }
+                }
                 if (cache) worldRugbyMatchDao.insert(matches)
                 page++
                 pageCount = if (fetchMultiplePages && !initialMatchesFetched) worldRugbyMatchesResponse.pageInfo.numPages else 1
@@ -92,7 +101,8 @@ class MatchesRepository(
         if (matchStatus == MatchStatus.LIVE) throw IllegalArgumentException("Cannot handle MatchStatus type $matchStatus in fetchAndCacheLatestWorldRugbyMatchesSync")
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
-                fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus, cache = true, pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK_REFRESH, fetchMultiplePages = false)
+                fetchAndCacheLatestWorldRugbyMatchesSync(
+                        sport, matchStatus, cache = true, pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK_REFRESH, fetchMultiplePages = false, fetchMinutes = false)
             }
             val success = result.first
             onComplete(success)
@@ -102,7 +112,8 @@ class MatchesRepository(
     fun fetchLatestWorldRugbyMatchesAsync(sport: Sport, matchStatus: MatchStatus, coroutineScope: CoroutineScope, onComplete: (success: Boolean, worldRugbyMatches: List<WorldRugbyMatch>) -> Unit) {
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
-                fetchAndCacheLatestWorldRugbyMatchesSync(sport, matchStatus, cache = false, pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK_REFRESH, fetchMultiplePages = false)
+                fetchAndCacheLatestWorldRugbyMatchesSync(
+                        sport, matchStatus, cache = false, pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK_REFRESH, fetchMultiplePages = false, fetchMinutes = true)
             }
             val success = result.first
             val worldRugbyMatches = result.second

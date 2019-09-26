@@ -35,13 +35,18 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         }
         if (showTime) {
             if (worldRugbyMatch.status == MatchStatus.LIVE) {
+                val minute = worldRugbyMatch.minute
                 val half = when (worldRugbyMatch.half) {
                     MatchHalf.FIRST_HALF -> itemView.context.getString(R.string.text_match_first_half)
                     MatchHalf.SECOND_HALF -> itemView.context.getString(R.string.text_match_second_half)
                     MatchHalf.HALF_TIME -> itemView.context.getString(R.string.text_match_half_time)
                     else -> null
                 }
-                itemView.timeTextView.text = half
+                itemView.timeTextView.text = if (minute != null && half != null) {
+                    itemView.context.getString(R.string.text_match_minute_half, minute, half)
+                } else {
+                    half
+                }
                 itemView.timeTextView.isVisible = true
             } else {
                 val time = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, worldRugbyMatch.timeMillis)

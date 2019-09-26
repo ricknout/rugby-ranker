@@ -1,8 +1,10 @@
 package com.ricknout.rugbyranker.matches.vo
 
 import com.ricknout.rugbyranker.core.api.Match
+import com.ricknout.rugbyranker.core.api.WorldRugbyMatchSummaryResponse
 import com.ricknout.rugbyranker.core.api.WorldRugbyMatchesResponse
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
+import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.core.vo.Sport
 import java.lang.IllegalArgumentException
 
@@ -39,8 +41,10 @@ object MatchesDataConverter {
                     eventStartTimeGmtOffset = match.events.firstOrNull()?.start?.gmtOffset?.toInt(),
                     eventEndTimeLabel = match.events.firstOrNull()?.end?.label,
                     eventEndTimeMillis = match.events.firstOrNull()?.end?.millis,
-                    eventEndTimeGmtOffset = match.events.firstOrNull()?.end?.gmtOffset?.toInt()
-            ).apply { half = getMatchHalfFromMatch(match) }
+                    eventEndTimeGmtOffset = match.events.firstOrNull()?.end?.gmtOffset?.toInt(),
+                    half = getMatchHalfFromMatch(match),
+                    minute = null
+            )
         }
     }
 
@@ -59,6 +63,14 @@ object MatchesDataConverter {
             WorldRugbyService.STATE_LIVE_2ND_HALF -> MatchHalf.SECOND_HALF
             WorldRugbyService.STATE_LIVE_HALF_TIME -> MatchHalf.HALF_TIME
             else -> null
+        }
+    }
+
+    fun getMinuteFromWorldRugbyMatchSummaryResponse(worldRugbyMatchSummaryResponse: WorldRugbyMatchSummaryResponse): Int? {
+        return if (worldRugbyMatchSummaryResponse.match.clock != null) {
+            worldRugbyMatchSummaryResponse.match.clock!!.secs / DateUtils.MINUTE_SECS
+        } else {
+            null
         }
     }
 }

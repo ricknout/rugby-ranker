@@ -36,8 +36,50 @@ data class WorldRugbyMatch(
     val eventStartTimeGmtOffset: Int?,
     val eventEndTimeLabel: String?,
     val eventEndTimeMillis: Long?,
-    val eventEndTimeGmtOffset: Int?
-) {
+    val eventEndTimeGmtOffset: Int?,
     @Ignore
-    var half: MatchHalf? = null
+    val half: MatchHalf?,
+    @Ignore
+    val minute: Int?
+) {
+
+    constructor(
+        matchId: Long,
+        description: String?,
+        status: MatchStatus,
+        attendance: Int,
+        firstTeamId: Long,
+        firstTeamName: String,
+        firstTeamAbbreviation: String?,
+        firstTeamScore: Int,
+        secondTeamId: Long,
+        secondTeamName: String,
+        secondTeamAbbreviation: String?,
+        secondTeamScore: Int,
+        timeLabel: String,
+        timeMillis: Long,
+        timeGmtOffset: Int,
+        venueId: Long?,
+        venueName: String?,
+        venueCity: String?,
+        venueCountry: String?,
+        eventId: Long?,
+        eventLabel: String?,
+        eventSport: Sport,
+        eventRankingsWeight: Float?,
+        eventStartTimeLabel: String?,
+        eventStartTimeMillis: Long?,
+        eventStartTimeGmtOffset: Int?,
+        eventEndTimeLabel: String?,
+        eventEndTimeMillis: Long?,
+        eventEndTimeGmtOffset: Int?
+    ) : this(matchId, description, status, attendance,
+            firstTeamId, firstTeamName, firstTeamAbbreviation, firstTeamScore,
+            secondTeamId, secondTeamName, secondTeamAbbreviation, secondTeamScore,
+            timeLabel, timeMillis, timeGmtOffset, venueId, venueName, venueCity, venueCountry,
+            eventId, eventLabel, eventSport, eventRankingsWeight,
+            eventStartTimeLabel, eventStartTimeMillis, eventStartTimeGmtOffset,
+            eventEndTimeLabel, eventEndTimeMillis, eventEndTimeGmtOffset,
+            half = null, minute = null
+    )
 }

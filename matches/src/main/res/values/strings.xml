@@ -13,5 +13,6 @@
     <string name="text_match_first_half">1st half</string>
     <string name="text_match_second_half">2nd half</string>
     <string name="text_match_half_time">Half time</string>
+    <string name="text_match_minute_half">%1$02d\' (%2$s)</string>
 
 </resources>

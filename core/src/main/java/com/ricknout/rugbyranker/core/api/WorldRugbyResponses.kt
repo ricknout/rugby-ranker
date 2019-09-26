@@ -41,6 +41,11 @@ data class Venue(
     val country: String
 )
 
+data class Clock(
+    val secs: Int,
+    val label: String
+)
+
 data class Event(
     val id: Long,
     val label: String,
@@ -59,12 +64,17 @@ data class Match(
     val teams: List<Team>,
     val scores: List<Int>,
     val status: String,
+    val clock: Clock?,
     val events: List<Event>
 )
 
 data class WorldRugbyMatchesResponse(
     val pageInfo: PageInfo,
     val content: List<Match>
+)
+
+data class WorldRugbyMatchSummaryResponse(
+    val match: Match
 )
 
 data class TeamDetail(

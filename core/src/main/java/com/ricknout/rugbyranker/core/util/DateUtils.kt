@@ -56,4 +56,5 @@ object DateUtils {
     const val DAY_MILLIS = 1000L * 60L * 60L * 24L
     const val HOUR_MILLIS = 1000L * 60L * 60L
     const val MINUTE_MILLIS = 1000L * 60L
+    const val MINUTE_SECS = 60
 }

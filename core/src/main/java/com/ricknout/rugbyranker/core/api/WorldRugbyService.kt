@@ -23,6 +23,11 @@ interface WorldRugbyService {
         @Query("pageSize") pageSize: Int
     ): WorldRugbyMatchesResponse
 
+    @GET("rugby/match/{id}/summary")
+    suspend fun getMatchSummary(
+        @Path("id") id: Long
+    ): WorldRugbyMatchSummaryResponse
+
     @GET("rugby/team/{id}")
     suspend fun getTeams(
         @Path("id") id: Long
