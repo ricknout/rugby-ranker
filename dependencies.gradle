@@ -33,7 +33,7 @@ ext {
                     ]
             ],
             google: [
-                    material: '1.1.0-alpha10',
+                    material: '1.1.0-beta01',
                     dagger: '2.24',
                     ossLicenses: [
                             ossLicenses: '17.0.0',

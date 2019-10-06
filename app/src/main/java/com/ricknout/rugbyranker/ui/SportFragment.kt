@@ -3,7 +3,6 @@ package com.ricknout.rugbyranker.ui
 import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -144,7 +143,7 @@ class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
             }
         }.attach()
         // Animate showing/hiding of live tab icon
-        ((tabLayout.getChildAt(0) as? LinearLayout)?.getChildAt(POSITION_LIVE) as? LinearLayout)?.layoutTransition = LayoutTransition()
+        tabLayout.getTabAt(POSITION_LIVE)?.view?.layoutTransition = LayoutTransition()
     }
 
     private fun toggleLiveMatchesTabIcon(show: Boolean) {
