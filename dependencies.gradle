@@ -34,7 +34,7 @@ ext {
             ],
             google: [
                     material: '1.1.0-beta01',
-                    dagger: '2.24',
+                    dagger: '2.25',
                     ossLicenses: [
                             ossLicenses: '17.0.0',
                             gradlePlugin: '0.9.5'
