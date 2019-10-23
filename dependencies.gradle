@@ -37,7 +37,7 @@ ext {
                     dagger: '2.25',
                     ossLicenses: [
                             ossLicenses: '17.0.0',
-                            gradlePlugin: '0.9.5'
+                            gradlePlugin: '0.10.0'
                     ]
             ],
             square: [
