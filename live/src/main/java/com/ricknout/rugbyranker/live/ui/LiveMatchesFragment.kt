@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.SpaceItemDecoration
@@ -40,6 +41,9 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
 
     private val coordinatorLayout: CoordinatorLayout
         get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
+
+    private val addPredictionFab: ExtendedFloatingActionButton
+        get() = ActivityCompat.requireViewById(requireActivity(), R.id.addPredictionFab)
 
     private lateinit var worldRugbyMatchListAdapter: WorldRugbyMatchListAdapter
     private lateinit var spaceItemDecoration: SpaceItemDecoration
@@ -101,7 +105,10 @@ class LiveMatchesFragment : DaggerAndroidXFragment(R.layout.fragment_live_matche
                                 coordinatorLayout,
                                 R.string.snackbar_failed_to_refresh_live_world_rugby_matches,
                                 Snackbar.LENGTH_SHORT
-                        ).show()
+                        ).apply {
+                            anchorView = addPredictionFab
+                            show()
+                        }
                     }
                 }
             }
