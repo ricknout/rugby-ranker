@@ -47,6 +47,7 @@ interface WorldRugbyService {
         const val SPORT_WOMENS = "wru"
         const val STATE_UNPLAYED = "U"
         const val STATE_COMPLETE = "C"
+        const val STATE_COMPLETE_2 = "CC"
         const val STATE_LIVE_1ST_HALF = "L1"
         const val STATE_LIVE_2ND_HALF = "L2"
         const val STATE_LIVE_HALF_TIME = "LHT"
