@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.SpaceItemDecoration
@@ -46,9 +45,6 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
 
     private val coordinatorLayout: CoordinatorLayout
         get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
-
-    private val addPredictionFab: ExtendedFloatingActionButton
-        get() = ActivityCompat.requireViewById(requireActivity(), R.id.addPredictionFab)
 
     private var workerSnackBar: Snackbar? = null
 
@@ -102,7 +98,6 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
                                 },
                                 Snackbar.LENGTH_INDEFINITE
                         ).apply {
-                            anchorView = addPredictionFab
                             show()
                         }
                     }
@@ -140,7 +135,6 @@ class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
                                 },
                                 Snackbar.LENGTH_SHORT
                         ).apply {
-                            anchorView = addPredictionFab
                             show()
                         }
                     }
