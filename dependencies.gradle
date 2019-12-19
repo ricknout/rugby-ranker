@@ -3,7 +3,7 @@ ext {
             compileSdk: 29,
             minSdk: 21,
             targetSdk: 29,
-            androidGradlePlugin: '3.6.0-beta05',
+            androidGradlePlugin: '3.6.0-rc01',
             ktlint: '0.36.0',
             coil: '0.8.0',
             kotlin: [
@@ -13,19 +13,19 @@ ext {
             androidX: [
                     core: '1.2.0-rc01',
                     activity: '1.1.0-rc03',
-                    fragment: '1.2.0-rc03',
+                    fragment: '1.2.0-rc04',
                     appCompat: '1.1.0',
-                    constraintLayout: '2.0.0-beta3',
-                    recyclerView: '1.1.0',
+                    constraintLayout: '2.0.0-beta4',
+                    recyclerView: '1.2.0-alpha01',
                     swipeRefreshLayout: '1.1.0-alpha03',
                     viewPager2: '1.0.0',
                     emoji: '1.0.0',
-                    browser: '1.2.0-rc01',
+                    browser: '1.2.0',
                     lifecycle: '2.2.0-rc03',
-                    room: '2.2.2',
-                    paging: '2.1.0',
-                    navigation: '2.2.0-rc03',
-                    work: '2.3.0-beta01',
+                    room: '2.2.3',
+                    paging: '2.1.1',
+                    navigation: '2.2.0-rc04',
+                    work: '2.3.0-beta02',
                     test: [
                             core: '1.2.1-alpha02',
                             jUnit: '1.1.2-alpha02',
@@ -34,7 +34,7 @@ ext {
             ],
             google: [
                     material: '1.2.0-alpha02',
-                    dagger: '2.25.2',
+                    dagger: '2.25.3',
                     ossLicenses: [
                             ossLicenses: '17.0.0',
                             gradlePlugin: '0.10.0'
