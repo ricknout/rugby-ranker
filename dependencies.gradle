@@ -13,19 +13,19 @@ ext {
             androidX: [
                     core: '1.2.0-rc01',
                     activity: '1.1.0-rc03',
-                    fragment: '1.2.0-rc04',
+                    fragment: '1.2.0-rc05',
                     appCompat: '1.1.0',
                     constraintLayout: '2.0.0-beta4',
                     recyclerView: '1.2.0-alpha01',
                     swipeRefreshLayout: '1.1.0-alpha03',
                     viewPager2: '1.0.0',
                     emoji: '1.0.0',
-                    browser: '1.2.0',
+                    browser: '1.3.0-alpha01',
                     lifecycle: '2.2.0-rc03',
                     room: '2.2.3',
                     paging: '2.1.1',
                     navigation: '2.2.0-rc04',
-                    work: '2.3.0-beta02',
+                    work: '2.3.0-rc01',
                     test: [
                             core: '1.2.1-alpha02',
                             jUnit: '1.1.2-alpha02',
@@ -41,7 +41,7 @@ ext {
                     ]
             ],
             square: [
-                    okhttp: '4.3.0',
+                    okhttp: '4.3.1',
                     retrofit: '2.7.1'
             ]
     ]
