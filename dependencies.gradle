@@ -3,7 +3,7 @@ ext {
             compileSdk: 29,
             minSdk: 21,
             targetSdk: 29,
-            androidGradlePlugin: '3.6.0-rc01',
+            androidGradlePlugin: '3.6.0-rc02',
             ktlint: '0.36.0',
             coil: '0.9.2',
             kotlin: [
