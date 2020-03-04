@@ -7,25 +7,25 @@ ext {
             ktlint: '0.36.0',
             coil: '0.9.5',
             kotlin: [
-                    kotlin: '1.3.61',
+                    kotlin: '1.3.70',
                     coroutines: '1.3.3'
             ],
             androidX: [
-                    core: '1.3.0-alpha01',
-                    activity: '1.1.0',
-                    fragment: '1.2.2',
-                    appCompat: '1.1.0',
+                    core: '1.3.0-alpha02',
+                    activity: '1.2.0-alpha01',
+                    fragment: '1.3.0-alpha01',
+                    appCompat: '1.2.0-alpha03',
                     constraintLayout: '2.0.0-beta4',
                     recyclerView: '1.2.0-alpha01',
-                    swipeRefreshLayout: '1.1.0-alpha03',
+                    swipeRefreshLayout: '1.1.0-beta01',
                     viewPager2: '1.0.0',
                     emoji: '1.1.0-alpha01',
                     browser: '1.3.0-alpha01',
-                    lifecycle: '2.2.0',
+                    lifecycle: '2.3.0-alpha01',
                     room: '2.2.4',
                     paging: '2.1.1',
-                    navigation: '2.3.0-alpha02',
-                    work: '2.3.2',
+                    navigation: '2.3.0-alpha03',
+                    work: '2.4.0-alpha01',
                     test: [
                             core: '1.3.0-alpha04',
                             jUnit: '1.1.2-alpha04',
@@ -75,7 +75,6 @@ ext {
                             ktx: "androidx.fragment:fragment-ktx:$versions.androidX.fragment"
                     ],
                     lifecycle: [
-                            extensions: "androidx.lifecycle:lifecycle-extensions:$versions.androidX.lifecycle",
                             compiler: "androidx.lifecycle:lifecycle-compiler:$versions.androidX.lifecycle"
                     ],
                     room: [

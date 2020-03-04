@@ -30,7 +30,6 @@ dependencies {
     api deps.androidX.swipeRefreshLayout
     api deps.androidX.emoji
     api deps.androidX.browser
-    api deps.androidX.lifecycle.extensions
     api deps.androidX.room.runtime
     api deps.androidX.room.ktx
     api deps.androidX.paging.runtimeKtx
