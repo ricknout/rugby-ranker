@@ -3,7 +3,7 @@ package com.ricknout.rugbyranker
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ricknout.rugbyranker.info.ui.InfoViewModel
 import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
@@ -49,7 +49,8 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
     }
 
     private fun setupBottomNavigation() {
-        val navController = findNavController(R.id.navHostFragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
         bottomNavigationView.setOnNavigationItemReselectedListener { menuItem ->
             when (menuItem.itemId) {
