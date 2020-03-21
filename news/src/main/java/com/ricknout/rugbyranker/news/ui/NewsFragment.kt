@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ricknout.rugbyranker.core.livedata.EventObserver
-import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.news.R
 import com.ricknout.rugbyranker.news.vo.ArticleType
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_news.*
 
-class NewsFragment : DaggerAndroidXFragment(R.layout.fragment_news) {
+class NewsFragment : DaggerFragment(R.layout.fragment_news) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

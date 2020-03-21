@@ -14,16 +14,16 @@ import androidx.work.WorkInfo.State
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
-import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.matches.MatchesNavGraphDirections
 import com.ricknout.rugbyranker.matches.R
 import com.ricknout.rugbyranker.matches.vo.MatchStatus
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_matches.*
 
-class MatchesFragment : DaggerAndroidXFragment(R.layout.fragment_matches) {
+class MatchesFragment : DaggerFragment(R.layout.fragment_matches) {
 
     private val args: MatchesFragmentArgs by navArgs()
 

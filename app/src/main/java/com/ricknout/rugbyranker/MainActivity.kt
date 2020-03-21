@@ -5,7 +5,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXAppCompatActivity
 import com.ricknout.rugbyranker.info.ui.InfoViewModel
 import com.ricknout.rugbyranker.live.ui.MensLiveMatchesViewModel
 import com.ricknout.rugbyranker.live.ui.WomensLiveMatchesViewModel
@@ -20,10 +19,11 @@ import com.ricknout.rugbyranker.rankings.ui.MensRankingsViewModel
 import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.ui.MensViewModel
 import com.ricknout.rugbyranker.ui.WomensViewModel
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : DaggerAndroidXAppCompatActivity(R.layout.activity_main) {
+class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

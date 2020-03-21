@@ -14,7 +14,6 @@ import androidx.work.WorkInfo
 import com.google.android.material.snackbar.Snackbar
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.ui.SpaceItemDecoration
-import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.core.util.CustomTabsUtils
 import com.ricknout.rugbyranker.core.util.doIfResumed
 import com.ricknout.rugbyranker.news.ArticlesNavGraphDirections
@@ -22,10 +21,11 @@ import com.ricknout.rugbyranker.news.R
 import com.ricknout.rugbyranker.news.vo.ArticleType
 import com.ricknout.rugbyranker.theme.ui.ThemeViewModel
 import com.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_articles.*
 
-class ArticlesFragment : DaggerAndroidXFragment(R.layout.fragment_articles) {
+class ArticlesFragment : DaggerFragment(R.layout.fragment_articles) {
 
     private val args: ArticlesFragmentArgs by navArgs()
 

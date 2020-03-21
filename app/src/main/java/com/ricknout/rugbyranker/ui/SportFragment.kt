@@ -17,7 +17,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.core.livedata.EventObserver
-import com.ricknout.rugbyranker.core.ui.dagger.DaggerAndroidXFragment
 import com.ricknout.rugbyranker.core.vo.Sport
 import com.ricknout.rugbyranker.live.ui.LiveMatchesFragment
 import com.ricknout.rugbyranker.live.ui.LiveMatchesViewModel
@@ -43,10 +42,11 @@ import com.ricknout.rugbyranker.rankings.ui.WomensRankingsViewModel
 import com.ricknout.rugbyranker.teams.ui.MensTeamsViewModel
 import com.ricknout.rugbyranker.teams.ui.TeamsViewModel
 import com.ricknout.rugbyranker.teams.ui.WomensTeamsViewModel
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_sport.*
 
-class SportFragment : DaggerAndroidXFragment(R.layout.fragment_sport) {
+class SportFragment : DaggerFragment(R.layout.fragment_sport) {
 
     private val args: SportFragmentArgs by navArgs()
 
