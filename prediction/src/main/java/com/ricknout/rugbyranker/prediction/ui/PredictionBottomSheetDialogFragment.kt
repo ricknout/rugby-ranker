@@ -57,6 +57,7 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.bottom_sheet_dialog_fragment_prediction, container, false)
 
+    @SuppressWarnings("VisibleForTests", "RestrictedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModels()
@@ -71,11 +72,6 @@ class PredictionBottomSheetDialogFragment : DaggerBottomSheetDialogFragment() {
         setupClearOrCancelButton()
         setupAddOrEditButton()
         adjustForEditing(isEditing)
-    }
-
-    @SuppressWarnings("VisibleForTests", "RestrictedApi")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         (requireDialog() as BottomSheetDialog).apply {
             behavior.disableShapeAnimations()
             dismissWithAnimation = true
