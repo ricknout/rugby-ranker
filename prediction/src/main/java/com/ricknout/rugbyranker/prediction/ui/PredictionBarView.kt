@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.widget.TooltipCompat
+import com.google.android.material.card.MaterialCardView
 import com.ricknout.rugbyranker.prediction.R
 import com.ricknout.rugbyranker.prediction.vo.Prediction
 import kotlinx.android.synthetic.main.view_prediction_bar.view.*
@@ -46,4 +47,8 @@ class PredictionBarView
     fun setPredictions(predictions: List<Prediction>?) {
         predictionAdapter.submitList(predictions)
     }
+
+    fun getPredictions(): List<Prediction> = predictionAdapter.currentList
+
+    fun getCardView(): MaterialCardView = cardView
 }

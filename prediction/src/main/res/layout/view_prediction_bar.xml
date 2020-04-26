@@ -8,14 +8,18 @@
     tools:parentTag="android.widget.FrameLayout">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_prediction_bar"
         android:layout_marginBottom="@dimen/spacing_double"
         android:layout_marginStart="@dimen/margin_horizontal_prediction_bar"
         android:layout_marginEnd="@dimen/margin_horizontal_prediction_bar"
+        app:cardElevation="@dimen/elevation_prediction_bar"
         app:cardBackgroundColor="?attr/colorSecondary"
         app:shapeAppearance="?attr/shapeAppearanceLargeComponent"
-        app:strokeWidth="0dp">
+        app:strokeWidth="0dp"
+        android:transitionName="shared_element_card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

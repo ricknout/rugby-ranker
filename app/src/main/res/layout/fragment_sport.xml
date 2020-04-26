@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -67,8 +66,7 @@
         android:id="@+id/predictionBarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone" />
+        android:layout_gravity="bottom" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@id/addPredictionFab"
@@ -76,9 +74,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/spacing_double"
-        app:fabSize="auto"
         app:icon="@drawable/ic_add_black_24dp"
         android:text="@string/button_predict"
+        android:transitionName="shared_element_fab"
         android:contentDescription="@string/content_description_add_match_prediction" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

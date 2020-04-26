@@ -1,20 +1,24 @@
 package com.ricknout.rugbyranker.ui
 
 import android.animation.LayoutTransition
+import android.graphics.Color
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.MaterialContainerTransform
 import com.ricknout.rugbyranker.R
 import com.ricknout.rugbyranker.core.livedata.EventObserver
 import com.ricknout.rugbyranker.core.vo.Sport
@@ -193,22 +197,30 @@ class SportFragment : DaggerFragment(R.layout.fragment_sport) {
         })
         predictionViewModel.predictions.observe(viewLifecycleOwner, Observer { predictions ->
             rankingsViewModel.predictions.value = predictions
+            val currentPredictions = predictionBarView.getPredictions()
             predictionBarView.setPredictions(predictions)
-            if (predictions.isNullOrEmpty()) {
-                addPredictionFab.show(object : ExtendedFloatingActionButton.OnChangedCallback() {
-                    override fun onShown(extendedFab: ExtendedFloatingActionButton?) {
-                        super.onShown(extendedFab)
-                        predictionBarView.isVisible = false
-                    }
-                })
-            } else {
-                addPredictionFab.hide(object : ExtendedFloatingActionButton.OnChangedCallback() {
-                    override fun onHidden(extendedFab: ExtendedFloatingActionButton?) {
-                        super.onHidden(extendedFab)
-                        predictionBarView.isVisible = true
-                    }
-                })
+            val shouldTransition = when {
+                currentPredictions.isEmpty() && !predictions.isNullOrEmpty() -> true
+                currentPredictions.isNotEmpty() && predictions.isNullOrEmpty() -> true
+                else -> false
             }
+            if (!shouldTransition) return@Observer
+            val transition = MaterialContainerTransform().apply {
+                duration = 400L
+                interpolator = FastOutSlowInInterpolator()
+                scrimColor = Color.TRANSPARENT
+                fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+            }
+            if (predictions.isNullOrEmpty()) {
+                transition.startView = predictionBarView.getCardView()
+                transition.endView = addPredictionFab
+            } else {
+                transition.startView = addPredictionFab
+                transition.endView = predictionBarView.getCardView()
+            }
+            TransitionManager.beginDelayedTransition(coordinatorLayout, transition)
+            addPredictionFab.isInvisible = !predictions.isNullOrEmpty()
+            predictionBarView.getCardView().isInvisible = predictions.isNullOrEmpty()
         })
         teamsViewModel.latestWorldRugbyTeams.observe(viewLifecycleOwner, Observer { latestWorldRugbyTeams ->
             val isEmpty = latestWorldRugbyTeams?.isEmpty() ?: true

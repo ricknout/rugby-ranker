@@ -10,6 +10,8 @@
 
     <dimen name="height_prediction_bar">48dp</dimen>
 
+    <dimen name="elevation_prediction_bar">6dp</dimen>
+
     <dimen name="corner_radius_add_prediction_button">32dp</dimen>
 
     <dimen name="length_fading_edge">16dp</dimen>
