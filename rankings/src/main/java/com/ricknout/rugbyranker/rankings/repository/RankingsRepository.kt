@@ -1,5 +1,6 @@
 package com.ricknout.rugbyranker.rankings.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.core.util.DateUtils
@@ -38,7 +39,8 @@ class RankingsRepository(
             rankingsSharedPreferences.setLatestWorldRugbyRankingsEffectiveTimeMillis(worldRugbyRankingsResponse.effective.millis, sport)
             rankingsSharedPreferences.setInitialRankingsFetched(sport, true)
             true
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
             false
         }
     }
@@ -58,5 +60,9 @@ class RankingsRepository(
 
     fun getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport: Sport): LiveData<Long> {
         return rankingsSharedPreferences.getLatestWorldRugbyRankingsEffectiveTimeMillisLiveData(sport)
+    }
+
+    companion object {
+        private const val TAG = "RankingsRepository"
     }
 }

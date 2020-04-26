@@ -1,5 +1,6 @@
 package com.ricknout.rugbyranker.matches.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.Config
 import androidx.paging.PagedList
@@ -92,7 +93,8 @@ class MatchesRepository(
             }
             if (fetchMultiplePages) matchesSharedPreferences.setInitialMatchesFetched(sport, matchStatus, true)
             success to worldRugbyMatches
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
             success to worldRugbyMatches
         }
     }
@@ -122,6 +124,7 @@ class MatchesRepository(
     }
 
     companion object {
+        private const val TAG = "MatchesRepository"
         private const val PAGE_SIZE_WORLD_RUGBY_MATCHES_DATABASE = 20
         private const val PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK = 100
         private const val PAGE_SIZE_WORLD_RUGBY_MATCHES_NETWORK_REFRESH = 20

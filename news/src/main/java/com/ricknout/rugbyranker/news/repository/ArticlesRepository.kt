@@ -1,5 +1,6 @@
 package com.ricknout.rugbyranker.news.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.Config
 import androidx.paging.PagedList
@@ -59,7 +60,8 @@ class ArticlesRepository(
             }
             if (fetchMultiplePages) articlesSharedPreferences.setInitialArticlesFetched(articleType, true)
             success
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
             success
         }
     }
@@ -74,6 +76,7 @@ class ArticlesRepository(
     }
 
     companion object {
+        private const val TAG = "ArticlesRepository"
         private const val PAGE_SIZE_WORLD_RUGBY_ARTICLES_DATABASE = 20
         private const val PAGE_SIZE_WORLD_RUGBY_ARTICLES_NETWORK = 10
         private const val MAX_PAGES_WORLD_RUGBY_ARTICLES_NETWORK = 10

@@ -1,5 +1,6 @@
 package com.ricknout.rugbyranker.teams.repository
 
+import android.util.Log
 import com.ricknout.rugbyranker.core.api.WorldRugbyService
 import com.ricknout.rugbyranker.core.util.DateUtils
 import com.ricknout.rugbyranker.core.vo.Sport
@@ -24,10 +25,15 @@ class TeamsRepository(
             val worldRugbyTeams = TeamsDataConverter.getWorldRugbyTeamsFromWorldRugbyRankingsResponse(worldRugbyRankingsResponse, sport)
             worldRugbyTeamDao.insert(worldRugbyTeams)
             true
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
             false
         }
     }
 
     private fun getCurrentDate() = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
+
+    companion object {
+        private const val TAG = "TeamsRepository"
+    }
 }
