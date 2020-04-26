@@ -95,3 +95,7 @@
 -keepclassmembernames class kotlinx.** {
     volatile <fields>;
 }
+
+## Jetpack Navigation
+
+-keepnames class androidx.navigation.fragment.NavHostFragment
