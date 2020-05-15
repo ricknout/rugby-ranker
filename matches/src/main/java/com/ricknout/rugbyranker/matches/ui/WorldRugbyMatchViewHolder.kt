@@ -42,7 +42,7 @@ class WorldRugbyMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
             itemView.team2ScoreTextView.isVisible = false
         }
         if (showTime) {
-            when(worldRugbyMatch.status) {
+            when (worldRugbyMatch.status) {
                 MatchStatus.LIVE -> {
                     val minute = worldRugbyMatch.minute
                     val half = when (worldRugbyMatch.half) {
