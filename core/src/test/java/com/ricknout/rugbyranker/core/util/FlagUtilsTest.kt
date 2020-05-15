@@ -14,8 +14,8 @@ class FlagUtilsTest {
 
     @Test
     fun getFlagEmojiForTeamAbbreviation_Invalid() {
-        assertEquals(FlagUtils.getFlagEmojiForTeamAbbreviation("ABC"), "\uD83C\uDFF3")
-        assertEquals(FlagUtils.getFlagEmojiForTeamAbbreviation("123"), "\uD83C\uDFF3")
-        assertEquals(FlagUtils.getFlagEmojiForTeamAbbreviation("XYZ"), "\uD83C\uDFF3")
+        assertEquals(FlagUtils.getFlagEmojiForTeamAbbreviation("ABC"), "\uD83C\uDFC9")
+        assertEquals(FlagUtils.getFlagEmojiForTeamAbbreviation("123"), "\uD83C\uDFC9")
+        assertEquals(FlagUtils.getFlagEmojiForTeamAbbreviation("XYZ"), "\uD83C\uDFC9")
     }
 }
