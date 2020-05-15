@@ -256,6 +256,7 @@ class SportFragment : DaggerFragment(R.layout.fragment_sport) {
         val homeTeamAbbreviation = if (!switched) worldRugbyMatch.firstTeamAbbreviation!! else worldRugbyMatch.secondTeamAbbreviation!!
         val homeTeamScore = when {
             worldRugbyMatch.status == MatchStatus.UNPLAYED -> Prediction.NO_SCORE
+            worldRugbyMatch.status == MatchStatus.POSTPONED -> Prediction.NO_SCORE
             !switched -> worldRugbyMatch.firstTeamScore
             else -> worldRugbyMatch.secondTeamScore
         }
@@ -264,6 +265,7 @@ class SportFragment : DaggerFragment(R.layout.fragment_sport) {
         val awayTeamAbbreviation = if (!switched) worldRugbyMatch.secondTeamAbbreviation!! else worldRugbyMatch.firstTeamAbbreviation!!
         val awayTeamScore = when {
             worldRugbyMatch.status == MatchStatus.UNPLAYED -> Prediction.NO_SCORE
+            worldRugbyMatch.status == MatchStatus.POSTPONED -> Prediction.NO_SCORE
             !switched -> worldRugbyMatch.secondTeamScore
             else -> worldRugbyMatch.firstTeamScore
         }

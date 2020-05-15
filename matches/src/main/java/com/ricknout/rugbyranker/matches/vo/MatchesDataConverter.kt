@@ -50,8 +50,10 @@ object MatchesDataConverter {
 
     private fun getMatchStatusFromMatch(match: Match): MatchStatus {
         return when (match.status) {
-            WorldRugbyService.STATE_UNPLAYED, WorldRugbyService.STATE_UNPLAYED_2 -> MatchStatus.UNPLAYED
-            WorldRugbyService.STATE_COMPLETE, WorldRugbyService.STATE_COMPLETE_2 -> MatchStatus.COMPLETE
+            WorldRugbyService.STATE_UNPLAYED -> MatchStatus.UNPLAYED
+            WorldRugbyService.STATE_POSTPONED -> MatchStatus.POSTPONED
+            WorldRugbyService.STATE_COMPLETE -> MatchStatus.COMPLETE
+            WorldRugbyService.STATE_CANCELLED -> MatchStatus.CANCELLED
             WorldRugbyService.STATE_LIVE_1ST_HALF, WorldRugbyService.STATE_LIVE_2ND_HALF, WorldRugbyService.STATE_LIVE_HALF_TIME -> MatchStatus.LIVE
             else -> throw IllegalArgumentException("Unknown match status ${match.status}")
         }

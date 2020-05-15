@@ -27,8 +27,17 @@ class MatchesRepository(
     suspend fun hasWorldRugbyMatchesBetween(startMillis: Long, endMillis: Long) = worldRugbyMatchDao.hasBetween(startMillis, endMillis)
 
     fun loadLatestWorldRugbyMatches(sport: Sport, matchStatus: MatchStatus, asc: Boolean): LiveData<PagedList<WorldRugbyMatch>> {
+        val matchStatuses = when (matchStatus) {
+            MatchStatus.UNPLAYED -> arrayOf(matchStatus, MatchStatus.POSTPONED)
+            MatchStatus.COMPLETE -> arrayOf(matchStatus, MatchStatus.CANCELLED)
+            else -> arrayOf(matchStatus)
+        }
         val millis = System.currentTimeMillis()
-        val dataSourceFactory = if (asc) worldRugbyMatchDao.loadAsc(sport, matchStatus, millis) else worldRugbyMatchDao.loadDesc(sport, matchStatus, millis)
+        val dataSourceFactory = if (asc) {
+            worldRugbyMatchDao.loadAsc(sport, millis, *matchStatuses)
+        } else {
+            worldRugbyMatchDao.loadDesc(sport, millis, *matchStatuses)
+        }
         val config = Config(pageSize = PAGE_SIZE_WORLD_RUGBY_MATCHES_DATABASE, enablePlaceholders = false)
         return dataSourceFactory.toLiveData(config = config)
     }
@@ -49,24 +58,26 @@ class MatchesRepository(
             Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
         }
         val states = when (matchStatus) {
-            MatchStatus.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
-            MatchStatus.COMPLETE -> WorldRugbyService.STATE_COMPLETE
+            MatchStatus.UNPLAYED -> "${WorldRugbyService.STATE_UNPLAYED},${WorldRugbyService.STATE_POSTPONED}"
+            MatchStatus.COMPLETE -> "${WorldRugbyService.STATE_COMPLETE},${WorldRugbyService.STATE_CANCELLED}"
             MatchStatus.LIVE -> "${WorldRugbyService.STATE_LIVE_1ST_HALF},${WorldRugbyService.STATE_LIVE_2ND_HALF},${WorldRugbyService.STATE_LIVE_HALF_TIME}"
+            else -> ""
         }
         val millis = System.currentTimeMillis()
         val startDate = when (matchStatus) {
             MatchStatus.UNPLAYED -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
             MatchStatus.COMPLETE -> DateUtils.getYearBeforeDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis)
-            MatchStatus.LIVE -> ""
+            else -> ""
         }
         val endDate = when (matchStatus) {
             MatchStatus.UNPLAYED -> DateUtils.getYearAfterDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
             MatchStatus.COMPLETE -> DateUtils.getDate(DateUtils.DATE_FORMAT_YYYY_MM_DD, millis + DateUtils.DAY_MILLIS)
-            MatchStatus.LIVE -> ""
+            else -> ""
         }
         val sort = when (matchStatus) {
             MatchStatus.UNPLAYED, MatchStatus.LIVE -> WorldRugbyService.SORT_ASC
             MatchStatus.COMPLETE -> WorldRugbyService.SORT_DESC
+            else -> ""
         }
         var page = 0
         var pageCount = Int.MAX_VALUE
