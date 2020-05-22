@@ -56,7 +56,6 @@ dependencies {
     implementation project(':info')
     implementation project(':theme')
     implementation deps.androidX.viewPager2
-    kapt deps.androidX.lifecycle.compiler
     kapt deps.androidX.room.compiler
     kapt deps.google.dagger.compiler
     kapt deps.google.dagger.androidProcessor

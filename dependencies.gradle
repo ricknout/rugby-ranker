@@ -5,15 +5,15 @@ ext {
             targetSdk: 29,
             androidGradlePlugin: '4.0.0-rc01',
             ktlint: '0.36.0',
-            coil: '0.10.1',
+            coil: '0.11.0',
             kotlin: [
                     kotlin: '1.3.72',
-                    coroutines: '1.3.6'
+                    coroutines: '1.3.7'
             ],
             androidX: [
-                    core: '1.3.0-rc01',
-                    activity: '1.2.0-alpha04',
-                    fragment: '1.3.0-alpha04',
+                    core: '1.4.0-alpha01',
+                    activity: '1.2.0-alpha05',
+                    fragment: '1.3.0-alpha05',
                     // BUG: AppCompatDelegate#setDefaultNightMode issue in 1.2.0-alpha03+
                     // https://issuetracker.google.com/issues/155029100
                     appCompat: '1.2.0-alpha02',
@@ -23,15 +23,15 @@ ext {
                     viewPager2: '1.1.0-alpha01',
                     emoji: '1.1.0-rc01',
                     browser: '1.3.0-alpha01',
-                    lifecycle: '2.3.0-alpha02',
+                    lifecycle: '2.3.0-alpha03',
                     room: '2.2.5',
                     paging: '2.1.2',
-                    navigation: '2.3.0-alpha06',
-                    work: '2.4.0-alpha03',
+                    navigation: '2.3.0-beta01',
+                    work: '2.4.0-beta01',
                     test: [
-                            core: '1.3.0-beta01',
-                            jUnit: '1.1.2-beta01',
-                            runner: '1.3.0-beta01'
+                            core: '1.3.0-beta02',
+                            jUnit: '1.1.2-beta02',
+                            runner: '1.3.0-beta02'
                     ]
             ],
             google: [
@@ -43,8 +43,8 @@ ext {
                     ]
             ],
             square: [
-                    okhttp: '4.7.1',
-                    retrofit: '2.8.2'
+                    okhttp: '4.7.2',
+                    retrofit: '2.9.0'
             ]
     ]
     deps = [
@@ -77,7 +77,8 @@ ext {
                             ktx: "androidx.fragment:fragment-ktx:$versions.androidX.fragment"
                     ],
                     lifecycle: [
-                            compiler: "androidx.lifecycle:lifecycle-compiler:$versions.androidX.lifecycle"
+                            viewModelKtx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidX.lifecycle",
+                            liveDataKtx: "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidX.lifecycle"
                     ],
                     room: [
                             runtime: "androidx.room:room-runtime:$versions.androidX.room",

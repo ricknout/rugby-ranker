@@ -24,6 +24,8 @@ dependencies {
     api deps.androidX.core.ktx
     api deps.androidX.activity.ktx
     api deps.androidX.fragment.ktx
+    api deps.androidX.lifecycle.viewModelKtx
+    api deps.androidX.lifecycle.liveDataKtx
     api deps.androidX.appCompat
     api deps.androidX.constraintLayout
     api deps.androidX.recyclerView
