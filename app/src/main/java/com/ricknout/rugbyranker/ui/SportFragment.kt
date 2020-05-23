@@ -250,7 +250,7 @@ class SportFragment : DaggerFragment(R.layout.fragment_sport) {
     }
 
     private fun getPredictionFromWorldRugbyMatch(worldRugbyMatch: WorldRugbyMatch): Prediction {
-        val switched = worldRugbyMatch.secondTeamName == worldRugbyMatch.venueName
+        val switched = worldRugbyMatch.secondTeamName == worldRugbyMatch.venueCountry
         val homeTeamId = if (!switched) worldRugbyMatch.firstTeamId else worldRugbyMatch.secondTeamId
         val homeTeamName = if (!switched) worldRugbyMatch.firstTeamName else worldRugbyMatch.secondTeamName
         val homeTeamAbbreviation = if (!switched) worldRugbyMatch.firstTeamAbbreviation!! else worldRugbyMatch.secondTeamAbbreviation!!
