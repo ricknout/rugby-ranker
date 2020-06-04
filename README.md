@@ -1,6 +1,6 @@
 # Rugby Ranker 🏉
 
-[![GitHub Actions](https://github.com/ricknout/rugby-ranker-new/workflows/workflow/badge.svg)](.github/workflows/workflow.yml)
+[![GitHub Actions](https://github.com/ricknout/rugby-ranker/workflows/workflow/badge.svg)](.github/workflows/workflow.yml)
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 Rugby Ranker is a **work-in-progress** Android app for viewing and predicting the latest World Rugby rankings.
