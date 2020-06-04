@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="rankings">Rankings</string>
+
+    <string name="updated">Updated: %s</string>
+
+    <string name="position" translatable="false">%d</string>
+    <string name="previous_position" translatable="false">(%d)</string>
+    <string name="points" translatable="false">%.2f</string>
+    <string name="points_difference" translatable="false">(%.2f)</string>
+
+    <string name="failed_to_refresh_rankings">Failed to refresh rankings</string>
+
+</resources>

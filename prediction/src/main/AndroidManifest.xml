@@ -1,2 +1,3 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ricknout.rugbyranker.prediction" />
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dev.ricknout.rugbyranker.prediction" />

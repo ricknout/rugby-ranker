@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="predictionBarStyle" format="reference" />
+
+    <declare-styleable name="PredictionBar">
+        <attr name="shapeAppearance" />
+        <attr name="shapeAppearanceOverlay" />
+        <attr name="backgroundTint" />
+        <attr name="elevation" />
+        <attr name="iconTint" />
+        <attr name="iconRippleColor" format="color" />
+    </declare-styleable>
+
+</resources>

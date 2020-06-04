@@ -4,20 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="?attr/colorSecondary">
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_half"
-        android:layout_marginEnd="@dimen/spacing_half"
+        android:layout_marginStart="@dimen/space_chip"
+        android:layout_marginEnd="@dimen/space_chip"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:closeIconEnabled="true"
+        app:closeIcon="@drawable/ic_close_18dp"
         tools:text="NZL 100 - 100 RSA"
-        tools:chipIcon="@drawable/ic_rwc_black_24dp" />
+        tools:chipIcon="@drawable/ic_rwc_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

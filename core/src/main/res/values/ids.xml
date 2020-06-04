@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <item name="drawerLayout" type="id" />
     <item name="coordinatorLayout" type="id" />
-    <item name="addPredictionFab" type="id" />
+    <item name="fab" type="id" />
 
 </resources>

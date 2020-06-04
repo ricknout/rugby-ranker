@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/infoNavGraph"
+    app:startDestination="@id/info"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/info"
+        android:name="dev.ricknout.rugbyranker.info.ui.InfoFragment"
+        android:label="InfoFragment"
+        tools:layout="@layout/fragment_info">
+
+        <action
+            android:id="@+id/infoToThemeAction"
+            app:destination="@id/theme" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/theme"
+        android:name="dev.ricknout.rugbyranker.theme.ui.ThemeDialogFragment"
+        android:label="ThemeDialogFragment" />
+
+</navigation>

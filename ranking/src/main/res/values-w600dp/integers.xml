@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="weight_position">40</integer>
+    <integer name="weight_previous_position">54</integer>
+    <integer name="weight_team">291</integer>
+    <integer name="weight_points">59</integer>
+    <integer name="weight_previous_points">61</integer>
+
+</resources>

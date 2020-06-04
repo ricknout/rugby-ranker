@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+
+    <group
+        android:name="circleGroup"
+        android:pivotX="12"
+        android:pivotY="12">
+        <path
+            android:name="circle"
+            android:pathData="M12,12m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0"
+            android:strokeWidth="2"
+            android:strokeColor="#000000" />
+    </group>
+
+    <path
+        android:name="line"
+        android:pathData="M12,17L12,11"
+        android:strokeWidth="2"
+        android:strokeColor="#000000" />
+
+    <group
+        android:name="dotGroup"
+        android:pivotX="12"
+        android:pivotY="8">
+        <path
+            android:name="dot"
+            android:pathData="M12,7L12,9"
+            android:strokeWidth="2"
+            android:strokeColor="#000000" />
+    </group>
+
+</vector>

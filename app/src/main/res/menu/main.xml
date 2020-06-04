@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@id/mens"
+            android:icon="@drawable/ic_male_24dp"
+            android:title="@string/mens" />
+        <item
+            android:id="@id/womens"
+            android:icon="@drawable/ic_female_24dp"
+            android:title="@string/womens" />
+        <item
+            android:id="@id/newsNavGraph"
+            android:icon="@drawable/ic_news_24dp"
+            android:title="@string/news" />
+        <item
+            android:id="@id/infoNavGraph"
+            android:icon="@drawable/ic_info_24dp"
+            android:title="@string/info" />
+    </group>
+
+</menu>

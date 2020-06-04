@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.RugbyRanker.PredictionBar" parent="android:Widget">
+        <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugyRanker.Rounded</item>
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="elevation">@dimen/elevation_prediction_bar</item>
+        <item name="iconTint">?attr/colorOnSecondary</item>
+        <item name="iconRippleColor">@color/on_secondary_32</item>
+    </style>
+
+</resources>

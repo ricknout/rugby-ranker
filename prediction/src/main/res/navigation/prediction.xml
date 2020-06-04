@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/predictionNavGraph"
+    app:startDestination="@id/prediction"
+    tools:ignore="UnusedNavigation">
+
+    <dialog
+        android:id="@+id/prediction"
+        android:name="dev.ricknout.rugbyranker.prediction.ui.PredictionBottomSheetDialogFragment"
+        android:label="PredictionBottomSheetDialogFragment"
+        tools:layout="@layout/bottom_sheet_dialog_fragment_prediction">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+        <argument
+            android:name="prediction"
+            app:argType="dev.ricknout.rugbyranker.prediction.model.Prediction"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+        <argument
+            android:name="edit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+
+    </dialog>
+
+</navigation>

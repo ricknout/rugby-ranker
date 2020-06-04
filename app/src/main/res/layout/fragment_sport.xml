@@ -5,44 +5,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.SportFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/titles"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:animateLayoutChanges="true"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+            android:layout_height="?attr/actionBarSize">
 
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/navigation"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.RugbyRanker.Toolbar.Title"
+                style="@style/Widget.RugbyRanker.Button.Icon"
+                app:icon="@drawable/ic_menu_24dp"
+                app:iconTint="?attr/colorOnSurface"
+                app:rippleColor="?attr/colorControlHighlight"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/subtitleTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="Latest Men's Rugby Rankings" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/subtitleTextView"
+                android:id="@+id/label"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceCaption"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="@dimen/space"
+                android:gravity="center_vertical|end"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/material_on_surface_disabled"
+                app:layout_constraintStart_toEndOf="@id/navigation"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Last updated: YYYY-MM-DD" />
+                tools:text="Updated: 9 Mar, 2020"
+                tools:ignore="RtlSymmetry" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
-            app:tabInlineLabel="true"
+            app:tabMode="scrollable"
+            app:tabGravity="start"
             app:tabIconTint="?attr/colorError" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -62,21 +62,22 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.ricknout.rugbyranker.prediction.ui.PredictionBarView
-        android:id="@+id/predictionBarView"
+    <dev.ricknout.rugbyranker.prediction.ui.PredictionBar
+        android:id="@+id/predictionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+        android:visibility="invisible"
+        android:layout_margin="@dimen/space"
+        android:layout_gravity="bottom"
+        android:transitionName="shared_element_prediction_bar" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@id/addPredictionFab"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/spacing_double"
-        app:icon="@drawable/ic_add_black_24dp"
-        android:text="@string/button_predict"
-        android:transitionName="shared_element_fab"
-        android:contentDescription="@string/content_description_add_match_prediction" />
+        android:layout_margin="@dimen/space"
+        android:layout_gravity="end|bottom"
+        app:srcCompat="@drawable/ic_add_24dp"
+        android:transitionName="shared_element_fab" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

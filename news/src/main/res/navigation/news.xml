@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newsNavGraph"
+    app:startDestination="@id/textNews"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/textNews"
+        android:name="dev.ricknout.rugbyranker.news.ui.NewsFragment"
+        android:label="TextNewsFragment"
+        tools:layout="@layout/fragment_news">
+
+        <argument
+            android:name="type"
+            app:argType="dev.ricknout.rugbyranker.news.model.Type"
+            android:defaultValue="TEXT" />
+
+    </fragment>
+
+</navigation>

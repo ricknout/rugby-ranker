@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_info_24dp">
+
+    <target android:name="dotGroup">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="0"
+                    android:propertyName="scaleX"
+                    android:valueFrom="1"
+                    android:valueTo="0" />
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="0"
+                    android:propertyName="scaleY"
+                    android:valueFrom="1"
+                    android:valueTo="0" />
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="line">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="180"
+                android:startOffset="180"
+                android:propertyName="trimPathStart"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="circleGroup">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="360"
+                    android:propertyName="scaleX"
+                    android:valueFrom="1"
+                    android:valueTo="0.56" />
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="360"
+                    android:propertyName="scaleY"
+                    android:valueFrom="1"
+                    android:valueTo="0.56" />
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="circle">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="180"
+                android:startOffset="360"
+                android:propertyName="strokeWidth"
+                android:valueFrom="2"
+                android:valueTo="3.6" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="circle">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="180"
+                android:startOffset="540"
+                android:propertyName="strokeWidth"
+                android:valueFrom="3.6"
+                android:valueTo="2" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="circleGroup">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="540"
+                    android:propertyName="scaleX"
+                    android:valueFrom="0.56"
+                    android:valueTo="1" />
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="540"
+                    android:propertyName="scaleY"
+                    android:valueFrom="0.56"
+                    android:valueTo="1" />
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="line">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="180"
+                android:startOffset="720"
+                android:propertyName="trimPathStart"
+                android:valueFrom="1"
+                android:valueTo="0" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="dotGroup">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="900"
+                    android:propertyName="scaleX"
+                    android:valueFrom="0"
+                    android:valueTo="1" />
+                <objectAnimator
+                    android:duration="180"
+                    android:startOffset="900"
+                    android:propertyName="scaleY"
+                    android:valueFrom="0"
+                    android:valueTo="1" />
+            </set>
+        </aapt:attr>
+    </target>
+
+</animated-vector>

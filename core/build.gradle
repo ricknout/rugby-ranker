@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
@@ -34,20 +35,17 @@ dependencies {
     api deps.androidX.browser
     api deps.androidX.room.runtime
     api deps.androidX.room.ktx
-    api deps.androidX.paging.runtimeKtx
     api deps.androidX.navigation.uiKtx
     api deps.androidX.navigation.fragmentKtx
     api deps.androidX.work.runtimeKtx
     api deps.google.material
-    api deps.google.dagger.dagger
-    api deps.google.dagger.android
-    api deps.google.dagger.androidSupport
+    api deps.androidX.hilt.lifecycle.viewModel
+    api deps.androidX.hilt.work
     api deps.square.okhttp
     api deps.square.retrofit.retrofit
     api deps.square.retrofit.gsonConverter
-    api deps.coil
+    api deps.insetter.ktx
     testImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.core.ktx
-    androidTestImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.runner
 }

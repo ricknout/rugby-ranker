@@ -1,18 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_mens">Men\'s</string>
-    <string name="title_womens">Women\'s</string>
-    <string name="title_mens_rugby_rankings">Men\'s Rugby Rankings</string>
-    <string name="title_womens_rugby_rankings">Women\'s Rugby Rankings</string>
-    <string name="title_live">Live</string>
-    <string name="title_rankings">Rankings</string>
-    <string name="title_fixtures">Fixtures</string>
-    <string name="title_results">Results</string>
-
-    <string name="subtitle_last_updated">Last updated: %s</string>
-    <plurals name="subtitle_predicting_matches">
-        <item quantity="one">Predicting %d match</item>
-        <item quantity="other">Predicting %d matches</item>
-    </plurals>
+    <string name="mens">Men\'s</string>
+    <string name="womens">Women\'s</string>
+    <string name="info">Info</string>
 
 </resources>

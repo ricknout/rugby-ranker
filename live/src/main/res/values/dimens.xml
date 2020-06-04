@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <dimen name="width_empty_state">100dp</dimen>
-    <dimen name="height_empty_state">72dp</dimen>
-
-</resources>

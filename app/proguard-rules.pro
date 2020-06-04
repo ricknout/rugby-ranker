@@ -60,11 +60,12 @@
 -dontwarn sun.misc.**
 #-keep class com.google.gson.stream.** { *; }
 
-# Application classes that will be serialized/deserialized over Gson
--keep class com.ricknout.rugbyranker.core.api.** { *; }
--keep class com.ricknout.rugbyranker.core.vo.** { *; }
--keep class com.ricknout.rugbyranker.prediction.vo.** { *; }
--keep class com.ricknout.rugbyranker.news.vo.** { *; }
+# Application classes that will be serialized/deserialized over Gson or passed as nav args
+-keep class dev.ricknout.rugbyranker.core.api.** { *; }
+-keep class dev.ricknout.rugbyranker.core.model.** { *; }
+-keep class dev.ricknout.rugbyranker.prediction.model.** { *; }
+-keep class dev.ricknout.rugbyranker.match.model.** { *; }
+-keep class dev.ricknout.rugbyranker.news.model.** { *; }
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)

@@ -1,70 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.RugbyRanker.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="labelVisibilityMode">labeled</item>
+    <style name="Widget.RugbyRanker.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="insetForeground">@android:color/transparent</item>
+        <item name="itemIconPadding">@dimen/space</item>
+        <item name="itemHorizontalPadding">@dimen/space</item>
+        <item name="itemTextAppearance">?attr/textAppearanceHeadline6</item>
+        <item name="itemShapeInsetStart">0dp</item>
+        <item name="itemShapeInsetTop">0dp</item>
+        <item name="itemShapeInsetEnd">0dp</item>
+        <item name="itemShapeInsetBottom">0dp</item>
+        <item name="itemTextColor">@color/navigation_item</item>
     </style>
 
     <style name="Widget.RugbyRanker.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface" />
 
-    <style name="Widget.RugbyRanker.Button.TextButton.DoublePadding" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:minWidth">0dp</item>
-        <item name="android:paddingStart">@dimen/spacing_double</item>
-        <item name="android:paddingEnd">@dimen/spacing_double</item>
+    <style name="Widget.RugbyRanker.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextAppearance">?attr/textAppearanceHeadline6</item>
+        <item name="tabPaddingStart">@dimen/space</item>
+        <item name="tabPaddingEnd">@dimen/space</item>
+        <item name="tabUnboundedRipple">false</item>
+        <item name="tabInlineLabel">true</item>
+        <item name="tabMinWidth">0dp</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.ActionBar" parent="Widget.MaterialComponents.ActionBar.Surface">
+        <item name="android:theme">@style/ThemeOverlay.RugbyRanker.Toolbar</item>
+        <item name="elevation">@dimen/elevation_action_bar</item>
+        <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:minWidth">@dimen/height_row</item>
+        <item name="android:minHeight">@dimen/height_row</item>
+        <item name="android:paddingLeft">@dimen/space</item>
+        <item name="android:paddingRight">@dimen/space</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconPadding">@dimen/space</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
+        <item name="android:gravity">start|center_vertical</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.Button.RoundedTopStart">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugyRanker.RoundedTopStart</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.Button.Icon">
+        <item name="iconPadding">0dp</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.Button.Icon.RoundedTopEnd">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugyRanker.RoundedTopEnd</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="fabSize">normal</item>
     </style>
 
     <style name="Widget.RugbyRanker.Chip" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="android:textAppearance">@style/TextAppearance.RugbyRanker.Chip</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="chipBackgroundColor">?attr/colorSurface</item>
-        <item name="rippleColor">?attr/colorOnSurface</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="closeIconTint">?attr/colorOnSurface</item>
-        <item name="chipIconTint">?attr/colorOnSurface</item>
-    </style>
-
-    <style name="Widget.RugbyRanker.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
-
-    <style name="Widget.RugbyRanker.CardView" parent="Widget.MaterialComponents.CardView">
-        <item name="cardElevation">@dimen/elevation_card_view</item>
-        <item name="cardBackgroundColor">@color/color_fill</item>
-        <item name="strokeWidth">@dimen/size_stroke</item>
-        <item name="strokeColor">@color/color_stroke</item>
-    </style>
-    
-    <style name="Widget.RugbyRanker.ProgressBar" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:indeterminate">true</item>
-    </style>
-
-    <style name="Widget.RugbyRanker.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
+        <item name="chipIconTint">@color/material_on_surface_emphasis_medium</item>
     </style>
 
     <style name="Widget.RugbyRanker.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="behavior_peekHeight">@dimen/peek_height_bottom_sheet_modal</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugyRanker.RoundedTopEnd</item>
         <item name="behavior_skipCollapsed">true</item>
+        <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
+        <!-- Using a large value to ensure all content is shown on first show -->
+        <item name="behavior_peekHeight">1000dp</item>
     </style>
 
-    <style name="Widget.RugbyRanker.RecyclerView" parent="">
-        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:scrollbars">vertical</item>
-        <item name="android:clipToPadding">false</item>
+    <style name="Widget.RugbyRanker.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:layout_margin">@dimen/space</item>
     </style>
 
-    <style name="ItemDecoration.RugbyRanker.WorldRugbyMatch.Date" parent="">
-        <item name="android:width">@dimen/width_world_rugby_match_date_header</item>
-        <item name="android:paddingTop">@dimen/spacing_standard</item>
-        <item name="android:paddingStart">@dimen/padding_start_world_rugby_match_date_header</item>
-        <item name="android:paddingEnd">@dimen/padding_end_world_rugby_match_date_header</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
-        <item name="android:fontFamily">@font/rajdhani</item>
-        <item name="datePaddingTop">@dimen/spacing_double</item>
-        <item name="dayMonthTextSize">@dimen/text_size_world_rugby_match_date_header_day_month</item>
-        <item name="dayYearTextSize">@dimen/text_size_world_rugby_match_date_header_day_year</item>
+    <style name="Widget.RugbyRanker.Snackbar.TextView" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
     </style>
 
-    <style name="ItemDecoration.RugbyRanker.Space" parent="">
-        <item name="android:paddingTop">@dimen/spacing_standard</item>
-        <item name="paddingHorizontal">@dimen/padding_horizontal_space</item>
+    <style name="MaterialAlertDialog.RugbyRanker.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
     </style>
+
+    <style name="MaterialAlertDialog.RugbyRanker.Body.Text" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="Widget.RugbyRanker.ProgressIndicator" parent="Widget.MaterialComponents.ProgressIndicator.Circular.Indeterminate" />
 
 </resources>

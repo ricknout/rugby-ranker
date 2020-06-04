@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/matchNavGraph"
+    app:startDestination="@id/match"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/match"
+        android:name="dev.ricknout.rugbyranker.match.ui.MatchFragment"
+        android:label="MatchFragment"
+        tools:layout="@layout/fragment_match">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+        <argument
+            android:name="status"
+            app:argType="dev.ricknout.rugbyranker.match.model.Status" />
+
+    </fragment>
+
+    <action android:id="@+id/matchAction">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+        <argument
+            android:name="status"
+            app:argType="dev.ricknout.rugbyranker.match.model.Status" />
+
+    </action>
+
+</navigation>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="fixtures">Fixtures</string>
+    <string name="results">Results</string>
+
+    <string name="versus" translatable="false">v</string>
+
+    <string name="name_country" translatable="false">%1$s, %2$s</string>
+
+    <string name="live">Live</string>
+    <string name="first_half">1st half</string>
+    <string name="second_half">2nd half</string>
+    <string name="half_time">Half time</string>
+    <string name="minute_half">%1$02d\' (%2$s)</string>
+    <string name="postponed">Postponed</string>
+    <string name="cancelled">Cancelled</string>
+
+    <string name="predict">Predict</string>
+
+    <string name="failed_to_refresh_matches">Failed to refresh matches</string>
+
+</resources>

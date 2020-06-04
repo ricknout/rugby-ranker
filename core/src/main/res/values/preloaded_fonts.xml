@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/rajdhani</item>
+        <item>@font/rajdhani_semibold</item>
     </array>
+
 </resources>

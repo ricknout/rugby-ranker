@@ -2,172 +2,269 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/ThemeOverlay.RugbyRanker.Secondary">
+    android:clipToPadding="false">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:theme="@style/ThemeOverlay.RugbyRanker.BottomSheetDialog"
+        tools:background="?attr/colorSurface">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/startGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/spacing_double" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/endGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/spacing_double" />
-
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_double"
-            android:text="@string/title_add_match_prediction"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageButton
-            android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_keyboard_arrow_down_color_control_normal_24dp"
-            android:paddingStart="@dimen/spacing_double"
-            android:paddingEnd="@dimen/spacing_double"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/content_description_close"
-            app:layout_constraintTop_toTopOf="@id/titleTextView"
-            app:layout_constraintBottom_toBottomOf="@id/titleTextView"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/homeTeamTextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_double"
-            android:layout_marginEnd="@dimen/spacing_standard"
-            android:hint="@string/hint_home_team"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView"
-            app:layout_constraintStart_toStartOf="@id/startGuideline"
-            app:layout_constraintEnd_toStartOf="@id/homePointsTextInputLayout">
-
-            <AutoCompleteTextView
-                android:id="@+id/homeTeamEditText"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusableInTouchMode="false" />
+                android:layout_marginStart="@dimen/space"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/dismiss"
+                tools:text="Add prediction" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/homePointsTextInputLayout"
-            android:layout_width="@dimen/width_points"
-            android:layout_height="0dp"
-            android:hint="@string/hint_points"
-            app:layout_constraintTop_toTopOf="@id/homeTeamTextInputLayout"
-            app:layout_constraintBottom_toBottomOf="@id/homeTeamTextInputLayout"
-            app:layout_constraintEnd_toEndOf="@id/endGuideline">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/homePointsEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:maxLength="@integer/max_length_points" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/awayTeamTextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_half"
-            android:layout_marginEnd="@dimen/spacing_standard"
-            android:hint="@string/hint_away_team"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:layout_constraintTop_toBottomOf="@id/homeTeamTextInputLayout"
-            app:layout_constraintStart_toStartOf="@id/startGuideline"
-            app:layout_constraintEnd_toStartOf="@id/awayPointsTextInputLayout">
-
-            <AutoCompleteTextView
-                android:id="@+id/awayTeamEditText"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/dismiss"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusableInTouchMode="false" />
+                style="@style/Widget.RugbyRanker.Button.Icon.RoundedTopEnd"
+                app:icon="@drawable/ic_keyboard_arrow_down_24dp"
+                app:rippleColor="@color/primary_32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/awayPointsTextInputLayout"
-            android:layout_width="@dimen/width_points"
-            android:layout_height="0dp"
-            android:hint="@string/hint_points"
-            app:layout_constraintTop_toTopOf="@id/awayTeamTextInputLayout"
-            app:layout_constraintBottom_toBottomOf="@id/awayTeamTextInputLayout"
-            app:layout_constraintEnd_toEndOf="@id/endGuideline">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/homeTeam"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row"
+            android:background="?attr/selectableItemBackground">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/awayPointsEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:maxLength="@integer/max_length_points" />
+            <androidx.emoji.widget.EmojiTextView
+                android:id="@+id/homeFlag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintBaseline_toBaselineOf="@id/homeName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/homeName"
+                tools:text="🏉" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/homeName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/height_row"
+                android:layout_marginEnd="@dimen/space"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/material_on_surface_emphasis_medium"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@string/home_team"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <CheckBox
-            android:id="@+id/rwcCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_box_rugby_world_cup"
-            app:layout_constraintTop_toTopOf="@id/nhaCheckBox"
-            app:layout_constraintBottom_toBottomOf="@id/nhaCheckBox"
-            app:layout_constraintStart_toStartOf="@id/startGuideline" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <CheckBox
-            android:id="@+id/nhaCheckBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_standard"
-            android:layout_marginStart="@dimen/spacing_standard"
-            android:text="@string/check_box_no_home_advantage"
-            app:layout_constraintTop_toBottomOf="@id/awayTeamTextInputLayout"
-            app:layout_constraintStart_toEndOf="@id/rwcCheckBox"
-            app:layout_constraintEnd_toEndOf="@id/endGuideline" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/addOrEditButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_double"
-            android:text="@string/button_add"
-            app:layout_constraintTop_toBottomOf="@id/nhaCheckBox"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/homePointsTextInputLayout"
-            app:layout_constraintEnd_toEndOf="@id/endGuideline" />
+            <TextView
+                android:id="@+id/homeScore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/height_row"
+                android:textAppearance="?attr/textAppearanceHeadline4"
+                android:textColor="?attr/colorOnSurface"
+                android:lines="1"
+                android:ellipsize="end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/incrementHomeScore"
+                tools:text="0" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/clearOrCancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_standard"
-            android:text="@string/button_clear"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            app:layout_constraintTop_toTopOf="@id/addOrEditButton"
-            app:layout_constraintBottom_toBottomOf="@id/addOrEditButton"
-            app:layout_constraintEnd_toStartOf="@id/addOrEditButton" />
+            <Button
+                android:id="@+id/incrementHomeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.RugbyRanker.Button.Icon"
+                app:icon="@drawable/ic_add_24dp"
+                app:rippleColor="@color/primary_32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/decrementHomeScore" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/decrementHomeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.RugbyRanker.Button.Icon"
+                app:icon="@drawable/ic_remove_24dp"
+                app:rippleColor="@color/primary_32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/awayTeam"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row"
+            android:background="?attr/selectableItemBackground">
+
+            <androidx.emoji.widget.EmojiTextView
+                android:id="@+id/awayFlag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintBaseline_toBaselineOf="@id/awayName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/awayName"
+                tools:text="🏉󠁧󠁢󠁥󠁮󠁧󠁿" />
+
+            <TextView
+                android:id="@+id/awayName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/height_row"
+                android:layout_marginEnd="@dimen/space"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/material_on_surface_emphasis_medium"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@string/away_team"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row">
+
+            <TextView
+                android:id="@+id/awayScore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/height_row"
+                android:textAppearance="?attr/textAppearanceHeadline4"
+                android:textColor="?attr/colorOnSurface"
+                android:lines="1"
+                android:ellipsize="end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/incrementAwayScore"
+                tools:text="0" />
+
+            <Button
+                android:id="@+id/incrementAwayScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.RugbyRanker.Button.Icon"
+                app:icon="@drawable/ic_add_24dp"
+                app:rippleColor="@color/primary_32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/decrementAwayScore" />
+
+            <Button
+                android:id="@+id/decrementAwayScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.RugbyRanker.Button.Icon"
+                app:icon="@drawable/ic_remove_24dp"
+                app:rippleColor="@color/primary_32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row">
+
+            <CheckBox
+                android:id="@+id/rwc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_medium"
+                android:layout_marginEnd="@dimen/space"
+                android:paddingStart="@dimen/space_medium"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="?attr/colorOnSurface"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@string/rugby_world_cup"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="RtlSymmetry" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row">
+
+            <CheckBox
+                android:id="@+id/nha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_medium"
+                android:layout_marginEnd="@dimen/space"
+                android:paddingStart="@dimen/space_medium"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="?attr/colorOnSurface"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@string/no_home_advantage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="RtlSymmetry" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_row">
+
+            <Button
+                android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.RugbyRanker.Button.Icon"
+                app:icon="@drawable/ic_check_24dp"
+                app:rippleColor="@color/primary_32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <dimen name="padding_start_world_rugby_match_date_header">144dp</dimen>
-    <dimen name="padding_end_world_rugby_match_date_header">@dimen/padding_start_world_rugby_match_date_header</dimen>
-    <dimen name="padding_horizontal_space">144dp</dimen>
-
-</resources>

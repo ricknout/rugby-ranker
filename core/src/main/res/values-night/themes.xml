@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="ThemeOverlay.RugbyRanker.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">@bool/window_light_system_bar</item>
-        <item name="bottomSheetStyle">@style/Widget.RugbyRanker.BottomSheet.Modal</item>
+    <style name="Platform.V24.Theme.RugbyRanker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:navigationBarColor">@color/black_40</item>
+    </style>
+
+    <style name="Theme.RugbyRanker" parent="Base.Theme.RugbyRanker">
+        <item name="colorPrimary">@color/world_rugby_green_300</item>
+        <item name="colorPrimaryVariant">@color/world_rugby_green_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSecondary">@color/world_rugby_blue_300</item>
+        <item name="colorSecondaryVariant">@color/world_rugby_blue_300</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorError">@color/world_rugby_red_300</item>
+        <item name="colorOnError">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+    </style>
+
+    <style name="Theme.RugbyRanker.OssLicenses" parent="Base.Theme.RugbyRanker.OssLicenses">
+        <item name="colorPrimary">@color/world_rugby_green_300</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+    </style>
+
+    <style name="ThemeOverlay.RugbyRanker.BottomSheetDialog" parent="Base.ThemeOverlay.RugbyRanker.BottomSheetDialog">
+        <item name="colorPrimary">@color/world_rugby_blue_300</item>
+        <item name="colorPrimaryVariant">@color/world_rugby_blue_300</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSecondary">@color/world_rugby_blue_300</item>
+        <item name="colorSecondaryVariant">@color/world_rugby_blue_300</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSurface">@color/dark_grey</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:colorBackground">@color/dark_grey</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="ThemeOverlay.RugbyRanker.MaterialAlertDialog" parent="Base.ThemeOverlay.RugbyRanker.MaterialAlertDialog">
+        <item name="colorSecondary">@color/world_rugby_green_300</item>
     </style>
 
 </resources>

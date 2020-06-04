@@ -1,3 +1,13 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ricknout.rugbyranker.info" />
+    package="dev.ricknout.rugbyranker.info">
+
+    <application>
+
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:theme="@style/Theme.RugbyRanker.OssLicenses" />
+
+    </application>
+
+</manifest>

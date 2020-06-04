@@ -1,18 +1,19 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     defaultConfig {
-        applicationId 'com.ricknout.rugbyranker'
+        applicationId "com.ricknout.rugbyranker"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 1807
-        versionName '1.8.7'
+        versionCode 2000
+        versionName "2.0.0"
         setProperty('archivesBaseName', applicationId + '-v' + versionName)
         testInstrumentationRunner deps.androidX.test.instrumentationRunner
     }
@@ -20,19 +21,20 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
-                    appIcon: '@mipmap/ic_launcher',
                     appName: '@string/app_name',
-                    workManagerInitAuthorities: 'com.ricknout.rugbyranker.workmanager-init'
+                    appIcon: '@mipmap/ic_launcher',
+                    workManagerInitAuthorities: 'dev.ricknout.rugbyranker.workmanager-init'
             ]
         }
         debug {
             applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
             manifestPlaceholders = [
-                    appIcon: '@mipmap/ic_launcher_debug',
                     appName: '@string/app_name_debug',
-                    workManagerInitAuthorities: 'com.ricknout.rugbyranker.debug.workmanager-init'
+                    appIcon: '@mipmap/ic_launcher_debug',
+                    workManagerInitAuthorities: 'dev.ricknout.rugbyranker.deug.workmanager-init'
             ]
         }
     }
@@ -43,24 +45,27 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
     implementation project(':core')
-    implementation project(':rankings')
+    implementation project(':ranking')
     implementation project(':prediction')
-    implementation project(':teams')
-    implementation project(':matches')
+    implementation project(':match')
     implementation project(':live')
     implementation project(':news')
     implementation project(':info')
     implementation project(':theme')
+    implementation deps.androidX.drawerLayout
     implementation deps.androidX.viewPager2
+    implementation deps.google.hilt.android
     kapt deps.androidX.room.compiler
-    kapt deps.google.dagger.compiler
-    kapt deps.google.dagger.androidProcessor
+    kapt deps.google.hilt.androidCompiler
+    kapt deps.androidX.hilt.compiler
     testImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.core.ktx
-    androidTestImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.runner
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rankingNavGraph"
+    app:startDestination="@id/ranking"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/ranking"
+        android:name="dev.ricknout.rugbyranker.ranking.ui.RankingFragment"
+        android:label="RankingFragment"
+        tools:layout="@layout/fragment_ranking">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+    </fragment>
+
+    <action android:id="@+id/rankingAction">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+    </action>
+
+</navigation>

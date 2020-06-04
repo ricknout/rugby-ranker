@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_row"
+    android:paddingStart="@dimen/space"
+    android:paddingEnd="@dimen/space">
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_weight="@integer/weight_position"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/positionIcon"
+        tools:text="000" />
+
+    <ImageView
+        android:id="@+id/positionIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/position"
+        app:layout_constraintEnd_toStartOf="@id/previousPosition"
+        tools:ignore="ContentDescription"
+        tools:srcCompat="@drawable/ic_arrow_downward_24dp"
+        tools:tint="?attr/colorError" />
+
+    <TextView
+        android:id="@+id/previousPosition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="@color/material_on_surface_emphasis_medium"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintHorizontal_weight="@integer/weight_previous_position"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/positionIcon"
+        app:layout_constraintEnd_toStartOf="@id/flag"
+        tools:text="(000)" />
+
+    <androidx.emoji.widget.EmojiTextView
+        android:id="@+id/flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_small"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintBaseline_toBaselineOf="@id/team"
+        app:layout_constraintStart_toEndOf="@id/previousPosition"
+        app:layout_constraintEnd_toStartOf="@id/team"
+        tools:text="🇿🇦" />
+
+    <TextView
+        android:id="@+id/team"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space"
+        android:layout_marginEnd="@dimen/space_small"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintHorizontal_weight="@integer/weight_team"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/flag"
+        app:layout_constraintEnd_toStartOf="@id/pointsIcon"
+        tools:text="MMM" />
+
+    <ImageView
+        android:id="@+id/pointsIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/team"
+        app:layout_constraintEnd_toStartOf="@id/pointsDifference"
+        tools:ignore="ContentDescription"
+        tools:srcCompat="@drawable/ic_add_24dp"
+        tools:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/pointsDifference"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="@color/material_on_surface_emphasis_medium"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintHorizontal_weight="@integer/weight_previous_points"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/pointsIcon"
+        app:layout_constraintEnd_toStartOf="@id/points"
+        tools:text="(0.00)" />
+
+    <TextView
+        android:id="@+id/points"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintHorizontal_weight="@integer/weight_points"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/pointsDifference"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="00.00" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

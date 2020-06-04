@@ -2,91 +2,98 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.InfoFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/nestedScrollView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/titles"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+            android:layout_height="?attr/actionBarSize">
 
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="0dp"
-                android:layout_height="?attr/actionBarSize"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.RugbyRanker.Toolbar.Title"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <Button
+                android:id="@+id/navigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.RugbyRanker.Button.Icon"
+                app:icon="@drawable/ic_menu_24dp"
+                app:iconTint="?attr/colorOnSurface"
+                app:rippleColor="?attr/colorControlHighlight"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/title_info" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/infoNestedScrollView"
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="always"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/padding_horizontal_info_buttons"
-            android:paddingEnd="@dimen/padding_horizontal_info_buttons"
-            android:theme="@style/ThemeOverlay.RugbyRanker.Secondary">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/howAreWorldRugbyRankingsCalculatedButton"
+            <Button
+                android:id="@+id/howAreRankingsCalculated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|start"
-                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
-                android:text="@string/button_how_are_rankings_calculated" />
+                android:text="@string/how_are_rankings_calculated"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/shareThisAppButton"
+            <Button
+                android:id="@+id/shareThisApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|start"
-                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
-                android:text="@string/button_share_this_app" />
+                android:text="@string/share_this_app"
+                app:layout_constraintTop_toBottomOf="@id/howAreRankingsCalculated" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/viewSourceCodeButton"
+            <Button
+                android:id="@+id/viewSourceCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|start"
-                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
-                android:text="@string/button_view_source_code" />
+                android:text="@string/view_source_code"
+                app:layout_constraintTop_toBottomOf="@id/shareThisApp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/openSourceLicensesButton"
+            <Button
+                android:id="@+id/openSourceLicenses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|start"
-                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
-                android:text="@string/button_open_source_licenses" />
+                android:text="@string/open_source_licenses"
+                app:layout_constraintTop_toBottomOf="@id/viewSourceCode" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/chooseThemeButton"
+            <Button
+                android:id="@+id/chooseTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|start"
-                style="@style/Widget.RugbyRanker.Button.TextButton.DoublePadding"
-                android:text="@string/title_choose_theme" />
+                android:text="@string/choose_theme"
+                app:layout_constraintTop_toBottomOf="@id/openSourceLicenses" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_row"
+                android:paddingStart="@dimen/space"
+                android:paddingEnd="@dimen/space"
+                android:gravity="center_vertical"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/material_on_surface_emphasis_medium"
+                app:layout_constraintTop_toBottomOf="@id/chooseTheme"
+                tools:text="Version: 1.0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 

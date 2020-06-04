@@ -1,74 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.RugbyRanker" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Color attributes -->
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
-        <item name="colorOnPrimary">@color/color_on_primary</item>
-        <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
-        <item name="colorOnSecondary">@color/color_on_secondary</item>
-        <item name="colorError">@color/color_error</item>
-        <item name="colorOnError">@color/color_on_error</item>
-        <item name="colorSurface">@color/color_surface</item>
-        <item name="colorOnSurface">@color/color_on_surface</item>
-        <item name="android:colorBackground">@color/color_background</item>
-        <item name="colorOnBackground">@color/color_on_background</item>
-        <!-- System bar attributes -->
-        <item name="android:statusBarColor">@color/color_status_bar</item>
-        <!-- Type attributes -->
-        <item name="android:fontFamily">@font/rajdhani</item>
-        <item name="fontFamily">@font/rajdhani</item>
+    <style name="Platform.V24.Theme.RugbyRanker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:navigationBarColor">@color/white_70</item>
+    </style>
+
+    <style name="Platform.Theme.RugbyRanker" parent="Platform.V24.Theme.RugbyRanker" />
+
+    <style name="Base.Theme.RugbyRanker" parent="Platform.Theme.RugbyRanker">
+        <item name="colorControlHighlight">@color/on_surface_16</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="fontFamily">@font/rajdhani_semibold</item>
+        <item name="android:fontFamily">@font/rajdhani_semibold</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.RugbyRanker.Headline4</item>
         <item name="textAppearanceHeadline6">@style/TextAppearance.RugbyRanker.Headline6</item>
-        <item name="textAppearanceButton">@style/TextAppearance.RugbyRanker.Button</item>
-        <!-- Shape attributes -->
+        <item name="textAppearanceBody1">@style/TextAppearance.RugbyRanker.Body1</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.RugbyRanker.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.RugbyRanker.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.RugbyRanker.LargeComponent</item>
-        <!-- Widget style attributes -->
-        <item name="bottomNavigationStyle">@style/Widget.RugbyRanker.BottomNavigationView</item>
+        <item name="listPreferredItemHeightSmall">@dimen/height_row</item>
+        <item name="navigationViewStyle">@style/Widget.RugbyRanker.NavigationView</item>
+        <item name="actionBarSize">@dimen/height_row</item>
         <item name="appBarLayoutStyle">@style/Widget.RugbyRanker.AppBarLayout</item>
-        <item name="textInputStyle">@style/Widget.RugbyRanker.TextInputLayout</item>
-        <item name="materialCardViewStyle">@style/Widget.RugbyRanker.CardView</item>
+        <item name="tabStyle">@style/Widget.RugbyRanker.TabLayout</item>
+        <item name="materialButtonStyle">@style/Widget.RugbyRanker.Button</item>
+        <item name="floatingActionButtonStyle">@style/Widget.RugbyRanker.FloatingActionButton</item>
         <item name="chipStyle">@style/Widget.RugbyRanker.Chip</item>
-        <item name="android:listDivider">@drawable/list_divider</item>
-        <item name="android:progressBarStyle">@style/Widget.RugbyRanker.ProgressBar</item>
-        <item name="bottomSheetStyle">@style/Widget.RugbyRanker.BottomSheet</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.RugbyRanker.BottomSheetDialog</item>
-        <item name="recyclerViewStyle">@style/Widget.RugbyRanker.RecyclerView</item>
+        <item name="listPopupWindowStyle">@style/Widget.MaterialComponents.ListPopupWindow</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.RugbyRanker.MaterialAlertDialog</item>
+        <item name="snackbarStyle">@style/Widget.RugbyRanker.Snackbar</item>
+        <item name="snackbarTextViewStyle">@style/Widget.RugbyRanker.Snackbar.TextView</item>
+        <item name="materialCardViewStyle">@style/Widget.RugbyRanker.CardView</item>
+        <item name="progressIndicatorStyle">@style/Widget.RugbyRanker.ProgressIndicator</item>
     </style>
 
-    <style name="Theme.RugbyRanker.Main">
-        <!-- No action bar -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- System bar attributes -->
-        <item name="android:statusBarColor">@color/color_status_bar_main</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="M">@bool/window_light_system_bar</item>
-        <item name="android:navigationBarColor">@color/color_navigation_bar_main</item>
+    <style name="Theme.RugbyRanker" parent="Base.Theme.RugbyRanker">
+        <item name="colorPrimary">@color/world_rugby_green_700</item>
+        <item name="colorPrimaryVariant">@color/world_rugby_green_900</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/world_rugby_blue_900</item>
+        <item name="colorSecondaryVariant">@color/world_rugby_blue_900</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorError">@color/world_rugby_red_600</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
-    <style name="Theme.RugbyRanker.Main.Launcher">
-        <!-- Launcher window background -->
-        <item name="android:windowBackground">@drawable/bg_launcher</item>
-        <!-- System bar attributes -->
-        <item name="android:navigationBarColor">@color/color_navigation_bar_launcher</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">@bool/window_light_system_bar</item>
-    </style>
-
-    <style name="ThemeOverlay.RugbyRanker.Secondary" parent="">
-        <!-- Color attributes -->
-        <item name="colorPrimary">@color/color_secondary</item>
-        <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
-    </style>
-
-    <style name="ThemeOverlay.RugbyRanker.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
+    <style name="Base.Theme.RugbyRanker.OssLicenses" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">@bool/window_light_system_bar</item>
+        <item name="fontFamily">@font/rajdhani_semibold</item>
+        <item name="android:fontFamily">@font/rajdhani_semibold</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.RugbyRanker.Headline6</item>
+        <item name="android:listPreferredItemHeight">@dimen/height_row</item>
+        <item name="actionBarStyle">@style/Widget.RugbyRanker.ActionBar</item>
+    </style>
+
+    <style name="Theme.RugbyRanker.OssLicenses" parent="Base.Theme.RugbyRanker.OssLicenses">
+        <item name="colorPrimary">@color/world_rugby_green_700</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="ThemeOverlay.RugbyRanker.Toolbar" parent="">
+        <item name="colorControlNormal">?attr/colorOnSurface</item>
+        <item name="actionMenuTextColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="Base.ThemeOverlay.RugbyRanker.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.DayNight.BottomSheetDialog">
+        <item name="colorControlHighlight">@color/on_surface_32</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="bottomSheetStyle">@style/Widget.RugbyRanker.BottomSheet.Modal</item>
+    </style>
+
+    <style name="ThemeOverlay.RugbyRanker.BottomSheetDialog" parent="Base.ThemeOverlay.RugbyRanker.BottomSheetDialog">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSurface">@color/world_rugby_blue_900</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:colorBackground">@color/world_rugby_blue_900</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+    </style>
+
+    <style name="Base.ThemeOverlay.RugbyRanker.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.RugbyRanker.Title.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.RugbyRanker.Body.Text</item>
+    </style>
+
+    <style name="ThemeOverlay.RugbyRanker.MaterialAlertDialog" parent="Base.ThemeOverlay.RugbyRanker.MaterialAlertDialog">
+        <item name="colorSecondary">@color/world_rugby_green_700</item>
+    </style>
+
+    <style name="ThemeOverlay.RugbyRanker.PrimarySecondary" parent="">
+        <item name="colorPrimary">?attr/colorSecondary</item>
     </style>
 
 </resources>

@@ -9,6 +9,7 @@ buildscript {
         classpath deps.kotlin.gradlePlugin
         classpath deps.androidX.navigation.safeArgsGradlePlugin
         classpath deps.google.ossLicenses.gradlePlugin
+        classpath deps.google.hilt.androidGradlePlugin
     }
 }
 
@@ -16,6 +17,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://androidx-dev-prod.appspot.com/snapshots/builds/6559338/artifacts/repository' }
     }
     apply from: "$rootDir/ktlint.gradle"
 }

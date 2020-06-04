@@ -1,1 +1,10 @@
-include ':app', ':core', ':rankings', ':prediction', ':teams', ':matches', ':live', ':news', ':info', ':theme'
+include ':app'
+include ':core'
+include ':ranking'
+include ':prediction'
+include ':match'
+include ':live'
+include ':news'
+include ':info'
+include ':theme'
+rootProject.name = "Rugby Ranker"

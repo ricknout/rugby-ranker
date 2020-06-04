@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_news">News</string>
-    <string name="title_videos">Videos</string>
+    <string name="news">News</string>
 
-    <string name="snackbar_fetching_world_rugby_news">Fetching news&#8230;</string>
-    <string name="snackbar_fetching_world_rugby_videos">Fetching videos&#8230;</string>
-    <string name="snackbar_failed_to_refresh_world_rugby_news">Failed to refresh news</string>
-    <string name="snackbar_failed_to_refresh_world_rugby_videos">Failed to refresh videos</string>
+    <string name="failed_to_refresh_news">Failed to refresh news</string>
 
 </resources>

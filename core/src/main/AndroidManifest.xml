@@ -1,6 +1,6 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ricknout.rugbyranker.core">
+    package="dev.ricknout.rugbyranker.core">
 
     <application>
 

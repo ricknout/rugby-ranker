@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/liveMatchNavGraph"
+    app:startDestination="@id/liveMatch"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/liveMatch"
+        android:name="dev.ricknout.rugbyranker.live.ui.LiveMatchFragment"
+        android:label="LiveMatchFragment"
+        tools:layout="@layout/fragment_live_match">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+    </fragment>
+
+    <action android:id="@+id/liveMatchAction">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+    </action>
+
+</navigation>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Platform.V29.Theme.RugbyRanker" parent="Platform.V24.Theme.RugbyRanker">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+    </style>
+
+    <style name="Platform.Theme.RugbyRanker" parent="Platform.V29.Theme.RugbyRanker" />
+
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MaterialListPopupWindow">
+        <attr name="android:popupElevation" />
+    </declare-styleable>
+
+    <style name="Widget.MaterialComponents.ListPopupWindow" parent="Widget.AppCompat.ListPopupWindow">
+        <item name="android:popupBackground">@null</item>
+        <item name="android:popupElevation">@dimen/elevation_popup</item>
+        <item name="android:popupExitTransition">@transition/popup_exit</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
+    </style>
+
+</resources>

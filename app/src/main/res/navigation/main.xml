@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainNavGraph"
+    app:startDestination="@id/mens">
+
+    <fragment
+        android:id="@+id/mens"
+        android:name="dev.ricknout.rugbyranker.ui.SportFragment"
+        android:label="MensSportFragment"
+        tools:layout="@layout/fragment_sport">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport"
+            android:defaultValue="MENS" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/womens"
+        android:name="dev.ricknout.rugbyranker.ui.SportFragment"
+        android:label="WomensSportFragment"
+        tools:layout="@layout/fragment_sport">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport"
+            android:defaultValue="WOMENS" />
+
+    </fragment>
+
+    <action
+        android:id="@+id/sportToPrediction"
+        app:destination="@id/predictionNavGraph">
+
+        <argument
+            android:name="sport"
+            app:argType="dev.ricknout.rugbyranker.core.model.Sport" />
+
+        <argument
+            android:name="prediction"
+            app:argType="dev.ricknout.rugbyranker.prediction.model.Prediction"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+        <argument
+            android:name="edit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+
+    </action>
+
+    <include app:graph="@navigation/prediction" />
+
+    <include app:graph="@navigation/news" />
+
+    <include app:graph="@navigation/info" />
+
+</navigation>
