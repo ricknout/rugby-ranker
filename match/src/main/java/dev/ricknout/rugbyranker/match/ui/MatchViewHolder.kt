@@ -1,5 +1,6 @@
 package dev.ricknout.rugbyranker.match.ui
 
+import android.content.res.ColorStateList
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,8 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
             homeName.text = match.firstTeamName
             awayName.text = match.secondTeamName
             val isCurrentDay = DateUtils.isDayCurrentDay(match.timeMillis)
+            val highEmphasisColor = ColorStateList.valueOf(MaterialColors.getColor(root, R.attr.colorOnSurface))
+            val mediumEmphasisColor = AppCompatResources.getColorStateList(root.context, R.color.material_on_surface_emphasis_medium)
             when (match.status) {
                 Status.UNPLAYED -> {
                     title.text = if (isCurrentDay) {
@@ -30,6 +33,7 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                         DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
                     }
                     label.text = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, match.timeMillis)
+                    homeScoreText.setTextColor(mediumEmphasisColor)
                     homeScoreText.text = root.context.getString(R.string.versus)
                     awayScore.isVisible = false
                     awayScoreText.text = null
@@ -41,6 +45,7 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                         DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
                     }
                     label.text = null
+                    homeScoreText.setTextColor(highEmphasisColor)
                     homeScoreText.text = match.firstTeamScore.toString()
                     awayScore.isVisible = true
                     awayScoreText.text = match.secondTeamScore.toString()
@@ -58,6 +63,7 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                     } else {
                         null
                     }
+                    homeScoreText.setTextColor(highEmphasisColor)
                     homeScoreText.text = match.firstTeamScore.toString()
                     awayScore.isVisible = true
                     awayScoreText.text = match.secondTeamScore.toString()
@@ -69,6 +75,7 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                         DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
                     }
                     label.text = root.context.getString(R.string.postponed)
+                    homeScoreText.setTextColor(mediumEmphasisColor)
                     homeScoreText.text = root.context.getString(R.string.versus)
                     awayScore.isVisible = false
                     awayScoreText.text = null
@@ -80,6 +87,7 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                         DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
                     }
                     label.text = root.context.getString(R.string.cancelled)
+                    homeScoreText.setTextColor(highEmphasisColor)
                     homeScoreText.text = match.firstTeamScore.toString()
                     awayScore.isVisible = true
                     awayScoreText.text = match.secondTeamScore.toString()
