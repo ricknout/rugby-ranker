@@ -8,7 +8,7 @@ import androidx.core.view.updatePadding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.chrisbanes.insetter.doOnApplyWindowInsets
+import dev.chrisbanes.insetter.Insetter
 import dev.chrisbanes.insetter.setEdgeToEdgeSystemUiFlags
 import dev.ricknout.rugbyranker.BuildConfig
 import dev.ricknout.rugbyranker.R
@@ -43,12 +43,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupEdgeToEdge() {
         binding.drawerLayout.setEdgeToEdgeSystemUiFlags()
-        binding.navigationView.doOnApplyWindowInsets { view, insets, _ ->
+        Insetter.builder().setOnApplyInsetsListener { view, insets, _ ->
             view.findViewById<View>(R.id.design_navigation_view).updatePadding(
                 left = insets.systemWindowInsets.left,
                 top = insets.systemWindowInsets.top,
                 bottom = insets.systemWindowInsets.bottom
             )
-        }
+        }.applyToView(binding.navigationView)
     }
 }
