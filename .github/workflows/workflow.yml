@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone repo
+      - name: Checkout repo
         uses: actions/checkout@v1
 
       - name: Set up JDK 1.8
@@ -23,7 +23,7 @@ jobs:
       - name: Run ktlint
         run: ./gradlew ktlint
 
-      - name: Run Android linr
+      - name: Run Android lint
         run: ./gradlew lintDebug
 
       - name: Run unit tests
