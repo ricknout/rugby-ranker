@@ -17,7 +17,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://androidx-dev-prod.appspot.com/snapshots/builds/6559338/artifacts/repository' }
+        maven { url 'https://androidx-dev-prod.appspot.com/snapshots/builds/6572498/artifacts/repository' }
     }
     apply from: "$rootDir/ktlint.gradle"
 }
