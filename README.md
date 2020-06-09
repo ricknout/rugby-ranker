@@ -34,7 +34,7 @@ Rugby Ranker attempts to make use of the latest Android libraries and best pract
   * [Android KTX](https://developer.android.com/kotlin/ktx) for more fluent use of Android APIs
 * [Retrofit](https://square.github.io/retrofit/)/[OkHttp](https://square.github.io/okhttp/) for networking
 * [Coil](https://coil-kt.github.io/coil/) for image loading
-* [Hilt](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/hilt/) for dependency injection
+* [Hilt](https://dagger.dev/hilt/) for dependency injection
 * Designed and built using Material Design [components](https://material.io/components/) and [theming](https://material.io/design/material-theming/overview.html#material-theming)
 * Full [dark theme](https://material.io/design/color/dark-theme.html) support
 * Meaningful use of [Material Motion](https://material.io/design/motion/the-motion-system.html) transitions
