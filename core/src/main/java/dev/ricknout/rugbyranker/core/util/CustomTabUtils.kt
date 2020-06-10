@@ -19,9 +19,9 @@ object CustomTabUtils {
             .setToolbarColor(lightToolbarColor)
             .setColorScheme(colorScheme)
             .setColorSchemeParams(CustomTabsIntent.COLOR_SCHEME_DARK, darkParams)
-            .enableUrlBarHiding()
+            .setUrlBarHidingEnabled(true)
             .setShowTitle(true)
-            .addDefaultShareMenuItem()
+            .setDefaultShareMenuItemEnabled(true)
             .build()
             .launchUrl(context, Uri.parse(url))
     }
