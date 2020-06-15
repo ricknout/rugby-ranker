@@ -7,7 +7,6 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
     defaultConfig {
         applicationId "com.ricknout.rugbyranker"
         minSdkVersion versions.minSdk
