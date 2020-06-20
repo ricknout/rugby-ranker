@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/images"
@@ -46,19 +46,8 @@
             android:textColor="?attr/colorPrimary"
             app:layout_constraintTop_toBottomOf="@id/images"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/label"
-            tools:text="News article subtitle" />
-
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/material_on_surface_emphasis_medium"
-            app:layout_constraintBaseline_toBaselineOf="@id/subtitle"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="2 Nov, 2019" />
+            tools:text="News article subtitle" />
 
         <TextView
             android:id="@+id/title"
@@ -79,12 +68,24 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space"
             android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/material_on_surface_emphasis_medium"
             app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="News article body news article body news article body news article body news article body news article body news article body news article body" />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@color/material_on_surface_emphasis_medium"
+            app:layout_constraintTop_toBottomOf="@id/body"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="News article body" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="2 Nov, 2019" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
