@@ -4,7 +4,7 @@ ext {
             minSdk: 24,
             targetSdk: 29,
             androidGradlePlugin: '4.1.0-beta01',
-            ktlint: '0.37.1',
+            ktlint: '0.37.2',
             coil: '0.11.0',
             insetter: '0.3.0',
             kotlin: [
