@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.MergeAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.work.WorkInfo
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.elevation.ElevationOverlayProvider
@@ -49,7 +49,7 @@ class RankingFragment : Fragment() {
 
     private val rankingAdapter = RankingAdapter()
     private val labelAdapter = LabelAdapter()
-    private val adapter = MergeAdapter(rankingAdapter, labelAdapter)
+    private val adapter = ConcatAdapter(rankingAdapter, labelAdapter)
 
     private val coordinatorLayout: CoordinatorLayout
         get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
