@@ -3,10 +3,10 @@ ext {
             compileSdk: 29,
             minSdk: 24,
             targetSdk: 29,
-            androidGradlePlugin: '4.1.0-beta03',
+            androidGradlePlugin: '4.1.0-beta04',
             ktlint: '0.37.2',
             coil: '0.11.0',
-            insetter: '0.3.0',
+            insetter: '0.3.1',
             kotlin: [
                     kotlin: '1.3.72',
                     coroutines: '1.3.7'
@@ -46,7 +46,7 @@ ext {
                     ]
             ],
             square: [
-                    okhttp: '4.7.2',
+                    okhttp: '4.8.0',
                     retrofit: '2.9.0'
             ]
     ]
