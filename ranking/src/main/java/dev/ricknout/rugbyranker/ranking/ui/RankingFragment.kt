@@ -89,7 +89,7 @@ class RankingFragment : Fragment() {
                 val rankings = pair.first
                 val updatedTimeMillis = pair.second
                 rankingAdapter.submitList(rankings) {
-                    binding.recyclerView.post { setLabel(updatedTimeMillis) }
+                    setLabel(updatedTimeMillis)
                 }
                 if (rankings.isNullOrEmpty()) binding.progressIndicator.show() else binding.progressIndicator.hide()
             }

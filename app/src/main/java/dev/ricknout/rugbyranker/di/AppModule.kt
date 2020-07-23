@@ -7,8 +7,8 @@ import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import dev.ricknout.rugbyranker.core.api.WorldRugbyService
 import dev.ricknout.rugbyranker.core.db.RankingDao
 import dev.ricknout.rugbyranker.db.RugbyRankerDatabase
@@ -27,7 +27,7 @@ import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class AppModule {
 
