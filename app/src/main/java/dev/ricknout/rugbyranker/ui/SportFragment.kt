@@ -184,12 +184,12 @@ class SportFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        binding.navigation.setOnClickListener { openDrawer() }
+        binding.appBar.navigation.setOnClickListener { openDrawer() }
     }
 
     private fun setupViewPagerAndTabs() {
         binding.viewPager.adapter = SportAdapter(this)
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+        TabLayoutMediator(binding.appBar.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 POSITION_RANKINGS -> tab.text = getString(R.string.rankings)
                 POSITION_MATCHES_UNPLAYED -> tab.text = getString(R.string.fixtures)
@@ -202,7 +202,7 @@ class SportFragment : Fragment() {
                 else -> throw IllegalArgumentException("Position $position exceeds SportAdapter count")
             }
         }.attach()
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.appBar.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
             }
@@ -211,7 +211,7 @@ class SportFragment : Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                binding.appBarLayout.setLifted(false)
+                binding.appBar.appBarLayout.setLifted(false)
                 when (tab?.position) {
                     POSITION_RANKINGS -> rankingViewModel.scrollToTop()
                     POSITION_MATCHES_UNPLAYED -> unplayedMatchViewModel.scrollToTop()
@@ -247,7 +247,7 @@ class SportFragment : Fragment() {
     }
 
     private fun toggleLiveMatchTabIcon(show: Boolean) {
-        val tab = binding.tabLayout.getTabAt(POSITION_MATCHES_LIVE) ?: return
+        val tab = binding.appBar.tabLayout.getTabAt(POSITION_MATCHES_LIVE) ?: return
         if (show) {
             val dotAvd = AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.avd_dot_24dp)
             tab.icon = dotAvd
@@ -262,7 +262,7 @@ class SportFragment : Fragment() {
     }
 
     private fun setupEdgeToEdge() {
-        binding.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
+        binding.appBar.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
         binding.fab.applySystemWindowInsetsToMargin(left = true, right = true, bottom = true)
         binding.predictionBar.applySystemWindowInsetsToMargin(left = true, right = true, bottom = true)
     }

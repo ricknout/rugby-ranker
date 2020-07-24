@@ -8,40 +8,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.SportFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:liftOnScroll="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <Button
-                android:id="@+id/navigation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.RugbyRanker.Button.Icon"
-                app:icon="@drawable/ic_menu_24dp"
-                app:iconTint="?attr/colorOnSurface"
-                app:rippleColor="?attr/colorControlHighlight"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:tabMode="scrollable"
-            app:tabGravity="start"
-            app:tabIconTint="?attr/colorError" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_app_bar" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
