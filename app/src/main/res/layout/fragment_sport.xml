@@ -34,6 +34,7 @@
         android:layout_margin="@dimen/space"
         android:layout_gravity="end|bottom"
         app:srcCompat="@drawable/ic_add_24dp"
-        android:transitionName="shared_element_fab" />
+        android:transitionName="shared_element_fab"
+        android:contentDescription="@string/add_prediction" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
