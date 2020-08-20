@@ -81,18 +81,20 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         (requireDialog() as BottomSheetDialog).apply {
             behavior.disableShapeAnimations()
             dismissWithAnimation = true
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            behavior.addBottomSheetCallback(
+                object : BottomSheetBehavior.BottomSheetCallback() {
 
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                }
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    }
 
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                        if (confirmed) predictionViewModel.submitPrediction(prediction, edit)
-                        predictionViewModel.resetInput()
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                            if (confirmed) predictionViewModel.submitPrediction(prediction, edit)
+                            predictionViewModel.resetInput()
+                        }
                     }
                 }
-            })
+            )
         }
     }
 

@@ -202,24 +202,26 @@ class SportFragment : Fragment() {
                 else -> throw IllegalArgumentException("Position $position exceeds SportAdapter count")
             }
         }.attach()
-        binding.appBar.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.appBar.tabLayout.addOnTabSelectedListener(
+            object : TabLayout.OnTabSelectedListener {
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-            }
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                }
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                binding.appBar.appBarLayout.setLifted(false)
-                when (tab?.position) {
-                    POSITION_RANKINGS -> rankingViewModel.scrollToTop()
-                    POSITION_MATCHES_UNPLAYED -> unplayedMatchViewModel.scrollToTop()
-                    POSITION_MATCHES_COMPLETE -> completeMatchViewModel.scrollToTop()
-                    POSITION_MATCHES_LIVE -> liveMatchViewModel.scrollToTop()
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    binding.appBar.appBarLayout.setLifted(false)
+                    when (tab?.position) {
+                        POSITION_RANKINGS -> rankingViewModel.scrollToTop()
+                        POSITION_MATCHES_UNPLAYED -> unplayedMatchViewModel.scrollToTop()
+                        POSITION_MATCHES_COMPLETE -> completeMatchViewModel.scrollToTop()
+                        POSITION_MATCHES_LIVE -> liveMatchViewModel.scrollToTop()
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun setupFab() {

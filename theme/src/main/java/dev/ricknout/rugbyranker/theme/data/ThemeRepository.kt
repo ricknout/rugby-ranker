@@ -37,7 +37,9 @@ class ThemeRepository(private val sharedPreferences: ThemeSharedPreferences) {
     fun getThemes(): List<Theme> {
         return when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> listOf(
-                Theme.LIGHT, Theme.DARK, Theme.SYSTEM_DEFAULT
+                Theme.LIGHT,
+                Theme.DARK,
+                Theme.SYSTEM_DEFAULT
             )
             else -> listOf(Theme.LIGHT, Theme.DARK, Theme.SET_BY_BATTERY_SAVER)
         }

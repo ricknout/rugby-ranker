@@ -130,7 +130,8 @@ class RankingFragment : Fragment() {
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
             true,
-            binding.swipeRefreshLayout.progressViewStartOffset, binding.swipeRefreshLayout.progressViewEndOffset
+            binding.swipeRefreshLayout.progressViewStartOffset,
+            binding.swipeRefreshLayout.progressViewEndOffset
         )
         binding.swipeRefreshLayout.setOnRefreshListener {
             rankingViewModel.refreshRankings { success ->

@@ -26,7 +26,8 @@ class NewsViewHolder(private val binding: ListItemNewsBinding) : RecyclerView.Vi
             body.text = news.summary
             root.setOnClickListener { onClick(news) }
             val imagesBackgroundColor = AppCompatResources.getColorStateList(
-                itemView.context, R.color.on_surface_16
+                itemView.context,
+                R.color.on_surface_16
             ).defaultColor
             images.setBackgroundColor(imagesBackgroundColor)
             val spanCount = itemView.context.resources.getInteger(R.integer.span_count_grid)

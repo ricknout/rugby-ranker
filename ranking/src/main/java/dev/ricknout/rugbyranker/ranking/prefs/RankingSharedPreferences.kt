@@ -13,11 +13,13 @@ class RankingSharedPreferences(private val sharedPreferences: SharedPreferences)
     }
 
     fun getUpdatedTimeMillis(sport: Sport) = sharedPreferences.getLong(
-        getUpdatedTimeMillisKey(sport), DEFAULT_UPDATED_TIME_MILLIS
+        getUpdatedTimeMillisKey(sport),
+        DEFAULT_UPDATED_TIME_MILLIS
     )
 
     fun getUpdatedTimeMillisFlow(sport: Sport): Flow<Long> = sharedPreferences.getLongAsFlow(
-        getUpdatedTimeMillisKey(sport), DEFAULT_UPDATED_TIME_MILLIS
+        getUpdatedTimeMillisKey(sport),
+        DEFAULT_UPDATED_TIME_MILLIS
     )
 
     companion object {

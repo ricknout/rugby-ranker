@@ -25,12 +25,14 @@ class LauncherActivity : AppCompatActivity() {
     private fun setupAvd() {
         val avd = AnimatedVectorDrawableCompat.create(this, R.drawable.avd_rugby_ranker_56dp)!!
         binding.icon.setImageDrawable(avd)
-        avd.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
-            override fun onAnimationEnd(drawable: Drawable?) {
-                startActivity(Intent(this@LauncherActivity, MainActivity::class.java))
-                finish()
+        avd.registerAnimationCallback(
+            object : Animatable2Compat.AnimationCallback() {
+                override fun onAnimationEnd(drawable: Drawable?) {
+                    startActivity(Intent(this@LauncherActivity, MainActivity::class.java))
+                    finish()
+                }
             }
-        })
+        )
         avd.start()
     }
 
