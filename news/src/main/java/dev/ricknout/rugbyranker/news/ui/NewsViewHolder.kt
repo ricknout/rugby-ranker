@@ -2,7 +2,7 @@ package dev.ricknout.rugbyranker.news.ui
 
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.google.android.material.color.MaterialColors
 import dev.ricknout.rugbyranker.core.util.DateUtils
 import dev.ricknout.rugbyranker.news.R
