@@ -17,10 +17,11 @@ class MatchPagingSource(
         val pageSize = params.loadSize
         val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
         val (success, matches) = repository.fetchLatestMatchesSync(
-                sport, status,
-                page = page,
-                pageSize = pageSize,
-                unplayedStartDate = currentDate
+            sport,
+            status,
+            page = page,
+            pageSize = pageSize,
+            unplayedStartDate = currentDate
         )
         return if (success) {
             LoadResult.Page(

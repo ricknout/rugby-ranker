@@ -91,10 +91,11 @@ class MatchRepository(
         val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
         val result = withContext(Dispatchers.IO) {
             fetchLatestMatchesSync(
-                    sport, status,
-                    page = 0,
-                    pageSize = PAGE_SIZE,
-                    unplayedStartDate = currentDate
+                sport,
+                status,
+                page = 0,
+                pageSize = PAGE_SIZE,
+                unplayedStartDate = currentDate
             )
         }
         val success = result.first
