@@ -2,6 +2,7 @@ package dev.ricknout.rugbyranker.match.data
 
 import androidx.paging.PagingSource
 import dev.ricknout.rugbyranker.core.model.Sport
+import dev.ricknout.rugbyranker.core.util.DateUtils
 import dev.ricknout.rugbyranker.match.model.Match
 import dev.ricknout.rugbyranker.match.model.Status
 
@@ -14,7 +15,13 @@ class MatchPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Match> {
         val page = params.key ?: 0
         val pageSize = params.loadSize
-        val (success, matches) = repository.fetchLatestMatchesSync(sport, status, page, pageSize)
+        val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
+        val (success, matches) = repository.fetchLatestMatchesSync(
+                sport, status,
+                page = page,
+                pageSize = pageSize,
+                unplayedStartDate = currentDate
+        )
         return if (success) {
             LoadResult.Page(
                 data = matches,

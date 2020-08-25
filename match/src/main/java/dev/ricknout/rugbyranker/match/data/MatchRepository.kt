@@ -88,8 +88,14 @@ class MatchRepository(
         coroutineScope: CoroutineScope,
         onComplete: (success: Boolean, matches: List<Match>) -> Unit
     ) = coroutineScope.launch {
+        val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
         val result = withContext(Dispatchers.IO) {
-            fetchLatestMatchesSync(sport, status, page = 0, pageSize = PAGE_SIZE)
+            fetchLatestMatchesSync(
+                    sport, status,
+                    page = 0,
+                    pageSize = PAGE_SIZE,
+                    unplayedStartDate = currentDate
+            )
         }
         val success = result.first
         val matches = result.second
