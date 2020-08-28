@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
+import dev.chrisbanes.insetter.setEdgeToEdgeSystemUiFlags
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.ui.MaterialListPopupWindow
 import dev.ricknout.rugbyranker.core.util.FlagUtils
@@ -290,6 +291,7 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val coordinator = requireDialog().findViewById<View>(R.id.coordinator)
         container.fitsSystemWindows = false
         coordinator.fitsSystemWindows = false
+        container.setEdgeToEdgeSystemUiFlags()
         container.applySystemWindowInsetsToPadding(top = true)
         requireView().applySystemWindowInsetsToPadding(left = true, right = true, bottom = true)
     }
