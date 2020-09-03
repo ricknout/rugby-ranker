@@ -27,8 +27,8 @@ It displays the latest international rankings, live scores, fixtures, results an
 
 Rugby Ranker attempts to make use of the latest Android libraries and best practices:
 * Entirely written in [Kotlin](https://kotlinlang.org/) (including [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) and [Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html)) with [ktlint](https://github.com/pinterest/ktlint) for code style
-* Makes use of [Android Jetpack](https://developer.android.com/jetpack/), including:
-  * [Architecture Components](https://developer.android.com/jetpack/arch/) including **ViewModel**, **LiveData**, **Room**, **Paging**, **Navigation** and **WorkManager**
+* Makes use of [Android Jetpack](https://developer.android.com/jetpack/):
+  * [Architecture Components](https://developer.android.com/jetpack/arch/) including **ViewModel**, **LiveData**, **Room**, **Paging**, **Navigation**, **WorkManager** and **DataStore**
   * [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout), [ViewPager2](https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2), [View Binding](https://developer.android.com/topic/libraries/view-binding) and more for layouts and UI
   * [EmojiCompat](https://developer.android.com/guide/topics/ui/look-and-feel/emoji-compat) for emoji compatibility on older platforms
   * [Android KTX](https://developer.android.com/kotlin/ktx) for more fluent use of Android APIs
