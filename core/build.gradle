@@ -40,6 +40,7 @@ dependencies {
     api deps.google.material
     api deps.androidX.hilt.lifecycle.viewModel
     api deps.androidX.hilt.work
+    api deps.androidX.dataStore.preferences
     api deps.square.okhttp
     api deps.square.retrofit.retrofit
     api deps.square.retrofit.gsonConverter

@@ -8,7 +8,7 @@ import dev.ricknout.rugbyranker.core.model.Ranking
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.prediction.model.Prediction
 import dev.ricknout.rugbyranker.ranking.data.RankingRepository
-import dev.ricknout.rugbyranker.ranking.prefs.RankingSharedPreferences
+import dev.ricknout.rugbyranker.ranking.prefs.RankingDataStore
 import dev.ricknout.rugbyranker.ranking.util.RankingCalculator
 import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,7 @@ open class RankingViewModel(
 
     private val predictions = MutableStateFlow<List<Prediction>>(emptyList())
 
-    private val updatedTimeMillis = repository.getUpdatedTimeMillisFlow(sport)
+    private val updatedTimeMillis = repository.getUpdatedTimeMillis(sport)
 
     private val _rankings = repository.loadRankings(sport)
         .combine(updatedTimeMillis) { rankings, updatedTimeMillis ->
@@ -37,7 +37,7 @@ open class RankingViewModel(
         .combine(predictions) { pair, predictions ->
             val rankings = RankingCalculator.allocatePointsForPredictions(pair.first, predictions)
             val updatedTimeMillis = when {
-                pair.second == RankingSharedPreferences.DEFAULT_UPDATED_TIME_MILLIS -> null
+                pair.second == RankingDataStore.DEFAULT_UPDATED_TIME_MILLIS -> null
                 rankings.isEmpty() || !predictions.isNullOrEmpty() -> null
                 else -> pair.second
             }
