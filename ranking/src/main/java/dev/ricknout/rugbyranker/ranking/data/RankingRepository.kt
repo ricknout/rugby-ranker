@@ -5,7 +5,6 @@ import dev.ricknout.rugbyranker.core.api.WorldRugbyService
 import dev.ricknout.rugbyranker.core.db.RankingDao
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.util.DateUtils
-import dev.ricknout.rugbyranker.ranking.prefs.RankingDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

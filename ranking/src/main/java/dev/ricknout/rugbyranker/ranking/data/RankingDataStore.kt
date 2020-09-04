@@ -1,4 +1,4 @@
-package dev.ricknout.rugbyranker.ranking.prefs
+package dev.ricknout.rugbyranker.ranking.data
 
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.Preferences
