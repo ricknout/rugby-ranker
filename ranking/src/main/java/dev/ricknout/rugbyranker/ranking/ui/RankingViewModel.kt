@@ -7,8 +7,8 @@ import dev.ricknout.rugbyranker.core.lifecycle.ScrollableViewModel
 import dev.ricknout.rugbyranker.core.model.Ranking
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.prediction.model.Prediction
-import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 import dev.ricknout.rugbyranker.ranking.data.RankingDataStore
+import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 import dev.ricknout.rugbyranker.ranking.util.RankingCalculator
 import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
 import kotlinx.coroutines.flow.MutableStateFlow

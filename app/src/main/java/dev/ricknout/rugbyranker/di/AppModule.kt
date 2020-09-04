@@ -18,8 +18,8 @@ import dev.ricknout.rugbyranker.db.RugbyRankerDatabase
 import dev.ricknout.rugbyranker.match.data.MatchRepository
 import dev.ricknout.rugbyranker.news.data.NewsRepository
 import dev.ricknout.rugbyranker.prediction.data.PredictionRepository
-import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 import dev.ricknout.rugbyranker.ranking.data.RankingDataStore
+import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
 import dev.ricknout.rugbyranker.theme.data.ThemeRepository
 import dev.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
