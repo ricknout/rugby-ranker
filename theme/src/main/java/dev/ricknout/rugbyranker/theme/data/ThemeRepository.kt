@@ -3,7 +3,6 @@ package dev.ricknout.rugbyranker.theme.data
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import dev.ricknout.rugbyranker.theme.model.Theme
-import dev.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
 
 class ThemeRepository(private val sharedPreferences: ThemeSharedPreferences) {
 

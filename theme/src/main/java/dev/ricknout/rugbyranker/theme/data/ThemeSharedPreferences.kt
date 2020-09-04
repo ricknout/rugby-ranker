@@ -1,4 +1,4 @@
-package dev.ricknout.rugbyranker.theme.prefs
+package dev.ricknout.rugbyranker.theme.data
 
 import android.content.SharedPreferences
 import androidx.core.content.edit

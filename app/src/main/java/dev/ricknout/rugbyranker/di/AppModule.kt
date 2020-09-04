@@ -22,7 +22,7 @@ import dev.ricknout.rugbyranker.ranking.data.RankingDataStore
 import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
 import dev.ricknout.rugbyranker.theme.data.ThemeRepository
-import dev.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
+import dev.ricknout.rugbyranker.theme.data.ThemeSharedPreferences
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
