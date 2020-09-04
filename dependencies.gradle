@@ -5,7 +5,7 @@ ext {
             targetSdk: 30,
             androidGradlePlugin: '4.1.0-rc02',
             ktlint: '0.38.1',
-            coil: '1.0.0-rc1',
+            coil: '1.0.0-rc2',
             insetter: '0.3.1',
             kotlin: [
                     kotlin: '1.4.0',
