@@ -5,7 +5,7 @@ import dev.ricknout.rugbyranker.core.api.WorldRugbyService
 import dev.ricknout.rugbyranker.core.db.RankingDao
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.util.DateUtils
-import dev.ricknout.rugbyranker.ranking.prefs.RankingSharedPreferences
+import dev.ricknout.rugbyranker.ranking.prefs.RankingDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 class RankingRepository(
     private val service: WorldRugbyService,
     private val dao: RankingDao,
-    private val sharedPreferences: RankingSharedPreferences
+    private val dataStore: RankingDataStore
 ) {
 
     fun loadRankings(sport: Sport) = dao.loadByPosition(sport)
@@ -29,7 +29,7 @@ class RankingRepository(
             val response = service.getRankings(sports, date)
             val rankings = RankingDataConverter.getRankingsFromResponse(response, sport)
             dao.insert(rankings)
-            sharedPreferences.setUpdatedTimeMillis(response.effective.millis, sport)
+            dataStore.setUpdatedTimeMillis(response.effective.millis, sport)
             true
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
@@ -48,9 +48,7 @@ class RankingRepository(
         }
     }
 
-    fun getUpdatedTimeMillis(sport: Sport) = sharedPreferences.getUpdatedTimeMillis(sport)
-
-    fun getUpdatedTimeMillisFlow(sport: Sport) = sharedPreferences.getUpdatedTimeMillisFlow(sport)
+    fun getUpdatedTimeMillis(sport: Sport) = dataStore.getUpdatedTimeMillis(sport)
 
     companion object {
         private const val TAG = "RankingRepository"

@@ -2,6 +2,9 @@ package dev.ricknout.rugbyranker.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.datastore.DataStore
+import androidx.datastore.preferences.Preferences
+import androidx.datastore.preferences.createDataStore
 import androidx.room.Room
 import androidx.work.WorkManager
 import dagger.Module
@@ -16,7 +19,7 @@ import dev.ricknout.rugbyranker.match.data.MatchRepository
 import dev.ricknout.rugbyranker.news.data.NewsRepository
 import dev.ricknout.rugbyranker.prediction.data.PredictionRepository
 import dev.ricknout.rugbyranker.ranking.data.RankingRepository
-import dev.ricknout.rugbyranker.ranking.prefs.RankingSharedPreferences
+import dev.ricknout.rugbyranker.ranking.prefs.RankingDataStore
 import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
 import dev.ricknout.rugbyranker.theme.data.ThemeRepository
 import dev.ricknout.rugbyranker.theme.prefs.ThemeSharedPreferences
@@ -80,8 +83,16 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRankingSharedPreferences(sharedPreferences: SharedPreferences): RankingSharedPreferences {
-        return RankingSharedPreferences(sharedPreferences)
+    fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
+        return context.createDataStore(
+            name = DATA_STORE_NAME
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideRankingDataStore(dataStore: DataStore<Preferences>): RankingDataStore {
+        return RankingDataStore(dataStore)
     }
 
     @Provides
@@ -95,9 +106,9 @@ class AppModule {
     fun provideRankingRepository(
         service: WorldRugbyService,
         dao: RankingDao,
-        sharedPreferences: RankingSharedPreferences
+        dataStore: RankingDataStore
     ): RankingRepository {
-        return RankingRepository(service, dao, sharedPreferences)
+        return RankingRepository(service, dao, dataStore)
     }
 
     @Provides
@@ -141,5 +152,6 @@ class AppModule {
 
     companion object {
         private const val SHARED_PREFERENCES_NAME = "rugby_ranker_shared_preferences"
+        private const val DATA_STORE_NAME = "rugby_ranker_data_store"
     }
 }
