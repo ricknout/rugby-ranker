@@ -12,7 +12,6 @@ import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionManager
@@ -121,7 +120,7 @@ class SportFragment : Fragment() {
     private fun setupViewModels() {
         predictionViewModel.predictions.observe(
             viewLifecycleOwner,
-            Observer { predictions ->
+            { predictions ->
                 rankingViewModel.setPredictions(predictions)
                 val currentPredictions = binding.predictionBar.getPredictions()
                 binding.predictionBar.setPredictions(predictions)
@@ -132,7 +131,7 @@ class SportFragment : Fragment() {
                 }
                 val shouldShowRankings = currentPredictions.size != predictions.size && !predictions.isNullOrEmpty()
                 if (shouldShowRankings) binding.viewPager.currentItem = POSITION_RANKINGS
-                if (!shouldTransition) return@Observer
+                if (!shouldTransition) return@observe
                 val transition = MaterialContainerTransform().apply {
                     duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
                     interpolator = FastOutSlowInInterpolator()
@@ -154,29 +153,29 @@ class SportFragment : Fragment() {
         )
         predictionViewModel.teams.observe(
             viewLifecycleOwner,
-            Observer { teams ->
+            { teams ->
                 binding.fab.isEnabled = !teams.isNullOrEmpty()
             }
         )
         unplayedMatchViewModel.predict.observe(
             viewLifecycleOwner,
-            Observer { prediction ->
-                if (prediction == null) return@Observer
+            { prediction ->
+                if (prediction == null) return@observe
                 findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction))
                 unplayedMatchViewModel.resetPredict()
             }
         )
         liveMatchViewModel.predict.observe(
             viewLifecycleOwner,
-            Observer { prediction ->
-                if (prediction == null) return@Observer
+            { prediction ->
+                if (prediction == null) return@observe
                 findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction))
                 liveMatchViewModel.resetPredict()
             }
         )
         liveMatchViewModel.liveMatches.observe(
             viewLifecycleOwner,
-            Observer { liveMatches ->
+            { liveMatches ->
                 val show = !liveMatches.isNullOrEmpty()
                 toggleLiveMatchTabIcon(show)
             }

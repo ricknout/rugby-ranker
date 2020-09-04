@@ -9,7 +9,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.elevation.ElevationOverlayProvider
@@ -74,7 +73,7 @@ class LiveMatchFragment : Fragment() {
     private fun setupViewModel() {
         liveMatchViewModel.liveMatches.observe(
             viewLifecycleOwner,
-            Observer { liveMatches ->
+            { liveMatches ->
                 adapter.submitList(liveMatches)
                 if (liveMatches == null) binding.progressIndicator.show() else binding.progressIndicator.hide()
                 binding.noLiveMatches.isVisible = liveMatches?.isEmpty() ?: false
@@ -82,13 +81,13 @@ class LiveMatchFragment : Fragment() {
         )
         liveMatchViewModel.refreshingLiveMatches.observe(
             viewLifecycleOwner,
-            Observer { refreshingLiveMatches ->
+            { refreshingLiveMatches ->
                 binding.swipeRefreshLayout.isRefreshing = refreshingLiveMatches
             }
         )
         liveMatchViewModel.scrollToTop.observe(
             viewLifecycleOwner,
-            Observer { scrollToTop ->
+            { scrollToTop ->
                 if (scrollToTop) {
                     binding.recyclerView.smoothScrollToPosition(0)
                     liveMatchViewModel.resetScrollToTop()

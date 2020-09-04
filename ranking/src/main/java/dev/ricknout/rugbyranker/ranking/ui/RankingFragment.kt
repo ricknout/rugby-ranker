@@ -8,7 +8,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.work.WorkInfo
@@ -85,7 +84,7 @@ class RankingFragment : Fragment() {
     private fun setupViewModel() {
         rankingViewModel.rankings.observe(
             viewLifecycleOwner,
-            Observer { pair ->
+            { pair ->
                 val rankings = pair.first
                 val updatedTimeMillis = pair.second
                 rankingAdapter.submitList(rankings) {
@@ -96,20 +95,20 @@ class RankingFragment : Fragment() {
         )
         rankingViewModel.refreshingRankings.observe(
             viewLifecycleOwner,
-            Observer { refreshingRankings ->
+            { refreshingRankings ->
                 binding.swipeRefreshLayout.isRefreshing = refreshingRankings
             }
         )
         rankingViewModel.workInfos.observe(
             viewLifecycleOwner,
-            Observer { workInfos ->
+            { workInfos ->
                 val workInfo = workInfos?.firstOrNull()
                 binding.swipeRefreshLayout.isEnabled = workInfo?.state != WorkInfo.State.RUNNING
             }
         )
         rankingViewModel.scrollToTop.observe(
             viewLifecycleOwner,
-            Observer { scrollToTop ->
+            { scrollToTop ->
                 if (scrollToTop) {
                     binding.recyclerView.smoothScrollToPosition(0)
                     rankingViewModel.resetScrollToTop()

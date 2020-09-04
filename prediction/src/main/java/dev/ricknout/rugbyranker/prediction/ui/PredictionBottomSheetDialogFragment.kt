@@ -12,7 +12,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -107,31 +106,31 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private fun setupViewModel() {
         predictionViewModel.teams.observe(
             viewLifecycleOwner,
-            Observer { teams ->
+            { teams ->
                 setupTeams(teams)
             }
         )
         predictionViewModel.inputValid.observe(
             viewLifecycleOwner,
-            Observer { inputValid ->
+            { inputValid ->
                 binding.confirm.isEnabled = inputValid
             }
         )
         predictionViewModel.homeScore.observe(
             viewLifecycleOwner,
-            Observer { score ->
+            { score ->
                 binding.homeScore.text = score.toString()
             }
         )
         predictionViewModel.awayScore.observe(
             viewLifecycleOwner,
-            Observer { score ->
+            { score ->
                 binding.awayScore.text = score.toString()
             }
         )
         predictionViewModel.homeTeam.observe(
             viewLifecycleOwner,
-            Observer { team ->
+            { team ->
                 if (team != null) {
                     binding.homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
                     binding.homeName.text = team.name
@@ -149,7 +148,7 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         )
         predictionViewModel.awayTeam.observe(
             viewLifecycleOwner,
-            Observer { team ->
+            { team ->
                 if (team != null) {
                     binding.awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
                     binding.awayName.text = team.name
@@ -167,13 +166,13 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         )
         predictionViewModel.rugbyWorldCup.observe(
             viewLifecycleOwner,
-            Observer { rugbyWorldCup ->
+            { rugbyWorldCup ->
                 binding.rwc.isChecked = rugbyWorldCup
             }
         )
         predictionViewModel.noHomeAdvantage.observe(
             viewLifecycleOwner,
-            Observer { noHomeAdvantage ->
+            { noHomeAdvantage ->
                 binding.nha.isChecked = noHomeAdvantage
             }
         )
