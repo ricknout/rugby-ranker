@@ -38,7 +38,7 @@ ext {
             ],
             google: [
                     material: '1.3.0-alpha02',
-                    hilt: '2.29-alpha',
+                    hilt: '2.29.1-alpha',
                     ossLicenses: [
                             ossLicenses: '17.0.0',
                             gradlePlugin: '0.10.2'
@@ -124,7 +124,7 @@ ext {
                     material: "com.google.android.material:material:$versions.google.material",
                     hilt: [
                             android: "com.google.dagger:hilt-android:$versions.google.hilt",
-                            androidCompiler: "com.google.dagger:hilt-android-compiler:$versions.google.hilt",
+                            compiler: "com.google.dagger:hilt-compiler:$versions.google.hilt",
                             androidGradlePlugin: "com.google.dagger:hilt-android-gradle-plugin:$versions.google.hilt"
                     ],
                     ossLicenses: [

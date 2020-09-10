@@ -62,7 +62,7 @@ dependencies {
     implementation deps.androidX.viewPager2
     implementation deps.google.hilt.android
     kapt deps.androidX.room.compiler
-    kapt deps.google.hilt.androidCompiler
+    kapt deps.google.hilt.compiler
     kapt deps.androidX.hilt.compiler
     testImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.core.ktx

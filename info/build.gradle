@@ -28,7 +28,7 @@ dependencies {
     implementation project(':theme')
     implementation deps.google.ossLicenses.ossLicenses
     implementation deps.google.hilt.android
-    kapt deps.google.hilt.androidCompiler
+    kapt deps.google.hilt.compiler
     kapt deps.androidX.hilt.compiler
     testImplementation deps.androidX.test.jUnit.ktx
     androidTestImplementation deps.androidX.test.core.ktx
