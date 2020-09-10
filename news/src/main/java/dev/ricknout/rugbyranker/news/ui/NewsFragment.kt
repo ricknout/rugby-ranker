@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import com.google.android.material.color.MaterialColors
@@ -21,6 +22,10 @@ import dev.ricknout.rugbyranker.news.databinding.FragmentNewsBinding
 import dev.ricknout.rugbyranker.news.model.Type
 import dev.ricknout.rugbyranker.theme.ui.ThemeViewModel
 import dev.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -38,11 +43,16 @@ class NewsFragment : Fragment() {
     private val themeViewModel: ThemeViewModel by activityViewModels()
 
     private val adapter = NewsAdapter { news ->
-        CustomTabUtils.launchCustomTab(
-            requireContext(),
-            news.articleUrl,
-            themeViewModel.getTheme().getCustomTabsIntentColorScheme()
-        )
+        lifecycleScope.launch {
+            val theme = themeViewModel.theme.first()
+            withContext(Dispatchers.Main) {
+                CustomTabUtils.launchCustomTab(
+                    requireContext(),
+                    news.articleUrl,
+                    theme.getCustomTabsIntentColorScheme()
+                )
+            }
+        }
     }
 
     private var _binding: FragmentNewsBinding? = null

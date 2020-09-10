@@ -1,7 +1,6 @@
 package dev.ricknout.rugbyranker.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.createDataStore
@@ -21,8 +20,8 @@ import dev.ricknout.rugbyranker.prediction.data.PredictionRepository
 import dev.ricknout.rugbyranker.ranking.data.RankingDataStore
 import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
+import dev.ricknout.rugbyranker.theme.data.ThemeDataStore
 import dev.ricknout.rugbyranker.theme.data.ThemeRepository
-import dev.ricknout.rugbyranker.theme.data.ThemeSharedPreferences
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -77,12 +76,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-    }
-
-    @Provides
-    @Singleton
     fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
         return context.createDataStore(
             name = DATA_STORE_NAME
@@ -97,8 +90,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideThemeSharedPreferences(sharedPreferences: SharedPreferences): ThemeSharedPreferences {
-        return ThemeSharedPreferences(sharedPreferences)
+    fun provideThemeDataStore(dataStore: DataStore<Preferences>): ThemeDataStore {
+        return ThemeDataStore(dataStore)
     }
 
     @Provides
@@ -134,8 +127,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideThemeRepository(sharedPreferences: ThemeSharedPreferences): ThemeRepository {
-        return ThemeRepository(sharedPreferences)
+    fun provideThemeRepository(dataStore: ThemeDataStore): ThemeRepository {
+        return ThemeRepository(dataStore)
     }
 
     @Provides
@@ -151,7 +144,6 @@ class AppModule {
     }
 
     companion object {
-        private const val SHARED_PREFERENCES_NAME = "rugby_ranker_shared_preferences"
         private const val DATA_STORE_NAME = "rugby_ranker_data_store"
     }
 }

@@ -3,27 +3,44 @@ package dev.ricknout.rugbyranker.theme.data
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import dev.ricknout.rugbyranker.theme.model.Theme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class ThemeRepository(private val sharedPreferences: ThemeSharedPreferences) {
+class ThemeRepository(private val dataStore: ThemeDataStore) {
 
-    fun getTheme(): Theme {
+    fun getTheme(): Flow<Theme> {
         val defaultTheme = getDefaultTheme()
         val defaultMode = defaultTheme.mode
-        val mode = sharedPreferences.getMode(defaultMode)
         val themes = getThemes()
-        return themes.find { theme -> theme.mode == mode } ?: defaultTheme
+        return dataStore.getMode(defaultMode).map { mode ->
+            themes.find { theme -> theme.mode == mode } ?: defaultTheme
+        }
     }
 
-    fun setTheme(theme: Theme) {
+    fun setTheme(
+        theme: Theme,
+        coroutineScope: CoroutineScope
+    ) {
         val mode = theme.mode
         AppCompatDelegate.setDefaultNightMode(mode)
-        sharedPreferences.setMode(mode)
+        coroutineScope.launch {
+            dataStore.setMode(mode)
+        }
     }
 
-    fun setTheme() {
-        val theme = getTheme()
-        val mode = theme.mode
-        AppCompatDelegate.setDefaultNightMode(mode)
+    fun setTheme(coroutineScope: CoroutineScope) {
+        coroutineScope.launch {
+            val theme = getTheme().first()
+            withContext(Dispatchers.Main) {
+                val mode = theme.mode
+                AppCompatDelegate.setDefaultNightMode(mode)
+            }
+        }
     }
 
     private fun getDefaultTheme(): Theme {

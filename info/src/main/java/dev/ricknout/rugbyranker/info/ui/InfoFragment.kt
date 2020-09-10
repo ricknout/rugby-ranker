@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,10 @@ import dev.ricknout.rugbyranker.info.R
 import dev.ricknout.rugbyranker.info.databinding.FragmentInfoBinding
 import dev.ricknout.rugbyranker.theme.ui.ThemeViewModel
 import dev.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class InfoFragment : Fragment() {
@@ -65,11 +70,16 @@ class InfoFragment : Fragment() {
 
     private fun setupButtons() {
         binding.howAreRankingsCalculated.setOnClickListener {
-            CustomTabUtils.launchCustomTab(
-                requireContext(),
-                RANKINGS_EXPLANATION_URL,
-                themeViewModel.getTheme().getCustomTabsIntentColorScheme()
-            )
+            lifecycleScope.launch {
+                val theme = themeViewModel.theme.first()
+                withContext(Dispatchers.Main) {
+                    CustomTabUtils.launchCustomTab(
+                        requireContext(),
+                        RANKINGS_EXPLANATION_URL,
+                        theme.getCustomTabsIntentColorScheme()
+                    )
+                }
+            }
         }
         binding.shareThisApp.setOnClickListener {
             val appName = getString(R.string.app_name)
@@ -81,18 +91,28 @@ class InfoFragment : Fragment() {
             startActivity(Intent.createChooser(intent, requireContext().getString(R.string.share_title, appName)))
         }
         binding.viewSourceCode.setOnClickListener {
-            CustomTabUtils.launchCustomTab(
-                requireContext(),
-                GITHUB_URL,
-                themeViewModel.getTheme().getCustomTabsIntentColorScheme()
-            )
+            lifecycleScope.launch {
+                val theme = themeViewModel.theme.first()
+                withContext(Dispatchers.Main) {
+                    CustomTabUtils.launchCustomTab(
+                        requireContext(),
+                        GITHUB_URL,
+                        theme.getCustomTabsIntentColorScheme()
+                    )
+                }
+            }
         }
         binding.openSourceLicenses.setOnClickListener {
             val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
             startActivity(intent)
         }
         binding.chooseTheme.setOnClickListener {
-            findNavController().navigate(InfoFragmentDirections.infoToThemeAction())
+            lifecycleScope.launch {
+                val theme = themeViewModel.theme.first()
+                withContext(Dispatchers.Main) {
+                    findNavController().navigate(InfoFragmentDirections.infoToThemeAction(theme))
+                }
+            }
         }
     }
 

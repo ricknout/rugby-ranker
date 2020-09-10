@@ -8,6 +8,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import dev.ricknout.rugbyranker.theme.data.ThemeRepository
+import kotlinx.coroutines.GlobalScope
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -32,7 +33,7 @@ class RugbyRankerApplication : Application(), Configuration.Provider {
     }
 
     private fun setupTheme() {
-        themeRepository.setTheme()
+        themeRepository.setTheme(GlobalScope)
     }
 
     private fun setupEmojiCompat() {

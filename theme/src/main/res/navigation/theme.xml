@@ -3,21 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/infoNavGraph"
-    app:startDestination="@id/info"
+    android:id="@+id/themeNavGraph"
+    app:startDestination="@id/theme"
     tools:ignore="UnusedNavigation">
-
-    <fragment
-        android:id="@+id/info"
-        android:name="dev.ricknout.rugbyranker.info.ui.InfoFragment"
-        android:label="InfoFragment"
-        tools:layout="@layout/fragment_info">
-
-        <action
-            android:id="@+id/infoToThemeAction"
-            app:destination="@id/theme" />
-
-    </fragment>
 
     <dialog
         android:id="@+id/theme"
