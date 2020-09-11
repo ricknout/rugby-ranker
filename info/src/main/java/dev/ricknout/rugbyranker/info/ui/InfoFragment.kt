@@ -110,7 +110,7 @@ class InfoFragment : Fragment() {
             lifecycleScope.launch {
                 val theme = themeViewModel.theme.first()
                 withContext(Dispatchers.Main) {
-                    findNavController().navigate(InfoFragmentDirections.infoToThemeAction(theme))
+                    findNavController().navigate(InfoFragmentDirections.infoToTheme(theme))
                 }
             }
         }

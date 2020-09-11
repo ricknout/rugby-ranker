@@ -19,15 +19,16 @@
 
     </fragment>
 
-    <dialog
-        android:id="@+id/theme"
-        android:name="dev.ricknout.rugbyranker.theme.ui.ThemeDialogFragment"
-        android:label="ThemeDialogFragment">
+    <action
+        android:id="@+id/infoToTheme"
+        app:destination="@id/themeNavGraph">
 
         <argument
             android:name="theme"
             app:argType="dev.ricknout.rugbyranker.theme.model.Theme" />
 
-    </dialog>
+    </action>
+
+    <include app:graph="@navigation/theme" />
 
 </navigation>
