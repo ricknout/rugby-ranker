@@ -1,3 +1,6 @@
+import dev.ricknout.rugbyranker.buildsrc.Libs
+import dev.ricknout.rugbyranker.buildsrc.Versions
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -6,15 +9,15 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion Versions.compileSdk
     defaultConfig {
         applicationId "com.ricknout.rugbyranker"
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
         versionCode 2007
         versionName "2.0.7"
         setProperty('archivesBaseName', applicationId + '-v' + versionName)
-        testInstrumentationRunner deps.androidX.test.instrumentationRunner
+        testInstrumentationRunner Libs.AndroidX.Test.instrumentationRunner
     }
     buildTypes {
         release {
@@ -58,13 +61,13 @@ dependencies {
     implementation project(':news')
     implementation project(':info')
     implementation project(':theme')
-    implementation deps.androidX.drawerLayout
-    implementation deps.androidX.viewPager2
-    implementation deps.google.hilt.android
-    kapt deps.androidX.room.compiler
-    kapt deps.google.hilt.compiler
-    kapt deps.androidX.hilt.compiler
-    testImplementation deps.androidX.test.jUnit.ktx
-    androidTestImplementation deps.androidX.test.core.ktx
-    androidTestImplementation deps.androidX.test.runner
+    implementation Libs.AndroidX.drawerLayout
+    implementation Libs.AndroidX.viewPager2
+    implementation Libs.Google.Hilt.android
+    kapt Libs.AndroidX.Room.compiler
+    kapt Libs.Google.Hilt.compiler
+    kapt Libs.AndroidX.Hilt.compiler
+    testImplementation Libs.AndroidX.Test.JUnit.ktx
+    androidTestImplementation Libs.AndroidX.Test.Core.ktx
+    androidTestImplementation Libs.AndroidX.Test.runner
 }

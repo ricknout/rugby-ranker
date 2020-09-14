@@ -1,12 +1,15 @@
+import dev.ricknout.rugbyranker.buildsrc.Libs
+import dev.ricknout.rugbyranker.buildsrc.Versions
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion Versions.compileSdk
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-        testInstrumentationRunner deps.androidX.test.instrumentationRunner
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        testInstrumentationRunner Libs.AndroidX.Test.instrumentationRunner
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -18,34 +21,34 @@ android {
 }
 
 dependencies {
-    api deps.kotlin.stdlib
-    api deps.kotlin.coroutines.core
-    api deps.kotlin.coroutines.android
-    api deps.androidX.core.ktx
-    api deps.androidX.activity.ktx
-    api deps.androidX.fragment.ktx
-    api deps.androidX.lifecycle.viewModelKtx
-    api deps.androidX.lifecycle.liveDataKtx
-    api deps.androidX.appCompat
-    api deps.androidX.constraintLayout
-    api deps.androidX.recyclerView
-    api deps.androidX.swipeRefreshLayout
-    api deps.androidX.emoji
-    api deps.androidX.browser
-    api deps.androidX.room.runtime
-    api deps.androidX.room.ktx
-    api deps.androidX.navigation.uiKtx
-    api deps.androidX.navigation.fragmentKtx
-    api deps.androidX.work.runtimeKtx
-    api deps.google.material
-    api deps.androidX.hilt.lifecycle.viewModel
-    api deps.androidX.hilt.work
-    api deps.androidX.dataStore.preferences
-    api deps.square.okhttp
-    api deps.square.retrofit.retrofit
-    api deps.square.retrofit.gsonConverter
-    api deps.insetter.ktx
-    testImplementation deps.androidX.test.jUnit.ktx
-    androidTestImplementation deps.androidX.test.core.ktx
-    androidTestImplementation deps.androidX.test.runner
+    api Libs.Kotlin.stdlib
+    api Libs.Kotlin.Coroutines.core
+    api Libs.Kotlin.Coroutines.android
+    api Libs.AndroidX.Core.ktx
+    api Libs.AndroidX.Activity.ktx
+    api Libs.AndroidX.Fragment.ktx
+    api Libs.AndroidX.Lifecycle.viewModelKtx
+    api Libs.AndroidX.Lifecycle.liveDataKtx
+    api Libs.AndroidX.appCompat
+    api Libs.AndroidX.constraintLayout
+    api Libs.AndroidX.recyclerView
+    api Libs.AndroidX.swipeRefreshLayout
+    api Libs.AndroidX.emoji
+    api Libs.AndroidX.browser
+    api Libs.AndroidX.Room.runtime
+    api Libs.AndroidX.Room.ktx
+    api Libs.AndroidX.Navigation.uiKtx
+    api Libs.AndroidX.Navigation.fragmentKtx
+    api Libs.AndroidX.Work.runtimeKtx
+    api Libs.Google.material
+    api Libs.AndroidX.Hilt.Lifecycle.viewModel
+    api Libs.AndroidX.Hilt.work
+    api Libs.AndroidX.DataStore.preferences
+    api Libs.Square.okHttp
+    api Libs.Square.Retrofit.retrofit
+    api Libs.Square.Retrofit.gsonConverter
+    api Libs.Insetter.ktx
+    testImplementation Libs.AndroidX.Test.JUnit.ktx
+    androidTestImplementation Libs.AndroidX.Test.Core.ktx
+    androidTestImplementation Libs.AndroidX.Test.runner
 }

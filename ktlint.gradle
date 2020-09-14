@@ -1,3 +1,5 @@
+import dev.ricknout.rugbyranker.buildsrc.Libs
+
 repositories {
     jcenter()
 }
@@ -7,7 +9,7 @@ configurations {
 }
 
 dependencies {
-    ktlint deps.ktlint
+    ktlint Libs.ktlint
 }
 
 task ktlint(type: JavaExec, group: "verification") {

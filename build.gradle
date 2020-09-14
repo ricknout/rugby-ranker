@@ -1,15 +1,16 @@
+import dev.ricknout.rugbyranker.buildsrc.Libs
+
 buildscript {
-    apply from: 'dependencies.gradle'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath deps.androidGradlePlugin
-        classpath deps.kotlin.gradlePlugin
-        classpath deps.androidX.navigation.safeArgsGradlePlugin
-        classpath deps.google.ossLicenses.gradlePlugin
-        classpath deps.google.hilt.androidGradlePlugin
+        classpath Libs.androidGradlePlugin
+        classpath Libs.Kotlin.gradlePlugin
+        classpath Libs.AndroidX.Navigation.safeArgsGradlePlugin
+        classpath Libs.Google.OssLicenses.gradlePlugin
+        classpath Libs.Google.Hilt.androidGradlePlugin
     }
 }
 

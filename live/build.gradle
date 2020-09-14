@@ -1,3 +1,6 @@
+import dev.ricknout.rugbyranker.buildsrc.Libs
+import dev.ricknout.rugbyranker.buildsrc.Versions
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -5,11 +8,11 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion Versions.compileSdk
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-        testInstrumentationRunner deps.androidX.test.instrumentationRunner
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        testInstrumentationRunner Libs.AndroidX.Test.instrumentationRunner
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -27,10 +30,10 @@ dependencies {
     implementation project(':core')
     implementation project(':match')
     implementation project(':prediction')
-    implementation deps.google.hilt.android
-    kapt deps.google.hilt.compiler
-    kapt deps.androidX.hilt.compiler
-    testImplementation deps.androidX.test.jUnit.ktx
-    androidTestImplementation deps.androidX.test.core.ktx
-    androidTestImplementation deps.androidX.test.runner
+    implementation Libs.Google.Hilt.android
+    kapt Libs.Google.Hilt.compiler
+    kapt Libs.AndroidX.Hilt.compiler
+    testImplementation Libs.AndroidX.Test.JUnit.ktx
+    androidTestImplementation Libs.AndroidX.Test.Core.ktx
+    androidTestImplementation Libs.AndroidX.Test.runner
 }
