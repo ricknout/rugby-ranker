@@ -4,8 +4,8 @@ object Versions {
     const val compileSdk = 30
     const val minSdk = 24
     const val targetSdk = 30
-    const val androidGradlePlugin = "4.1.0-rc02"
-    const val ktlint = "0.38.1"
+    const val androidGradlePlugin = "4.1.0-rc03"
+    const val ktlint = "0.39.0"
     const val coil = "1.0.0-rc2"
     const val insetter = "0.3.1"
     object Kotlin {
@@ -13,7 +13,7 @@ object Versions {
         const val coroutines = "1.3.9"
     }
     object AndroidX {
-        const val core = "1.5.0-alpha02"
+        const val core = "1.5.0-alpha03"
         const val activity = "1.2.0-alpha08"
         const val fragment = "1.3.0-alpha08"
         const val appCompat = "1.3.0-alpha02"
@@ -28,7 +28,7 @@ object Versions {
         const val room = "2.3.0-alpha02"
         const val paging = "3.0.0-alpha06"
         const val navigation = "2.3.0"
-        const val work = "2.5.0-alpha01"
+        const val work = "2.5.0-alpha02"
         const val hilt = "1.0.0-alpha02"
         const val dataStore = "1.0.0-alpha01"
         object Test {
@@ -46,7 +46,7 @@ object Versions {
         }
     }
     object Square {
-        const val okHttp = "4.8.1"
+        const val okHttp = "4.9.0"
         const val retrofit = "2.9.0"
     }
 }
