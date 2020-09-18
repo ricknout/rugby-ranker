@@ -95,8 +95,6 @@ class NewsFragment : Fragment() {
     }
 
     private fun setupSwipeRefresh() {
-        // Prevent AppBarLayout#liftOnScroll flickering in parent SportFragment
-        binding.swipeRefreshLayout.isNestedScrollingEnabled = false
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
         val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
