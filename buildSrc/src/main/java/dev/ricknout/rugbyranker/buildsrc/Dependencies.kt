@@ -6,7 +6,7 @@ object Versions {
     const val targetSdk = 30
     const val androidGradlePlugin = "4.1.0-rc03"
     const val ktlint = "0.39.0"
-    const val coil = "1.0.0-rc2"
+    const val coil = "1.0.0-rc3"
     const val insetter = "0.3.1"
     object Kotlin {
         const val kotlin = "1.4.10"
