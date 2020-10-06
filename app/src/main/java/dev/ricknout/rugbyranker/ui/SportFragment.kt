@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.TooltipCompat
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isInvisible
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applySystemWindowInsetsToMargin
 import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
@@ -93,6 +95,16 @@ class SportFragment : Fragment() {
     private var _binding: FragmentSportBinding? = null
     private val binding get() = _binding!!
 
+    private val transitionDuration by lazy {
+        resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough().apply { duration = transitionDuration }
+        exitTransition = MaterialFadeThrough().apply { duration = transitionDuration }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -104,6 +116,8 @@ class SportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         setupViewModels()
         setupNavigation()
         setupViewPagerAndTabs()
@@ -133,7 +147,7 @@ class SportFragment : Fragment() {
                 if (shouldShowRankings) binding.viewPager.currentItem = POSITION_RANKINGS
                 if (!shouldTransition) return@observe
                 val transition = MaterialContainerTransform().apply {
-                    duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+                    duration = transitionDuration
                     interpolator = FastOutSlowInInterpolator()
                     scrimColor = Color.TRANSPARENT
                     fadeMode = MaterialContainerTransform.FADE_MODE_OUT
