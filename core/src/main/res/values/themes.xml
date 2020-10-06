@@ -92,6 +92,7 @@
     <style name="Base.ThemeOverlay.RugbyRanker.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.RugbyRanker.Title.Text</item>
         <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.RugbyRanker.Body.Text</item>
+        <item name="android:windowAnimationStyle">@style/Animation.RugbyRanker.AlertDialog</item>
     </style>
 
     <style name="ThemeOverlay.RugbyRanker.MaterialAlertDialog" parent="Base.ThemeOverlay.RugbyRanker.MaterialAlertDialog">

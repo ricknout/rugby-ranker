@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Enter animation adapted from: https://material.io/design/motion/the-motion-system.html#fade
+    Also see: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/transition/MaterialFade.java
+    - Scale from 80% to 100% (center anchor point) for 150ms
+    - Fade from 0.0 to 1.0 for first 45ms (0.3 of overall duration)
+    - Use FastOutSlowInInterpolator
+-->
+<set
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/fast_out_slow_in">
+
+    <scale
+        android:fromXScale="80%"
+        android:fromYScale="80%"
+        android:toXScale="100%"
+        android:toYScale="100%"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="150" />
+
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="45" />
+
+</set>
