@@ -104,4 +104,6 @@
 ## BUG: Jetpack DataStore
 ## https://issuetracker.google.com/issues/168580258
 
--keep class androidx.datastore.*.** {*;}
+-keepclassmembers class * extends androidx.datastore.preferences.protobuf.GeneratedMessageLite {
+    <fields>;
+}
