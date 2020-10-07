@@ -100,3 +100,8 @@
 ## Jetpack Navigation
 
 -keepnames class androidx.navigation.fragment.NavHostFragment
+
+## Jetpack Crypto and minifyEnabled
+## https://issuetracker.google.com/issues/157983099
+
+-keep class com.google.crypto.** { *; }
