@@ -2,7 +2,7 @@
 <!--
     Exit animation adapted from: https://material.io/design/motion/the-motion-system.html#fade
     Also see: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/transition/MaterialFade.java
-    - Fade from 1.0 to 0.0 for first 75ms
+    - Fade from 1.0 to 0.0 for 75ms
     - Use FastOutSlowInInterpolator
 -->
 <set
