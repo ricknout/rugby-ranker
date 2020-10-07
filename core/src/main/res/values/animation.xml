@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Animation.RugbyRanker.AlertDialog" parent="android:Animation">
+    <style name="Animation.RugbyRanker.MaterialAlertDialog" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/material_fade_in</item>
         <item name="android:windowExitAnimation">@anim/material_fade_out</item>
     </style>
