@@ -66,6 +66,7 @@
 -keep class dev.ricknout.rugbyranker.prediction.model.** { *; }
 -keep class dev.ricknout.rugbyranker.match.model.** { *; }
 -keep class dev.ricknout.rugbyranker.news.model.** { *; }
+-keep class dev.ricknout.rugbyranker.theme.model.** { *; }
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
