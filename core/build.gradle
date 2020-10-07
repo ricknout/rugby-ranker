@@ -44,9 +44,6 @@ dependencies {
     api Libs.AndroidX.Hilt.Lifecycle.viewModel
     api Libs.AndroidX.Hilt.work
     api Libs.AndroidX.DataStore.preferences
-    // BUG: Issue with preferences/crypto (most likely DataStore)
-    // https://issuetracker.google.com/issues/157983099
-    api Libs.AndroidX.Security.cryptoKtx
     api Libs.Square.okHttp
     api Libs.Square.Retrofit.retrofit
     api Libs.Square.Retrofit.gsonConverter

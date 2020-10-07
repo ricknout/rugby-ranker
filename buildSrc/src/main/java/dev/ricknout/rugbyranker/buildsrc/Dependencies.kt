@@ -31,9 +31,6 @@ object Versions {
         const val work = "2.5.0-alpha02"
         const val hilt = "1.0.0-alpha02"
         const val dataStore = "1.0.0-alpha01"
-        // BUG: Issue with preferences/crypto (most likely DataStore)
-        // https://issuetracker.google.com/issues/157983099
-        const val security = "1.1.0-alpha02"
         object Test {
             const val core = "1.3.0"
             const val jUnit = "1.1.2"
@@ -113,11 +110,6 @@ object Libs {
         }
         object DataStore {
             const val preferences = "androidx.datastore:datastore-preferences:${Versions.AndroidX.dataStore}"
-        }
-        // BUG: Issue with preferences/crypto (most likely DataStore)
-        // https://issuetracker.google.com/issues/157983099
-        object Security {
-            const val cryptoKtx = "androidx.security:security-crypto-ktx:${Versions.AndroidX.security}"
         }
         object Test {
             const val runner = "androidx.test:runner:${Versions.AndroidX.Test.runner}"
