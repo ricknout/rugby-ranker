@@ -101,10 +101,3 @@
 ## Jetpack Navigation
 
 -keepnames class androidx.navigation.fragment.NavHostFragment
-
-## BUG: Jetpack DataStore
-## https://issuetracker.google.com/issues/168580258
-
--keepclassmembers class * extends androidx.datastore.preferences.protobuf.GeneratedMessageLite {
-    <fields>;
-}
