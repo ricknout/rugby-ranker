@@ -32,9 +32,9 @@ object Versions {
         const val hilt = "1.0.0-alpha02"
         const val dataStore = "1.0.0-alpha02"
         object Test {
-            const val core = "1.3.0"
-            const val jUnit = "1.1.2"
-            const val runner = "1.3.0"
+            const val core = "1.3.1-alpha01"
+            const val jUnit = "1.1.3-alpha01"
+            const val runner = "1.3.1-alpha01"
         }
     }
     object Google {
