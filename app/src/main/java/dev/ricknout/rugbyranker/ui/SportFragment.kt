@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isInvisible
@@ -97,6 +98,12 @@ class SportFragment : Fragment() {
 
     private val transitionDuration by lazy {
         resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+    }
+
+    val onBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            binding.viewPager.currentItem = POSITION_RANKINGS
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -198,6 +205,7 @@ class SportFragment : Fragment() {
 
     private fun setupNavigation() {
         binding.appBar.navigation.setOnClickListener { openDrawer() }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 
     private fun setupViewPagerAndTabs() {
@@ -219,6 +227,7 @@ class SportFragment : Fragment() {
             object : TabLayout.OnTabSelectedListener {
 
                 override fun onTabSelected(tab: TabLayout.Tab?) {
+                    onBackPressedCallback.isEnabled = tab?.position != POSITION_RANKINGS
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
