@@ -74,6 +74,12 @@ class MatchRepository(
                     }
                     else -> match
                 }
+            }.run {
+                if (sort == WorldRugbyService.SORT_ASC) {
+                    sortedBy { match -> match.timeMillis }
+                } else {
+                    sortedByDescending { match -> match.timeMillis }
+                }
             }
             true to matches
         } catch (e: Exception) {
