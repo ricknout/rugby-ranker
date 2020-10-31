@@ -65,15 +65,18 @@ object MatchDataConverter {
             WorldRugbyService.STATE_POSTPONED -> Status.POSTPONED
             WorldRugbyService.STATE_COMPLETE -> Status.COMPLETE
             WorldRugbyService.STATE_CANCELLED -> Status.CANCELLED
-            WorldRugbyService.STATE_LIVE_1ST_HALF, WorldRugbyService.STATE_LIVE_2ND_HALF, WorldRugbyService.STATE_LIVE_HALF_TIME -> Status.LIVE
+            WorldRugbyService.STATE_LIVE,
+            WorldRugbyService.STATE_LIVE_1ST_HALF, WorldRugbyService.STATE_LIVE_1ST_HALF_ALT,
+            WorldRugbyService.STATE_LIVE_2ND_HALF, WorldRugbyService.STATE_LIVE_2ND_HALF_ALT,
+            WorldRugbyService.STATE_LIVE_HALF_TIME -> Status.LIVE
             else -> throw IllegalArgumentException("Unknown status ${content.status}")
         }
     }
 
     private fun getHalfFromResponse(content: Content): Half? {
         return when (content.status) {
-            WorldRugbyService.STATE_LIVE_1ST_HALF -> Half.FIRST
-            WorldRugbyService.STATE_LIVE_2ND_HALF -> Half.SECOND
+            WorldRugbyService.STATE_LIVE_1ST_HALF, WorldRugbyService.STATE_LIVE_1ST_HALF_ALT -> Half.FIRST
+            WorldRugbyService.STATE_LIVE_2ND_HALF, WorldRugbyService.STATE_LIVE_2ND_HALF_ALT -> Half.SECOND
             WorldRugbyService.STATE_LIVE_HALF_TIME -> Half.HALF_TIME
             else -> null
         }
