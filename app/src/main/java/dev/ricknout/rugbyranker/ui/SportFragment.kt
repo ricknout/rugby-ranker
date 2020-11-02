@@ -100,7 +100,7 @@ class SportFragment : Fragment() {
         resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
     }
 
-    val onBackPressedCallback = object : OnBackPressedCallback(false) {
+    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
             binding.viewPager.currentItem = POSITION_RANKINGS
         }
