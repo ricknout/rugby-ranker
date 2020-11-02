@@ -39,6 +39,7 @@ Rugby Ranker attempts to make use of the latest Android libraries and best pract
 * Full [dark theme](https://material.io/design/color/dark-theme.html) support
 * Meaningful use of [Material Motion](https://material.io/design/motion/the-motion-system.html) transitions
 * Edge-to-edge support using [Insetter](https://github.com/chrisbanes/insetter)
+* Slowly migrating to [Jetpack Compose](https://developer.android.com/jetpack/compose) (see the [compose](https://github.com/ricknout/rugby-ranker/tree/compose) branch)
 
 ## Inspiration
 
