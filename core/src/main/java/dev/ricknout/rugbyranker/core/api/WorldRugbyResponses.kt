@@ -12,6 +12,8 @@ data class Team(
     val abbreviation: String?
 )
 
+val tbc = Team(id = -1L, name = "TBC", abbreviation = "TBC")
+
 data class Entry(
     val pos: Int,
     val previousPos: Int,
@@ -61,7 +63,7 @@ data class Content(
     val venue: Venue?,
     val time: Effective,
     val attendance: Int,
-    val teams: List<Team>,
+    val teams: List<Team?>,
     val scores: List<Int>,
     val status: String,
     val clock: Clock?,

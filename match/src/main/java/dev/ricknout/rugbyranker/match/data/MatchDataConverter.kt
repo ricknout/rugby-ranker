@@ -4,6 +4,7 @@ import dev.ricknout.rugbyranker.core.api.Content
 import dev.ricknout.rugbyranker.core.api.WorldRugbyMatchSummaryResponse
 import dev.ricknout.rugbyranker.core.api.WorldRugbyMatchesResponse
 import dev.ricknout.rugbyranker.core.api.WorldRugbyService
+import dev.ricknout.rugbyranker.core.api.tbc
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.util.DateUtils
 import dev.ricknout.rugbyranker.match.model.Half
@@ -19,8 +20,8 @@ object MatchDataConverter {
         teamIds: List<Long>
     ): List<Match> {
         return response.content.map { content ->
-            val firstTeam = content.teams[0]
-            val secondTeam = content.teams[1]
+            val firstTeam = content.teams[0] ?: tbc
+            val secondTeam = content.teams[1] ?: tbc
             val event = content.events.firstOrNull()
             Match(
                 id = content.matchId,
