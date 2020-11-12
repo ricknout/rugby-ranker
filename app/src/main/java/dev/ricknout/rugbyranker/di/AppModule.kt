@@ -1,8 +1,8 @@
 package dev.ricknout.rugbyranker.di
 
 import android.content.Context
-import androidx.datastore.DataStore
-import androidx.datastore.preferences.Preferences
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.createDataStore
 import androidx.room.Room
 import androidx.work.WorkManager
