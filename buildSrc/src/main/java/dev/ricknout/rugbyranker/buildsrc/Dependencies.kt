@@ -17,7 +17,7 @@ object Versions {
         const val activity = "1.2.0-beta01"
         const val fragment = "1.3.0-beta01"
         const val appCompat = "1.3.0-alpha02"
-        const val constraintLayout = "2.0.4"
+        const val constraintLayout = "2.1.0-alpha1"
         const val recyclerView = "1.2.0-alpha06"
         const val drawerLayout = "1.1.1"
         const val swipeRefreshLayout = "1.2.0-alpha01"
