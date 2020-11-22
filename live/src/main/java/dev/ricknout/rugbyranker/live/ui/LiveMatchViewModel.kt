@@ -53,8 +53,8 @@ open class LiveMatchViewModel(
                 repository.hasUnplayedMatchesToday(sport)
             }
             this@LiveMatchViewModel.unplayedMatchesToday = unplayedMatchesToday
-            val refreshedLiveMatchesOnce = _liveMatches.value != null
-            val ongoingLiveMatches = !_liveMatches.value.isNullOrEmpty()
+            val refreshedLiveMatchesOnce = liveMatches.value != null
+            val ongoingLiveMatches = !liveMatches.value.isNullOrEmpty()
             if (!refreshedLiveMatchesOnce || ongoingLiveMatches || unplayedMatchesToday) {
                 refreshLiveMatches(showRefresh = false) {
                     // Do nothing, no need to notify of success / failure here

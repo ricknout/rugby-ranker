@@ -111,13 +111,14 @@ class MatchRepository(
 
     suspend fun hasUnplayedMatchesToday(sport: Sport): Boolean {
         val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
+        val dayAfterCurrentDate = DateUtils.getDayAfterCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
         val result = fetchLatestMatchesSync(
             sport,
             Status.UNPLAYED,
             page = 0,
             pageSize = PAGE_SIZE_MAX,
             unplayedStartDate = currentDate,
-            unplayedEndDate = currentDate
+            unplayedEndDate = dayAfterCurrentDate
         )
         val success = result.first
         val matches = result.second
