@@ -32,7 +32,7 @@
         <item name="snackbarStyle">@style/Widget.RugbyRanker.Snackbar</item>
         <item name="snackbarTextViewStyle">@style/Widget.RugbyRanker.Snackbar.TextView</item>
         <item name="materialCardViewStyle">@style/Widget.RugbyRanker.CardView</item>
-        <item name="progressIndicatorStyle">@style/Widget.RugbyRanker.ProgressIndicator</item>
+        <item name="circularProgressIndicatorStyle">@style/Widget.RugbyRanker.CircularProgressIndicator</item>
     </style>
 
     <style name="Theme.RugbyRanker" parent="Base.Theme.RugbyRanker">

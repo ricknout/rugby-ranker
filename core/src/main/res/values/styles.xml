@@ -97,6 +97,8 @@
         <item name="cardElevation">0dp</item>
     </style>
 
-    <style name="Widget.RugbyRanker.ProgressIndicator" parent="Widget.MaterialComponents.ProgressIndicator.Circular.Indeterminate" />
+    <style name="Widget.RugbyRanker.CircularProgressIndicator" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="android:indeterminate">true</item>
+    </style>
 
 </resources>
