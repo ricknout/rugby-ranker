@@ -70,7 +70,7 @@
     </style>
 
     <style name="Base.ThemeOverlay.RugbyRanker.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.DayNight.BottomSheetDialog">
-        <item name="colorControlHighlight">@color/on_surface_32</item>
+        <item name="android:colorControlHighlight">@color/on_surface_32</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="bottomSheetStyle">@style/Widget.RugbyRanker.BottomSheet.Modal</item>
     </style>
