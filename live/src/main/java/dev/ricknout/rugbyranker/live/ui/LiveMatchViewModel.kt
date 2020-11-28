@@ -41,7 +41,7 @@ open class LiveMatchViewModel(
     fun refreshLiveMatches(showRefresh: Boolean = true, onComplete: (success: Boolean) -> Unit) {
         if (showRefresh) _refreshingLiveMatches.value = true
         repository.fetchLatestMatchesAsync(sport, status, viewModelScope) { success, matches ->
-            _liveMatches.value = matches
+            if (success) _liveMatches.value = matches
             if (showRefresh) _refreshingLiveMatches.value = false
             onComplete(success)
         }
@@ -50,9 +50,10 @@ open class LiveMatchViewModel(
     private fun startLiveMatchesRefreshJob() {
         viewModelScope.launch {
             val unplayedMatchesToday = unplayedMatchesToday ?: withContext(Dispatchers.IO) {
-                repository.hasUnplayedMatchesToday(sport)
+                repository.hasUnplayedMatchesToday(sport).apply {
+                    unplayedMatchesToday = this
+                }
             }
-            this@LiveMatchViewModel.unplayedMatchesToday = unplayedMatchesToday
             val refreshedLiveMatchesOnce = liveMatches.value != null
             val ongoingLiveMatches = !liveMatches.value.isNullOrEmpty()
             if (!refreshedLiveMatchesOnce || ongoingLiveMatches || unplayedMatchesToday) {
