@@ -8,7 +8,7 @@
     <style name="Platform.Theme.RugbyRanker" parent="Platform.V24.Theme.RugbyRanker" />
 
     <style name="Base.Theme.RugbyRanker" parent="Platform.Theme.RugbyRanker">
-        <item name="colorControlHighlight">@color/on_surface_16</item>
+        <item name="android:colorControlHighlight">@color/on_surface_16</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="fontFamily">@font/rajdhani_semibold</item>
         <item name="android:fontFamily">@font/rajdhani_semibold</item>
