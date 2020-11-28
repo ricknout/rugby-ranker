@@ -210,7 +210,6 @@ class SportFragment : Fragment() {
 
     private fun setupViewPagerAndTabs() {
         binding.viewPager.adapter = SportAdapter(this)
-        binding.viewPager.offscreenPageLimit = 3
         TabLayoutMediator(binding.appBar.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 POSITION_RANKINGS -> tab.text = getString(R.string.rankings)
