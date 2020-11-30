@@ -116,7 +116,7 @@ class SportFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSportBinding.inflate(inflater, container, false)
         return binding.root
     }

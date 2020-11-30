@@ -74,7 +74,7 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding.root
     }

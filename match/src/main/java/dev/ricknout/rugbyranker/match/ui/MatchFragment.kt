@@ -58,7 +58,7 @@ class MatchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMatchBinding.inflate(inflater, container, false)
         return binding.root
     }

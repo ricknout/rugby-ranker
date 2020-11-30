@@ -52,7 +52,7 @@ class LiveMatchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLiveMatchBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -62,7 +62,7 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = BottomSheetDialogFragmentPredictionBinding.inflate(inflater, container, false)
         return binding.root
     }
