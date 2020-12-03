@@ -18,46 +18,61 @@ object MatchDataConverter {
         response: WorldRugbyMatchesResponse,
         sport: Sport,
         teamIds: List<Long>
-    ): List<Match> {
-        return response.content.map { content ->
-            val firstTeam = content.teams[0] ?: tbc
-            val secondTeam = content.teams[1] ?: tbc
-            val event = content.events.firstOrNull()
-            Match(
-                id = content.matchId,
-                sport = sport,
-                status = getStatusFromResponse(content),
-                description = content.description,
-                attendance = content.attendance,
-                firstTeamId = firstTeam.id,
-                firstTeamName = firstTeam.name,
-                firstTeamAbbreviation = firstTeam.abbreviation,
-                firstTeamScore = content.scores[0],
-                secondTeamId = secondTeam.id,
-                secondTeamName = secondTeam.name,
-                secondTeamAbbreviation = secondTeam.abbreviation,
-                secondTeamScore = content.scores[1],
-                timeLabel = content.time.label,
-                timeMillis = content.time.millis,
-                timeGmtOffset = content.time.gmtOffset.toInt(),
-                venueId = content.venue?.id,
-                venueName = content.venue?.name,
-                venueCity = content.venue?.city,
-                venueCountry = content.venue?.country,
-                eventId = event?.id,
-                eventLabel = event?.label,
-                eventRankingsWeight = event?.rankingsWeight,
-                eventStartTimeLabel = event?.start?.label,
-                eventStartTimeMillis = event?.start?.millis,
-                eventStartTimeGmtOffset = event?.start?.gmtOffset?.toInt(),
-                eventEndTimeLabel = event?.end?.label,
-                eventEndTimeMillis = event?.end?.millis,
-                eventEndTimeGmtOffset = event?.end?.gmtOffset?.toInt(),
-                predictable = teamIds.containsAll(listOf(firstTeam.id, secondTeam.id)),
-                half = getHalfFromResponse(content),
-                minute = null
-            )
-        }
+    ): List<Match> = response.content.map { content ->
+        getMatchFromResponse(content, sport, teamIds)
+    }
+
+    fun getMatchFromResponse(
+        response: WorldRugbyMatchSummaryResponse,
+        sport: Sport,
+        teamIds: List<Long>
+    ): Match {
+        val minute = getMinuteFromResponse(response)
+        return getMatchFromResponse(response.match, sport, teamIds).copy(minute = minute)
+    }
+
+    private fun getMatchFromResponse(
+        content: Content,
+        sport: Sport,
+        teamIds: List<Long>
+    ): Match {
+        val firstTeam = content.teams[0] ?: tbc
+        val secondTeam = content.teams[1] ?: tbc
+        val event = content.events.firstOrNull()
+        return Match(
+            id = content.matchId,
+            sport = sport,
+            status = getStatusFromResponse(content),
+            description = content.description,
+            attendance = content.attendance,
+            firstTeamId = firstTeam.id,
+            firstTeamName = firstTeam.name,
+            firstTeamAbbreviation = firstTeam.abbreviation,
+            firstTeamScore = content.scores[0],
+            secondTeamId = secondTeam.id,
+            secondTeamName = secondTeam.name,
+            secondTeamAbbreviation = secondTeam.abbreviation,
+            secondTeamScore = content.scores[1],
+            timeLabel = content.time.label,
+            timeMillis = content.time.millis,
+            timeGmtOffset = content.time.gmtOffset.toInt(),
+            venueId = content.venue?.id,
+            venueName = content.venue?.name,
+            venueCity = content.venue?.city,
+            venueCountry = content.venue?.country,
+            eventId = event?.id,
+            eventLabel = event?.label,
+            eventRankingsWeight = event?.rankingsWeight,
+            eventStartTimeLabel = event?.start?.label,
+            eventStartTimeMillis = event?.start?.millis,
+            eventStartTimeGmtOffset = event?.start?.gmtOffset?.toInt(),
+            eventEndTimeLabel = event?.end?.label,
+            eventEndTimeMillis = event?.end?.millis,
+            eventEndTimeGmtOffset = event?.end?.gmtOffset?.toInt(),
+            predictable = teamIds.containsAll(listOf(firstTeam.id, secondTeam.id)),
+            half = getHalfFromResponse(content),
+            minute = null
+        )
     }
 
     private fun getStatusFromResponse(content: Content): Status {

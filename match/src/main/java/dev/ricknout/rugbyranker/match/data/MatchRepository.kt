@@ -88,6 +88,21 @@ class MatchRepository(
         }
     }
 
+    suspend fun fetchMatchSummarySync(
+        id: Long,
+        sport: Sport
+    ): Pair<Boolean, Match?> {
+        return try {
+            val response = service.getMatchSummary(id)
+            val teamIds = dao.loadTeamIds(sport)
+            val match = MatchDataConverter.getMatchFromResponse(response, sport, teamIds)
+            true to match
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+            false to null
+        }
+    }
+
     fun fetchLatestMatchesAsync(
         sport: Sport,
         status: Status,

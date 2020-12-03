@@ -235,6 +235,14 @@
             app:materialThemeOverlay="@style/ThemeOverlay.RugbyRanker.PrimarySecondary"
             android:text="@string/predict"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/pinButton" />
+
+        <Button
+            android:id="@+id/pinButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pin"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

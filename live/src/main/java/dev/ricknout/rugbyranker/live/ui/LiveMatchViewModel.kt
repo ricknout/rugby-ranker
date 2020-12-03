@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dev.ricknout.rugbyranker.core.lifecycle.ScrollableViewModel
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.util.DateUtils
+import dev.ricknout.rugbyranker.live.work.LiveMatchWorkManager
 import dev.ricknout.rugbyranker.match.data.MatchRepository
 import dev.ricknout.rugbyranker.match.model.Match
 import dev.ricknout.rugbyranker.match.model.Status
@@ -18,7 +19,8 @@ import kotlinx.coroutines.withContext
 
 open class LiveMatchViewModel(
     private val sport: Sport,
-    private val repository: MatchRepository
+    private val repository: MatchRepository,
+    private val workManager: LiveMatchWorkManager
 ) : ScrollableViewModel() {
 
     private val status = Status.LIVE
@@ -74,5 +76,9 @@ open class LiveMatchViewModel(
 
     fun resetPredict() {
         _predict.value = null
+    }
+
+    fun pin(matchId: Long) {
+        workManager.enqueueWork(sport, matchId)
     }
 }

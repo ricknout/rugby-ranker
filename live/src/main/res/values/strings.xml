@@ -3,8 +3,15 @@
 
     <string name="live">Live</string>
 
+    <string name="live_matches">Live matches</string>
+    <string name="match_results">Match results</string>
+
     <string name="failed_to_refresh_live_matches">Failed to refresh live matches</string>
 
     <string name="no_live_matches">No live matches</string>
+
+    <string name="fetching_live_match">Fetching live match…</string>
+
+    <string name="unpin">Unpin</string>
 
 </resources>

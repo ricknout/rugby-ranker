@@ -14,6 +14,7 @@ import dagger.hilt.components.SingletonComponent
 import dev.ricknout.rugbyranker.core.api.WorldRugbyService
 import dev.ricknout.rugbyranker.core.db.RankingDao
 import dev.ricknout.rugbyranker.db.RugbyRankerDatabase
+import dev.ricknout.rugbyranker.live.work.LiveMatchWorkManager
 import dev.ricknout.rugbyranker.match.data.MatchRepository
 import dev.ricknout.rugbyranker.news.data.NewsRepository
 import dev.ricknout.rugbyranker.prediction.data.PredictionRepository
@@ -141,6 +142,12 @@ class AppModule {
     @Singleton
     fun provideRankingWorkManager(workManager: WorkManager): RankingWorkManager {
         return RankingWorkManager(workManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLiveMatchWorkManager(workManager: WorkManager): LiveMatchWorkManager {
+        return LiveMatchWorkManager(workManager)
     }
 
     companion object {
