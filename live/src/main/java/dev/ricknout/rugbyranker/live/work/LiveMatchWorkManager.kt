@@ -1,18 +1,12 @@
 package dev.ricknout.rugbyranker.live.work
 
-import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
-import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import dev.ricknout.rugbyranker.core.model.Sport
 
 class LiveMatchWorkManager(private val workManager: WorkManager) {
-
-    private val constraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
 
     fun enqueueWork(sport: Sport, matchId: Long) {
         val data = Data.Builder()
@@ -24,7 +18,6 @@ class LiveMatchWorkManager(private val workManager: WorkManager) {
         }
         val work = builder
             .setInputData(data)
-            .setConstraints(constraints)
             .build()
         val uniqueWorkName = getUniqueWorkName(sport, matchId)
         workManager.enqueueUniqueWork(uniqueWorkName, EXISTING_WORK_POLICY, work)

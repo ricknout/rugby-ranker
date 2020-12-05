@@ -57,18 +57,19 @@ open class LiveMatchWorker(
                     Status.LIVE -> {
                         val foregroundInfo = createLiveoregroundInfo(matchNotificationId, match)
                         setForeground(foregroundInfo)
-                        delay(DateUtils.MINUTE_MILLIS)
                     }
-                    else -> {
+                    Status.COMPLETE -> {
                         val notificationId = IdUtils.getID()
                         val notification = createResultNotification(match)
                         notificationManager.notify(notificationId, notification)
                         return Result.success()
                     }
+                    else -> {
+                        // Do nothing, wait for match result
+                    }
                 }
-            } else {
-                return Result.failure()
             }
+            delay(DateUtils.MINUTE_MILLIS)
         }
     }
 
