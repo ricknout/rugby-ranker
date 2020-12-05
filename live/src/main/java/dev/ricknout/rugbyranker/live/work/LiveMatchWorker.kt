@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.util.Log
@@ -81,10 +82,12 @@ open class LiveMatchWorker(
     private fun createInitialNotification(): Notification {
         val title = applicationContext.getString(R.string.fetching_live_match)
         val cancelTitle = applicationContext.getString(R.string.unpin)
+        val openPendingIntent = createOpenPendingIntent()
         val cancelPendingIntent = createCancelPendingIntent()
         val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID_LIVE)
             .setContentTitle(title)
             .setTicker(title)
+            .setContentIntent(openPendingIntent)
             .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
             .setOngoing(true)
             .addAction(R.drawable.ic_close_24dp, cancelTitle, cancelPendingIntent)
@@ -130,11 +133,13 @@ open class LiveMatchWorker(
             null
         }
         val cancelTitle = applicationContext.getString(R.string.unpin)
+        val openPendingIntent = createOpenPendingIntent()
         val cancelPendingIntent = createCancelPendingIntent()
         val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID_LIVE)
             .setContentTitle(title)
             .setTicker(title)
             .setContentText(text)
+            .setContentIntent(openPendingIntent)
             .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
             .setOngoing(true)
             .addAction(R.drawable.ic_close_24dp, cancelTitle, cancelPendingIntent)
@@ -165,10 +170,12 @@ open class LiveMatchWorker(
             Sport.WOMENS -> applicationContext.getString(R.string.womens)
         }
         val text = applicationContext.getString(R.string.half_sport, half, sport)
+        val openPendingIntent = createOpenPendingIntent()
         val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID_RESULT)
             .setContentTitle(title)
             .setTicker(title)
             .setContentText(text)
+            .setContentIntent(openPendingIntent)
             .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = createResultNotificationChannel()
@@ -195,6 +202,11 @@ open class LiveMatchWorker(
         ).also { channel ->
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    private fun createOpenPendingIntent(): PendingIntent {
+        val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
+        return PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun createCancelPendingIntent() = workManager.createCancelPendingIntent(id)
