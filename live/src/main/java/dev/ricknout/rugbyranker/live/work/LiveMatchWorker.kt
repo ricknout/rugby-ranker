@@ -6,7 +6,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.emoji.text.EmojiCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkManager
@@ -33,6 +35,13 @@ open class LiveMatchWorker(
 
     private val notificationManager =
         appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    private val emojiCompat = try {
+        EmojiCompat.get()
+    } catch (e: Exception) {
+        Log.e(TAG, e.toString())
+        null
+    }
 
     override suspend fun doWork(): Result {
         val matchId = inputData.getLong(LiveMatchWorkManager.KEY_MATCH_ID, DEFAULT_MATCH_ID).also { matchId ->
@@ -101,7 +110,9 @@ open class LiveMatchWorker(
             match.secondTeamScore,
             match.secondTeamName,
             awayFlag
-        )
+        ).run {
+            emojiCompat?.process(this) ?: this
+        }
         val half = when (match.half) {
             Half.FIRST -> applicationContext.getString(R.string.first_half)
             Half.SECOND -> applicationContext.getString(R.string.second_half)
@@ -144,7 +155,9 @@ open class LiveMatchWorker(
             match.secondTeamScore,
             match.secondTeamName,
             awayFlag
-        )
+        ).run {
+            emojiCompat?.process(this) ?: this
+        }
         val half = applicationContext.getString(R.string.full_time)
         val sport = when (match.sport) {
             Sport.MENS -> applicationContext.getString(R.string.mens)
@@ -186,6 +199,7 @@ open class LiveMatchWorker(
     private fun createCancelPendingIntent() = workManager.createCancelPendingIntent(id)
 
     companion object {
+        private const val TAG = "LiveMatchWorker"
         private const val DEFAULT_MATCH_ID = -1L
         private const val NOTIFICATION_CHANNEL_ID_LIVE = "live_notification_channel"
         private const val NOTIFICATION_CHANNEL_ID_RESULT = "result_notification_channel"
