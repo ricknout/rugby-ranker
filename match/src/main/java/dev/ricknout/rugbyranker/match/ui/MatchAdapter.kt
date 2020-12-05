@@ -17,7 +17,7 @@ class MatchAdapter(
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         val match = getItem(position) ?: return
-        holder.bind(match, onPredictClick)
+        holder.bind(match, onPredictClick, { throw RuntimeException("Pin clicked from non-live match") })
     }
 
     companion object {

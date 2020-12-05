@@ -34,10 +34,15 @@ class LiveMatchFragment : Fragment() {
         }
     }
 
-    private val adapter = LiveMatchAdapter { match ->
-        val prediction = match.toPrediction()
-        liveMatchViewModel.predict(prediction)
-    }
+    private val adapter = LiveMatchAdapter(
+        { match ->
+            val prediction = match.toPrediction()
+            liveMatchViewModel.predict(prediction)
+        },
+        { match ->
+            liveMatchViewModel.pin(match.id)
+        }
+    )
 
     private val coordinatorLayout: CoordinatorLayout
         get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)

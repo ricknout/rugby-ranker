@@ -16,7 +16,7 @@ import kotlin.math.floor
 
 class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(match: Match, onPredictClick: (match: Match) -> Unit) {
+    fun bind(match: Match, onPredictClick: (match: Match) -> Unit, onPinClick: (match: Match) -> Unit) {
         binding.apply {
             homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(match.firstTeamAbbreviation)
             awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(match.secondTeamAbbreviation)
@@ -59,7 +59,7 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                         else -> null
                     }
                     label.text = if (match.minute != null && half != null) {
-                        root.context.getString(R.string.minute_half, match.minute, half)
+                        root.context.getString(R.string.half_minute, half, match.minute)
                     } else {
                         null
                     }
@@ -112,6 +112,16 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                 else -> {
                     predict.isVisible = false
                     predictButton.setOnClickListener(null)
+                }
+            }
+            when (match.status) {
+                Status.LIVE -> {
+                    pinButton.isVisible = true
+                    pinButton.setOnClickListener { onPinClick(match) }
+                }
+                else -> {
+                    pinButton.isVisible = false
+                    pinButton.setOnClickListener(null)
                 }
             }
             val spanCount = itemView.context.resources.getInteger(R.integer.span_count_grid)
