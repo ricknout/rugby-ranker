@@ -96,10 +96,10 @@ open class LiveMatchWorker(
         val title = applicationContext.getString(
             R.string.match,
             homeFlag,
-            match.firstTeamAbbreviation,
+            match.firstTeamName,
             match.firstTeamScore,
             match.secondTeamScore,
-            match.secondTeamAbbreviation,
+            match.secondTeamName,
             awayFlag
         )
         val half = when (match.half) {
@@ -113,7 +113,7 @@ open class LiveMatchWorker(
             Sport.WOMENS -> applicationContext.getString(R.string.womens)
         }
         val text = if (match.minute != null && half != null) {
-            applicationContext.getString(R.string.minute_half_sport, match.minute, half, sport)
+            applicationContext.getString(R.string.half_minute_sport, half, match.minute, sport)
         } else {
             null
         }
@@ -139,10 +139,10 @@ open class LiveMatchWorker(
         val title = applicationContext.getString(
             R.string.match,
             homeFlag,
-            match.firstTeamAbbreviation,
+            match.firstTeamName,
             match.firstTeamScore,
             match.secondTeamScore,
-            match.secondTeamAbbreviation,
+            match.secondTeamName,
             awayFlag
         )
         val half = applicationContext.getString(R.string.full_time)

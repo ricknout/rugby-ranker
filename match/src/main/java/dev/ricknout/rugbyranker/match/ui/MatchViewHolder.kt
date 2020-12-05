@@ -59,7 +59,7 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                         else -> null
                     }
                     label.text = if (match.minute != null && half != null) {
-                        root.context.getString(R.string.minute_half, match.minute, half)
+                        root.context.getString(R.string.half_minute, half, match.minute)
                     } else {
                         null
                     }
