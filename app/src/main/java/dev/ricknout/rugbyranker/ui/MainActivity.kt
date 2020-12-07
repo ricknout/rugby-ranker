@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -44,10 +45,11 @@ class MainActivity : AppCompatActivity() {
     private fun setupEdgeToEdge() {
         binding.drawerLayout.setEdgeToEdgeSystemUiFlags()
         Insetter.builder().setOnApplyInsetsListener { view, insets, _ ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.findViewById<View>(R.id.design_navigation_view).updatePadding(
-                left = insets.systemWindowInsets.left,
-                top = insets.systemWindowInsets.top,
-                bottom = insets.systemWindowInsets.bottom
+                left = systemBars.left,
+                top = systemBars.top,
+                bottom = systemBars.bottom
             )
         }.applyToView(binding.navigationView)
     }
