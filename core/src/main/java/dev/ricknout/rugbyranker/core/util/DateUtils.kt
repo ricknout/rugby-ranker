@@ -16,7 +16,7 @@ object DateUtils {
         return simpleDateFormat.format(time)
     }
 
-    fun getDayAfterDate(format: String, millis: Long): String {
+    private fun getDayAfterDate(format: String, millis: Long): String {
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
         val time = Calendar.getInstance().apply {
             timeInMillis = millis

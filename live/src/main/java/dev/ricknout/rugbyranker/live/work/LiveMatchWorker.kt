@@ -56,7 +56,7 @@ open class LiveMatchWorker(
             if (success) {
                 when (match!!.status) {
                     Status.LIVE -> {
-                        val foregroundInfo = createLiveoregroundInfo(matchNotificationId, match)
+                        val foregroundInfo = createLiveForegroundInfo(matchNotificationId, match)
                         setForeground(foregroundInfo)
                     }
                     Status.COMPLETE -> {
@@ -98,7 +98,7 @@ open class LiveMatchWorker(
         return builder.build()
     }
 
-    private fun createLiveoregroundInfo(notificationId: Int, match: Match): ForegroundInfo {
+    private fun createLiveForegroundInfo(notificationId: Int, match: Match): ForegroundInfo {
         val notification = createLiveNotification(match)
         return ForegroundInfo(notificationId, notification)
     }

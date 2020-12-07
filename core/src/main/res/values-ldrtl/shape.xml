@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ShapeAppearanceOverlay.RugyRanker.RoundedTopStart" parent="">
+    <style name="ShapeAppearanceOverlay.RugbyRanker.RoundedTopStart" parent="">
         <item name="cornerSizeTopRight">@dimen/height_row_half</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.RugyRanker.RoundedTopEnd" parent="">
+    <style name="ShapeAppearanceOverlay.RugbyRanker.RoundedTopEnd" parent="">
         <item name="cornerSizeTopLeft">@dimen/height_row_half</item>
     </style>
 

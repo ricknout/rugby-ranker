@@ -13,15 +13,15 @@
         <item name="cornerSize">0dp</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.RugyRanker.Rounded" parent="">
+    <style name="ShapeAppearanceOverlay.RugbyRanker.Rounded" parent="">
         <item name="cornerSize">@dimen/height_row_half</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.RugyRanker.RoundedTopStart" parent="">
+    <style name="ShapeAppearanceOverlay.RugbyRanker.RoundedTopStart" parent="">
         <item name="cornerSizeTopLeft">@dimen/height_row_half</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.RugyRanker.RoundedTopEnd" parent="">
+    <style name="ShapeAppearanceOverlay.RugbyRanker.RoundedTopEnd" parent="">
         <item name="cornerSizeTopRight">@dimen/height_row_half</item>
     </style>
 

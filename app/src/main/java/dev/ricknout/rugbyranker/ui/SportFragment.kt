@@ -234,7 +234,7 @@ class SportFragment : Fragment() {
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
-                    binding.appBar.appBarLayout.setLifted(false)
+                    binding.appBar.appBarLayout.isLifted = false
                     when (tab?.position) {
                         POSITION_RANKINGS -> rankingViewModel.scrollToTop()
                         POSITION_MATCHES_UNPLAYED -> unplayedMatchViewModel.scrollToTop()

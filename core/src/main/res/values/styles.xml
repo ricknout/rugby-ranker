@@ -45,7 +45,7 @@
     </style>
 
     <style name="Widget.RugbyRanker.Button.RoundedTopStart">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugyRanker.RoundedTopStart</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugbyRanker.RoundedTopStart</item>
     </style>
 
     <style name="Widget.RugbyRanker.Button.Icon">
@@ -53,7 +53,7 @@
     </style>
 
     <style name="Widget.RugbyRanker.Button.Icon.RoundedTopEnd">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugyRanker.RoundedTopEnd</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugbyRanker.RoundedTopEnd</item>
     </style>
 
     <style name="Widget.RugbyRanker.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
@@ -70,7 +70,7 @@
     </style>
 
     <style name="Widget.RugbyRanker.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugyRanker.RoundedTopEnd</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.RugbyRanker.RoundedTopEnd</item>
         <item name="behavior_skipCollapsed">true</item>
         <item name="android:elevation">@dimen/elevation_bottom_sheet</item>
         <!-- Using a large value to ensure all content is shown on first show -->
