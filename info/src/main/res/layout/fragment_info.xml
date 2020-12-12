@@ -62,11 +62,18 @@
                 app:layout_constraintTop_toBottomOf="@id/howAreRankingsCalculated" />
 
             <Button
+                android:id="@+id/viewOnGooglePlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/view_on_google_play"
+                app:layout_constraintTop_toBottomOf="@id/shareThisApp" />
+
+            <Button
                 android:id="@+id/viewSourceCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/view_source_code"
-                app:layout_constraintTop_toBottomOf="@id/shareThisApp" />
+                app:layout_constraintTop_toBottomOf="@id/viewOnGooglePlay" />
 
             <Button
                 android:id="@+id/openSourceLicenses"

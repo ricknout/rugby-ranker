@@ -1,6 +1,7 @@
 package dev.ricknout.rugbyranker.info.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -99,10 +100,14 @@ class InfoFragment : Fragment() {
             val appName = getString(R.string.app_name)
             val intent = Intent(Intent.ACTION_SEND).apply {
                 putExtra(Intent.EXTRA_SUBJECT, requireContext().getString(R.string.share_subject, appName))
-                putExtra(Intent.EXTRA_TEXT, requireContext().getString(R.string.share_text, appName, PLAY_STORE_URL))
+                putExtra(Intent.EXTRA_TEXT, requireContext().getString(R.string.share_text, appName, GOOGLE_PLAY_URL))
                 type = "text/plain"
             }
             startActivity(Intent.createChooser(intent, requireContext().getString(R.string.share_title, appName)))
+        }
+        binding.viewOnGooglePlay.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_URL))
+            startActivity(intent)
         }
         binding.viewSourceCode.setOnClickListener {
             lifecycleScope.launch {
@@ -137,7 +142,7 @@ class InfoFragment : Fragment() {
 
     companion object {
         private const val RANKINGS_EXPLANATION_URL = "https://www.world.rugby/rankings/explanation"
-        private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.ricknout.rugbyranker"
+        private const val GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.ricknout.rugbyranker"
         private const val GITHUB_URL = "https://github.com/ricknout/rugby-ranker"
     }
 }
