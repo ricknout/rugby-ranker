@@ -15,7 +15,6 @@
     <string name="half_time">Half time</string>
     <string name="full_time">Full time</string>
     <string name="half_minute">%1$s • %2$02d\'</string>
-    <string name="half_minute_sport">%1$s • %2$02d\' • %3$s</string>
     <string name="half_sport">%1$s • %2$s</string>
     <string name="postponed">Postponed</string>
     <string name="cancelled">Cancelled</string>

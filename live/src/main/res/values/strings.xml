@@ -12,6 +12,8 @@
 
     <string name="fetching_live_match">Fetching live match…</string>
 
+    <string name="live_half_minute_sport">Live • %1$s • %2$02d\' • %3$s</string>
+
     <string name="unpin">Unpin</string>
 
 </resources>

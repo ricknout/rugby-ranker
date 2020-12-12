@@ -128,7 +128,7 @@ open class LiveMatchWorker(
             Sport.WOMENS -> applicationContext.getString(R.string.womens)
         }
         val text = if (match.minute != null && half != null) {
-            applicationContext.getString(R.string.half_minute_sport, half, match.minute, sport)
+            applicationContext.getString(R.string.live_half_minute_sport, half, match.minute, sport)
         } else {
             null
         }
