@@ -43,7 +43,7 @@ open class LiveMatchViewModel(
     fun refreshLiveMatches(showRefresh: Boolean = true, onComplete: (success: Boolean) -> Unit) {
         if (showRefresh) _refreshingLiveMatches.value = true
         repository.fetchLatestMatchesAsync(sport, status, viewModelScope) { success, matches ->
-            if (success) _liveMatches.value = matches
+            if (success || _liveMatches.value == null) _liveMatches.value = matches
             if (showRefresh) _refreshingLiveMatches.value = false
             onComplete(success)
         }
