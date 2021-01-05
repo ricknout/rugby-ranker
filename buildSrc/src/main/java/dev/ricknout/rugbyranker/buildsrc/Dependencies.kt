@@ -7,7 +7,7 @@ object Versions {
     const val androidGradlePlugin = "4.2.0-beta02"
     const val ktlint = "0.40.0"
     const val coil = "1.1.0"
-    const val insetter = "0.3.1"
+    const val insetter = "0.4.0"
     object Kotlin {
         const val kotlin = "1.4.21"
         const val coroutines = "1.4.2"
@@ -55,6 +55,7 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
     const val ktlint = "com.pinterest:ktlint:${Versions.ktlint}"
     const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val insetter = "dev.chrisbanes.insetter:insetter:${Versions.insetter}"
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Kotlin.kotlin}"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Kotlin.kotlin}"
@@ -140,8 +141,5 @@ object Libs {
             const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.Square.retrofit}"
             const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.Square.retrofit}"
         }
-    }
-    object Insetter {
-        const val ktx = "dev.chrisbanes:insetter-ktx:${Versions.insetter}"
     }
 }

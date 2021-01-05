@@ -47,7 +47,7 @@ dependencies {
     api Libs.Square.okHttp
     api Libs.Square.Retrofit.retrofit
     api Libs.Square.Retrofit.gsonConverter
-    api Libs.Insetter.ktx
+    api Libs.insetter
     testImplementation Libs.AndroidX.Test.JUnit.ktx
     androidTestImplementation Libs.AndroidX.Test.Core.ktx
     androidTestImplementation Libs.AndroidX.Test.runner
