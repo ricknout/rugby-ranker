@@ -3,7 +3,7 @@ package dev.ricknout.rugbyranker.theme.data
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import kotlinx.coroutines.flow.map
 
 class ThemeDataStore(private val dataStore: DataStore<Preferences>) {
@@ -17,6 +17,6 @@ class ThemeDataStore(private val dataStore: DataStore<Preferences>) {
     }
 
     companion object {
-        private val KEY_MODE = preferencesKey<Int>("mode")
+        private val KEY_MODE = intPreferencesKey("mode")
     }
 }
