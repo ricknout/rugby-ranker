@@ -1,6 +1,7 @@
 package dev.ricknout.rugbyranker.news.data
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import dev.ricknout.rugbyranker.news.model.News
 import dev.ricknout.rugbyranker.news.model.Type
 
@@ -23,4 +24,6 @@ class NewsPagingSource(
             LoadResult.Error(RuntimeException("Failed to fetch news with page = $page and page size = $pageSize"))
         }
     }
+
+    override fun getRefreshKey(state: PagingState<Int, News>): Int? = null
 }

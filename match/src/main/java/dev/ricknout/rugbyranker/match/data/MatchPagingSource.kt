@@ -1,6 +1,7 @@
 package dev.ricknout.rugbyranker.match.data
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.util.DateUtils
 import dev.ricknout.rugbyranker.match.model.Match
@@ -33,4 +34,6 @@ class MatchPagingSource(
             LoadResult.Error(RuntimeException("Failed to fetch matches with page = $page and page size = $pageSize"))
         }
     }
+
+    override fun getRefreshKey(state: PagingState<Int, Match>): Int? = null
 }

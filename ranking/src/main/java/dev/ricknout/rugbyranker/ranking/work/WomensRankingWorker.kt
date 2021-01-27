@@ -1,13 +1,15 @@
 package dev.ricknout.rugbyranker.ranking.work
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 
-class WomensRankingWorker @WorkerInject constructor(
+@HiltWorker
+class WomensRankingWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted params: WorkerParameters,
     repository: RankingRepository
