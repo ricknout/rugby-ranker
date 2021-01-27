@@ -39,9 +39,7 @@ object Versions {
     }
     object Google {
         const val material = "1.3.0-rc01"
-        // TODO: Update Dagger to 2.31 once issues are resolved
-        // https://github.com/google/dagger/issues/2277
-        const val hilt = "2.30.1-alpha"
+        const val hilt = "2.31.2-alpha"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
             const val gradlePlugin = "0.10.2"

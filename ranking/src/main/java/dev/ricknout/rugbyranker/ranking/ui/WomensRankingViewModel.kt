@@ -1,11 +1,13 @@
 package dev.ricknout.rugbyranker.ranking.ui
 
-import androidx.hilt.lifecycle.ViewModelInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
+import javax.inject.Inject
 
-class WomensRankingViewModel @ViewModelInject constructor(
+@HiltViewModel
+class WomensRankingViewModel @Inject constructor(
     repository: RankingRepository,
     workManager: RankingWorkManager
 ) : RankingViewModel(Sport.WOMENS, repository, workManager)
