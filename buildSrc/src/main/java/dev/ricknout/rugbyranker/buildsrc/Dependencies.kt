@@ -46,7 +46,7 @@ object Versions {
         }
     }
     object Square {
-        const val okHttp = "4.9.0"
+        const val okHttp = "4.9.1"
         const val retrofit = "2.9.0"
     }
 }
