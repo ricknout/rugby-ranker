@@ -14,8 +14,8 @@ object Versions {
     }
     object AndroidX {
         const val core = "1.5.0-beta01"
-        const val activity = "1.2.0-rc01"
-        const val fragment = "1.3.0-rc02"
+        const val activity = "1.3.0-alpha02"
+        const val fragment = "1.3.0"
         const val appCompat = "1.3.0-beta01"
         const val constraintLayout = "2.1.0-alpha2"
         const val recyclerView = "1.2.0-beta01"
@@ -24,17 +24,17 @@ object Versions {
         const val viewPager2 = "1.1.0-alpha01"
         const val emoji = "1.2.0-alpha03"
         const val browser = "1.3.0"
-        const val lifecycle = "2.3.0-rc01"
+        const val lifecycle = "2.3.0"
         const val room = "2.3.0-beta01"
-        const val paging = "3.0.0-alpha13"
+        const val paging = "3.0.0-beta01"
         const val navigation = "2.3.3"
         const val work = "2.5.0"
         const val hilt = "1.0.0-alpha03"
         const val dataStore = "1.0.0-alpha06"
         object Test {
-            const val core = "1.3.1-alpha03"
-            const val jUnit = "1.1.3-alpha03"
-            const val runner = "1.3.1-alpha03"
+            const val core = "1.4.0-alpha04"
+            const val jUnit = "1.1.3-alpha04"
+            const val runner = "1.4.0-alpha04"
         }
     }
     object Google {
