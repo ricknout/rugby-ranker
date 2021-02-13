@@ -19,7 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
-import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
+import dev.chrisbanes.insetter.applyInsetter
 import dev.chrisbanes.insetter.setEdgeToEdgeSystemUiFlags
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.ui.MaterialListPopupWindow
@@ -291,8 +291,16 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         container.fitsSystemWindows = false
         coordinator.fitsSystemWindows = false
         container.setEdgeToEdgeSystemUiFlags()
-        container.applySystemWindowInsetsToPadding(top = true)
-        requireView().applySystemWindowInsetsToPadding(left = true, right = true, bottom = true)
+        container.applyInsetter {
+            type(statusBars = true) {
+                padding()
+            }
+        }
+        requireView().applyInsetter {
+            type(navigationBars = true) {
+                padding()
+            }
+        }
     }
 
     private fun createPopupMenu(

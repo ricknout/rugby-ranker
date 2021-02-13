@@ -4,9 +4,9 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import dev.chrisbanes.insetter.setEdgeToEdgeSystemUiFlags
 import dev.ricknout.rugbyranker.R
 import dev.ricknout.rugbyranker.databinding.ActivityLauncherBinding
 
@@ -37,6 +37,6 @@ class LauncherActivity : AppCompatActivity() {
     }
 
     private fun setupEdgeToEdge() {
-        binding.root.setEdgeToEdgeSystemUiFlags()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 }

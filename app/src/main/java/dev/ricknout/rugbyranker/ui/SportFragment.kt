@@ -24,8 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
-import dev.chrisbanes.insetter.applySystemWindowInsetsToMargin
-import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
+import dev.chrisbanes.insetter.applyInsetter
 import dev.ricknout.rugbyranker.R
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.ui.openDrawer
@@ -286,9 +285,21 @@ class SportFragment : Fragment() {
     }
 
     private fun setupEdgeToEdge() {
-        binding.appBar.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
-        binding.fab.applySystemWindowInsetsToMargin(left = true, right = true, bottom = true)
-        binding.predictionBar.applySystemWindowInsetsToMargin(left = true, right = true, bottom = true)
+        binding.appBar.appBarLayout.applyInsetter {
+            type(statusBars = true, navigationBars = true) {
+                padding(horizontal = true, top = true)
+            }
+        }
+        binding.fab.applyInsetter {
+            type(navigationBars = true) {
+                margin()
+            }
+        }
+        binding.predictionBar.applyInsetter {
+            type(navigationBars = true) {
+                margin()
+            }
+        }
     }
 
     inner class SportAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

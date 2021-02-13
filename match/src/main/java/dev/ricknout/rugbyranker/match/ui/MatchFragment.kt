@@ -16,7 +16,7 @@ import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
+import dev.chrisbanes.insetter.applyInsetter
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.match.R
 import dev.ricknout.rugbyranker.match.databinding.FragmentMatchBinding
@@ -146,7 +146,11 @@ class MatchFragment : Fragment() {
     }
 
     private fun setupEdgeToEdge() {
-        binding.recyclerView.applySystemWindowInsetsToPadding(left = true, right = true, bottom = true)
+        binding.recyclerView.applyInsetter {
+            type(navigationBars = true) {
+                padding()
+            }
+        }
     }
 
     companion object {

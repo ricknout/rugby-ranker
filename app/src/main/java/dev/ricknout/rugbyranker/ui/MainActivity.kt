@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.Insetter
-import dev.chrisbanes.insetter.setEdgeToEdgeSystemUiFlags
 import dev.ricknout.rugbyranker.BuildConfig
 import dev.ricknout.rugbyranker.R
 import dev.ricknout.rugbyranker.databinding.ActivityMainBinding
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupEdgeToEdge() {
-        binding.drawerLayout.setEdgeToEdgeSystemUiFlags()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         Insetter.builder().setOnApplyInsetsListener { view, insets, _ ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.findViewById<View>(R.id.design_navigation_view).updatePadding(

@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
-import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
+import dev.chrisbanes.insetter.applyInsetter
 import dev.ricknout.rugbyranker.core.ui.openDrawer
 import dev.ricknout.rugbyranker.core.util.CustomTabUtils
 import dev.ricknout.rugbyranker.info.R
@@ -136,8 +136,16 @@ class InfoFragment : Fragment() {
     }
 
     private fun setupEdgeToEdge() {
-        binding.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
-        binding.nestedScrollView.applySystemWindowInsetsToPadding(left = true, right = true, bottom = true)
+        binding.appBarLayout.applyInsetter {
+            type(statusBars = true, navigationBars = true) {
+                padding(horizontal = true, top = true)
+            }
+        }
+        binding.nestedScrollView.applyInsetter {
+            type(navigationBars = true) {
+                padding()
+            }
+        }
     }
 
     companion object {
