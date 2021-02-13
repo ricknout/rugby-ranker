@@ -54,7 +54,7 @@ interface WorldRugbyService {
         const val SORT_DESC = "desc"
         const val TYPE_TEXT = "text"
         const val LANGUAGE_EN = "en"
-        const val TAG_NAME_NEWS = "News"
+        const val TAG_NAME_NEWS = "wr-news"
         const val BASE_URL = "https://cmsapi.pulselive.com/"
     }
 }
