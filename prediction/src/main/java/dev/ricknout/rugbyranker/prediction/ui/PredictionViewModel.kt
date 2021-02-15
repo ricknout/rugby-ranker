@@ -55,6 +55,11 @@ open class PredictionViewModel(
         _predictions.value = predictions
     }
 
+    fun containsPredictionWithId(prediction: Prediction): Boolean {
+        val predictions = _predictions.value
+        return predictions.any { p -> p.id == prediction.id }
+    }
+
     fun hasPredictions() = _predictions.value.isNotEmpty()
 
     fun getPredictionCount() = _predictions.value.size

@@ -149,7 +149,7 @@ class SportFragment : Fragment() {
                     currentPredictions.isNotEmpty() && predictions.isNullOrEmpty() -> true
                     else -> false
                 }
-                val shouldShowRankings = currentPredictions.size != predictions.size && !predictions.isNullOrEmpty()
+                val shouldShowRankings = currentPredictions != predictions
                 if (shouldShowRankings) binding.viewPager.currentItem = POSITION_RANKINGS
                 if (!shouldTransition) return@observe
                 val transition = MaterialContainerTransform().apply {
@@ -181,7 +181,8 @@ class SportFragment : Fragment() {
             viewLifecycleOwner,
             { prediction ->
                 if (prediction == null) return@observe
-                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction))
+                val edit = predictionViewModel.containsPredictionWithId(prediction)
+                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit))
                 unplayedMatchViewModel.resetPredict()
             }
         )
@@ -189,7 +190,8 @@ class SportFragment : Fragment() {
             viewLifecycleOwner,
             { prediction ->
                 if (prediction == null) return@observe
-                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction))
+                val edit = predictionViewModel.containsPredictionWithId(prediction)
+                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit))
                 liveMatchViewModel.resetPredict()
             }
         )

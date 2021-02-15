@@ -42,7 +42,7 @@ data class Match(
     fun toPrediction(): Prediction {
         val switched = secondTeamName == venueCountry
         return Prediction(
-            id = Prediction.generateId(),
+            id = id,
             homeTeam = Team(
                 id = if (switched) secondTeamId else firstTeamId,
                 name = if (switched) secondTeamName else firstTeamName,

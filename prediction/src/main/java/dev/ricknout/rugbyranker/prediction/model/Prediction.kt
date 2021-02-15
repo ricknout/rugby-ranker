@@ -2,11 +2,10 @@ package dev.ricknout.rugbyranker.prediction.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.UUID
 
 @Parcelize
 data class Prediction(
-    val id: String,
+    val id: Long,
     val homeTeam: Team,
     val homeScore: Int,
     val awayTeam: Team,
@@ -16,6 +15,6 @@ data class Prediction(
 ) : Parcelable {
 
     companion object {
-        fun generateId() = UUID.randomUUID().toString()
+        fun generateId() = System.currentTimeMillis()
     }
 }
