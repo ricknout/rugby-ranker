@@ -25,10 +25,10 @@ object Versions {
         const val emoji = "1.2.0-alpha03"
         const val browser = "1.3.0"
         const val lifecycle = "2.3.0"
-        const val room = "2.3.0-beta01"
+        const val room = "2.3.0-beta02"
         const val paging = "3.0.0-beta01"
         const val navigation = "2.3.3"
-        const val work = "2.5.0"
+        const val work = "2.7.0-alpha01"
         const val hilt = "1.0.0-alpha03"
         const val dataStore = "1.0.0-alpha06"
         object Test {
