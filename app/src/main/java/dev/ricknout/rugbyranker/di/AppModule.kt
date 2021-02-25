@@ -3,7 +3,7 @@ package dev.ricknout.rugbyranker.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.createDataStore
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import androidx.work.WorkManager
 import dagger.Module
@@ -75,24 +75,18 @@ class AppModule {
         return database.rankingDao()
     }
 
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(DATA_STORE_NAME)
+
     @Provides
     @Singleton
-    fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
-        return context.createDataStore(
-            name = DATA_STORE_NAME
-        )
+    fun provideRankingDataStore(@ApplicationContext context: Context): RankingDataStore {
+        return RankingDataStore(context.dataStore)
     }
 
     @Provides
     @Singleton
-    fun provideRankingDataStore(dataStore: DataStore<Preferences>): RankingDataStore {
-        return RankingDataStore(dataStore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideThemeDataStore(dataStore: DataStore<Preferences>): ThemeDataStore {
-        return ThemeDataStore(dataStore)
+    fun provideThemeDataStore(@ApplicationContext context: Context): ThemeDataStore {
+        return ThemeDataStore(context.dataStore)
     }
 
     @Provides
