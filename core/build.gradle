@@ -41,7 +41,6 @@ dependencies {
     api Libs.AndroidX.Navigation.fragmentKtx
     api Libs.AndroidX.Work.runtimeKtx
     api Libs.Google.material
-    api Libs.AndroidX.Hilt.Lifecycle.viewModel
     api Libs.AndroidX.Hilt.work
     api Libs.AndroidX.DataStore.preferences
     api Libs.Square.okHttp

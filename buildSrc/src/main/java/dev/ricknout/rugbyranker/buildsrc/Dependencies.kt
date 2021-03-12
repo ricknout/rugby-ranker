@@ -4,7 +4,7 @@ object Versions {
     const val compileSdk = 30
     const val minSdk = 24
     const val targetSdk = 30
-    const val androidGradlePlugin = "4.2.0-beta05"
+    const val androidGradlePlugin = "4.2.0-beta06"
     const val ktlint = "0.40.0"
     const val coil = "1.1.1"
     const val insetter = "0.5.0"
@@ -13,11 +13,11 @@ object Versions {
         const val coroutines = "1.4.3"
     }
     object AndroidX {
-        const val core = "1.5.0-beta02"
-        const val activity = "1.3.0-alpha03"
-        const val fragment = "1.3.0"
+        const val core = "1.5.0-beta03"
+        const val activity = "1.3.0-alpha04"
+        const val fragment = "1.3.1"
         const val appCompat = "1.3.0-beta01"
-        const val constraintLayout = "2.1.0-alpha2"
+        const val constraintLayout = "2.1.0-beta01"
         const val recyclerView = "1.2.0-beta02"
         const val drawerLayout = "1.1.1"
         const val swipeRefreshLayout = "1.2.0-alpha01"
@@ -25,12 +25,12 @@ object Versions {
         const val emoji = "1.2.0-alpha03"
         const val browser = "1.3.0"
         const val lifecycle = "2.3.0"
-        const val room = "2.3.0-beta02"
-        const val paging = "3.0.0-beta01"
-        const val navigation = "2.3.3"
+        const val room = "2.3.0-beta03"
+        const val paging = "3.0.0-beta02"
+        const val navigation = "2.3.4"
         const val work = "2.7.0-alpha01"
-        const val hilt = "1.0.0-alpha03"
-        const val dataStore = "1.0.0-alpha07"
+        const val hilt = "1.0.0-beta01"
+        const val dataStore = "1.0.0-alpha08"
         object Test {
             const val core = "1.4.0-alpha04"
             const val jUnit = "1.1.3-alpha04"
@@ -105,9 +105,6 @@ object Libs {
         object Hilt {
             const val compiler = "androidx.hilt:hilt-compiler:${Versions.AndroidX.hilt}"
             const val work = "androidx.hilt:hilt-work:${Versions.AndroidX.hilt}"
-            object Lifecycle {
-                const val viewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.AndroidX.hilt}"
-            }
         }
         object DataStore {
             const val preferences = "androidx.datastore:datastore-preferences:${Versions.AndroidX.dataStore}"
