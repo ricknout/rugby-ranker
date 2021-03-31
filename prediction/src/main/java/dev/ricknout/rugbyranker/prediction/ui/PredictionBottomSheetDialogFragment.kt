@@ -20,7 +20,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
-import dev.chrisbanes.insetter.setEdgeToEdgeSystemUiFlags
 import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.ui.MaterialListPopupWindow
 import dev.ricknout.rugbyranker.core.util.FlagUtils
@@ -281,23 +280,10 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         TooltipCompat.setTooltipText(binding.confirm, if (edit) getString(R.string.edit) else getString(R.string.add))
     }
 
-    /**
-     * Sets fitSystemWindows = false on container views and applies system window insets.
-     * See: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/bottomsheet/res/layout/design_bottom_sheet_dialog.xml
-     */
     private fun setupEdgeToEdge() {
         val container = requireDialog().findViewById<View>(R.id.container)
-        val coordinator = requireDialog().findViewById<View>(R.id.coordinator)
-        container.fitsSystemWindows = false
-        coordinator.fitsSystemWindows = false
-        container.setEdgeToEdgeSystemUiFlags()
         container.applyInsetter {
             type(statusBars = true) {
-                padding()
-            }
-        }
-        requireView().applyInsetter {
-            type(navigationBars = true) {
                 padding()
             }
         }
