@@ -42,7 +42,7 @@ object Versions {
         const val hilt = "2.33-beta"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
-            const val gradlePlugin = "0.10.2"
+            const val gradlePlugin = "0.10.3"
         }
     }
     object Square {
