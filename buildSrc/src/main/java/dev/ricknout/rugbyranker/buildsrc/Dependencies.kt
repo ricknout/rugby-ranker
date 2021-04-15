@@ -6,10 +6,10 @@ object Versions {
     const val targetSdk = 30
     const val androidGradlePlugin = "4.2.0-beta06"
     const val ktlint = "0.40.0"
-    const val coil = "1.1.1"
+    const val coil = "1.2.0"
     const val insetter = "0.5.0"
     object Kotlin {
-        const val kotlin = "1.4.30"
+        const val kotlin = "1.4.32"
         const val coroutines = "1.4.3"
     }
     object AndroidX {
@@ -39,10 +39,10 @@ object Versions {
     }
     object Google {
         const val material = "1.4.0-alpha02"
-        const val hilt = "2.34-beta"
+        const val hilt = "2.34.1-beta"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
-            const val gradlePlugin = "0.10.3"
+            const val gradlePlugin = "0.10.4"
         }
     }
     object Square {
