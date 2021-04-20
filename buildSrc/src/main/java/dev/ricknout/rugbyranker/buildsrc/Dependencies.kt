@@ -4,7 +4,7 @@ object Versions {
     const val compileSdk = 30
     const val minSdk = 24
     const val targetSdk = 30
-    const val androidGradlePlugin = "4.2.0-beta06"
+    const val androidGradlePlugin = "4.2.0-rc01"
     const val ktlint = "0.40.0"
     const val coil = "1.2.0"
     const val insetter = "0.5.0"
