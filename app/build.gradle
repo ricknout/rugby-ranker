@@ -26,8 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [
                     appName: '@string/app_name',
-                    appIcon: '@mipmap/ic_launcher',
-                    workManagerInitAuthorities: 'dev.ricknout.rugbyranker.workmanager-init'
+                    appIcon: '@mipmap/ic_launcher'
             ]
         }
         debug {
@@ -35,8 +34,7 @@ android {
             versionNameSuffix '-debug'
             manifestPlaceholders = [
                     appName: '@string/app_name_debug',
-                    appIcon: '@mipmap/ic_launcher_debug',
-                    workManagerInitAuthorities: 'dev.ricknout.rugbyranker.deug.workmanager-init'
+                    appIcon: '@mipmap/ic_launcher_debug'
             ]
         }
     }
