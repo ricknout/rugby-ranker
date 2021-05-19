@@ -30,7 +30,7 @@ Rugby Ranker attempts to make use of the latest Android libraries and best pract
 * Makes use of [Android Jetpack](https://developer.android.com/jetpack/):
   * [Architecture Components](https://developer.android.com/jetpack/arch/) including **ViewModel**, **LiveData**, **Room**, **Paging**, **Navigation**, **WorkManager** and **DataStore**
   * [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout), [ViewPager2](https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2), [View Binding](https://developer.android.com/topic/libraries/view-binding) and more for layouts and UI
-  * [EmojiCompat](https://developer.android.com/guide/topics/ui/look-and-feel/emoji-compat) for emoji compatibility on older platforms
+  * [Emoji2](https://developer.android.com/jetpack/androidx/releases/emoji2) for emoji compatibility on older platforms
   * [Android KTX](https://developer.android.com/kotlin/ktx) for more fluent use of Android APIs
 * [Retrofit](https://square.github.io/retrofit/)/[OkHttp](https://square.github.io/okhttp/) for networking
 * [Coil](https://coil-kt.github.io/coil/) for image loading

@@ -22,7 +22,7 @@ object Versions {
         const val drawerLayout = "1.1.1"
         const val swipeRefreshLayout = "1.2.0-alpha01"
         const val viewPager2 = "1.1.0-alpha01"
-        const val emoji = "1.2.0-alpha03"
+        const val emoji2 = "1.0.0-alpha01"
         const val browser = "1.3.0"
         const val lifecycle = "2.4.0-alpha01"
         const val room = "2.4.0-alpha02"
@@ -71,7 +71,7 @@ object Libs {
         const val drawerLayout = "androidx.drawerlayout:drawerlayout:${Versions.AndroidX.drawerLayout}"
         const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swipeRefreshLayout}"
         const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.AndroidX.viewPager2}"
-        const val emoji = "androidx.emoji:emoji:${Versions.AndroidX.emoji}"
+        const val emoji2 = "androidx.emoji2:emoji2:${Versions.AndroidX.emoji2}"
         const val browser = "androidx.browser:browser:${Versions.AndroidX.browser}"
         object Core {
             const val ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"

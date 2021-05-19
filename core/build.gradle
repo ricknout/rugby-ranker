@@ -33,7 +33,7 @@ dependencies {
     api Libs.AndroidX.constraintLayout
     api Libs.AndroidX.recyclerView
     api Libs.AndroidX.swipeRefreshLayout
-    api Libs.AndroidX.emoji
+    api Libs.AndroidX.emoji2
     api Libs.AndroidX.browser
     api Libs.AndroidX.Room.runtime
     api Libs.AndroidX.Room.ktx

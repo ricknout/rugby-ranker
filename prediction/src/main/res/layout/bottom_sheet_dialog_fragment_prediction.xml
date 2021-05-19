@@ -50,7 +50,7 @@
             android:layout_height="@dimen/height_row"
             android:background="?attr/selectableItemBackground">
 
-            <androidx.emoji.widget.EmojiTextView
+            <TextView
                 android:id="@+id/homeFlag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
             android:layout_height="@dimen/height_row"
             android:background="?attr/selectableItemBackground">
 
-            <androidx.emoji.widget.EmojiTextView
+            <TextView
                 android:id="@+id/awayFlag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
