@@ -27,7 +27,9 @@ object Versions {
         const val lifecycle = "2.4.0-alpha01"
         const val room = "2.4.0-alpha02"
         const val paging = "3.0.0"
-        const val navigation = "2.4.0-alpha01"
+        // BUG: Can't updated to 2.4.0-alpha01 yet
+        // https://issuetracker.google.com/issues/188564435
+        const val navigation = "2.3.5"
         const val work = "2.7.0-alpha03"
         const val hilt = "1.0.0"
         const val dataStore = "1.0.0-beta01"
