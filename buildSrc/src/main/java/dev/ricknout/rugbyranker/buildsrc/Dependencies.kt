@@ -9,7 +9,7 @@ object Versions {
     const val coil = "1.2.1"
     const val insetter = "0.5.0"
     object Kotlin {
-        const val kotlin = "1.5.0"
+        const val kotlin = "1.4.32"
         const val coroutines = "1.5.0"
     }
     object AndroidX {
