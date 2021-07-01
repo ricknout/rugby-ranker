@@ -4,44 +4,47 @@ object Versions {
     const val compileSdk = 30
     const val minSdk = 24
     const val targetSdk = 30
-    const val androidGradlePlugin = "4.2.1"
+    // TODO: Update to 7.0.0-beta05+ when Hilt issue resolved
+    // https://github.com/google/dagger/issues/2700
+    const val androidGradlePlugin = "4.2.2"
+    // TODO: Update to 0.42.0+ when issue resolved
+    // https://github.com/pinterest/ktlint/issues/1114
     const val ktlint = "0.40.0"
-    const val coil = "1.2.1"
-    const val insetter = "0.5.0"
+    const val coil = "1.2.2"
+    const val insetter = "0.6.0"
     object Kotlin {
-        const val kotlin = "1.4.32"
+        const val kotlin = "1.5.20"
         const val coroutines = "1.5.0"
     }
     object AndroidX {
-        const val core = "1.6.0-beta01"
-        const val activity = "1.3.0-alpha08"
+        const val core = "1.7.0-alpha01"
+        const val activity = "1.3.0-beta02"
         const val fragment = "1.4.0-alpha01"
-        const val appCompat = "1.4.0-alpha01"
+        const val appCompat = "1.4.0-alpha03"
         const val constraintLayout = "2.1.0-beta02"
-        const val recyclerView = "1.2.0"
+        const val recyclerView = "1.2.1"
         const val drawerLayout = "1.1.1"
         const val swipeRefreshLayout = "1.2.0-alpha01"
         const val viewPager2 = "1.1.0-alpha01"
-        const val emoji2 = "1.0.0-alpha01"
+        const val emoji2 = "1.0.0-alpha03"
         const val browser = "1.3.0"
-        const val lifecycle = "2.4.0-alpha01"
-        const val room = "2.4.0-alpha02"
-        const val paging = "3.0.0"
-        // BUG: Can't updated to 2.4.0-alpha01 yet
-        // https://issuetracker.google.com/issues/188564435
-        const val navigation = "2.3.5"
-        const val work = "2.7.0-alpha03"
+        const val lifecycle = "2.4.0-alpha02"
+        const val room = "2.4.0-alpha03"
+        const val paging = "3.1.0-alpha01"
+        const val navigation = "2.4.0-alpha03"
+        // TODO: Update to 2.7.0+ when targeting Android 12
+        const val work = "2.6.0-beta01"
         const val hilt = "1.0.0"
-        const val dataStore = "1.0.0-beta01"
+        const val dataStore = "1.0.0-rc01"
         object Test {
-            const val core = "1.4.0-beta01"
-            const val jUnit = "1.1.3-beta01"
-            const val runner = "1.4.0-beta01"
+            const val core = "1.4.0"
+            const val jUnit = "1.1.3"
+            const val runner = "1.4.0"
         }
     }
     object Google {
-        const val material = "1.4.0-beta01"
-        const val hilt = "2.35.1"
+        const val material = "1.4.0-rc01"
+        const val hilt = "2.37"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
             const val gradlePlugin = "0.10.4"

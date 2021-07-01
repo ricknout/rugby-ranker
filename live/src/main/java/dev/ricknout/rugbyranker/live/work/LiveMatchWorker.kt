@@ -206,7 +206,8 @@ open class LiveMatchWorker(
 
     private fun createOpenPendingIntent(): PendingIntent {
         val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
-        return PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(applicationContext, 0, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
 
     private fun createCancelPendingIntent() = workManager.createCancelPendingIntent(id)
