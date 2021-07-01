@@ -18,7 +18,7 @@ object Versions {
     }
     object AndroidX {
         const val core = "1.7.0-alpha01"
-        const val activity = "1.3.0-beta02"
+        const val activity = "1.3.0-rc01"
         const val fragment = "1.4.0-alpha01"
         const val appCompat = "1.4.0-alpha03"
         const val constraintLayout = "2.1.0-beta02"
@@ -30,8 +30,8 @@ object Versions {
         const val browser = "1.3.0"
         const val lifecycle = "2.4.0-alpha02"
         const val room = "2.4.0-alpha03"
-        const val paging = "3.1.0-alpha01"
-        const val navigation = "2.4.0-alpha03"
+        const val paging = "3.1.0-alpha02"
+        const val navigation = "2.4.0-alpha04"
         // TODO: Update to 2.7.0+ when targeting Android 12
         const val work = "2.6.0-beta01"
         const val hilt = "1.0.0"
