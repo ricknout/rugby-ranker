@@ -4,9 +4,7 @@ object Versions {
     const val compileSdk = 30
     const val minSdk = 24
     const val targetSdk = 30
-    // TODO: Update to 7.0.0-beta05+ when Hilt issue resolved
-    // https://github.com/google/dagger/issues/2700
-    const val androidGradlePlugin = "4.2.2"
+    const val androidGradlePlugin = "7.0.0-beta05"
     // TODO: Update to 0.42.0+ when issue resolved
     // https://github.com/pinterest/ktlint/issues/1114
     const val ktlint = "0.40.0"
