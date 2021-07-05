@@ -41,7 +41,7 @@ object Versions {
         }
     }
     object Google {
-        const val material = "1.4.0-rc01"
+        const val material = "1.4.0"
         const val hilt = "2.37"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
