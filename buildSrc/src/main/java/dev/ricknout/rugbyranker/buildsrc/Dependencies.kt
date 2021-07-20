@@ -8,15 +8,15 @@ object Versions {
     // TODO: Update to 0.42.0+ when issue resolved
     // https://github.com/pinterest/ktlint/issues/1114
     const val ktlint = "0.40.0"
-    const val coil = "1.2.2"
+    const val coil = "1.3.0"
     const val insetter = "0.6.0"
     object Kotlin {
-        const val kotlin = "1.5.20"
-        const val coroutines = "1.5.0"
+        const val kotlin = "1.5.21"
+        const val coroutines = "1.5.1"
     }
     object AndroidX {
         const val core = "1.7.0-alpha01"
-        const val activity = "1.3.0-rc01"
+        const val activity = "1.3.0-rc02"
         const val fragment = "1.4.0-alpha01"
         const val appCompat = "1.4.0-alpha03"
         const val constraintLayout = "2.1.0-beta02"
@@ -41,7 +41,9 @@ object Versions {
         }
     }
     object Google {
-        const val material = "1.4.0"
+        const val material = "1.5.0-alpha01"
+        // TODO: Update to 2.38+ when issue resolved
+        // https://github.com/google/dagger/issues/2762
         const val hilt = "2.37"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
