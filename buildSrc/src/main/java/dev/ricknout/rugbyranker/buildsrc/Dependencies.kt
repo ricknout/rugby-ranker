@@ -4,7 +4,7 @@ object Versions {
     const val compileSdk = 30
     const val minSdk = 24
     const val targetSdk = 30
-    const val androidGradlePlugin = "7.0.0-beta05"
+    const val androidGradlePlugin = "7.0.0-rc01"
     // TODO: Update to 0.42.0+ when issue resolved
     // https://github.com/pinterest/ktlint/issues/1114
     const val ktlint = "0.40.0"
@@ -17,7 +17,7 @@ object Versions {
     object AndroidX {
         const val core = "1.7.0-alpha01"
         const val activity = "1.3.0-rc02"
-        const val fragment = "1.4.0-alpha01"
+        const val fragment = "1.4.0-alpha05"
         const val appCompat = "1.4.0-alpha03"
         const val constraintLayout = "2.1.0-beta02"
         const val recyclerView = "1.2.1"
@@ -27,13 +27,13 @@ object Versions {
         const val emoji2 = "1.0.0-alpha03"
         const val browser = "1.3.0"
         const val lifecycle = "2.4.0-alpha02"
-        const val room = "2.4.0-alpha03"
-        const val paging = "3.1.0-alpha02"
-        const val navigation = "2.4.0-alpha04"
+        const val room = "2.4.0-alpha04"
+        const val paging = "3.1.0-alpha03"
+        const val navigation = "2.4.0-alpha05"
         // TODO: Update to 2.7.0+ when targeting Android 12
-        const val work = "2.6.0-beta01"
+        const val work = "2.6.0-beta02"
         const val hilt = "1.0.0"
-        const val dataStore = "1.0.0-rc01"
+        const val dataStore = "1.0.0-rc02"
         object Test {
             const val core = "1.4.0"
             const val jUnit = "1.1.3"
