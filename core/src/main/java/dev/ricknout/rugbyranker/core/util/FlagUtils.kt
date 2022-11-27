@@ -64,7 +64,7 @@ object FlagUtils {
         "GEO" -> "\uD83C\uDDEC\uD83C\uDDEA" // Georgia
         "GER", "GEB" -> "\uD83C\uDDE9\uD83C\uDDEA" // Germany
         "GHA" -> "\uD83C\uDDEC\uD83C\uDDED" // Ghana
-        "GBR", "BEF"  -> "\uD83C\uDDEC\uD83C\uDDE7" // Great Britain
+        "GBR", "BEF" -> "\uD83C\uDDEC\uD83C\uDDE7" // Great Britain
         "HEL", "GRE" -> "\uD83C\uDDEC\uD83C\uDDF7" // Greece
         "GLP" -> "\uD83C\uDDEC\uD83C\uDDF5" // Guadeloupe
         "GUM" -> "\uD83C\uDDEC\uD83C\uDDFA" // Guam
@@ -154,7 +154,7 @@ object FlagUtils {
         "SVK" -> "\uD83C\uDDF8\uD83C\uDDF0" // Slovakia
         "SVN", "SLO" -> "\uD83C\uDDF8\uD83C\uDDEE" // Slovenia
         "SOL" -> "\uD83C\uDDF8\uD83C\uDDE7" // Solomon Islands
-        "RSA", "SAG", "JSB", "SAI", "SAP"  -> "\uD83C\uDDFF\uD83C\uDDE6" // South Africa
+        "RSA", "SAG", "JSB", "SAI", "SAP" -> "\uD83C\uDDFF\uD83C\uDDE6" // South Africa
         "ESP", "S23" -> "\uD83C\uDDEA\uD83C\uDDF8" // Spain
         "SRI" -> "\uD83C\uDDF1\uD83C\uDDF0" // Sri Lanka
         "SWZ" -> "\uD83C\uDDF8\uD83C\uDDFF" // Swaziland
