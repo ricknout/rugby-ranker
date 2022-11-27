@@ -95,12 +95,22 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
             }
             event.isVisible = match.eventLabel != null
             eventText.text = match.eventLabel
-            place.isVisible = match.venueName != null || match.venueCountry != null
+            place.isVisible = match.venueName != null || match.venueCity != null || match.venueCountry != null
             placeText.text = when {
+                match.venueName != null && match.venueCity != null && match.venueCountry != null -> {
+                    root.context.getString(R.string.venue_3, match.venueName, match.venueCity, match.venueCountry)
+                }
+                match.venueName != null && match.venueCity != null -> {
+                    root.context.getString(R.string.venue_2, match.venueName, match.venueCity)
+                }
                 match.venueName != null && match.venueCountry != null -> {
-                    root.context.getString(R.string.name_country, match.venueName, match.venueCountry)
+                    root.context.getString(R.string.venue_2, match.venueName, match.venueCountry)
+                }
+                match.venueCity != null && match.venueCountry != null -> {
+                    root.context.getString(R.string.venue_2, match.venueCity, match.venueCountry)
                 }
                 match.venueName != null -> match.venueName
+                match.venueCity != null -> match.venueCity
                 match.venueCountry != null -> match.venueCountry
                 else -> null
             }
