@@ -3,7 +3,7 @@ import dev.ricknout.rugbyranker.buildsrc.Libs
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath Libs.androidGradlePlugin
@@ -17,11 +17,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     apply from: "$rootDir/ktlint.gradle"
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

@@ -188,7 +188,9 @@ open class LiveMatchWorker(
     private fun createLiveNotificationChannel(): NotificationChannel {
         val notificationChannelName = applicationContext.getString(R.string.live_matches)
         return NotificationChannel(
-            NOTIFICATION_CHANNEL_ID_LIVE, notificationChannelName, NotificationManager.IMPORTANCE_LOW
+            NOTIFICATION_CHANNEL_ID_LIVE,
+            notificationChannelName,
+            NotificationManager.IMPORTANCE_LOW
         ).also { channel ->
             notificationManager.createNotificationChannel(channel)
         }
@@ -198,7 +200,9 @@ open class LiveMatchWorker(
     private fun createResultNotificationChannel(): NotificationChannel {
         val notificationChannelName = applicationContext.getString(R.string.match_results)
         return NotificationChannel(
-            NOTIFICATION_CHANNEL_ID_RESULT, notificationChannelName, NotificationManager.IMPORTANCE_DEFAULT
+            NOTIFICATION_CHANNEL_ID_RESULT,
+            notificationChannelName,
+            NotificationManager.IMPORTANCE_DEFAULT
         ).also { channel ->
             notificationManager.createNotificationChannel(channel)
         }
@@ -207,7 +211,9 @@ open class LiveMatchWorker(
     private fun createOpenPendingIntent(): PendingIntent {
         val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
         return PendingIntent.getActivity(
-            applicationContext, 0, intent,
+            applicationContext,
+            0,
+            intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }

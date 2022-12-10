@@ -3,7 +3,6 @@ package dev.ricknout.rugbyranker.core.util
 object FlagUtils {
 
     fun getFlagEmojiForTeamAbbreviation(teamAbbreviation: String?) = when (teamAbbreviation) {
-
         "ALG" -> "\uD83C\uDDE9\uD83C\uDDFF" // Algeria
         "ASM", "ASA" -> "\uD83C\uDDE6\uD83C\uDDF8" // American Samoa
         "AND" -> "\uD83C\uDDE6\uD83C\uDDE9" // Andorra
