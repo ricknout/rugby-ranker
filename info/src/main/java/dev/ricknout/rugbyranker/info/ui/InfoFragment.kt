@@ -149,7 +149,7 @@ class InfoFragment : Fragment() {
     }
 
     companion object {
-        private const val RANKINGS_EXPLANATION_URL = "https://www.world.rugby/rankings/explanation"
+        private const val RANKINGS_EXPLANATION_URL = "https://www.world.rugby/tournaments/rankings/explanation"
         private const val GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.ricknout.rugbyranker"
         private const val GITHUB_URL = "https://github.com/ricknout/rugby-ranker"
     }
