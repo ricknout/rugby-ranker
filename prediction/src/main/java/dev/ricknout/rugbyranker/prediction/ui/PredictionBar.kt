@@ -18,7 +18,7 @@ import dev.ricknout.rugbyranker.prediction.model.Prediction
 class PredictionBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    @AttrRes defStyleAttr: Int = R.attr.predictionBarStyle
+    @AttrRes defStyleAttr: Int = R.attr.predictionBarStyle,
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
     interface PredictionBarListener {
@@ -35,7 +35,7 @@ class PredictionBar @JvmOverloads constructor(
         },
         { prediction ->
             listener?.onRemovePredictionClick(prediction)
-        }
+        },
     )
 
     private var _binding: ViewPredictionBarBinding? = null
@@ -49,7 +49,7 @@ class PredictionBar @JvmOverloads constructor(
             shapeAppearanceModel = ShapeAppearanceModel.builder(
                 context,
                 shapeAppearanceResId,
-                shapeAppearanceOverlayResId
+                shapeAppearanceOverlayResId,
             ).build()
             setCardBackgroundColor(getColorStateListOrThrow(R.styleable.PredictionBar_backgroundTint))
             cardElevation = getDimensionOrThrow(R.styleable.PredictionBar_elevation)

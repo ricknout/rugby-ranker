@@ -65,7 +65,7 @@ class AppModule {
         return Room.databaseBuilder(
             context,
             RugbyRankerDatabase::class.java,
-            RugbyRankerDatabase.DATABASE_NAME
+            RugbyRankerDatabase.DATABASE_NAME,
         ).build()
     }
 
@@ -94,7 +94,7 @@ class AppModule {
     fun provideRankingRepository(
         service: WorldRugbyService,
         dao: RankingDao,
-        dataStore: RankingDataStore
+        dataStore: RankingDataStore,
     ): RankingRepository {
         return RankingRepository(service, dao, dataStore)
     }
@@ -109,7 +109,7 @@ class AppModule {
     @Singleton
     fun provideMatchRepository(
         service: WorldRugbyService,
-        dao: RankingDao
+        dao: RankingDao,
     ): MatchRepository {
         return MatchRepository(service, dao)
     }

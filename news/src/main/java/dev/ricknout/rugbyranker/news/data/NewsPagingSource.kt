@@ -7,7 +7,7 @@ import dev.ricknout.rugbyranker.news.model.Type
 
 class NewsPagingSource(
     private val type: Type,
-    private val repository: NewsRepository
+    private val repository: NewsRepository,
 ) : PagingSource<Int, News>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, News> {
@@ -18,7 +18,7 @@ class NewsPagingSource(
             LoadResult.Page(
                 data = news,
                 prevKey = if (page == 0) null else page.dec(),
-                nextKey = if (news.isEmpty()) null else page.inc()
+                nextKey = if (news.isEmpty()) null else page.inc(),
             )
         } else {
             LoadResult.Error(RuntimeException("Failed to fetch news with page = $page and page size = $pageSize"))

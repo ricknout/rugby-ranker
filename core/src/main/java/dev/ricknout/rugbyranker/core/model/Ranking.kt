@@ -14,7 +14,7 @@ data class Ranking(
     val points: Float,
     val previousPoints: Float,
     val matches: Int,
-    val sport: Sport
+    val sport: Sport,
 ) {
 
     fun resetPreviousPoints() = copy(previousPoints = this.points)

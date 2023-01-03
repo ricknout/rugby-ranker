@@ -41,7 +41,7 @@ class LiveMatchFragment : Fragment() {
         },
         { match ->
             liveMatchViewModel.pin(match.id)
-        }
+        },
     )
 
     private val coordinatorLayout: CoordinatorLayout
@@ -56,7 +56,7 @@ class LiveMatchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentLiveMatchBinding.inflate(inflater, container, false)
         return binding.root
@@ -82,13 +82,13 @@ class LiveMatchFragment : Fragment() {
                 adapter.submitList(liveMatches)
                 if (liveMatches == null) binding.progressIndicator.show() else binding.progressIndicator.hide()
                 binding.noLiveMatches.isVisible = liveMatches?.isEmpty() ?: false
-            }
+            },
         )
         liveMatchViewModel.refreshingLiveMatches.observe(
             viewLifecycleOwner,
             { refreshingLiveMatches ->
                 binding.swipeRefreshLayout.isRefreshing = refreshingLiveMatches
-            }
+            },
         )
         liveMatchViewModel.scrollToTop.observe(
             viewLifecycleOwner,
@@ -97,7 +97,7 @@ class LiveMatchFragment : Fragment() {
                     binding.recyclerView.smoothScrollToPosition(0)
                     liveMatchViewModel.resetScrollToTop()
                 }
-            }
+            },
         )
     }
 
@@ -107,14 +107,14 @@ class LiveMatchFragment : Fragment() {
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, dev.ricknout.rugbyranker.match.R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
         val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(dev.ricknout.rugbyranker.match.R.dimen.elevation_swipe_refresh_layout)
+            resources.getDimension(dev.ricknout.rugbyranker.match.R.dimen.elevation_swipe_refresh_layout),
         )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
             true,
             binding.swipeRefreshLayout.progressViewStartOffset,
-            binding.swipeRefreshLayout.progressViewEndOffset
+            binding.swipeRefreshLayout.progressViewEndOffset,
         )
         binding.swipeRefreshLayout.setOnRefreshListener {
             liveMatchViewModel.refreshLiveMatches { success ->
@@ -122,7 +122,7 @@ class LiveMatchFragment : Fragment() {
                     Snackbar.make(
                         coordinatorLayout,
                         R.string.failed_to_refresh_live_matches,
-                        Snackbar.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT,
                     ).apply {
                         anchorView = fab
                         show()

@@ -62,7 +62,7 @@ class RankingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentRankingBinding.inflate(inflater, container, false)
         return binding.root
@@ -91,20 +91,20 @@ class RankingFragment : Fragment() {
                     setLabel(updatedTimeMillis)
                 }
                 if (rankings.isNullOrEmpty()) binding.progressIndicator.show() else binding.progressIndicator.hide()
-            }
+            },
         )
         rankingViewModel.refreshingRankings.observe(
             viewLifecycleOwner,
             { refreshingRankings ->
                 binding.swipeRefreshLayout.isRefreshing = refreshingRankings
-            }
+            },
         )
         rankingViewModel.workInfos.observe(
             viewLifecycleOwner,
             { workInfos ->
                 val workInfo = workInfos?.firstOrNull()
                 binding.swipeRefreshLayout.isEnabled = workInfo?.state != WorkInfo.State.RUNNING
-            }
+            },
         )
         rankingViewModel.scrollToTop.observe(
             viewLifecycleOwner,
@@ -113,7 +113,7 @@ class RankingFragment : Fragment() {
                     binding.recyclerView.smoothScrollToPosition(0)
                     rankingViewModel.resetScrollToTop()
                 }
-            }
+            },
         )
     }
 
@@ -123,14 +123,14 @@ class RankingFragment : Fragment() {
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
         val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(R.dimen.elevation_swipe_refresh_layout)
+            resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
         )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
             true,
             binding.swipeRefreshLayout.progressViewStartOffset,
-            binding.swipeRefreshLayout.progressViewEndOffset
+            binding.swipeRefreshLayout.progressViewEndOffset,
         )
         binding.swipeRefreshLayout.setOnRefreshListener {
             rankingViewModel.refreshRankings { success ->
@@ -138,7 +138,7 @@ class RankingFragment : Fragment() {
                     Snackbar.make(
                         coordinatorLayout,
                         R.string.failed_to_refresh_rankings,
-                        Snackbar.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT,
                     ).apply {
                         anchorView = fab
                         show()

@@ -11,7 +11,7 @@ object RankingCalculator {
 
     fun allocatePointsForPredictions(
         rankings: List<Ranking>,
-        predictions: List<Prediction>
+        predictions: List<Prediction>,
     ): List<Ranking> {
         if (predictions.isEmpty()) return rankings
         val mutableRankings = rankings.asSequence().map { ranking ->
@@ -40,7 +40,7 @@ object RankingCalculator {
     fun pointsForPrediction(
         homeRanking: Ranking,
         awayRanking: Ranking,
-        prediction: Prediction
+        prediction: Prediction,
     ): Float {
         // The effective ranking of the home team is an additional 3 points
         val homeTeamPoints =

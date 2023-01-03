@@ -9,7 +9,7 @@ interface WorldRugbyService {
     @GET("rugby/rankings/{sport}")
     suspend fun getRankings(
         @Path("sport") sport: String,
-        @Query("date") date: String
+        @Query("date") date: String,
     ): WorldRugbyRankingsResponse
 
     @GET("rugby/match")
@@ -20,12 +20,12 @@ interface WorldRugbyService {
         @Query("endDate") endDate: String,
         @Query("sort") sort: String,
         @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int,
     ): WorldRugbyMatchesResponse
 
     @GET("rugby/match/{id}/summary")
     suspend fun getMatchSummary(
-        @Path("id") id: Long
+        @Path("id") id: Long,
     ): WorldRugbyMatchSummaryResponse
 
     @GET("content/worldrugby/{type}/{lang}")
@@ -34,7 +34,7 @@ interface WorldRugbyService {
         @Path("lang") language: String,
         @Query("tagNames") tagNames: String,
         @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int,
     ): WorldRugbyNewsResponse
 
     companion object {

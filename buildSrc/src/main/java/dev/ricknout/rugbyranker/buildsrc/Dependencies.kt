@@ -5,7 +5,7 @@ object Versions {
     const val minSdk = 24
     const val targetSdk = 33
     const val androidGradlePlugin = "7.3.1"
-    const val ktlint = "0.47.1"
+    const val ktlint = "0.48.0"
     const val coil = "2.2.2"
     const val insetter = "0.6.1"
     object Kotlin {
@@ -46,7 +46,7 @@ object Versions {
         }
     }
     object Square {
-        const val okHttp = "5.0.0-alpha.10"
+        const val okHttp = "5.0.0-alpha.11"
         const val retrofit = "2.9.0"
     }
 }

@@ -9,5 +9,5 @@ data class News(
     val imageUrl: String?,
     val articleUrl: String,
     val timeMillis: Long,
-    val language: String
+    val language: String,
 )

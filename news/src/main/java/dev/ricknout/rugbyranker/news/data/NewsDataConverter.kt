@@ -27,7 +27,7 @@ object NewsDataConverter {
                 },
                 articleUrl = article.canonicalUrl,
                 timeMillis = article.publishFrom,
-                language = article.language
+                language = article.language,
             )
         }
     }

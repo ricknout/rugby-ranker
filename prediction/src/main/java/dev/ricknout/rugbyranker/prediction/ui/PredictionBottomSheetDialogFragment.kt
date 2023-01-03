@@ -60,7 +60,7 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = BottomSheetDialogFragmentPredictionBinding.inflate(inflater, container, false)
         return binding.root
@@ -92,7 +92,7 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
                             predictionViewModel.resetInput()
                         }
                     }
-                }
+                },
             )
         }
     }
@@ -107,25 +107,25 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
             viewLifecycleOwner,
             { teams ->
                 setupTeams(teams)
-            }
+            },
         )
         predictionViewModel.inputValid.observe(
             viewLifecycleOwner,
             { inputValid ->
                 binding.confirm.isEnabled = inputValid
-            }
+            },
         )
         predictionViewModel.homeScore.observe(
             viewLifecycleOwner,
             { score ->
                 binding.homeScore.text = score.toString()
-            }
+            },
         )
         predictionViewModel.awayScore.observe(
             viewLifecycleOwner,
             { score ->
                 binding.awayScore.text = score.toString()
-            }
+            },
         )
         predictionViewModel.homeTeam.observe(
             viewLifecycleOwner,
@@ -134,16 +134,16 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
                     binding.homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
                     binding.homeName.text = team.name
                     binding.homeName.setTextColor(
-                        MaterialColors.getColor(requireView(), R.attr.colorOnSurface)
+                        MaterialColors.getColor(requireView(), R.attr.colorOnSurface),
                     )
                 } else {
                     binding.homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(null)
                     binding.homeName.setText(R.string.home_team)
                     binding.homeName.setTextColor(
-                        AppCompatResources.getColorStateList(requireView().context, R.color.material_on_surface_emphasis_medium)
+                        AppCompatResources.getColorStateList(requireView().context, R.color.material_on_surface_emphasis_medium),
                     )
                 }
-            }
+            },
         )
         predictionViewModel.awayTeam.observe(
             viewLifecycleOwner,
@@ -152,28 +152,28 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
                     binding.awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
                     binding.awayName.text = team.name
                     binding.awayName.setTextColor(
-                        MaterialColors.getColor(requireView(), R.attr.colorOnSurface)
+                        MaterialColors.getColor(requireView(), R.attr.colorOnSurface),
                     )
                 } else {
                     binding.awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(null)
                     binding.awayName.setText(R.string.away_team)
                     binding.awayName.setTextColor(
-                        AppCompatResources.getColorStateList(requireView().context, R.color.material_on_surface_emphasis_medium)
+                        AppCompatResources.getColorStateList(requireView().context, R.color.material_on_surface_emphasis_medium),
                     )
                 }
-            }
+            },
         )
         predictionViewModel.rugbyWorldCup.observe(
             viewLifecycleOwner,
             { rugbyWorldCup ->
                 binding.rwc.isChecked = rugbyWorldCup
-            }
+            },
         )
         predictionViewModel.noHomeAdvantage.observe(
             viewLifecycleOwner,
             { noHomeAdvantage ->
                 binding.nha.isChecked = noHomeAdvantage
-            }
+            },
         )
     }
 
@@ -292,13 +292,13 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private fun createPopupMenu(
         anchorView: View,
         teams: List<Team>,
-        onClick: (team: Team) -> Unit
+        onClick: (team: Team) -> Unit,
     ): ListPopupWindow = MaterialListPopupWindow(requireContext()).apply {
         val adapter = object : ArrayAdapter<Team>(
             requireContext(),
             R.layout.list_item_team,
             R.id.name,
-            teams
+            teams,
         ) {
 
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

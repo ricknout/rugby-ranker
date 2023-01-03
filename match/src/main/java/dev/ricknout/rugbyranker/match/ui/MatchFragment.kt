@@ -57,7 +57,7 @@ class MatchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMatchBinding.inflate(inflater, container, false)
         return binding.root
@@ -81,7 +81,7 @@ class MatchFragment : Fragment() {
             viewLifecycleOwner,
             { pagingData ->
                 adapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
-            }
+            },
         )
         matchViewModel.scrollToTop.observe(
             viewLifecycleOwner,
@@ -90,7 +90,7 @@ class MatchFragment : Fragment() {
                     binding.recyclerView.smoothScrollToPosition(0)
                     matchViewModel.resetScrollToTop()
                 }
-            }
+            },
         )
     }
 
@@ -100,14 +100,14 @@ class MatchFragment : Fragment() {
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
         val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(R.dimen.elevation_swipe_refresh_layout)
+            resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
         )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
             true,
             binding.swipeRefreshLayout.progressViewStartOffset,
-            binding.swipeRefreshLayout.progressViewEndOffset
+            binding.swipeRefreshLayout.progressViewEndOffset,
         )
         binding.swipeRefreshLayout.setOnRefreshListener { adapter.refresh() }
     }
@@ -133,7 +133,7 @@ class MatchFragment : Fragment() {
                         Snackbar.make(
                             coordinatorLayout,
                             R.string.failed_to_refresh_matches,
-                            Snackbar.LENGTH_SHORT
+                            Snackbar.LENGTH_SHORT,
                         ).apply {
                             anchorView = fab
                             show()

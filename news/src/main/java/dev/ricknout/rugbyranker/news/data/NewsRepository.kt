@@ -15,16 +15,16 @@ class NewsRepository(private val service: WorldRugbyService) {
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                initialLoadSize = PAGE_SIZE
+                initialLoadSize = PAGE_SIZE,
             ),
-            pagingSourceFactory = { NewsPagingSource(type, this) }
+            pagingSourceFactory = { NewsPagingSource(type, this) },
         ).flow
     }
 
     suspend fun fetchLatestNewsSync(
         type: Type,
         page: Int,
-        pageSize: Int
+        pageSize: Int,
     ): Pair<Boolean, List<News>> {
         val t = when (type) {
             Type.TEXT -> WorldRugbyService.TYPE_TEXT

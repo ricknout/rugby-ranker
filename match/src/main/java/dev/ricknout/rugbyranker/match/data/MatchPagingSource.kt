@@ -10,7 +10,7 @@ import dev.ricknout.rugbyranker.match.model.Status
 class MatchPagingSource(
     private val sport: Sport,
     private val status: Status,
-    private val repository: MatchRepository
+    private val repository: MatchRepository,
 ) : PagingSource<Int, Match>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Match> {
@@ -22,13 +22,13 @@ class MatchPagingSource(
             status,
             page = page,
             pageSize = pageSize,
-            unplayedStartDate = currentDate
+            unplayedStartDate = currentDate,
         )
         return if (success) {
             LoadResult.Page(
                 data = matches,
                 prevKey = if (page == 0) null else page.dec(),
-                nextKey = if (matches.isEmpty()) null else page.inc()
+                nextKey = if (matches.isEmpty()) null else page.inc(),
             )
         } else {
             LoadResult.Error(RuntimeException("Failed to fetch matches with page = $page and page size = $pageSize"))

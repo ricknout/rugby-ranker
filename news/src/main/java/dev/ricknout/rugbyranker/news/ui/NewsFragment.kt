@@ -51,7 +51,7 @@ class NewsFragment : Fragment() {
                 CustomTabUtils.launchCustomTab(
                     requireContext(),
                     news.articleUrl,
-                    theme.getCustomTabsIntentColorScheme()
+                    theme.getCustomTabsIntentColorScheme(),
                 )
             }
         }
@@ -73,7 +73,7 @@ class NewsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding.root
@@ -100,7 +100,7 @@ class NewsFragment : Fragment() {
             viewLifecycleOwner,
             { pagingData ->
                 adapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
-            }
+            },
         )
     }
 
@@ -112,14 +112,14 @@ class NewsFragment : Fragment() {
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
         val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(R.dimen.elevation_swipe_refresh_layout)
+            resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
         )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
             true,
             binding.swipeRefreshLayout.progressViewStartOffset,
-            binding.swipeRefreshLayout.progressViewEndOffset
+            binding.swipeRefreshLayout.progressViewEndOffset,
         )
         binding.swipeRefreshLayout.setOnRefreshListener { adapter.refresh() }
     }
@@ -145,7 +145,7 @@ class NewsFragment : Fragment() {
                         Snackbar.make(
                             binding.root,
                             R.string.failed_to_refresh_news,
-                            Snackbar.LENGTH_SHORT
+                            Snackbar.LENGTH_SHORT,
                         ).show()
                     }
                 }

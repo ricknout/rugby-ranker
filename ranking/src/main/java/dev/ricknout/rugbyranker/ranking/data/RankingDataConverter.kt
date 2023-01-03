@@ -17,7 +17,7 @@ object RankingDataConverter {
                 points = entry.pts,
                 previousPoints = entry.previousPts,
                 matches = entry.matches,
-                sport = sport
+                sport = sport,
             )
         }
     }

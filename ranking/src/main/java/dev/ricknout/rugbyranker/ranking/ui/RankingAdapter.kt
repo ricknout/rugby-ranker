@@ -10,7 +10,7 @@ import dev.ricknout.rugbyranker.ranking.databinding.ListItemRankingBinding
 class RankingAdapter : ListAdapter<Ranking, RankingViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RankingViewHolder(
-        ListItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ListItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false),
     )
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {

@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MensUnplayedMatchViewModel @Inject constructor(
-    repository: MatchRepository
+    repository: MatchRepository,
 ) : MatchViewModel(Sport.MENS, Status.UNPLAYED, repository)

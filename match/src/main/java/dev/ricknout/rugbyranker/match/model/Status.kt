@@ -5,5 +5,5 @@ enum class Status {
     COMPLETE,
     LIVE,
     POSTPONED,
-    CANCELLED
+    CANCELLED,
 }

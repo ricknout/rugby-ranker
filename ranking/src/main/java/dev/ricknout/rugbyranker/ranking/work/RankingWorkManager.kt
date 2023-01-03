@@ -18,12 +18,12 @@ class RankingWorkManager(private val workManager: WorkManager) {
 
     private val mensWork = PeriodicWorkRequestBuilder<MensRankingWorker>(
         REPEAT_INTERVAL,
-        REPEAT_INTERVAL_TIME_UNIT
+        REPEAT_INTERVAL_TIME_UNIT,
     ).setConstraints(constraints).build()
 
     private val womensWork = PeriodicWorkRequestBuilder<WomensRankingWorker>(
         REPEAT_INTERVAL,
-        REPEAT_INTERVAL_TIME_UNIT
+        REPEAT_INTERVAL_TIME_UNIT,
     ).setConstraints(constraints).build()
 
     fun enqueueWork(sport: Sport) {

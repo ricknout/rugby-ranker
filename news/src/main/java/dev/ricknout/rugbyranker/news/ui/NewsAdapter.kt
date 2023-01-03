@@ -8,11 +8,11 @@ import dev.ricknout.rugbyranker.news.databinding.ListItemNewsBinding
 import dev.ricknout.rugbyranker.news.model.News
 
 class NewsAdapter(
-    private val onClick: (news: News) -> Unit
+    private val onClick: (news: News) -> Unit,
 ) : PagingDataAdapter<News, NewsViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NewsViewHolder(
-        ListItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ListItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false),
     )
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {

@@ -7,5 +7,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MensPredictionViewModel @Inject constructor(
-    repository: PredictionRepository
+    repository: PredictionRepository,
 ) : PredictionViewModel(Sport.MENS, repository)

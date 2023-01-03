@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 open class LiveMatchViewModel(
     private val sport: Sport,
     private val repository: MatchRepository,
-    private val workManager: LiveMatchWorkManager
+    private val workManager: LiveMatchWorkManager,
 ) : ScrollableViewModel() {
 
     private val status = Status.LIVE

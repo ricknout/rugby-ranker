@@ -36,7 +36,7 @@ data class Match(
     val eventEndTimeGmtOffset: Int?,
     val predictable: Boolean,
     val half: Half?,
-    val minute: Int?
+    val minute: Int?,
 ) {
 
     fun toPrediction(): Prediction {
@@ -46,12 +46,12 @@ data class Match(
             homeTeam = Team(
                 id = if (switched) secondTeamId else firstTeamId,
                 name = if (switched) secondTeamName else firstTeamName,
-                abbreviation = if (switched) secondTeamAbbreviation!! else firstTeamAbbreviation!!
+                abbreviation = if (switched) secondTeamAbbreviation!! else firstTeamAbbreviation!!,
             ),
             awayTeam = Team(
                 id = if (switched) firstTeamId else secondTeamId,
                 name = if (switched) firstTeamName else secondTeamName,
-                abbreviation = if (switched) firstTeamAbbreviation!! else secondTeamAbbreviation!!
+                abbreviation = if (switched) firstTeamAbbreviation!! else secondTeamAbbreviation!!,
             ),
             homeScore = when {
                 status == Status.UNPLAYED || status == Status.POSTPONED -> 0
@@ -68,7 +68,7 @@ data class Match(
             } ?: false,
             noHomeAdvantage = venueCountry?.let { venueCountry ->
                 venueCountry != firstTeamName && venueCountry != secondTeamName
-            } ?: false
+            } ?: false,
         )
     }
 }

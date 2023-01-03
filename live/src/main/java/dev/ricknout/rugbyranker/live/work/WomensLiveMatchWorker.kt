@@ -14,7 +14,7 @@ class WomensLiveMatchWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted params: WorkerParameters,
     repository: MatchRepository,
-    workManager: WorkManager
+    workManager: WorkManager,
 ) : LiveMatchWorker(appContext, params, Sport.WOMENS, repository, workManager) {
 
     companion object {

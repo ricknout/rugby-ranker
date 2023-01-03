@@ -31,7 +31,7 @@ open class LiveMatchWorker(
     params: WorkerParameters,
     private val sport: Sport,
     private val repository: MatchRepository,
-    private val workManager: WorkManager
+    private val workManager: WorkManager,
 ) : CoroutineWorker(appContext, params) {
 
     private val notificationManager =
@@ -113,7 +113,7 @@ open class LiveMatchWorker(
             match.firstTeamScore,
             match.secondTeamScore,
             match.secondTeamName,
-            awayFlag
+            awayFlag,
         ).run {
             emojiCompat?.process(this) ?: this
         }
@@ -160,7 +160,7 @@ open class LiveMatchWorker(
             match.firstTeamScore,
             match.secondTeamScore,
             match.secondTeamName,
-            awayFlag
+            awayFlag,
         ).run {
             emojiCompat?.process(this) ?: this
         }
@@ -190,7 +190,7 @@ open class LiveMatchWorker(
         return NotificationChannel(
             NOTIFICATION_CHANNEL_ID_LIVE,
             notificationChannelName,
-            NotificationManager.IMPORTANCE_LOW
+            NotificationManager.IMPORTANCE_LOW,
         ).also { channel ->
             notificationManager.createNotificationChannel(channel)
         }
@@ -202,7 +202,7 @@ open class LiveMatchWorker(
         return NotificationChannel(
             NOTIFICATION_CHANNEL_ID_RESULT,
             notificationChannelName,
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_DEFAULT,
         ).also { channel ->
             notificationManager.createNotificationChannel(channel)
         }
@@ -214,7 +214,7 @@ open class LiveMatchWorker(
             applicationContext,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
     }
 

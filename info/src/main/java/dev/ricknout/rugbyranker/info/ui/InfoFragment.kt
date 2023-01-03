@@ -49,7 +49,7 @@ class InfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentInfoBinding.inflate(inflater, container, false)
         return binding.root
@@ -75,7 +75,7 @@ class InfoFragment : Fragment() {
             viewLifecycleOwner,
             { version ->
                 binding.label.text = if (version != null) getString(R.string.version, version) else null
-            }
+            },
         )
     }
 
@@ -91,7 +91,7 @@ class InfoFragment : Fragment() {
                     CustomTabUtils.launchCustomTab(
                         requireContext(),
                         RANKINGS_EXPLANATION_URL,
-                        theme.getCustomTabsIntentColorScheme()
+                        theme.getCustomTabsIntentColorScheme(),
                     )
                 }
             }
@@ -116,7 +116,7 @@ class InfoFragment : Fragment() {
                     CustomTabUtils.launchCustomTab(
                         requireContext(),
                         GITHUB_URL,
-                        theme.getCustomTabsIntentColorScheme()
+                        theme.getCustomTabsIntentColorScheme(),
                     )
                 }
             }

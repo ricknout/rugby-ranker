@@ -11,7 +11,7 @@ data class Prediction(
     val awayTeam: Team,
     val awayScore: Int,
     val rugbyWorldCup: Boolean,
-    val noHomeAdvantage: Boolean
+    val noHomeAdvantage: Boolean,
 ) : Parcelable {
 
     companion object {

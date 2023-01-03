@@ -9,11 +9,11 @@ import dev.ricknout.rugbyranker.prediction.model.Prediction
 
 class PredictionAdapter(
     private val onClick: (prediction: Prediction) -> Unit,
-    private val onCloseIconClick: (prediction: Prediction) -> Unit
+    private val onCloseIconClick: (prediction: Prediction) -> Unit,
 ) : ListAdapter<Prediction, PredictionViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PredictionViewHolder(
-        ListItemPredictionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ListItemPredictionBinding.inflate(LayoutInflater.from(parent.context), parent, false),
     )
 
     override fun onBindViewHolder(holder: PredictionViewHolder, position: Int) {

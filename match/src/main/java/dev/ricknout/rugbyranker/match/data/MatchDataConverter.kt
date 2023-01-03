@@ -17,7 +17,7 @@ object MatchDataConverter {
     fun getMatchesFromResponse(
         response: WorldRugbyMatchesResponse,
         sport: Sport,
-        teamIds: List<Long>
+        teamIds: List<Long>,
     ): List<Match> = response.content.map { content ->
         getMatchFromResponse(content, sport, teamIds)
     }
@@ -25,7 +25,7 @@ object MatchDataConverter {
     fun getMatchFromResponse(
         response: WorldRugbyMatchSummaryResponse,
         sport: Sport,
-        teamIds: List<Long>
+        teamIds: List<Long>,
     ): Match {
         val minute = getMinuteFromResponse(response)
         return getMatchFromResponse(response.match, sport, teamIds).copy(minute = minute)
@@ -34,7 +34,7 @@ object MatchDataConverter {
     private fun getMatchFromResponse(
         content: Content,
         sport: Sport,
-        teamIds: List<Long>
+        teamIds: List<Long>,
     ): Match {
         val firstTeam = content.teams[0] ?: tbc
         val secondTeam = content.teams[1] ?: tbc
@@ -71,7 +71,7 @@ object MatchDataConverter {
             eventEndTimeGmtOffset = event?.end?.gmtOffset?.toInt(),
             predictable = teamIds.containsAll(listOf(firstTeam.id, secondTeam.id)),
             half = getHalfFromResponse(content),
-            minute = null
+            minute = null,
         )
     }
 
@@ -84,7 +84,8 @@ object MatchDataConverter {
             WorldRugbyService.STATE_LIVE,
             WorldRugbyService.STATE_LIVE_1ST_HALF, WorldRugbyService.STATE_LIVE_1ST_HALF_ALT,
             WorldRugbyService.STATE_LIVE_2ND_HALF, WorldRugbyService.STATE_LIVE_2ND_HALF_ALT,
-            WorldRugbyService.STATE_LIVE_HALF_TIME -> Status.LIVE
+            WorldRugbyService.STATE_LIVE_HALF_TIME,
+            -> Status.LIVE
             else -> throw IllegalArgumentException("Unknown status ${content.status}")
         }
     }

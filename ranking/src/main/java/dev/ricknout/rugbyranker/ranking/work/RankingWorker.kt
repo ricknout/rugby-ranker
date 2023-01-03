@@ -10,7 +10,7 @@ open class RankingWorker(
     appContext: Context,
     params: WorkerParameters,
     private val sport: Sport,
-    private val repository: RankingRepository
+    private val repository: RankingRepository,
 ) : CoroutineWorker(appContext, params) {
 
     override suspend fun doWork() = fetchAndCacheLatestRankings()

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 open class MatchViewModel(
     sport: Sport,
     status: Status,
-    repository: MatchRepository
+    repository: MatchRepository,
 ) : ScrollableViewModel() {
 
     val matches = repository.loadMatches(sport, status).cachedIn(viewModelScope).asLiveData()

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 
 open class PredictionViewModel(
     sport: Sport,
-    repository: PredictionRepository
+    repository: PredictionRepository,
 ) : ViewModel() {
 
     val teams = repository.loadRankings(sport)
@@ -71,7 +71,7 @@ open class PredictionViewModel(
         awayScore: Int = _awayScore.value,
         rugbyWorldCup: Boolean = _rugbyWorldCup.value,
         noHomeAdvantage: Boolean = _noHomeAdvantage.value,
-        validateTeams: Boolean = true
+        validateTeams: Boolean = true,
     ) {
         if (!validateTeams || _awayTeam.value != homeTeam) _homeTeam.value = homeTeam
         if (!validateTeams || _homeTeam.value != awayTeam) _awayTeam.value = awayTeam
@@ -88,7 +88,7 @@ open class PredictionViewModel(
         awayScore = prediction.awayScore,
         rugbyWorldCup = prediction.rugbyWorldCup,
         noHomeAdvantage = prediction.noHomeAdvantage,
-        validateTeams = false
+        validateTeams = false,
     )
 
     fun resetInput() = setInput(
@@ -98,7 +98,7 @@ open class PredictionViewModel(
         awayScore = 0,
         rugbyWorldCup = false,
         noHomeAdvantage = false,
-        validateTeams = false
+        validateTeams = false,
     )
 
     fun incrementHomeScore() {
@@ -146,7 +146,7 @@ open class PredictionViewModel(
             awayTeam = _awayTeam.value!!,
             awayScore = _awayScore.value,
             rugbyWorldCup = _rugbyWorldCup.value,
-            noHomeAdvantage = _noHomeAdvantage.value
+            noHomeAdvantage = _noHomeAdvantage.value,
         )
     }
 

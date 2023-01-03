@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             view.findViewById<View>(R.id.design_navigation_view).updatePadding(
                 left = systemBars.left,
                 top = systemBars.top,
-                bottom = systemBars.bottom
+                bottom = systemBars.bottom,
             )
         }.applyToView(binding.navigationView)
     }

@@ -114,7 +114,7 @@ class SportFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentSportBinding.inflate(inflater, container, false)
         return binding.root
@@ -169,13 +169,13 @@ class SportFragment : Fragment() {
                 TransitionManager.beginDelayedTransition(binding.coordinatorLayout, transition)
                 binding.fab.isInvisible = !predictions.isNullOrEmpty()
                 binding.predictionBar.isInvisible = predictions.isNullOrEmpty()
-            }
+            },
         )
         predictionViewModel.teams.observe(
             viewLifecycleOwner,
             { teams ->
                 binding.fab.isEnabled = !teams.isNullOrEmpty()
-            }
+            },
         )
         unplayedMatchViewModel.predict.observe(
             viewLifecycleOwner,
@@ -184,7 +184,7 @@ class SportFragment : Fragment() {
                 val edit = predictionViewModel.containsPredictionWithId(prediction)
                 findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit))
                 unplayedMatchViewModel.resetPredict()
-            }
+            },
         )
         liveMatchViewModel.predict.observe(
             viewLifecycleOwner,
@@ -193,14 +193,14 @@ class SportFragment : Fragment() {
                 val edit = predictionViewModel.containsPredictionWithId(prediction)
                 findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit))
                 liveMatchViewModel.resetPredict()
-            }
+            },
         )
         liveMatchViewModel.liveMatches.observe(
             viewLifecycleOwner,
             { liveMatches ->
                 val show = !liveMatches.isNullOrEmpty()
                 toggleLiveMatchTabIcon(show)
-            }
+            },
         )
     }
 
@@ -243,7 +243,7 @@ class SportFragment : Fragment() {
                         POSITION_MATCHES_LIVE -> liveMatchViewModel.scrollToTop()
                     }
                 }
-            }
+            },
         )
     }
 

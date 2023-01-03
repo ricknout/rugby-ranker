@@ -7,5 +7,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TextNewsViewModel @Inject constructor(
-    repository: NewsRepository
+    repository: NewsRepository,
 ) : NewsViewModel(Type.TEXT, repository)

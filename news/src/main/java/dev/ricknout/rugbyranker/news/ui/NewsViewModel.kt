@@ -9,7 +9,7 @@ import dev.ricknout.rugbyranker.news.model.Type
 
 open class NewsViewModel(
     type: Type,
-    repository: NewsRepository
+    repository: NewsRepository,
 ) : ViewModel() {
 
     val news = repository.loadNews(type).cachedIn(viewModelScope).asLiveData()

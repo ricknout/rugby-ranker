@@ -14,7 +14,7 @@ class RankingTest {
         100f,
         90f,
         10,
-        Sport.MENS
+        Sport.MENS,
     )
 
     @Test

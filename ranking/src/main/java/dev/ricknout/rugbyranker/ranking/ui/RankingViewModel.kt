@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.combine
 open class RankingViewModel(
     private val sport: Sport,
     private val repository: RankingRepository,
-    workManager: RankingWorkManager
+    workManager: RankingWorkManager,
 ) : ScrollableViewModel() {
 
     init {

@@ -14,7 +14,7 @@ class PredictionViewHolder(private val binding: ListItemPredictionBinding) : Rec
                 prediction.homeTeam.abbreviation,
                 prediction.homeScore,
                 prediction.awayScore,
-                prediction.awayTeam.abbreviation
+                prediction.awayTeam.abbreviation,
             )
             when {
                 prediction.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_24dp)

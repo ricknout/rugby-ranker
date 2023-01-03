@@ -9,7 +9,7 @@ import dev.ricknout.rugbyranker.core.model.Ranking
 @Database(
     entities = [Ranking::class],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 @TypeConverters(RugbyRankerTypeConverters::class)
 abstract class RugbyRankerDatabase : RoomDatabase() {

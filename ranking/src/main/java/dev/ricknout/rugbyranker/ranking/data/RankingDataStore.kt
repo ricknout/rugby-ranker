@@ -21,7 +21,7 @@ class RankingDataStore(private val dataStore: DataStore<Preferences>) {
         const val DEFAULT_UPDATED_TIME_MILLIS = -1L
         private const val KEY_UPDATED_TIME_MILLIS = "updated_time_millis"
         private fun getUpdatedTimeMillisKey(sport: Sport) = longPreferencesKey(
-            "${KEY_UPDATED_TIME_MILLIS}_$sport"
+            "${KEY_UPDATED_TIME_MILLIS}_$sport",
         )
     }
 }

@@ -24,7 +24,7 @@ class ThemeRepository(private val dataStore: ThemeDataStore) {
 
     fun setTheme(
         theme: Theme,
-        coroutineScope: CoroutineScope
+        coroutineScope: CoroutineScope,
     ) {
         val mode = theme.mode
         AppCompatDelegate.setDefaultNightMode(mode)
@@ -55,7 +55,7 @@ class ThemeRepository(private val dataStore: ThemeDataStore) {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> listOf(
                 Theme.LIGHT,
                 Theme.DARK,
-                Theme.SYSTEM_DEFAULT
+                Theme.SYSTEM_DEFAULT,
             )
             else -> listOf(Theme.LIGHT, Theme.DARK, Theme.SET_BY_BATTERY_SAVER)
         }

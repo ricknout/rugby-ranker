@@ -18,16 +18,16 @@ import kotlinx.coroutines.withContext
 
 class MatchRepository(
     private val service: WorldRugbyService,
-    private val dao: RankingDao
+    private val dao: RankingDao,
 ) {
 
     fun loadMatches(sport: Sport, status: Status): Flow<PagingData<Match>> {
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                initialLoadSize = PAGE_SIZE
+                initialLoadSize = PAGE_SIZE,
             ),
-            pagingSourceFactory = { MatchPagingSource(sport, status, this) }
+            pagingSourceFactory = { MatchPagingSource(sport, status, this) },
         ).flow
     }
 
@@ -37,7 +37,7 @@ class MatchRepository(
         page: Int,
         pageSize: Int,
         unplayedStartDate: String? = null,
-        unplayedEndDate: String? = null
+        unplayedEndDate: String? = null,
     ): Pair<Boolean, List<Match>> {
         val sports = when (sport) {
             Sport.MENS -> WorldRugbyService.SPORT_MENS
@@ -90,7 +90,7 @@ class MatchRepository(
 
     suspend fun fetchMatchSummarySync(
         id: Long,
-        sport: Sport
+        sport: Sport,
     ): Pair<Boolean, Match?> {
         return try {
             val response = service.getMatchSummary(id)
@@ -107,7 +107,7 @@ class MatchRepository(
         sport: Sport,
         status: Status,
         coroutineScope: CoroutineScope,
-        onComplete: (success: Boolean, matches: List<Match>) -> Unit
+        onComplete: (success: Boolean, matches: List<Match>) -> Unit,
     ) = coroutineScope.launch {
         val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
         val result = withContext(Dispatchers.IO) {
@@ -116,7 +116,7 @@ class MatchRepository(
                 status,
                 page = 0,
                 pageSize = PAGE_SIZE,
-                unplayedStartDate = currentDate
+                unplayedStartDate = currentDate,
             )
         }
         val success = result.first
@@ -133,7 +133,7 @@ class MatchRepository(
             page = 0,
             pageSize = PAGE_SIZE_MAX,
             unplayedStartDate = currentDate,
-            unplayedEndDate = dayAfterCurrentDate
+            unplayedEndDate = dayAfterCurrentDate,
         )
         val success = result.first
         val matches = result.second

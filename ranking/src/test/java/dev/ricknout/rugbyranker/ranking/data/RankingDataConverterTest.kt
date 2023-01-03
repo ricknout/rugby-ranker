@@ -23,7 +23,7 @@ class RankingDataConverterTest {
         worldRugbyRankingsResponse = WorldRugbyRankingsResponse(
             effective = effective,
             entries = listOf(entry1, entry2),
-            label = "Label"
+            label = "Label",
         )
     }
 

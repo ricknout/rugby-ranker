@@ -9,5 +9,5 @@ import javax.inject.Inject
 @HiltViewModel
 class WomensLiveMatchViewModel @Inject constructor(
     repository: MatchRepository,
-    workManager: LiveMatchWorkManager
+    workManager: LiveMatchWorkManager,
 ) : LiveMatchViewModel(Sport.WOMENS, repository, workManager)

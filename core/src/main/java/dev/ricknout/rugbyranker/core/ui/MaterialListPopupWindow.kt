@@ -15,7 +15,7 @@ class MaterialListPopupWindow @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     @AttrRes defStyleAttr: Int = R.attr.listPopupWindowStyle,
-    @StyleRes defStyleRes: Int = R.style.Widget_MaterialComponents_ListPopupWindow
+    @StyleRes defStyleRes: Int = R.style.Widget_MaterialComponents_ListPopupWindow,
 ) : ListPopupWindow(context, attrs, defStyleAttr, defStyleRes) {
 
     init {

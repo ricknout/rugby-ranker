@@ -12,7 +12,7 @@ import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 class MensRankingWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted params: WorkerParameters,
-    repository: RankingRepository
+    repository: RankingRepository,
 ) : RankingWorker(appContext, params, Sport.MENS, repository) {
 
     companion object {

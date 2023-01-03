@@ -9,7 +9,7 @@ import dev.ricknout.rugbyranker.ranking.databinding.ListItemLabelBinding
 class LabelAdapter : ListAdapter<String, LabelViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LabelViewHolder(
-        ListItemLabelBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ListItemLabelBinding.inflate(LayoutInflater.from(parent.context), parent, false),
     )
 
     override fun onBindViewHolder(holder: LabelViewHolder, position: Int) {

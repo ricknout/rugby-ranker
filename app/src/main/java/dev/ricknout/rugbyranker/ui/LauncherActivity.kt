@@ -31,7 +31,7 @@ class LauncherActivity : AppCompatActivity() {
                     startActivity(Intent(this@LauncherActivity, MainActivity::class.java))
                     finish()
                 }
-            }
+            },
         )
         avd.start()
     }

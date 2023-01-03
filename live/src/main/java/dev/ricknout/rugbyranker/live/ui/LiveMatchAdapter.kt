@@ -10,11 +10,11 @@ import dev.ricknout.rugbyranker.match.ui.MatchViewHolder
 
 class LiveMatchAdapter(
     private val onPredictClick: (match: Match) -> Unit,
-    private val onPinClick: (match: Match) -> Unit
+    private val onPinClick: (match: Match) -> Unit,
 ) : ListAdapter<Match, MatchViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MatchViewHolder(
-        ListItemMatchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ListItemMatchBinding.inflate(LayoutInflater.from(parent.context), parent, false),
     )
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {

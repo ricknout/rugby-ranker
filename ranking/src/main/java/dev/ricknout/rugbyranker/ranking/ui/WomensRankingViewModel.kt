@@ -9,5 +9,5 @@ import javax.inject.Inject
 @HiltViewModel
 class WomensRankingViewModel @Inject constructor(
     repository: RankingRepository,
-    workManager: RankingWorkManager
+    workManager: RankingWorkManager,
 ) : RankingViewModel(Sport.WOMENS, repository, workManager)

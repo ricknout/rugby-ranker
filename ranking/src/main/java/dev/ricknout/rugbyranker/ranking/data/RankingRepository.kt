@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 class RankingRepository(
     private val service: WorldRugbyService,
     private val dao: RankingDao,
-    private val dataStore: RankingDataStore
+    private val dataStore: RankingDataStore,
 ) {
 
     fun loadRankings(sport: Sport) = dao.loadByPosition(sport)
@@ -39,7 +39,7 @@ class RankingRepository(
     fun fetchAndCacheLatestRankingsAsync(
         sport: Sport,
         coroutineScope: CoroutineScope,
-        onComplete: (success: Boolean) -> Unit
+        onComplete: (success: Boolean) -> Unit,
     ) {
         coroutineScope.launch {
             val success = withContext(Dispatchers.IO) { fetchAndCacheLatestRankingsSync(sport) }
