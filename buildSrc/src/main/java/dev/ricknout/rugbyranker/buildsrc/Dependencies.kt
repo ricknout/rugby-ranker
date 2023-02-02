@@ -4,28 +4,28 @@ object Versions {
     const val compileSdk = 33
     const val minSdk = 24
     const val targetSdk = 33
-    const val androidGradlePlugin = "7.3.1"
-    const val ktlint = "0.48.0"
+    const val androidGradlePlugin = "7.4.1"
+    const val ktlint = "0.48.2"
     const val coil = "2.2.2"
     const val insetter = "0.6.1"
     object Kotlin {
-        const val kotlin = "1.7.21"
+        const val kotlin = "1.8.10"
         const val coroutines = "1.6.4"
     }
     object AndroidX {
-        const val core = "1.9.0"
-        const val activity = "1.7.0-alpha02"
+        const val core = "1.10.0-alpha02"
+        const val activity = "1.7.0-alpha04"
         const val fragment = "1.6.0-alpha04"
         const val appCompat = "1.7.0-alpha01"
-        const val constraintLayout = "2.2.0-alpha05"
+        const val constraintLayout = "2.2.0-alpha06"
         const val recyclerView = "1.3.0-rc01"
         const val drawerLayout = "1.2.0-alpha01"
         const val swipeRefreshLayout = "1.2.0-alpha01"
         const val viewPager2 = "1.1.0-beta01"
-        const val emoji2 = "1.2.0"
-        const val browser = "1.5.0-alpha02"
-        const val lifecycle = "2.6.0-alpha03"
-        const val room = "2.5.0-rc01"
+        const val emoji2 = "1.3.0-beta01"
+        const val browser = "1.5.0-rc01"
+        const val lifecycle = "2.6.0-alpha05"
+        const val room = "2.5.0"
         const val paging = "3.2.0-alpha03"
         const val navigation = "2.6.0-alpha04"
         const val work = "2.8.0-rc01"
@@ -33,12 +33,12 @@ object Versions {
         const val dataStore = "1.1.0-alpha01"
         object Test {
             const val core = "1.5.0"
-            const val jUnit = "1.1.4"
-            const val runner = "1.5.0"
+            const val jUnit = "1.1.5"
+            const val runner = "1.5.2"
         }
     }
     object Google {
-        const val material = "1.8.0-beta01"
+        const val material = "1.9.0-alpha01"
         const val hilt = "2.44.2"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
