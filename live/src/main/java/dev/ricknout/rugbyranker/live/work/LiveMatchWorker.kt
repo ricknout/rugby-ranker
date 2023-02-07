@@ -1,14 +1,15 @@
 package dev.ricknout.rugbyranker.live.work
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.emoji2.text.EmojiCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -18,6 +19,7 @@ import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.core.util.DateUtils
 import dev.ricknout.rugbyranker.core.util.FlagUtils
 import dev.ricknout.rugbyranker.core.util.IdUtils
+import dev.ricknout.rugbyranker.core.util.NotificationUtils
 import dev.ricknout.rugbyranker.live.R
 import dev.ricknout.rugbyranker.match.data.MatchRepository
 import dev.ricknout.rugbyranker.match.model.Half
@@ -32,10 +34,8 @@ open class LiveMatchWorker(
     private val sport: Sport,
     private val repository: MatchRepository,
     private val workManager: WorkManager,
+    private val notificationManager: NotificationManagerCompat,
 ) : CoroutineWorker(appContext, params) {
-
-    private val notificationManager =
-        appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private val emojiCompat = try {
         EmojiCompat.get()
@@ -44,14 +44,17 @@ open class LiveMatchWorker(
         null
     }
 
+    @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
         val matchId = inputData.getLong(LiveMatchWorkManager.KEY_MATCH_ID, DEFAULT_MATCH_ID).also { matchId ->
             if (matchId == DEFAULT_MATCH_ID) throw IllegalArgumentException("Invalid match ID")
         }
+        if (!areNotificationsFullyEnabled()) return Result.failure()
         val matchNotificationId = matchId.toInt()
         val initialForegroundInfo = createInitialForegroundInfo(matchNotificationId)
         setForeground(initialForegroundInfo)
         while (true) {
+            if (!areNotificationsFullyEnabled()) return Result.failure()
             val (success, match) = repository.fetchMatchSummarySync(matchId, sport)
             if (success) {
                 when (match!!.status) {
@@ -74,6 +77,19 @@ open class LiveMatchWorker(
         }
     }
 
+    private fun areNotificationsFullyEnabled(): Boolean {
+        val notificationsEnabled = NotificationUtils.areNotificationsEnabled(applicationContext)
+        val liveNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
+            notificationManager = notificationManager,
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE
+        )
+        val resultNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
+            notificationManager = notificationManager,
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT
+        )
+        return notificationsEnabled && liveNotificationChannelEnabled && resultNotificationChannelEnabled
+    }
+
     private fun createInitialForegroundInfo(notificationId: Int): ForegroundInfo {
         val notification = createInitialNotification()
         return ForegroundInfo(notificationId, notification)
@@ -84,7 +100,7 @@ open class LiveMatchWorker(
         val cancelTitle = applicationContext.getString(R.string.unpin)
         val openPendingIntent = createOpenPendingIntent()
         val cancelPendingIntent = createCancelPendingIntent()
-        val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID_LIVE)
+        val builder = NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE)
             .setContentTitle(title)
             .setTicker(title)
             .setContentIntent(openPendingIntent)
@@ -135,7 +151,7 @@ open class LiveMatchWorker(
         val cancelTitle = applicationContext.getString(R.string.unpin)
         val openPendingIntent = createOpenPendingIntent()
         val cancelPendingIntent = createCancelPendingIntent()
-        val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID_LIVE)
+        val builder = NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE)
             .setContentTitle(title)
             .setTicker(title)
             .setContentText(text)
@@ -171,7 +187,7 @@ open class LiveMatchWorker(
         }
         val text = applicationContext.getString(R.string.half_sport, half, sport)
         val openPendingIntent = createOpenPendingIntent()
-        val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID_RESULT)
+        val builder = NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT)
             .setContentTitle(title)
             .setTicker(title)
             .setContentText(text)
@@ -185,27 +201,22 @@ open class LiveMatchWorker(
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private fun createLiveNotificationChannel(): NotificationChannel {
-        val notificationChannelName = applicationContext.getString(R.string.live_matches)
-        return NotificationChannel(
-            NOTIFICATION_CHANNEL_ID_LIVE,
-            notificationChannelName,
-            NotificationManager.IMPORTANCE_LOW,
-        ).also { channel ->
-            notificationManager.createNotificationChannel(channel)
-        }
+    private fun createLiveNotificationChannel(): NotificationChannelCompat {
+        return NotificationUtils.createNotificationChannel(
+            notificationManager = notificationManager,
+            id = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
+            name = applicationContext.getString(R.string.live_matches),
+            importance = NotificationManagerCompat.IMPORTANCE_LOW
+        )
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private fun createResultNotificationChannel(): NotificationChannel {
-        val notificationChannelName = applicationContext.getString(R.string.match_results)
-        return NotificationChannel(
-            NOTIFICATION_CHANNEL_ID_RESULT,
-            notificationChannelName,
-            NotificationManager.IMPORTANCE_DEFAULT,
-        ).also { channel ->
-            notificationManager.createNotificationChannel(channel)
-        }
+    private fun createResultNotificationChannel(): NotificationChannelCompat {
+        return NotificationUtils.createNotificationChannel(
+            notificationManager = notificationManager,
+            id = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
+            name = applicationContext.getString(R.string.match_results)
+        )
     }
 
     private fun createOpenPendingIntent(): PendingIntent {
@@ -223,7 +234,5 @@ open class LiveMatchWorker(
     companion object {
         private const val TAG = "LiveMatchWorker"
         private const val DEFAULT_MATCH_ID = -1L
-        private const val NOTIFICATION_CHANNEL_ID_LIVE = "live_notification_channel"
-        private const val NOTIFICATION_CHANNEL_ID_RESULT = "result_notification_channel"
     }
 }

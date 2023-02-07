@@ -1,11 +1,15 @@
 package dev.ricknout.rugbyranker.live.ui
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,8 +21,10 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
 import dev.ricknout.rugbyranker.core.model.Sport
+import dev.ricknout.rugbyranker.core.util.NotificationUtils
 import dev.ricknout.rugbyranker.live.R
 import dev.ricknout.rugbyranker.live.databinding.FragmentLiveMatchBinding
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LiveMatchFragment : Fragment() {
@@ -40,9 +46,24 @@ class LiveMatchFragment : Fragment() {
             liveMatchViewModel.predict(prediction)
         },
         { match ->
-            liveMatchViewModel.pin(match.id)
+            pin(match.id)
         },
     )
+
+    private var pinMatchId = DEFAULT_MATCH_ID
+
+    @Inject
+    lateinit var notificationManager: NotificationManagerCompat
+
+    private val notificationsRequestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted: Boolean ->
+        if (granted) {
+            liveMatchViewModel.pin(matchId = pinMatchId)
+        } else {
+            showNotificationSettingsSnackbar()
+        }
+    }
 
     private val coordinatorLayout: CoordinatorLayout
         get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
@@ -58,6 +79,7 @@ class LiveMatchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        if (savedInstanceState != null) pinMatchId = savedInstanceState.getLong(KEY_PIN_MATCH_ID)
         _binding = FragmentLiveMatchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,6 +98,7 @@ class LiveMatchFragment : Fragment() {
     }
 
     private fun setupViewModel() {
+        pinMatchId = 5
         liveMatchViewModel.liveMatches.observe(
             viewLifecycleOwner,
             { liveMatches ->
@@ -144,7 +167,76 @@ class LiveMatchFragment : Fragment() {
         binding.recyclerView.adapter = adapter
     }
 
+    private fun pin(matchId: Long) {
+        val notificationsEnabled = NotificationUtils.areNotificationsEnabled(requireContext())
+        val liveNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
+            notificationManager = notificationManager,
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE
+        )
+        val resultNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
+            notificationManager = notificationManager,
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT
+        )
+        when {
+            !notificationsEnabled -> {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                    showNotificationPermissionRationaleSnackbar(matchId)
+                } else {
+                    requestNotificationsPermission(matchId)
+                }
+            }
+            !liveNotificationChannelEnabled || !resultNotificationChannelEnabled -> {
+                showNotificationSettingsSnackbar()
+            }
+            else -> liveMatchViewModel.pin(matchId)
+        }
+    }
+
+    private fun requestNotificationsPermission(matchId: Long) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            pinMatchId = matchId
+            notificationsRequestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            showNotificationSettingsSnackbar()
+        }
+    }
+
+    private fun showNotificationPermissionRationaleSnackbar(matchId: Long) {
+        Snackbar.make(
+            coordinatorLayout,
+            R.string.notifications_permission_text,
+            Snackbar.LENGTH_LONG,
+        ).apply {
+            anchorView = fab
+            setAction(R.string.proceed) {
+                requestNotificationsPermission(matchId)
+            }
+            show()
+        }
+    }
+
+    private fun showNotificationSettingsSnackbar() {
+        Snackbar.make(
+            coordinatorLayout,
+            R.string.notifications_permission_text,
+            Snackbar.LENGTH_LONG,
+        ).apply {
+            anchorView = fab
+            setAction(R.string.settings) {
+                NotificationUtils.showNotificationSettings(requireContext())
+            }
+            show()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong(KEY_PIN_MATCH_ID, pinMatchId)
+    }
+
     companion object {
+        private const val KEY_PIN_MATCH_ID = "pin_match_id"
+        private const val DEFAULT_MATCH_ID = -1L
         fun newInstance(sport: Sport): LiveMatchFragment {
             val liveMatchFragment = LiveMatchFragment()
             liveMatchFragment.arguments = LiveMatchFragmentDirections.liveMatchAction(sport).arguments

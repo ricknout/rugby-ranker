@@ -1,6 +1,7 @@
 package dev.ricknout.rugbyranker.live.work
 
 import android.content.Context
+import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
@@ -15,7 +16,8 @@ class MensLiveMatchWorker @AssistedInject constructor(
     @Assisted params: WorkerParameters,
     repository: MatchRepository,
     workManager: WorkManager,
-) : LiveMatchWorker(appContext, params, Sport.MENS, repository, workManager) {
+    notificationManager: NotificationManagerCompat,
+) : LiveMatchWorker(appContext, params, Sport.MENS, repository, workManager, notificationManager) {
 
     companion object {
         fun getUniqueWorkName(matchId: Long) = "live_match_worker_mens_$matchId"

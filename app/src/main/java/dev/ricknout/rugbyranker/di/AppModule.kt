@@ -1,6 +1,7 @@
 package dev.ricknout.rugbyranker.di
 
 import android.content.Context
+import androidx.core.app.NotificationManagerCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -142,6 +143,12 @@ class AppModule {
     @Singleton
     fun provideLiveMatchWorkManager(workManager: WorkManager): LiveMatchWorkManager {
         return LiveMatchWorkManager(workManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationManager(@ApplicationContext context: Context): NotificationManagerCompat {
+        return NotificationManagerCompat.from(context)
     }
 
     companion object {

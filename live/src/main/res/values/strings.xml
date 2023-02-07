@@ -16,4 +16,8 @@
 
     <string name="unpin">Unpin</string>
 
+    <string name="settings">Settings</string>
+    <string name="proceed">Proceed</string>
+    <string name="notifications_permission_text">Please allow notifications and all notification channels.</string>
+
 </resources>
