@@ -17,7 +17,8 @@ object NotificationUtils {
 
     @SuppressLint("InlinedApi")
     fun areNotificationsEnabled(context: Context) = ContextCompat.checkSelfPermission(
-        context, Manifest.permission.POST_NOTIFICATIONS
+        context,
+        Manifest.permission.POST_NOTIFICATIONS,
     ) == PackageManager.PERMISSION_GRANTED
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -25,7 +26,7 @@ object NotificationUtils {
         notificationManager: NotificationManagerCompat,
         id: String,
         name: String,
-        importance: Int = NotificationManagerCompat.IMPORTANCE_DEFAULT
+        importance: Int = NotificationManagerCompat.IMPORTANCE_DEFAULT,
     ): NotificationChannelCompat {
         return NotificationChannelCompat.Builder(id, importance)
             .setName(name)
@@ -37,7 +38,7 @@ object NotificationUtils {
 
     fun isNotificationChannelEnabled(
         notificationManager: NotificationManagerCompat,
-        channelId: String
+        channelId: String,
     ): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             // Notification channels are only applicable on SDK 26+

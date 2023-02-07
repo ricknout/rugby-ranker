@@ -81,11 +81,11 @@ open class LiveMatchWorker(
         val notificationsEnabled = NotificationUtils.areNotificationsEnabled(applicationContext)
         val liveNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
             notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
         )
         val resultNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
             notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
         )
         return notificationsEnabled && liveNotificationChannelEnabled && resultNotificationChannelEnabled
     }
@@ -206,7 +206,7 @@ open class LiveMatchWorker(
             notificationManager = notificationManager,
             id = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
             name = applicationContext.getString(R.string.live_matches),
-            importance = NotificationManagerCompat.IMPORTANCE_LOW
+            importance = NotificationManagerCompat.IMPORTANCE_LOW,
         )
     }
 
@@ -215,7 +215,7 @@ open class LiveMatchWorker(
         return NotificationUtils.createNotificationChannel(
             notificationManager = notificationManager,
             id = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
-            name = applicationContext.getString(R.string.match_results)
+            name = applicationContext.getString(R.string.match_results),
         )
     }
 

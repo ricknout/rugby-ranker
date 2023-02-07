@@ -56,7 +56,7 @@ class LiveMatchFragment : Fragment() {
     lateinit var notificationManager: NotificationManagerCompat
 
     private val notificationsRequestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
+        ActivityResultContracts.RequestPermission(),
     ) { granted: Boolean ->
         if (granted) {
             liveMatchViewModel.pin(matchId = pinMatchId)
@@ -171,11 +171,11 @@ class LiveMatchFragment : Fragment() {
         val notificationsEnabled = NotificationUtils.areNotificationsEnabled(requireContext())
         val liveNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
             notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
         )
         val resultNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
             notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT
+            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
         )
         when {
             !notificationsEnabled -> {
