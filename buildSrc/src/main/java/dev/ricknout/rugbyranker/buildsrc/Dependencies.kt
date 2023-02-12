@@ -14,21 +14,21 @@ object Versions {
     }
     object AndroidX {
         const val core = "1.10.0-alpha02"
-        const val activity = "1.7.0-alpha04"
-        const val fragment = "1.6.0-alpha04"
-        const val appCompat = "1.7.0-alpha01"
-        const val constraintLayout = "2.2.0-alpha06"
+        const val activity = "1.7.0-beta01"
+        const val fragment = "1.6.0-alpha05"
+        const val appCompat = "1.7.0-alpha02"
+        const val constraintLayout = "2.2.0-alpha07"
         const val recyclerView = "1.3.0-rc01"
-        const val drawerLayout = "1.2.0-alpha01"
+        const val drawerLayout = "1.2.0-beta01"
         const val swipeRefreshLayout = "1.2.0-alpha01"
         const val viewPager2 = "1.1.0-beta01"
-        const val emoji2 = "1.3.0-beta01"
-        const val browser = "1.5.0-rc01"
-        const val lifecycle = "2.6.0-alpha05"
+        const val emoji2 = "1.3.0-beta02"
+        const val browser = "1.5.0"
+        const val lifecycle = "2.6.0-beta01"
         const val room = "2.5.0"
-        const val paging = "3.2.0-alpha03"
-        const val navigation = "2.6.0-alpha04"
-        const val work = "2.8.0-rc01"
+        const val paging = "3.2.0-alpha04"
+        const val navigation = "2.6.0-alpha05"
+        const val work = "2.8.0"
         const val hilt = "1.0.0"
         const val dataStore = "1.1.0-alpha01"
         object Test {
@@ -39,7 +39,7 @@ object Versions {
     }
     object Google {
         const val material = "1.9.0-alpha01"
-        const val hilt = "2.44.2"
+        const val hilt = "2.45"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
             const val gradlePlugin = "0.10.6"
