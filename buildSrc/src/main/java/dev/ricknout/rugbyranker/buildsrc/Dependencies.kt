@@ -4,7 +4,7 @@ object Versions {
     const val compileSdk = 33
     const val minSdk = 24
     const val targetSdk = 33
-    const val androidGradlePlugin = "7.4.1"
+    const val androidGradlePlugin = "7.4.2"
     const val ktlint = "0.48.2"
     const val coil = "2.2.2"
     const val insetter = "0.6.1"
@@ -13,21 +13,21 @@ object Versions {
         const val coroutines = "1.6.4"
     }
     object AndroidX {
-        const val core = "1.10.0-alpha02"
-        const val activity = "1.7.0-beta01"
-        const val fragment = "1.6.0-alpha05"
+        const val core = "1.10.0-rc01"
+        const val activity = "1.7.0-rc01"
+        const val fragment = "1.6.0-alpha07"
         const val appCompat = "1.7.0-alpha02"
-        const val constraintLayout = "2.2.0-alpha07"
-        const val recyclerView = "1.3.0-rc01"
-        const val drawerLayout = "1.2.0-beta01"
+        const val constraintLayout = "2.2.0-alpha08"
+        const val recyclerView = "1.3.0"
+        const val drawerLayout = "1.2.0-rc01"
         const val swipeRefreshLayout = "1.2.0-alpha01"
         const val viewPager2 = "1.1.0-beta01"
-        const val emoji2 = "1.3.0-beta02"
+        const val emoji2 = "1.3.0-rc01"
         const val browser = "1.5.0"
-        const val lifecycle = "2.6.0-beta01"
+        const val lifecycle = "2.6.0"
         const val room = "2.5.0"
         const val paging = "3.2.0-alpha04"
-        const val navigation = "2.6.0-alpha05"
+        const val navigation = "2.6.0-alpha07"
         const val work = "2.8.0"
         const val hilt = "1.0.0"
         const val dataStore = "1.1.0-alpha01"
@@ -38,7 +38,7 @@ object Versions {
         }
     }
     object Google {
-        const val material = "1.9.0-alpha01"
+        const val material = "1.9.0-alpha02"
         const val hilt = "2.45"
         object OssLicenses {
             const val ossLicenses = "17.0.0"
