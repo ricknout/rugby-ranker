@@ -25,6 +25,7 @@ dependencies {
     api Libs.Kotlin.Coroutines.core
     api Libs.Kotlin.Coroutines.android
     api Libs.AndroidX.Core.ktx
+    api Libs.AndroidX.Core.splashscreen
     api Libs.AndroidX.Activity.ktx
     api Libs.AndroidX.Fragment.ktx
     api Libs.AndroidX.Lifecycle.viewModelKtx

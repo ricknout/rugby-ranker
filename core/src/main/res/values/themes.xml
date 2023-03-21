@@ -48,6 +48,11 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
+    <style name="Theme.RugbyRanker.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.RugbyRanker</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_288dp</item>
+    </style>
+
     <style name="Base.Theme.RugbyRanker.OssLicenses" parent="Theme.MaterialComponents.DayNight">
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>

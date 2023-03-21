@@ -15,18 +15,16 @@
         android:roundIcon="${appIcon}"
         android:supportsRtl="true"
         android:name=".RugbyRankerApplication"
-        android:theme="@style/Theme.RugbyRanker">
+        android:theme="@style/Theme.RugbyRanker.Splash">
 
         <activity
-            android:name=".ui.LauncherActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.MainActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

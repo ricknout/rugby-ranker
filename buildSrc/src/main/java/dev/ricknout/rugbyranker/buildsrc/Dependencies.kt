@@ -13,7 +13,6 @@ object Versions {
         const val coroutines = "1.6.4"
     }
     object AndroidX {
-        const val core = "1.10.0-rc01"
         const val activity = "1.7.0-rc01"
         const val fragment = "1.6.0-alpha07"
         const val appCompat = "1.7.0-alpha02"
@@ -31,6 +30,10 @@ object Versions {
         const val work = "2.8.0"
         const val hilt = "1.0.0"
         const val dataStore = "1.1.0-alpha01"
+        object Core {
+            const val core = "1.10.0-rc01"
+            const val splashscreen = "1.0.0"
+        }
         object Test {
             const val core = "1.5.0"
             const val jUnit = "1.1.5"
@@ -74,7 +77,8 @@ object Libs {
         const val emoji2 = "androidx.emoji2:emoji2:${Versions.AndroidX.emoji2}"
         const val browser = "androidx.browser:browser:${Versions.AndroidX.browser}"
         object Core {
-            const val ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
+            const val ktx = "androidx.core:core-ktx:${Versions.AndroidX.Core.core}"
+            const val splashscreen = "androidx.core:core-splashscreen:${Versions.AndroidX.Core.splashscreen}"
         }
         object Activity {
             const val ktx = "androidx.activity:activity-ktx:${Versions.AndroidX.activity}"
