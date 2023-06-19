@@ -1,50 +1,50 @@
 package dev.ricknout.rugbyranker.buildsrc
 
 object Versions {
-    const val compileSdk = 33
+    const val compileSdk = 34
     const val minSdk = 24
-    const val targetSdk = 33
-    const val androidGradlePlugin = "7.4.2"
-    const val ktlint = "0.48.2"
-    const val coil = "2.2.2"
+    const val targetSdk = 34
+    const val androidGradlePlugin = "8.0.2"
+    const val ktlint = "0.49.1"
+    const val coil = "2.4.0"
     const val insetter = "0.6.1"
     object Kotlin {
-        const val kotlin = "1.8.10"
-        const val coroutines = "1.6.4"
+        const val kotlin = "1.8.22"
+        const val coroutines = "1.7.1"
     }
     object AndroidX {
-        const val activity = "1.7.0-rc01"
-        const val fragment = "1.6.0-alpha07"
+        const val activity = "1.8.0-alpha05"
+        const val fragment = "1.7.0-alpha01"
         const val appCompat = "1.7.0-alpha02"
-        const val constraintLayout = "2.2.0-alpha08"
-        const val recyclerView = "1.3.0"
-        const val drawerLayout = "1.2.0-rc01"
+        const val constraintLayout = "2.2.0-alpha10"
+        const val recyclerView = "1.3.1-rc01"
+        const val drawerLayout = "1.2.0"
         const val swipeRefreshLayout = "1.2.0-alpha01"
-        const val viewPager2 = "1.1.0-beta01"
-        const val emoji2 = "1.3.0-rc01"
-        const val browser = "1.5.0"
-        const val lifecycle = "2.6.0"
-        const val room = "2.5.0"
-        const val paging = "3.2.0-alpha04"
-        const val navigation = "2.6.0-alpha07"
-        const val work = "2.8.0"
+        const val viewPager2 = "1.1.0-beta02"
+        const val emoji2 = "1.4.0-beta05"
+        const val browser = "1.6.0-alpha02"
+        const val lifecycle = "2.6.1"
+        const val room = "2.6.0-alpha01"
+        const val paging = "3.2.0-beta01"
+        const val navigation = "2.7.0-beta01"
+        const val work = "2.9.0-alpha01"
         const val hilt = "1.0.0"
-        const val dataStore = "1.1.0-alpha01"
+        const val dataStore = "1.1.0-alpha04"
         object Core {
-            const val core = "1.10.0-rc01"
-            const val splashscreen = "1.0.0"
+            const val core = "1.12.0-alpha05"
+            const val splashscreen = "1.0.1"
         }
         object Test {
-            const val core = "1.5.0"
-            const val jUnit = "1.1.5"
-            const val runner = "1.5.2"
+            const val core = "1.6.0-alpha01"
+            const val jUnit = "1.2.0-alpha01"
+            const val runner = "1.6.0-alpha02"
         }
     }
     object Google {
-        const val material = "1.9.0-alpha02"
-        const val hilt = "2.45"
+        const val material = "1.10.0-alpha04"
+        const val hilt = "2.46.1"
         object OssLicenses {
-            const val ossLicenses = "17.0.0"
+            const val ossLicenses = "17.0.1"
             const val gradlePlugin = "0.10.6"
         }
     }

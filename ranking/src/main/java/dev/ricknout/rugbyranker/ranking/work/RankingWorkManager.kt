@@ -48,6 +48,6 @@ class RankingWorkManager(private val workManager: WorkManager) {
     companion object {
         private const val REPEAT_INTERVAL = 1L
         private val REPEAT_INTERVAL_TIME_UNIT = TimeUnit.DAYS
-        private val EXISTING_PERIODIC_WORK_POLICY = ExistingPeriodicWorkPolicy.REPLACE
+        private val EXISTING_PERIODIC_WORK_POLICY = ExistingPeriodicWorkPolicy.UPDATE
     }
 }
