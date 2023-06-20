@@ -50,12 +50,12 @@ class MatchRepository(
             else -> throw IllegalArgumentException("Cannot handle $status in fetchLatestMatchesSync")
         }
         val startDate = when (status) {
-            Status.UNPLAYED -> unplayedStartDate ?: ""
-            else -> ""
+            Status.UNPLAYED -> unplayedStartDate
+            else -> null
         }
         val endDate = when (status) {
-            Status.UNPLAYED -> unplayedEndDate ?: ""
-            else -> ""
+            Status.UNPLAYED -> unplayedEndDate
+            else -> null
         }
         val sort = when (status) {
             Status.UNPLAYED, Status.LIVE -> WorldRugbyService.SORT_ASC

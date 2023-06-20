@@ -6,24 +6,24 @@ import retrofit2.http.Query
 
 interface WorldRugbyService {
 
-    @GET("rugby/rankings/{sport}")
+    @GET("rugby/v3/rankings/{sport}")
     suspend fun getRankings(
         @Path("sport") sport: String,
         @Query("date") date: String,
     ): WorldRugbyRankingsResponse
 
-    @GET("rugby/match")
+    @GET("rugby/v3/match")
     suspend fun getMatches(
         @Query("sports") sports: String,
         @Query("states") states: String,
-        @Query("startDate") startDate: String,
-        @Query("endDate") endDate: String,
+        @Query("startDate") startDate: String?,
+        @Query("endDate") endDate: String?,
         @Query("sort") sort: String,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int,
     ): WorldRugbyMatchesResponse
 
-    @GET("rugby/match/{id}/summary")
+    @GET("rugby/v3/match/{id}/summary")
     suspend fun getMatchSummary(
         @Path("id") id: Long,
     ): WorldRugbyMatchSummaryResponse
@@ -55,6 +55,6 @@ interface WorldRugbyService {
         const val TYPE_TEXT = "text"
         const val LANGUAGE_EN = "en"
         const val TAG_NAME_NEWS = "wr-news"
-        const val BASE_URL = "https://cmsapi.pulselive.com/"
+        const val BASE_URL = "https://api.wr-rims-prod.pulselive.com/"
     }
 }
