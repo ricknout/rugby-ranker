@@ -6,7 +6,7 @@ import org.junit.Test
 class RankingTest {
 
     private val worldRugbyRanking = Ranking(
-        1,
+        "1",
         "Team 1",
         "T1",
         1,
