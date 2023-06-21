@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "rankings")
 data class Ranking(
     @PrimaryKey
-    val teamId: Long,
+    val teamId: String,
     val teamName: String,
     val teamAbbreviation: String,
     val position: Int,

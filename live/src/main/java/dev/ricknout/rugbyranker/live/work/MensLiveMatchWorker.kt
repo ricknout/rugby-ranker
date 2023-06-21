@@ -20,6 +20,6 @@ class MensLiveMatchWorker @AssistedInject constructor(
 ) : LiveMatchWorker(appContext, params, Sport.MENS, repository, workManager, notificationManager) {
 
     companion object {
-        fun getUniqueWorkName(matchId: Long) = "live_match_worker_mens_$matchId"
+        fun getUniqueWorkName(matchId: String) = "live_match_worker_mens_$matchId"
     }
 }

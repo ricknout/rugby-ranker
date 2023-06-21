@@ -17,7 +17,7 @@ object MatchDataConverter {
     fun getMatchesFromResponse(
         response: WorldRugbyMatchesResponse,
         sport: Sport,
-        teamIds: List<Long>,
+        teamIds: List<String>,
     ): List<Match> = response.content.map { content ->
         getMatchFromResponse(content, sport, teamIds)
     }
@@ -25,7 +25,7 @@ object MatchDataConverter {
     fun getMatchFromResponse(
         response: WorldRugbyMatchSummaryResponse,
         sport: Sport,
-        teamIds: List<Long>,
+        teamIds: List<String>,
     ): Match {
         val minute = getMinuteFromResponse(response)
         return getMatchFromResponse(response.match, sport, teamIds).copy(minute = minute)
@@ -34,7 +34,7 @@ object MatchDataConverter {
     private fun getMatchFromResponse(
         content: Content,
         sport: Sport,
-        teamIds: List<Long>,
+        teamIds: List<String>,
     ): Match {
         val firstTeam = content.teams[0] ?: tbc
         val secondTeam = content.teams[1] ?: tbc

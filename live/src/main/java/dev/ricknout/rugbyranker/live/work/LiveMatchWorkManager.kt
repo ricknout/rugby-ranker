@@ -8,9 +8,9 @@ import dev.ricknout.rugbyranker.core.model.Sport
 
 class LiveMatchWorkManager(private val workManager: WorkManager) {
 
-    fun enqueueWork(sport: Sport, matchId: Long) {
+    fun enqueueWork(sport: Sport, matchId: String) {
         val data = Data.Builder()
-            .putLong(KEY_MATCH_ID, matchId)
+            .putString(KEY_MATCH_ID, matchId)
             .build()
         val builder = when (sport) {
             Sport.MENS -> OneTimeWorkRequestBuilder<MensLiveMatchWorker>()
@@ -23,7 +23,7 @@ class LiveMatchWorkManager(private val workManager: WorkManager) {
         workManager.enqueueUniqueWork(uniqueWorkName, EXISTING_WORK_POLICY, work)
     }
 
-    private fun getUniqueWorkName(sport: Sport, matchId: Long) = when (sport) {
+    private fun getUniqueWorkName(sport: Sport, matchId: String) = when (sport) {
         Sport.MENS -> MensLiveMatchWorker.getUniqueWorkName(matchId)
         Sport.WOMENS -> WomensLiveMatchWorker.getUniqueWorkName(matchId)
     }

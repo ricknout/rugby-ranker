@@ -25,7 +25,7 @@ interface WorldRugbyService {
 
     @GET("rugby/v3/match/{id}/summary")
     suspend fun getMatchSummary(
-        @Path("id") id: Long,
+        @Path("id") id: String,
     ): WorldRugbyMatchSummaryResponse
 
     @GET("content/worldrugby/{type}/{lang}")

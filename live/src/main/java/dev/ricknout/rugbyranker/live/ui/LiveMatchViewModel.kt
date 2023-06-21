@@ -78,7 +78,7 @@ open class LiveMatchViewModel(
         _predict.value = null
     }
 
-    fun pin(matchId: Long) {
+    fun pin(matchId: String) {
         workManager.enqueueWork(sport, matchId)
     }
 }

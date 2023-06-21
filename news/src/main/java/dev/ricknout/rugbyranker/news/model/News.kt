@@ -1,7 +1,7 @@
 package dev.ricknout.rugbyranker.news.model
 
 data class News(
-    val id: Long,
+    val id: String,
     val type: Type,
     val title: String,
     val subtitle: String?,

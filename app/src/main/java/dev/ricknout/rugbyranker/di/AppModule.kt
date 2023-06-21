@@ -67,7 +67,7 @@ class AppModule {
             context,
             RugbyRankerDatabase::class.java,
             RugbyRankerDatabase.DATABASE_NAME,
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

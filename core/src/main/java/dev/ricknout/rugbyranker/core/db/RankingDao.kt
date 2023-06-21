@@ -21,5 +21,5 @@ interface RankingDao {
     fun loadByTeamName(sport: Sport): Flow<List<Ranking>>
 
     @Query("SELECT teamId FROM rankings WHERE sport = :sport")
-    suspend fun loadTeamIds(sport: Sport): List<Long>
+    suspend fun loadTeamIds(sport: Sport): List<String>
 }

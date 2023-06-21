@@ -89,7 +89,7 @@ class MatchRepository(
     }
 
     suspend fun fetchMatchSummarySync(
-        id: Long,
+        id: String,
         sport: Sport,
     ): Pair<Boolean, Match?> {
         return try {

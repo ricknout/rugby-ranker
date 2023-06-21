@@ -7,12 +7,12 @@ data class Effective(
 )
 
 data class Team(
-    val id: Long,
+    val id: String,
     val name: String,
     val abbreviation: String?,
 )
 
-val tbc = Team(id = -1L, name = "TBC", abbreviation = "TBC")
+val tbc = Team(id = "TBC", name = "TBC", abbreviation = "TBC")
 
 data class Entry(
     val pos: Int,
@@ -37,7 +37,7 @@ data class PageInfo(
 )
 
 data class Venue(
-    val id: Long,
+    val id: String,
     val name: String,
     val city: String,
     val country: String,
@@ -49,7 +49,7 @@ data class Clock(
 )
 
 data class Event(
-    val id: Long,
+    val id: String,
     val label: String,
     val sport: String,
     val start: Effective,
@@ -58,7 +58,7 @@ data class Event(
 )
 
 data class Content(
-    val matchId: Long,
+    val matchId: String,
     val description: String?,
     val venue: Venue?,
     val time: Effective,
@@ -80,7 +80,7 @@ data class WorldRugbyMatchSummaryResponse(
 )
 
 data class Article(
-    val id: Long,
+    val id: String,
     val type: String,
     val title: String,
     val description: String?,

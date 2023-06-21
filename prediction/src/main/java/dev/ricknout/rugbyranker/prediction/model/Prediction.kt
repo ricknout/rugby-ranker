@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Prediction(
-    val id: Long,
+    val id: String,
     val homeTeam: Team,
     val homeScore: Int,
     val awayTeam: Team,
@@ -15,6 +15,6 @@ data class Prediction(
 ) : Parcelable {
 
     companion object {
-        fun generateId() = System.currentTimeMillis()
+        fun generateId() = System.currentTimeMillis().toString()
     }
 }

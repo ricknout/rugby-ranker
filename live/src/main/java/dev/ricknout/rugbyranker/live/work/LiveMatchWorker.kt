@@ -46,11 +46,9 @@ open class LiveMatchWorker(
 
     @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
-        val matchId = inputData.getLong(LiveMatchWorkManager.KEY_MATCH_ID, DEFAULT_MATCH_ID).also { matchId ->
-            if (matchId == DEFAULT_MATCH_ID) throw IllegalArgumentException("Invalid match ID")
-        }
+        val matchId = inputData.getString(LiveMatchWorkManager.KEY_MATCH_ID) ?: throw IllegalArgumentException("Match ID is null")
         if (!areNotificationsFullyEnabled()) return Result.failure()
-        val matchNotificationId = matchId.toInt()
+        val matchNotificationId = IdUtils.getID()
         val initialForegroundInfo = createInitialForegroundInfo(matchNotificationId)
         setForeground(initialForegroundInfo)
         while (true) {
@@ -233,6 +231,5 @@ open class LiveMatchWorker(
 
     companion object {
         private const val TAG = "LiveMatchWorker"
-        private const val DEFAULT_MATCH_ID = -1L
     }
 }
