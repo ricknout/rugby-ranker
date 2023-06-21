@@ -12,7 +12,7 @@ class RankingCalculatorTest {
     @Test
     fun allocatePointsForPrediction() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -23,7 +23,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -34,7 +34,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team3 = Ranking(
-            teamId = 3,
+            teamId = "3",
             teamName = "Team 3",
             teamAbbreviation = "T3",
             position = 3,
@@ -45,7 +45,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team4 = Ranking(
-            teamId = 4,
+            teamId = "4",
             teamName = "Team 4",
             teamAbbreviation = "T4",
             position = 4,
@@ -102,7 +102,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsEqual() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -113,7 +113,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -165,7 +165,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsEqual_NHA() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -176,7 +176,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -228,7 +228,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsEqual_RWC() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -239,7 +239,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -291,7 +291,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsNotEqual() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -302,7 +302,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -354,7 +354,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsNotEqual_NHA() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -365,7 +365,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -417,7 +417,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsNotEqual_RWC() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -428,7 +428,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -480,7 +480,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsMoreThan10() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -491,7 +491,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -543,7 +543,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsMoreThan10_NHA() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -554,7 +554,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
@@ -606,7 +606,7 @@ class RankingCalculatorTest {
     @Test
     fun pointsForPrediction_TeamsPointsMoreThan10_RWC() {
         val team1 = Ranking(
-            teamId = 1,
+            teamId = "1",
             teamName = "Team 1",
             teamAbbreviation = "T1",
             position = 1,
@@ -617,7 +617,7 @@ class RankingCalculatorTest {
             sport = Sport.MENS,
         )
         val team2 = Ranking(
-            teamId = 2,
+            teamId = "2",
             teamName = "Team 2",
             teamAbbreviation = "T2",
             position = 2,
