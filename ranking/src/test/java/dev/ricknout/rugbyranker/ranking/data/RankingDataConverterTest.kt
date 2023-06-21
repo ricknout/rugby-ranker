@@ -16,9 +16,9 @@ class RankingDataConverterTest {
     @Before
     fun setup() {
         val effective = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = 0f)
-        val team1 = Team(id = 100L, name = "Team 1", abbreviation = "T1")
+        val team1 = Team(id = "100", name = "Team 1", abbreviation = "T1")
         val entry1 = Entry(pos = 1, previousPos = 2, pts = 100f, previousPts = 90f, matches = 10, team = team1)
-        val team2 = Team(id = 200L, name = "Team 2", abbreviation = "T2")
+        val team2 = Team(id = "200", name = "Team 2", abbreviation = "T2")
         val entry2 = Entry(pos = 2, previousPos = 3, pts = 90f, previousPts = 80f, matches = 10, team = team2)
         worldRugbyRankingsResponse = WorldRugbyRankingsResponse(
             effective = effective,
