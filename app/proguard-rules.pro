@@ -8,6 +8,9 @@
 # Retrofit does reflection on method and parameter annotations.
 -keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
 
+# Keep annotation default values (e.g., retrofit2.http.Field.encoded).
+-keepattributes AnnotationDefault
+
 # Retain service method parameters when optimizing.
 -keepclassmembers,allowshrinking,allowobfuscation interface * {
     @retrofit2.http.* <methods>;
@@ -31,20 +34,36 @@
 -if interface * { @retrofit2.http.* <methods>; }
 -keep,allowobfuscation interface <1>
 
+# Keep inherited services.
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface * extends <1>
+
+# With R8 full mode generic signatures are stripped for classes that are not
+# kept. Suspend functions are wrapped in continuations where the type argument
+# is used.
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+
+# R8 full mode strips generic signatures from return types if not kept.
+-if interface * { @retrofit2.http.* public *** *(...); }
+-keep,allowoptimization,allowshrinking,allowobfuscation class <3>
+
 ## OkHttp
-## https://github.com/square/okhttp/blob/master/okhttp/src/main/resources/META-INF/proguard/okhttp3.pro
+## https://square.github.io/okhttp/features/r8_proguard
 
 # JSR 305 annotations are for embedding nullability information.
 -dontwarn javax.annotation.**
 
 # A resource is loaded with a relative path so the package of this class must be preserved.
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+-adaptresourcefilenames okhttp3/internal/publicsuffix/PublicSuffixDatabase.gz
 
 # Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 
-# OkHttp platform used only on JVM and when Conscrypt dependency is available.
--dontwarn okhttp3.internal.platform.ConscryptPlatform
+# OkHttp platform used only on JVM and when Conscrypt and other security providers are available.
+-dontwarn okhttp3.internal.platform.**
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**
 
 ## Gson
 ## https://github.com/google/gson/blob/master/examples/android-proguard-example/proguard.cfg
@@ -60,16 +79,12 @@
 -dontwarn sun.misc.**
 #-keep class com.google.gson.stream.** { *; }
 
-# Application classes that will be serialized/deserialized over Gson or passed as nav args
--keep class dev.ricknout.rugbyranker.core.api.** { *; }
--keep class dev.ricknout.rugbyranker.core.model.** { *; }
--keep class dev.ricknout.rugbyranker.prediction.model.** { *; }
--keep class dev.ricknout.rugbyranker.match.model.** { *; }
--keep class dev.ricknout.rugbyranker.news.model.** { *; }
--keep class dev.ricknout.rugbyranker.theme.model.** { *; }
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.google.gson.examples.android.model.** { <fields>; }
 
-# Prevent proguard from stripping interface information from TypeAdapterFactory,
+# Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * extends com.google.gson.TypeAdapter
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
@@ -79,25 +94,25 @@
   @com.google.gson.annotations.SerializedName <fields>;
 }
 
+# Retain generic signatures of TypeToken and its subclasses with R8 version 3.0 and higher.
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+
 ## Dagger
 ## https://github.com/google/dagger/blob/master/java/dagger/android/proguard.cfg
 
 -dontwarn com.google.errorprone.annotations.**
 
 ## Coroutines
-## https://github.com/Kotlin/kotlinx.coroutines/blob/master/core/kotlinx-coroutines-core/resources/META-INF/proguard/coroutines.pro
+## https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/kotlinx-coroutines-android/resources/META-INF/com.android.tools/proguard/coroutines.pro
 
-# ServiceLoader support
--keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
--keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
--keepnames class kotlinx.coroutines.android.AndroidExceptionPreHandler {}
--keepnames class kotlinx.coroutines.android.AndroidDispatcherFactory {}
-
-# Most of volatile fields are updated with AFU and should not be mangled
--keepclassmembernames class kotlinx.** {
-    volatile <fields>;
-}
+-keep class kotlinx.coroutines.android.AndroidDispatcherFactory {*;}
+-keep class kotlinx.coroutines.android.AndroidExceptionPreHandler {*;}
 
 ## Jetpack Navigation
 
 -keepnames class androidx.navigation.fragment.NavHostFragment
+
+## Rugby Ranker
+
+-keep class dev.ricknout.rugbyranker.core.api.** { *; }
