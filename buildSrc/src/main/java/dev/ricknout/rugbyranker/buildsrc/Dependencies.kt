@@ -13,7 +13,7 @@ object Versions {
         const val coroutines = "1.7.1"
     }
     object AndroidX {
-        const val activity = "1.8.0-alpha05"
+        const val activity = "1.8.0-alpha06"
         const val fragment = "1.7.0-alpha01"
         const val appCompat = "1.7.0-alpha02"
         const val constraintLayout = "2.2.0-alpha10"
@@ -22,10 +22,10 @@ object Versions {
         const val swipeRefreshLayout = "1.2.0-alpha01"
         const val viewPager2 = "1.1.0-beta02"
         const val emoji2 = "1.4.0-beta05"
-        const val browser = "1.6.0-alpha02"
+        const val browser = "1.6.0-beta01"
         const val lifecycle = "2.6.1"
-        const val room = "2.6.0-alpha01"
-        const val paging = "3.2.0-beta01"
+        const val room = "2.6.0-alpha02"
+        const val paging = "3.2.0-rc01"
         const val navigation = "2.7.0-beta01"
         const val work = "2.9.0-alpha01"
         const val hilt = "1.0.0"
