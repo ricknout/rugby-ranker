@@ -113,6 +113,11 @@
 
 -keepnames class androidx.navigation.fragment.NavHostFragment
 
-## Rugby Ranker
+## Rugby Ranker (classes that will be serialized/deserialized over Gson or passed as nav args)
 
 -keep class dev.ricknout.rugbyranker.core.api.** { *; }
+-keep class dev.ricknout.rugbyranker.core.model.** { *; }
+-keep class dev.ricknout.rugbyranker.prediction.model.** { *; }
+-keep class dev.ricknout.rugbyranker.match.model.** { *; }
+-keep class dev.ricknout.rugbyranker.news.model.** { *; }
+-keep class dev.ricknout.rugbyranker.theme.model.** { *; }
