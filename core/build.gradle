@@ -1,16 +1,15 @@
-import dev.ricknout.rugbyranker.buildsrc.Libs
-import dev.ricknout.rugbyranker.buildsrc.Versions
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    alias libs.plugins.android.library
+    alias libs.plugins.kotlin.android
+}
 
 android {
     namespace 'dev.ricknout.rugbyranker.core'
-    compileSdkVersion Versions.compileSdk
+    compileSdk 34
     defaultConfig {
-        minSdkVersion Versions.minSdk
-        targetSdkVersion Versions.targetSdk
-        testInstrumentationRunner Libs.AndroidX.Test.instrumentationRunner
+        minSdkVersion 24
+        targetSdkVersion 34
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -22,34 +21,34 @@ android {
 }
 
 dependencies {
-    api Libs.Kotlin.stdlib
-    api Libs.Kotlin.Coroutines.core
-    api Libs.Kotlin.Coroutines.android
-    api Libs.AndroidX.Core.ktx
-    api Libs.AndroidX.Core.splashscreen
-    api Libs.AndroidX.Activity.ktx
-    api Libs.AndroidX.Fragment.ktx
-    api Libs.AndroidX.Lifecycle.viewModelKtx
-    api Libs.AndroidX.Lifecycle.liveDataKtx
-    api Libs.AndroidX.appCompat
-    api Libs.AndroidX.constraintLayout
-    api Libs.AndroidX.recyclerView
-    api Libs.AndroidX.swipeRefreshLayout
-    api Libs.AndroidX.emoji2
-    api Libs.AndroidX.browser
-    api Libs.AndroidX.Room.runtime
-    api Libs.AndroidX.Room.ktx
-    api Libs.AndroidX.Navigation.uiKtx
-    api Libs.AndroidX.Navigation.fragmentKtx
-    api Libs.AndroidX.Work.runtimeKtx
-    api Libs.Google.material
-    api Libs.AndroidX.Hilt.work
-    api Libs.AndroidX.DataStore.preferences
-    api Libs.Square.okHttp
-    api Libs.Square.Retrofit.retrofit
-    api Libs.Square.Retrofit.gsonConverter
-    api Libs.insetter
-    testImplementation Libs.AndroidX.Test.JUnit.ktx
-    androidTestImplementation Libs.AndroidX.Test.Core.ktx
-    androidTestImplementation Libs.AndroidX.Test.runner
+    api libs.kotlin.stdlib
+    api libs.kotlin.coroutines.core
+    api libs.kotlin.coroutines.android
+    api libs.androidx.core.ktx
+    api libs.androidx.core.splashscreen
+    api libs.androidx.activity.ktx
+    api libs.androidx.fragment.ktx
+    api libs.androidx.lifecycle.viewmodel.ktx
+    api libs.androidx.lifecycle.livedata.ktx
+    api libs.androidx.appcompat
+    api libs.androidx.constraintlayout
+    api libs.androidx.recyclerview
+    api libs.androidx.swiperefreshlayout
+    api libs.androidx.emoji2
+    api libs.androidx.browser
+    api libs.androidx.room.runtime
+    api libs.androidx.room.ktx
+    api libs.androidx.navigation.ui.ktx
+    api libs.androidx.navigation.fragment.ktx
+    api libs.androidx.work.runtime.ktx
+    api libs.material
+    api libs.androidx.hilt.work
+    api libs.androidx.datastore.preferences
+    api libs.okhttp
+    api libs.retrofit
+    api libs.retrofit.converter.gson
+    api libs.insetter
+    testImplementation libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.androidx.test.core.ktx
+    androidTestImplementation libs.androidx.test.runner
 }

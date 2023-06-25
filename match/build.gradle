@@ -1,19 +1,18 @@
-import dev.ricknout.rugbyranker.buildsrc.Libs
-import dev.ricknout.rugbyranker.buildsrc.Versions
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
-apply plugin: 'dagger.hilt.android.plugin'
+plugins {
+    alias libs.plugins.android.library
+    alias libs.plugins.kotlin.android
+    alias libs.plugins.kotlin.kapt
+    alias libs.plugins.androidx.navigation.safeargs.kotlin
+    alias libs.plugins.dagger.hilt.android
+}
 
 android {
     namespace 'dev.ricknout.rugbyranker.match'
-    compileSdkVersion Versions.compileSdk
+    compileSdk 34
     defaultConfig {
-        minSdkVersion Versions.minSdk
-        targetSdkVersion Versions.targetSdk
-        testInstrumentationRunner Libs.AndroidX.Test.instrumentationRunner
+        minSdkVersion 24
+        targetSdkVersion 34
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -30,11 +29,11 @@ android {
 dependencies {
     implementation project(':core')
     implementation project(':prediction')
-    implementation Libs.AndroidX.Paging.runtime
-    implementation Libs.Google.Hilt.android
-    kapt Libs.Google.Hilt.compiler
-    kapt Libs.AndroidX.Hilt.compiler
-    testImplementation Libs.AndroidX.Test.JUnit.ktx
-    androidTestImplementation Libs.AndroidX.Test.Core.ktx
-    androidTestImplementation Libs.AndroidX.Test.runner
+    implementation libs.androidx.paging.runtime
+    implementation libs.dagger.hilt.android
+    kapt libs.dagger.hilt.compiler
+    kapt libs.androidx.hilt.compiler
+    testImplementation libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.androidx.test.core.ktx
+    androidTestImplementation libs.androidx.test.runner
 }

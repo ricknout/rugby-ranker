@@ -1,15 +1,9 @@
-import dev.ricknout.rugbyranker.buildsrc.Libs
-
-repositories {
-    mavenCentral()
-}
-
 configurations {
     ktlint
 }
 
 dependencies {
-    ktlint(Libs.ktlint) {
+    ktlint(libs.ktlint) {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, getObjects().named(Bundling, Bundling.EXTERNAL))
         }
