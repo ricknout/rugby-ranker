@@ -2,9 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.navigation.safeargs.kotlin)
     alias(libs.plugins.oss.licenses)
     alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.androidx.room)
 }
 
 android {
@@ -18,11 +20,6 @@ android {
         versionName = "2.1.7"
         setProperty("archivesBaseName", "$applicationId-v$versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
-            }
-        }
     }
     buildTypes {
         getByName("release") {
@@ -58,6 +55,10 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas/")
+}
+
 dependencies {
     implementation(project(":core"))
     implementation(project(":ranking"))
@@ -70,7 +71,7 @@ dependencies {
     implementation(libs.androidx.drawerlayout)
     implementation(libs.androidx.viewpager2)
     implementation(libs.dagger.hilt.android)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     kapt(libs.dagger.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
     testImplementation(libs.androidx.test.ext.junit.ktx)
