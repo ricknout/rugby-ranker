@@ -184,8 +184,8 @@ class SportFragment : Fragment() {
                 SportFragmentDirections.sportToPrediction(
                     sport,
                     prediction,
-                    edit
-                )
+                    edit,
+                ),
             )
             unplayedMatchViewModel.resetPredict()
         }
@@ -198,8 +198,8 @@ class SportFragment : Fragment() {
                 SportFragmentDirections.sportToPrediction(
                     sport,
                     prediction,
-                    edit
-                )
+                    edit,
+                ),
             )
             liveMatchViewModel.resetPredict()
         }

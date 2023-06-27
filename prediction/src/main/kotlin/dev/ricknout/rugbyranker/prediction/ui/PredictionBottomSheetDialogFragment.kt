@@ -138,7 +138,7 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 binding.homeName.setTextColor(
                     AppCompatResources.getColorStateList(
                         requireView().context,
-                        R.color.material_on_surface_emphasis_medium
+                        R.color.material_on_surface_emphasis_medium,
                     ),
                 )
             }
@@ -158,7 +158,7 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 binding.awayName.setTextColor(
                     AppCompatResources.getColorStateList(
                         requireView().context,
-                        R.color.material_on_surface_emphasis_medium
+                        R.color.material_on_surface_emphasis_medium,
                     ),
                 )
             }
