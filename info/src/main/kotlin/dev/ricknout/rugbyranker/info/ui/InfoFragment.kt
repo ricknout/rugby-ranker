@@ -73,10 +73,9 @@ class InfoFragment : Fragment() {
     private fun setupViewModel() {
         infoViewModel.version.observe(
             viewLifecycleOwner,
-            { version ->
-                binding.label.text = if (version != null) getString(R.string.version, version) else null
-            },
-        )
+        ) { version ->
+            binding.label.text = if (version != null) getString(R.string.version, version) else null
+        }
     }
 
     private fun setupNavigation() {

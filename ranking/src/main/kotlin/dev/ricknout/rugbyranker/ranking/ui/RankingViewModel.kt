@@ -38,7 +38,7 @@ open class RankingViewModel(
             val rankings = RankingCalculator.allocatePointsForPredictions(pair.first, predictions)
             val updatedTimeMillis = when {
                 pair.second == RankingDataStore.DEFAULT_UPDATED_TIME_MILLIS -> null
-                rankings.isEmpty() || !predictions.isNullOrEmpty() -> null
+                rankings.isEmpty() || predictions.isNotEmpty() -> null
                 else -> pair.second
             }
             rankings to updatedTimeMillis

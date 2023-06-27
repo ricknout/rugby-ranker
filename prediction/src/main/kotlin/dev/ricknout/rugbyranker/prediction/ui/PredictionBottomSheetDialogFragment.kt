@@ -105,76 +105,74 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private fun setupViewModel() {
         predictionViewModel.teams.observe(
             viewLifecycleOwner,
-            { teams ->
-                setupTeams(teams)
-            },
-        )
+        ) { teams ->
+            setupTeams(teams)
+        }
         predictionViewModel.inputValid.observe(
             viewLifecycleOwner,
-            { inputValid ->
-                binding.confirm.isEnabled = inputValid
-            },
-        )
+        ) { inputValid ->
+            binding.confirm.isEnabled = inputValid
+        }
         predictionViewModel.homeScore.observe(
             viewLifecycleOwner,
-            { score ->
-                binding.homeScore.text = score.toString()
-            },
-        )
+        ) { score ->
+            binding.homeScore.text = score.toString()
+        }
         predictionViewModel.awayScore.observe(
             viewLifecycleOwner,
-            { score ->
-                binding.awayScore.text = score.toString()
-            },
-        )
+        ) { score ->
+            binding.awayScore.text = score.toString()
+        }
         predictionViewModel.homeTeam.observe(
             viewLifecycleOwner,
-            { team ->
-                if (team != null) {
-                    binding.homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
-                    binding.homeName.text = team.name
-                    binding.homeName.setTextColor(
-                        MaterialColors.getColor(requireView(), R.attr.colorOnSurface),
-                    )
-                } else {
-                    binding.homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(null)
-                    binding.homeName.setText(R.string.home_team)
-                    binding.homeName.setTextColor(
-                        AppCompatResources.getColorStateList(requireView().context, R.color.material_on_surface_emphasis_medium),
-                    )
-                }
-            },
-        )
+        ) { team ->
+            if (team != null) {
+                binding.homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
+                binding.homeName.text = team.name
+                binding.homeName.setTextColor(
+                    MaterialColors.getColor(requireView(), R.attr.colorOnSurface),
+                )
+            } else {
+                binding.homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(null)
+                binding.homeName.setText(R.string.home_team)
+                binding.homeName.setTextColor(
+                    AppCompatResources.getColorStateList(
+                        requireView().context,
+                        R.color.material_on_surface_emphasis_medium
+                    ),
+                )
+            }
+        }
         predictionViewModel.awayTeam.observe(
             viewLifecycleOwner,
-            { team ->
-                if (team != null) {
-                    binding.awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
-                    binding.awayName.text = team.name
-                    binding.awayName.setTextColor(
-                        MaterialColors.getColor(requireView(), R.attr.colorOnSurface),
-                    )
-                } else {
-                    binding.awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(null)
-                    binding.awayName.setText(R.string.away_team)
-                    binding.awayName.setTextColor(
-                        AppCompatResources.getColorStateList(requireView().context, R.color.material_on_surface_emphasis_medium),
-                    )
-                }
-            },
-        )
+        ) { team ->
+            if (team != null) {
+                binding.awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
+                binding.awayName.text = team.name
+                binding.awayName.setTextColor(
+                    MaterialColors.getColor(requireView(), R.attr.colorOnSurface),
+                )
+            } else {
+                binding.awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(null)
+                binding.awayName.setText(R.string.away_team)
+                binding.awayName.setTextColor(
+                    AppCompatResources.getColorStateList(
+                        requireView().context,
+                        R.color.material_on_surface_emphasis_medium
+                    ),
+                )
+            }
+        }
         predictionViewModel.rugbyWorldCup.observe(
             viewLifecycleOwner,
-            { rugbyWorldCup ->
-                binding.rwc.isChecked = rugbyWorldCup
-            },
-        )
+        ) { rugbyWorldCup ->
+            binding.rwc.isChecked = rugbyWorldCup
+        }
         predictionViewModel.noHomeAdvantage.observe(
             viewLifecycleOwner,
-            { noHomeAdvantage ->
-                binding.nha.isChecked = noHomeAdvantage
-            },
-        )
+        ) { noHomeAdvantage ->
+            binding.nha.isChecked = noHomeAdvantage
+        }
     }
 
     private fun setupTitle() {

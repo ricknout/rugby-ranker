@@ -98,10 +98,9 @@ class NewsFragment : Fragment() {
     private fun setupViewModel() {
         newsViewModel.news.observe(
             viewLifecycleOwner,
-            { pagingData ->
-                adapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
-            },
-        )
+        ) { pagingData ->
+            adapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        }
     }
 
     private fun setupNavigation() {

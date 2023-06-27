@@ -79,19 +79,17 @@ class MatchFragment : Fragment() {
     private fun setupViewModel() {
         matchViewModel.matches.observe(
             viewLifecycleOwner,
-            { pagingData ->
-                adapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
-            },
-        )
+        ) { pagingData ->
+            adapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        }
         matchViewModel.scrollToTop.observe(
             viewLifecycleOwner,
-            { scrollToTop ->
-                if (scrollToTop) {
-                    binding.recyclerView.smoothScrollToPosition(0)
-                    matchViewModel.resetScrollToTop()
-                }
-            },
-        )
+        ) { scrollToTop ->
+            if (scrollToTop) {
+                binding.recyclerView.smoothScrollToPosition(0)
+                matchViewModel.resetScrollToTop()
+            }
+        }
     }
 
     private fun setupSwipeRefresh() {

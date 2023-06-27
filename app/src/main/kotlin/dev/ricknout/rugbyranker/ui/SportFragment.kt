@@ -140,68 +140,75 @@ class SportFragment : Fragment() {
     private fun setupViewModels() {
         predictionViewModel.predictions.observe(
             viewLifecycleOwner,
-            { predictions ->
-                rankingViewModel.setPredictions(predictions)
-                val currentPredictions = binding.predictionBar.getPredictions()
-                binding.predictionBar.setPredictions(predictions)
-                val shouldTransition = when {
-                    currentPredictions.isEmpty() && !predictions.isNullOrEmpty() -> true
-                    currentPredictions.isNotEmpty() && predictions.isNullOrEmpty() -> true
-                    else -> false
-                }
-                val shouldShowRankings = currentPredictions != predictions
-                if (shouldShowRankings) binding.viewPager.currentItem = POSITION_RANKINGS
-                if (!shouldTransition) return@observe
-                val transition = MaterialContainerTransform().apply {
-                    duration = transitionDuration
-                    interpolator = FastOutSlowInInterpolator()
-                    scrimColor = Color.TRANSPARENT
-                    fadeMode = MaterialContainerTransform.FADE_MODE_OUT
-                }
-                transition.addTarget(binding.fab)
-                if (predictions.isNullOrEmpty()) {
-                    transition.startView = binding.predictionBar
-                    transition.endView = binding.fab
-                } else {
-                    transition.startView = binding.fab
-                    transition.endView = binding.predictionBar
-                }
-                TransitionManager.beginDelayedTransition(binding.coordinatorLayout, transition)
-                binding.fab.isInvisible = !predictions.isNullOrEmpty()
-                binding.predictionBar.isInvisible = predictions.isNullOrEmpty()
-            },
-        )
+        ) { predictions ->
+            rankingViewModel.setPredictions(predictions)
+            val currentPredictions = binding.predictionBar.getPredictions()
+            binding.predictionBar.setPredictions(predictions)
+            val shouldTransition = when {
+                currentPredictions.isEmpty() && !predictions.isNullOrEmpty() -> true
+                currentPredictions.isNotEmpty() && predictions.isNullOrEmpty() -> true
+                else -> false
+            }
+            val shouldShowRankings = currentPredictions != predictions
+            if (shouldShowRankings) binding.viewPager.currentItem = POSITION_RANKINGS
+            if (!shouldTransition) return@observe
+            val transition = MaterialContainerTransform().apply {
+                duration = transitionDuration
+                interpolator = FastOutSlowInInterpolator()
+                scrimColor = Color.TRANSPARENT
+                fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+            }
+            transition.addTarget(binding.fab)
+            if (predictions.isNullOrEmpty()) {
+                transition.startView = binding.predictionBar
+                transition.endView = binding.fab
+            } else {
+                transition.startView = binding.fab
+                transition.endView = binding.predictionBar
+            }
+            TransitionManager.beginDelayedTransition(binding.coordinatorLayout, transition)
+            binding.fab.isInvisible = !predictions.isNullOrEmpty()
+            binding.predictionBar.isInvisible = predictions.isNullOrEmpty()
+        }
         predictionViewModel.teams.observe(
             viewLifecycleOwner,
-            { teams ->
-                binding.fab.isEnabled = !teams.isNullOrEmpty()
-            },
-        )
+        ) { teams ->
+            binding.fab.isEnabled = !teams.isNullOrEmpty()
+        }
         unplayedMatchViewModel.predict.observe(
             viewLifecycleOwner,
-            { prediction ->
-                if (prediction == null) return@observe
-                val edit = predictionViewModel.containsPredictionWithId(prediction)
-                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit))
-                unplayedMatchViewModel.resetPredict()
-            },
-        )
+        ) { prediction ->
+            if (prediction == null) return@observe
+            val edit = predictionViewModel.containsPredictionWithId(prediction)
+            findNavController().navigate(
+                SportFragmentDirections.sportToPrediction(
+                    sport,
+                    prediction,
+                    edit
+                )
+            )
+            unplayedMatchViewModel.resetPredict()
+        }
         liveMatchViewModel.predict.observe(
             viewLifecycleOwner,
-            { prediction ->
-                if (prediction == null) return@observe
-                val edit = predictionViewModel.containsPredictionWithId(prediction)
-                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit))
-                liveMatchViewModel.resetPredict()
-            },
-        )
+        ) { prediction ->
+            if (prediction == null) return@observe
+            val edit = predictionViewModel.containsPredictionWithId(prediction)
+            findNavController().navigate(
+                SportFragmentDirections.sportToPrediction(
+                    sport,
+                    prediction,
+                    edit
+                )
+            )
+            liveMatchViewModel.resetPredict()
+        }
         liveMatchViewModel.liveMatches.observe(
             viewLifecycleOwner,
-            { liveMatches ->
-                val show = !liveMatches.isNullOrEmpty()
-                toggleLiveMatchTabIcon(show)
-            },
-        )
+        ) { liveMatches ->
+            val show = !liveMatches.isNullOrEmpty()
+            toggleLiveMatchTabIcon(show)
+        }
     }
 
     private fun setupNavigation() {

@@ -102,27 +102,24 @@ class LiveMatchFragment : Fragment() {
     private fun setupViewModel() {
         liveMatchViewModel.liveMatches.observe(
             viewLifecycleOwner,
-            { liveMatches ->
-                adapter.submitList(liveMatches)
-                if (liveMatches == null) binding.progressIndicator.show() else binding.progressIndicator.hide()
-                binding.noLiveMatches.isVisible = liveMatches?.isEmpty() ?: false
-            },
-        )
+        ) { liveMatches ->
+            adapter.submitList(liveMatches)
+            if (liveMatches == null) binding.progressIndicator.show() else binding.progressIndicator.hide()
+            binding.noLiveMatches.isVisible = liveMatches?.isEmpty() ?: false
+        }
         liveMatchViewModel.refreshingLiveMatches.observe(
             viewLifecycleOwner,
-            { refreshingLiveMatches ->
-                binding.swipeRefreshLayout.isRefreshing = refreshingLiveMatches
-            },
-        )
+        ) { refreshingLiveMatches ->
+            binding.swipeRefreshLayout.isRefreshing = refreshingLiveMatches
+        }
         liveMatchViewModel.scrollToTop.observe(
             viewLifecycleOwner,
-            { scrollToTop ->
-                if (scrollToTop) {
-                    binding.recyclerView.smoothScrollToPosition(0)
-                    liveMatchViewModel.resetScrollToTop()
-                }
-            },
-        )
+        ) { scrollToTop ->
+            if (scrollToTop) {
+                binding.recyclerView.smoothScrollToPosition(0)
+                liveMatchViewModel.resetScrollToTop()
+            }
+        }
     }
 
     private fun setupSwipeRefresh() {

@@ -84,37 +84,33 @@ class RankingFragment : Fragment() {
     private fun setupViewModel() {
         rankingViewModel.rankings.observe(
             viewLifecycleOwner,
-            { pair ->
-                val rankings = pair.first
-                val updatedTimeMillis = pair.second
-                rankingAdapter.submitList(rankings) {
-                    setLabel(updatedTimeMillis)
-                }
-                if (rankings.isNullOrEmpty()) binding.progressIndicator.show() else binding.progressIndicator.hide()
-            },
-        )
+        ) { pair ->
+            val rankings = pair.first
+            val updatedTimeMillis = pair.second
+            rankingAdapter.submitList(rankings) {
+                setLabel(updatedTimeMillis)
+            }
+            if (rankings.isEmpty()) binding.progressIndicator.show() else binding.progressIndicator.hide()
+        }
         rankingViewModel.refreshingRankings.observe(
             viewLifecycleOwner,
-            { refreshingRankings ->
-                binding.swipeRefreshLayout.isRefreshing = refreshingRankings
-            },
-        )
+        ) { refreshingRankings ->
+            binding.swipeRefreshLayout.isRefreshing = refreshingRankings
+        }
         rankingViewModel.workInfos.observe(
             viewLifecycleOwner,
-            { workInfos ->
-                val workInfo = workInfos?.firstOrNull()
-                binding.swipeRefreshLayout.isEnabled = workInfo?.state != WorkInfo.State.RUNNING
-            },
-        )
+        ) { workInfos ->
+            val workInfo = workInfos?.firstOrNull()
+            binding.swipeRefreshLayout.isEnabled = workInfo?.state != WorkInfo.State.RUNNING
+        }
         rankingViewModel.scrollToTop.observe(
             viewLifecycleOwner,
-            { scrollToTop ->
-                if (scrollToTop) {
-                    binding.recyclerView.smoothScrollToPosition(0)
-                    rankingViewModel.resetScrollToTop()
-                }
-            },
-        )
+        ) { scrollToTop ->
+            if (scrollToTop) {
+                binding.recyclerView.smoothScrollToPosition(0)
+                rankingViewModel.resetScrollToTop()
+            }
+        }
     }
 
     private fun setupSwipeRefresh() {
