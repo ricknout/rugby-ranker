@@ -21,12 +21,12 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Rugby Ranker"
-include ':app'
-include ':core'
-include ':ranking'
-include ':prediction'
-include ':match'
-include ':live'
-include ':news'
-include ':info'
-include ':theme'
+include(":app")
+include(":core")
+include(":ranking")
+include(":prediction")
+include(":match")
+include(":live")
+include(":news")
+include(":info")
+include(":theme")
