@@ -1,3 +1,6 @@
+import com.diffplug.gradle.spotless.SpotlessExtension
+import com.diffplug.gradle.spotless.SpotlessPlugin
+
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
@@ -7,7 +10,16 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.oss.licenses) apply false
+    alias(libs.plugins.spotless) apply false
 }
-allprojects {
-    //apply from: "$rootDir/ktlint.gradle"
+
+subprojects {
+    apply<SpotlessPlugin>()
+    extensions.configure<SpotlessExtension> {
+        kotlin {
+            target("**/*.kt")
+            targetExclude("$buildDir/**/*.kt")
+            ktlint(libs.versions.ktlint.get())
+        }
+    }
 }

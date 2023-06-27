@@ -20,8 +20,8 @@ jobs:
         with:
           java-version: 17
 
-      - name: Run ktlint
-        run: ./gradlew ktlint
+      - name: Run Spotless check
+        run: ./gradlew spotlessCheck
 
       - name: Run Android lint
         run: ./gradlew lintDebug
