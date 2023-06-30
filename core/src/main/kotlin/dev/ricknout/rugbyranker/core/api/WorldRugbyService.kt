@@ -14,7 +14,7 @@ interface WorldRugbyService {
 
     @GET("rugby/v3/match")
     suspend fun getMatches(
-        @Query("sports") sports: String,
+        @Query("sport") sport: String,
         @Query("states") states: String,
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?,
