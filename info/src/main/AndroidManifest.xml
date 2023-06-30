@@ -6,6 +6,10 @@
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/Theme.RugbyRanker.OssLicenses" />
 
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:theme="@style/Theme.RugbyRanker.OssLicenses" />
+
     </application>
 
 </manifest>
