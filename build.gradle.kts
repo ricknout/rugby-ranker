@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.androidx.room) apply false
     alias(libs.plugins.dagger.hilt.android) apply false
     alias(libs.plugins.kotlin.android) apply false
-    alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.oss.licenses) apply false
@@ -20,8 +19,8 @@ subprojects {
     extensions.configure<SpotlessExtension> {
         kotlin {
             target("**/*.kt")
-            targetExclude("$buildDir/**/*.kt")
-            ktlint(libs.versions.ktlint.get())
+            targetExclude("${layout.buildDirectory}/**/*.kt")
+            ktlint()
         }
     }
 }
