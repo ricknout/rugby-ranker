@@ -65,22 +65,24 @@ class MatchRepository(
         return try {
             val response = service.getMatches(sports, states, startDate, endDate, sort, page, pageSize)
             val teamIds = dao.loadTeamIds(sport)
-            val matches = MatchDataConverter.getMatchesFromResponse(response, sport, teamIds).map { match ->
-                when (match.status) {
-                    Status.LIVE -> {
-                        val summaryResponse = service.getMatchSummary(match.id)
-                        val minute = MatchDataConverter.getMinuteFromResponse(summaryResponse)
-                        match.copy(minute = minute)
+            val matches = MatchDataConverter.getMatchesFromResponse(response, sport, teamIds)
+                .filter { match -> match.displayable }
+                .map { match ->
+                    when (match.status) {
+                        Status.LIVE -> {
+                            val summaryResponse = service.getMatchSummary(match.id)
+                            val minute = MatchDataConverter.getMinuteFromResponse(summaryResponse)
+                            match.copy(minute = minute)
+                        }
+                        else -> match
                     }
-                    else -> match
+                }.run {
+                    if (sort == WorldRugbyService.SORT_ASC) {
+                        sortedBy { match -> match.timeMillis }
+                    } else {
+                        sortedByDescending { match -> match.timeMillis }
+                    }
                 }
-            }.run {
-                if (sort == WorldRugbyService.SORT_ASC) {
-                    sortedBy { match -> match.timeMillis }
-                } else {
-                    sortedByDescending { match -> match.timeMillis }
-                }
-            }
             true to matches
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
@@ -96,7 +98,7 @@ class MatchRepository(
             val response = service.getMatchSummary(id)
             val teamIds = dao.loadTeamIds(sport)
             val match = MatchDataConverter.getMatchFromResponse(response, sport, teamIds)
-            true to match
+            match.displayable to match
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
             false to null

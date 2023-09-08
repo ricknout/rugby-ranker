@@ -34,10 +34,14 @@ data class Match(
     val eventEndTimeLabel: String?,
     val eventEndTimeMillis: Long?,
     val eventEndTimeGmtOffset: Int?,
-    val predictable: Boolean,
+    val numberOfRankedTeams: Int,
     val half: Half?,
     val minute: Int?,
 ) {
+    val displayable: Boolean
+        get() = numberOfRankedTeams >= 1
+    val predictable: Boolean
+        get() = numberOfRankedTeams == 2
 
     fun toPrediction(): Prediction {
         val switched = secondTeamName == venueCountry

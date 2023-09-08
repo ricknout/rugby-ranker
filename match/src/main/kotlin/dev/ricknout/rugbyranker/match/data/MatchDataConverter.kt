@@ -69,7 +69,9 @@ object MatchDataConverter {
             eventEndTimeLabel = event?.end?.label,
             eventEndTimeMillis = event?.end?.millis,
             eventEndTimeGmtOffset = event?.end?.gmtOffset?.toInt(),
-            predictable = teamIds.containsAll(listOf(firstTeam.id, secondTeam.id)),
+            numberOfRankedTeams = teamIds.count { teamId ->
+                teamId == firstTeam.id || teamId == secondTeam.id
+            },
             half = getHalfFromResponse(content),
             minute = null,
         )
