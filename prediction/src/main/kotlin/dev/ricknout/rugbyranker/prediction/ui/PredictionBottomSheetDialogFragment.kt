@@ -33,7 +33,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
-
     private val args: PredictionBottomSheetDialogFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
@@ -67,7 +66,10 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
     }
 
     @SuppressWarnings("VisibleForTests", "RestrictedApi")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         setupTitle()
@@ -82,11 +84,16 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
             dismissWithAnimation = true
             behavior.addBottomSheetCallback(
                 object : BottomSheetBehavior.BottomSheetCallback() {
-
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    override fun onSlide(
+                        bottomSheet: View,
+                        slideOffset: Float,
+                    ) {
                     }
 
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    override fun onStateChanged(
+                        bottomSheet: View,
+                        newState: Int,
+                    ) {
                         if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                             if (confirmed) predictionViewModel.submitPrediction(prediction, edit)
                             predictionViewModel.resetInput()
@@ -185,16 +192,18 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupTeams(teams: List<Team>) {
-        val homePopupMenu = createPopupMenu(binding.homeTeam, teams) { team ->
-            predictionViewModel.setInput(homeTeam = team)
-        }
+        val homePopupMenu =
+            createPopupMenu(binding.homeTeam, teams) { team ->
+                predictionViewModel.setInput(homeTeam = team)
+            }
         binding.homeTeam.setOnClickListener {
             homePopupMenu.show()
             homePopupMenu.listView?.isFastScrollEnabled = true
         }
-        val awayPopupMenu = createPopupMenu(binding.awayTeam, teams) { team ->
-            predictionViewModel.setInput(awayTeam = team)
-        }
+        val awayPopupMenu =
+            createPopupMenu(binding.awayTeam, teams) { team ->
+                predictionViewModel.setInput(awayTeam = team)
+            }
         binding.awayTeam.setOnClickListener {
             awayPopupMenu.show()
             awayPopupMenu.listView?.isFastScrollEnabled = true
@@ -291,61 +300,70 @@ class PredictionBottomSheetDialogFragment : BottomSheetDialogFragment() {
         anchorView: View,
         teams: List<Team>,
         onClick: (team: Team) -> Unit,
-    ): ListPopupWindow = MaterialListPopupWindow(requireContext()).apply {
-        val adapter = object : ArrayAdapter<Team>(
-            requireContext(),
-            R.layout.list_item_team,
-            R.id.name,
-            teams,
-        ) {
-
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getView(position, convertView, parent)
-                val team = getItem(position)!!
-                view.findViewById<TextView>(R.id.flag).text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
-                view.findViewById<TextView>(R.id.name).text = team.name
-                return view
+    ): ListPopupWindow =
+        MaterialListPopupWindow(requireContext()).apply {
+            val adapter =
+                object : ArrayAdapter<Team>(
+                    requireContext(),
+                    R.layout.list_item_team,
+                    R.id.name,
+                    teams,
+                ) {
+                    override fun getView(
+                        position: Int,
+                        convertView: View?,
+                        parent: ViewGroup,
+                    ): View {
+                        val view = super.getView(position, convertView, parent)
+                        val team = getItem(position)!!
+                        view.findViewById<TextView>(R.id.flag).text = FlagUtils.getFlagEmojiForTeamAbbreviation(team.abbreviation)
+                        view.findViewById<TextView>(R.id.name).text = team.name
+                        return view
+                    }
+                }
+            setAdapter(adapter)
+            this.anchorView = anchorView
+            setOnItemClickListener { _, _, position, _ ->
+                val team = adapter.getItem(position)!!
+                onClick(team)
+                dismiss()
             }
         }
-        setAdapter(adapter)
-        this.anchorView = anchorView
-        setOnItemClickListener { _, _, position, _ ->
-            val team = adapter.getItem(position)!!
-            onClick(team)
-            dismiss()
-        }
-    }
 
     private fun incrementHomeScoreRepeated() {
-        incrementHomeScoreJob = lifecycleScope.launch {
-            predictionViewModel.incrementHomeScore()
-            delay(DELAY_TIME_MILLIS)
-            incrementHomeScoreRepeated()
-        }
+        incrementHomeScoreJob =
+            lifecycleScope.launch {
+                predictionViewModel.incrementHomeScore()
+                delay(DELAY_TIME_MILLIS)
+                incrementHomeScoreRepeated()
+            }
     }
 
     private fun decrementHomeScoreRepeated() {
-        decrementHomeScoreJob = lifecycleScope.launch {
-            predictionViewModel.decrementHomeScore()
-            delay(DELAY_TIME_MILLIS)
-            decrementHomeScoreRepeated()
-        }
+        decrementHomeScoreJob =
+            lifecycleScope.launch {
+                predictionViewModel.decrementHomeScore()
+                delay(DELAY_TIME_MILLIS)
+                decrementHomeScoreRepeated()
+            }
     }
 
     private fun incrementAwayScoreRepeated() {
-        incrementAwayScoreJob = lifecycleScope.launch {
-            predictionViewModel.incrementAwayScore()
-            delay(DELAY_TIME_MILLIS)
-            incrementAwayScoreRepeated()
-        }
+        incrementAwayScoreJob =
+            lifecycleScope.launch {
+                predictionViewModel.incrementAwayScore()
+                delay(DELAY_TIME_MILLIS)
+                incrementAwayScoreRepeated()
+            }
     }
 
     private fun decrementAwayScoreRepeated() {
-        decrementAwayScoreJob = lifecycleScope.launch {
-            predictionViewModel.decrementAwayScore()
-            delay(DELAY_TIME_MILLIS)
-            decrementAwayScoreRepeated()
-        }
+        decrementAwayScoreJob =
+            lifecycleScope.launch {
+                predictionViewModel.decrementAwayScore()
+                delay(DELAY_TIME_MILLIS)
+                decrementAwayScoreRepeated()
+            }
     }
 
     companion object {

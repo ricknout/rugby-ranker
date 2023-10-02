@@ -10,13 +10,13 @@ import dev.ricknout.rugbyranker.news.model.Type
 import kotlinx.coroutines.flow.Flow
 
 class NewsRepository(private val service: WorldRugbyService) {
-
     fun loadNews(type: Type): Flow<PagingData<News>> {
         return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                initialLoadSize = PAGE_SIZE,
-            ),
+            config =
+                PagingConfig(
+                    pageSize = PAGE_SIZE,
+                    initialLoadSize = PAGE_SIZE,
+                ),
             pagingSourceFactory = { NewsPagingSource(type, this) },
         ).flow
     }
@@ -26,9 +26,10 @@ class NewsRepository(private val service: WorldRugbyService) {
         page: Int,
         pageSize: Int,
     ): Pair<Boolean, List<News>> {
-        val t = when (type) {
-            Type.TEXT -> WorldRugbyService.TYPE_TEXT
-        }
+        val t =
+            when (type) {
+                Type.TEXT -> WorldRugbyService.TYPE_TEXT
+            }
         val language = WorldRugbyService.LANGUAGE_EN
         val tagNames = WorldRugbyService.TAG_NAME_NEWS
         return try {

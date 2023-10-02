@@ -13,14 +13,14 @@ import dev.ricknout.rugbyranker.match.model.Status
 import java.lang.IllegalArgumentException
 
 object MatchDataConverter {
-
     fun getMatchesFromResponse(
         response: WorldRugbyMatchesResponse,
         sport: Sport,
         teamIds: List<String>,
-    ): List<Match> = response.content.map { content ->
-        getMatchFromResponse(content, sport, teamIds)
-    }
+    ): List<Match> =
+        response.content.map { content ->
+            getMatchFromResponse(content, sport, teamIds)
+        }
 
     fun getMatchFromResponse(
         response: WorldRugbyMatchSummaryResponse,
@@ -69,9 +69,10 @@ object MatchDataConverter {
             eventEndTimeLabel = event?.end?.label,
             eventEndTimeMillis = event?.end?.millis,
             eventEndTimeGmtOffset = event?.end?.gmtOffset?.toInt(),
-            numberOfRankedTeams = teamIds.count { teamId ->
-                teamId == firstTeam.id || teamId == secondTeam.id
-            },
+            numberOfRankedTeams =
+                teamIds.count { teamId ->
+                    teamId == firstTeam.id || teamId == secondTeam.id
+                },
             half = getHalfFromResponse(content),
             minute = null,
         )

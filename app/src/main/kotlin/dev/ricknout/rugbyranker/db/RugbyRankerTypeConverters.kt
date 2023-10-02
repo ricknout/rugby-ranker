@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import dev.ricknout.rugbyranker.core.model.Sport
 
 class RugbyRankerTypeConverters {
-
     @TypeConverter
     fun ordinalToSport(ordinal: Int): Sport = Sport.values()[ordinal]
 

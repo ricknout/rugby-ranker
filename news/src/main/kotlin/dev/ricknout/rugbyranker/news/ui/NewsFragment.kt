@@ -31,7 +31,6 @@ import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
-
     private val args: NewsFragmentArgs by navArgs()
 
     private val type: Type by lazy { args.type }
@@ -44,18 +43,19 @@ class NewsFragment : Fragment() {
 
     private val themeViewModel: ThemeViewModel by activityViewModels()
 
-    private val adapter = NewsAdapter { news ->
-        lifecycleScope.launch {
-            val theme = themeViewModel.theme.first()
-            withContext(Dispatchers.Main) {
-                CustomTabUtils.launchCustomTab(
-                    requireContext(),
-                    news.articleUrl,
-                    theme.getCustomTabsIntentColorScheme(),
-                )
+    private val adapter =
+        NewsAdapter { news ->
+            lifecycleScope.launch {
+                val theme = themeViewModel.theme.first()
+                withContext(Dispatchers.Main) {
+                    CustomTabUtils.launchCustomTab(
+                        requireContext(),
+                        news.articleUrl,
+                        theme.getCustomTabsIntentColorScheme(),
+                    )
+                }
             }
         }
-    }
 
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
@@ -79,7 +79,10 @@ class NewsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
@@ -110,9 +113,10 @@ class NewsFragment : Fragment() {
     private fun setupSwipeRefresh() {
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
-        val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
-        )
+        val surfaceColor =
+            elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
+                resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
+            )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(

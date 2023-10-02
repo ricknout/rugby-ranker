@@ -24,7 +24,6 @@ import dev.ricknout.rugbyranker.match.model.Status
 
 @AndroidEntryPoint
 class MatchFragment : Fragment() {
-
     private val args: MatchFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
@@ -40,10 +39,11 @@ class MatchFragment : Fragment() {
         }
     }
 
-    private val adapter = MatchAdapter { match ->
-        val prediction = match.toPrediction()
-        matchViewModel.predict(prediction)
-    }
+    private val adapter =
+        MatchAdapter { match ->
+            val prediction = match.toPrediction()
+            matchViewModel.predict(prediction)
+        }
 
     private val coordinatorLayout: CoordinatorLayout
         get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
@@ -63,7 +63,10 @@ class MatchFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         setupSwipeRefresh()
@@ -97,9 +100,10 @@ class MatchFragment : Fragment() {
         binding.swipeRefreshLayout.isNestedScrollingEnabled = false
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
-        val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
-        )
+        val surfaceColor =
+            elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
+                resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
+            )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
@@ -152,7 +156,10 @@ class MatchFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(sport: Sport, status: Status): MatchFragment {
+        fun newInstance(
+            sport: Sport,
+            status: Status,
+        ): MatchFragment {
             val matchFragment = MatchFragment()
             matchFragment.arguments = MatchFragmentDirections.matchAction(sport, status).arguments
             return matchFragment

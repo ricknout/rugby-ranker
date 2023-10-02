@@ -12,7 +12,6 @@ import dev.ricknout.rugbyranker.theme.model.Theme
 
 @AndroidEntryPoint
 class ThemeDialogFragment : DialogFragment() {
-
     private val args: ThemeDialogFragmentArgs by navArgs()
 
     private val theme: Theme by lazy { args.theme }

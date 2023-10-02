@@ -12,18 +12,18 @@ class MatchPagingSource(
     private val status: Status,
     private val repository: MatchRepository,
 ) : PagingSource<Int, Match>() {
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Match> {
         val page = params.key ?: 0
         val pageSize = params.loadSize
         val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
-        val (success, matches) = repository.fetchLatestMatchesSync(
-            sport,
-            status,
-            page = page,
-            pageSize = pageSize,
-            unplayedStartDate = currentDate,
-        )
+        val (success, matches) =
+            repository.fetchLatestMatchesSync(
+                sport,
+                status,
+                page = page,
+                pageSize = pageSize,
+                unplayedStartDate = currentDate,
+            )
         return if (success) {
             LoadResult.Page(
                 data = matches,

@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ThemeRepository(private val dataStore: ThemeDataStore) {
-
     fun getTheme(): Flow<Theme> {
         val defaultTheme = getDefaultTheme()
         val defaultMode = defaultTheme.mode
@@ -52,11 +51,12 @@ class ThemeRepository(private val dataStore: ThemeDataStore) {
 
     fun getThemes(): List<Theme> {
         return when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> listOf(
-                Theme.LIGHT,
-                Theme.DARK,
-                Theme.SYSTEM_DEFAULT,
-            )
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ->
+                listOf(
+                    Theme.LIGHT,
+                    Theme.DARK,
+                    Theme.SYSTEM_DEFAULT,
+                )
             else -> listOf(Theme.LIGHT, Theme.DARK, Theme.SET_BY_BATTERY_SAVER)
         }
     }

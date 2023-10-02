@@ -15,14 +15,14 @@ class RankingRepository(
     private val dao: RankingDao,
     private val dataStore: RankingDataStore,
 ) {
-
     fun loadRankings(sport: Sport) = dao.loadByPosition(sport)
 
     suspend fun fetchAndCacheLatestRankingsSync(sport: Sport): Boolean {
-        val sports = when (sport) {
-            Sport.MENS -> WorldRugbyService.SPORT_MENS
-            Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
-        }
+        val sports =
+            when (sport) {
+                Sport.MENS -> WorldRugbyService.SPORT_MENS
+                Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
+            }
         val date = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
         return try {
             val response = service.getRankings(sports, date)

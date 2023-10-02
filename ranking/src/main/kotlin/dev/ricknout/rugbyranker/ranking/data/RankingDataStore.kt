@@ -8,20 +8,25 @@ import dev.ricknout.rugbyranker.core.model.Sport
 import kotlinx.coroutines.flow.map
 
 class RankingDataStore(private val dataStore: DataStore<Preferences>) {
-
-    suspend fun setUpdatedTimeMillis(millis: Long, sport: Sport) = dataStore.edit { preferences ->
+    suspend fun setUpdatedTimeMillis(
+        millis: Long,
+        sport: Sport,
+    ) = dataStore.edit { preferences ->
         preferences[getUpdatedTimeMillisKey(sport)] = millis
     }
 
-    fun getUpdatedTimeMillis(sport: Sport) = dataStore.data.map { preferences ->
-        preferences[getUpdatedTimeMillisKey(sport)] ?: DEFAULT_UPDATED_TIME_MILLIS
-    }
+    fun getUpdatedTimeMillis(sport: Sport) =
+        dataStore.data.map { preferences ->
+            preferences[getUpdatedTimeMillisKey(sport)] ?: DEFAULT_UPDATED_TIME_MILLIS
+        }
 
     companion object {
         const val DEFAULT_UPDATED_TIME_MILLIS = -1L
         private const val KEY_UPDATED_TIME_MILLIS = "updated_time_millis"
-        private fun getUpdatedTimeMillisKey(sport: Sport) = longPreferencesKey(
-            "${KEY_UPDATED_TIME_MILLIS}_$sport",
-        )
+
+        private fun getUpdatedTimeMillisKey(sport: Sport) =
+            longPreferencesKey(
+                "${KEY_UPDATED_TIME_MILLIS}_$sport",
+            )
     }
 }

@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class RugbyRankerApplication : Application(), Configuration.Provider {
-
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
@@ -25,9 +24,10 @@ class RugbyRankerApplication : Application(), Configuration.Provider {
     }
 
     override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
+        get() =
+            Configuration.Builder()
+                .setWorkerFactory(workerFactory)
+                .build()
 
     @DelicateCoroutinesApi
     private fun setupTheme() {

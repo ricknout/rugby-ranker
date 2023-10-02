@@ -45,32 +45,38 @@ data class Match(
         val switched = secondTeamName == venueCountry
         return Prediction(
             id = id,
-            homeTeam = Team(
-                id = if (switched) secondTeamId else firstTeamId,
-                name = if (switched) secondTeamName else firstTeamName,
-                abbreviation = if (switched) secondTeamAbbreviation!! else firstTeamAbbreviation!!,
-            ),
-            awayTeam = Team(
-                id = if (switched) firstTeamId else secondTeamId,
-                name = if (switched) firstTeamName else secondTeamName,
-                abbreviation = if (switched) firstTeamAbbreviation!! else secondTeamAbbreviation!!,
-            ),
-            homeScore = when {
-                status == Status.UNPLAYED || status == Status.POSTPONED -> 0
-                switched -> secondTeamScore
-                else -> firstTeamScore
-            },
-            awayScore = when {
-                status == Status.UNPLAYED || status == Status.POSTPONED -> 0
-                switched -> firstTeamScore
-                else -> secondTeamScore
-            },
-            rugbyWorldCup = eventLabel?.let { eventLabel ->
-                eventLabel.contains("Rugby World Cup", ignoreCase = true) && !eventLabel.contains("Qualifying", ignoreCase = true)
-            } ?: false,
-            noHomeAdvantage = venueCountry?.let { venueCountry ->
-                venueCountry != firstTeamName && venueCountry != secondTeamName
-            } ?: false,
+            homeTeam =
+                Team(
+                    id = if (switched) secondTeamId else firstTeamId,
+                    name = if (switched) secondTeamName else firstTeamName,
+                    abbreviation = if (switched) secondTeamAbbreviation!! else firstTeamAbbreviation!!,
+                ),
+            awayTeam =
+                Team(
+                    id = if (switched) firstTeamId else secondTeamId,
+                    name = if (switched) firstTeamName else secondTeamName,
+                    abbreviation = if (switched) firstTeamAbbreviation!! else secondTeamAbbreviation!!,
+                ),
+            homeScore =
+                when {
+                    status == Status.UNPLAYED || status == Status.POSTPONED -> 0
+                    switched -> secondTeamScore
+                    else -> firstTeamScore
+                },
+            awayScore =
+                when {
+                    status == Status.UNPLAYED || status == Status.POSTPONED -> 0
+                    switched -> firstTeamScore
+                    else -> secondTeamScore
+                },
+            rugbyWorldCup =
+                eventLabel?.let { eventLabel ->
+                    eventLabel.contains("Rugby World Cup", ignoreCase = true) && !eventLabel.contains("Qualifying", ignoreCase = true)
+                } ?: false,
+            noHomeAdvantage =
+                venueCountry?.let { venueCountry ->
+                    venueCountry != firstTeamName && venueCountry != secondTeamName
+                } ?: false,
         )
     }
 }

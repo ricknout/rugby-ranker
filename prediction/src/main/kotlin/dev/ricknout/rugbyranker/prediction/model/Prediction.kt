@@ -13,7 +13,6 @@ data class Prediction(
     val rugbyWorldCup: Boolean,
     val noHomeAdvantage: Boolean,
 ) : Parcelable {
-
     companion object {
         fun generateId() = System.currentTimeMillis().toString()
     }

@@ -16,7 +16,6 @@ open class MatchViewModel(
     status: Status,
     repository: MatchRepository,
 ) : ScrollableViewModel() {
-
     val matches = repository.loadMatches(sport, status).cachedIn(viewModelScope).asLiveData()
 
     private val _predict = MutableStateFlow<Prediction?>(null)

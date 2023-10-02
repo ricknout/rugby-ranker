@@ -20,13 +20,16 @@ class MatchRepository(
     private val service: WorldRugbyService,
     private val dao: RankingDao,
 ) {
-
-    fun loadMatches(sport: Sport, status: Status): Flow<PagingData<Match>> {
+    fun loadMatches(
+        sport: Sport,
+        status: Status,
+    ): Flow<PagingData<Match>> {
         return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                initialLoadSize = PAGE_SIZE,
-            ),
+            config =
+                PagingConfig(
+                    pageSize = PAGE_SIZE,
+                    initialLoadSize = PAGE_SIZE,
+                ),
             pagingSourceFactory = { MatchPagingSource(sport, status, this) },
         ).flow
     }
@@ -39,49 +42,55 @@ class MatchRepository(
         unplayedStartDate: String? = null,
         unplayedEndDate: String? = null,
     ): Pair<Boolean, List<Match>> {
-        val sports = when (sport) {
-            Sport.MENS -> WorldRugbyService.SPORT_MENS
-            Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
-        }
-        val states = when (status) {
-            Status.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
-            Status.COMPLETE -> WorldRugbyService.STATE_COMPLETE
-            Status.LIVE -> WorldRugbyService.STATE_LIVE
-            else -> throw IllegalArgumentException("Cannot handle $status in fetchLatestMatchesSync")
-        }
-        val startDate = when (status) {
-            Status.UNPLAYED -> unplayedStartDate
-            else -> null
-        }
-        val endDate = when (status) {
-            Status.UNPLAYED -> unplayedEndDate
-            else -> null
-        }
-        val sort = when (status) {
-            Status.UNPLAYED, Status.LIVE -> WorldRugbyService.SORT_ASC
-            Status.COMPLETE -> WorldRugbyService.SORT_DESC
-            else -> throw IllegalArgumentException("Cannot handle $status in fetchLatestMatchesSync")
-        }
+        val sports =
+            when (sport) {
+                Sport.MENS -> WorldRugbyService.SPORT_MENS
+                Sport.WOMENS -> WorldRugbyService.SPORT_WOMENS
+            }
+        val states =
+            when (status) {
+                Status.UNPLAYED -> WorldRugbyService.STATE_UNPLAYED
+                Status.COMPLETE -> WorldRugbyService.STATE_COMPLETE
+                Status.LIVE -> WorldRugbyService.STATE_LIVE
+                else -> throw IllegalArgumentException("Cannot handle $status in fetchLatestMatchesSync")
+            }
+        val startDate =
+            when (status) {
+                Status.UNPLAYED -> unplayedStartDate
+                else -> null
+            }
+        val endDate =
+            when (status) {
+                Status.UNPLAYED -> unplayedEndDate
+                else -> null
+            }
+        val sort =
+            when (status) {
+                Status.UNPLAYED, Status.LIVE -> WorldRugbyService.SORT_ASC
+                Status.COMPLETE -> WorldRugbyService.SORT_DESC
+                else -> throw IllegalArgumentException("Cannot handle $status in fetchLatestMatchesSync")
+            }
         return try {
             val response = service.getMatches(sports, states, startDate, endDate, sort, page, pageSize)
             val teamIds = dao.loadTeamIds(sport)
-            val matches = MatchDataConverter.getMatchesFromResponse(response, sport, teamIds)
-                .map { match ->
-                    when (match.status) {
-                        Status.LIVE -> {
-                            val summaryResponse = service.getMatchSummary(match.id)
-                            val minute = MatchDataConverter.getMinuteFromResponse(summaryResponse)
-                            match.copy(minute = minute)
+            val matches =
+                MatchDataConverter.getMatchesFromResponse(response, sport, teamIds)
+                    .map { match ->
+                        when (match.status) {
+                            Status.LIVE -> {
+                                val summaryResponse = service.getMatchSummary(match.id)
+                                val minute = MatchDataConverter.getMinuteFromResponse(summaryResponse)
+                                match.copy(minute = minute)
+                            }
+                            else -> match
                         }
-                        else -> match
+                    }.run {
+                        if (sort == WorldRugbyService.SORT_ASC) {
+                            sortedBy { match -> match.timeMillis }
+                        } else {
+                            sortedByDescending { match -> match.timeMillis }
+                        }
                     }
-                }.run {
-                    if (sort == WorldRugbyService.SORT_ASC) {
-                        sortedBy { match -> match.timeMillis }
-                    } else {
-                        sortedByDescending { match -> match.timeMillis }
-                    }
-                }
             true to matches
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
@@ -111,15 +120,16 @@ class MatchRepository(
         onComplete: (success: Boolean, matches: List<Match>) -> Unit,
     ) = coroutineScope.launch {
         val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
-        val result = withContext(Dispatchers.IO) {
-            fetchLatestMatchesSync(
-                sport,
-                status,
-                page = 0,
-                pageSize = PAGE_SIZE,
-                unplayedStartDate = currentDate,
-            )
-        }
+        val result =
+            withContext(Dispatchers.IO) {
+                fetchLatestMatchesSync(
+                    sport,
+                    status,
+                    page = 0,
+                    pageSize = PAGE_SIZE,
+                    unplayedStartDate = currentDate,
+                )
+            }
         val success = result.first
         val matches = result.second
         onComplete(success, matches)
@@ -128,14 +138,15 @@ class MatchRepository(
     suspend fun hasUnplayedMatchesToday(sport: Sport): Boolean {
         val currentDate = DateUtils.getCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
         val dayAfterCurrentDate = DateUtils.getDayAfterCurrentDate(DateUtils.DATE_FORMAT_YYYY_MM_DD)
-        val result = fetchLatestMatchesSync(
-            sport,
-            Status.UNPLAYED,
-            page = 0,
-            pageSize = PAGE_SIZE_MAX,
-            unplayedStartDate = currentDate,
-            unplayedEndDate = dayAfterCurrentDate,
-        )
+        val result =
+            fetchLatestMatchesSync(
+                sport,
+                Status.UNPLAYED,
+                page = 0,
+                pageSize = PAGE_SIZE_MAX,
+                unplayedStartDate = currentDate,
+                unplayedEndDate = dayAfterCurrentDate,
+            )
         val success = result.first
         val matches = result.second
         return success && matches.firstOrNull { match -> match.status == Status.UNPLAYED } != null

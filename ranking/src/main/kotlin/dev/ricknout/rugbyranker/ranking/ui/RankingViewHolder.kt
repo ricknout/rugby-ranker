@@ -13,7 +13,6 @@ import dev.ricknout.rugbyranker.ranking.databinding.ListItemRankingBinding
 import kotlin.math.abs
 
 class RankingViewHolder(private val binding: ListItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
-
     fun bind(ranking: Ranking) {
         binding.apply {
             position.text = root.context.getString(R.string.position, ranking.position)
@@ -62,11 +61,12 @@ class RankingViewHolder(private val binding: ListItemRankingBinding) : RecyclerV
                     pointsDifference.isInvisible = true
                 }
             }
-            val backgroundColor = if (absoluteAdapterPosition % 2 == 0) {
-                AppCompatResources.getColorStateList(itemView.context, R.color.on_surface_5).defaultColor
-            } else {
-                MaterialColors.getColor(root, R.attr.colorSurface)
-            }
+            val backgroundColor =
+                if (absoluteAdapterPosition % 2 == 0) {
+                    AppCompatResources.getColorStateList(itemView.context, R.color.on_surface_5).defaultColor
+                } else {
+                    MaterialColors.getColor(root, R.attr.colorSurface)
+                }
             root.setBackgroundColor(backgroundColor)
         }
     }

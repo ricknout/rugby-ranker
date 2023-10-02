@@ -15,8 +15,11 @@ import dev.ricknout.rugbyranker.match.model.Status
 import kotlin.math.floor
 
 class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(match: Match, onPredictClick: (match: Match) -> Unit, onPinClick: (match: Match) -> Unit) {
+    fun bind(
+        match: Match,
+        onPredictClick: (match: Match) -> Unit,
+        onPinClick: (match: Match) -> Unit,
+    ) {
         binding.apply {
             homeFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(match.firstTeamAbbreviation)
             awayFlag.text = FlagUtils.getFlagEmojiForTeamAbbreviation(match.secondTeamAbbreviation)
@@ -27,11 +30,12 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
             val mediumEmphasisColor = AppCompatResources.getColorStateList(root.context, R.color.material_on_surface_emphasis_medium)
             when (match.status) {
                 Status.UNPLAYED -> {
-                    title.text = if (isCurrentDay) {
-                        root.context.getString(R.string.today)
-                    } else {
-                        DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
-                    }
+                    title.text =
+                        if (isCurrentDay) {
+                            root.context.getString(R.string.today)
+                        } else {
+                            DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
+                        }
                     label.text = DateUtils.getDate(DateUtils.DATE_FORMAT_HH_MM, match.timeMillis)
                     homeScoreText.setTextColor(mediumEmphasisColor)
                     homeScoreText.text = root.context.getString(R.string.versus)
@@ -39,11 +43,12 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                     awayScoreText.text = null
                 }
                 Status.COMPLETE -> {
-                    title.text = if (isCurrentDay) {
-                        root.context.getString(R.string.today)
-                    } else {
-                        DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
-                    }
+                    title.text =
+                        if (isCurrentDay) {
+                            root.context.getString(R.string.today)
+                        } else {
+                            DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
+                        }
                     label.text = null
                     homeScoreText.setTextColor(highEmphasisColor)
                     homeScoreText.text = match.firstTeamScore.toString()
@@ -52,28 +57,31 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                 }
                 Status.LIVE -> {
                     title.text = root.context.getString(R.string.live)
-                    val half = when (match.half) {
-                        Half.FIRST -> root.context.getString(R.string.first_half)
-                        Half.SECOND -> root.context.getString(R.string.second_half)
-                        Half.HALF_TIME -> root.context.getString(R.string.half_time)
-                        else -> null
-                    }
-                    label.text = if (match.minute != null && half != null) {
-                        root.context.getString(R.string.half_minute, half, match.minute)
-                    } else {
-                        null
-                    }
+                    val half =
+                        when (match.half) {
+                            Half.FIRST -> root.context.getString(R.string.first_half)
+                            Half.SECOND -> root.context.getString(R.string.second_half)
+                            Half.HALF_TIME -> root.context.getString(R.string.half_time)
+                            else -> null
+                        }
+                    label.text =
+                        if (match.minute != null && half != null) {
+                            root.context.getString(R.string.half_minute, half, match.minute)
+                        } else {
+                            null
+                        }
                     homeScoreText.setTextColor(highEmphasisColor)
                     homeScoreText.text = match.firstTeamScore.toString()
                     awayScore.isVisible = true
                     awayScoreText.text = match.secondTeamScore.toString()
                 }
                 Status.POSTPONED -> {
-                    title.text = if (isCurrentDay) {
-                        root.context.getString(R.string.today)
-                    } else {
-                        DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
-                    }
+                    title.text =
+                        if (isCurrentDay) {
+                            root.context.getString(R.string.today)
+                        } else {
+                            DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
+                        }
                     label.text = root.context.getString(R.string.postponed)
                     homeScoreText.setTextColor(mediumEmphasisColor)
                     homeScoreText.text = root.context.getString(R.string.versus)
@@ -81,11 +89,12 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
                     awayScoreText.text = null
                 }
                 Status.CANCELLED -> {
-                    title.text = if (isCurrentDay) {
-                        root.context.getString(R.string.today)
-                    } else {
-                        DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
-                    }
+                    title.text =
+                        if (isCurrentDay) {
+                            root.context.getString(R.string.today)
+                        } else {
+                            DateUtils.getDate(DateUtils.DATE_FORMAT_E_D_MMM_YYYY, match.timeMillis)
+                        }
                     label.text = root.context.getString(R.string.cancelled)
                     homeScoreText.setTextColor(highEmphasisColor)
                     homeScoreText.text = match.firstTeamScore.toString()
@@ -96,26 +105,28 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
             event.isVisible = match.eventLabel != null
             eventText.text = match.eventLabel
             place.isVisible = match.venueName != null || match.venueCity != null || match.venueCountry != null
-            placeText.text = when {
-                match.venueName != null && match.venueCity != null && match.venueCountry != null -> {
-                    root.context.getString(R.string.venue_3, match.venueName, match.venueCity, match.venueCountry)
+            placeText.text =
+                when {
+                    match.venueName != null && match.venueCity != null && match.venueCountry != null -> {
+                        root.context.getString(R.string.venue_3, match.venueName, match.venueCity, match.venueCountry)
+                    }
+                    match.venueName != null && match.venueCity != null -> {
+                        root.context.getString(R.string.venue_2, match.venueName, match.venueCity)
+                    }
+                    match.venueName != null && match.venueCountry != null -> {
+                        root.context.getString(R.string.venue_2, match.venueName, match.venueCountry)
+                    }
+                    match.venueCity != null && match.venueCountry != null -> {
+                        root.context.getString(R.string.venue_2, match.venueCity, match.venueCountry)
+                    }
+                    match.venueName != null -> match.venueName
+                    match.venueCity != null -> match.venueCity
+                    match.venueCountry != null -> match.venueCountry
+                    else -> null
                 }
-                match.venueName != null && match.venueCity != null -> {
-                    root.context.getString(R.string.venue_2, match.venueName, match.venueCity)
-                }
-                match.venueName != null && match.venueCountry != null -> {
-                    root.context.getString(R.string.venue_2, match.venueName, match.venueCountry)
-                }
-                match.venueCity != null && match.venueCountry != null -> {
-                    root.context.getString(R.string.venue_2, match.venueCity, match.venueCountry)
-                }
-                match.venueName != null -> match.venueName
-                match.venueCity != null -> match.venueCity
-                match.venueCountry != null -> match.venueCountry
-                else -> null
-            }
             when {
-                match.predictable && (match.status == Status.UNPLAYED || match.status == Status.LIVE || match.status == Status.POSTPONED) -> {
+                match.predictable &&
+                    (match.status == Status.UNPLAYED || match.status == Status.LIVE || match.status == Status.POSTPONED) -> {
                     predict.isVisible = true
                     predictButton.setOnClickListener { onPredictClick(match) }
                 }
@@ -136,15 +147,16 @@ class MatchViewHolder(private val binding: ListItemMatchBinding) : RecyclerView.
             }
             val spanCount = itemView.context.resources.getInteger(R.integer.span_count_grid)
             val row = floor(absoluteAdapterPosition / spanCount.toFloat()).toInt()
-            val backgroundColor = when {
-                (spanCount % 2 != 0 || row % 2 == 0) && absoluteAdapterPosition % 2 == 0 -> {
-                    AppCompatResources.getColorStateList(itemView.context, R.color.on_surface_5).defaultColor
+            val backgroundColor =
+                when {
+                    (spanCount % 2 != 0 || row % 2 == 0) && absoluteAdapterPosition % 2 == 0 -> {
+                        AppCompatResources.getColorStateList(itemView.context, R.color.on_surface_5).defaultColor
+                    }
+                    (spanCount % 2 == 0 && row % 2 != 0) && absoluteAdapterPosition % 2 != 0 -> {
+                        AppCompatResources.getColorStateList(itemView.context, R.color.on_surface_5).defaultColor
+                    }
+                    else -> MaterialColors.getColor(root, R.attr.colorSurface)
                 }
-                (spanCount % 2 == 0 && row % 2 != 0) && absoluteAdapterPosition % 2 != 0 -> {
-                    AppCompatResources.getColorStateList(itemView.context, R.color.on_surface_5).defaultColor
-                }
-                else -> MaterialColors.getColor(root, R.attr.colorSurface)
-            }
             root.setBackgroundColor(backgroundColor)
         }
     }

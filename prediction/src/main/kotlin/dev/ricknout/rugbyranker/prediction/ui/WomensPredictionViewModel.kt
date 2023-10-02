@@ -6,6 +6,8 @@ import dev.ricknout.rugbyranker.prediction.data.PredictionRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class WomensPredictionViewModel @Inject constructor(
-    repository: PredictionRepository,
-) : PredictionViewModel(Sport.WOMENS, repository)
+class WomensPredictionViewModel
+    @Inject
+    constructor(
+        repository: PredictionRepository,
+    ) : PredictionViewModel(Sport.WOMENS, repository)

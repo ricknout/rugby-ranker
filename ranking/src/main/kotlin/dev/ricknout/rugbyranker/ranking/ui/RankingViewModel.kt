@@ -19,7 +19,6 @@ open class RankingViewModel(
     private val repository: RankingRepository,
     workManager: RankingWorkManager,
 ) : ScrollableViewModel() {
-
     init {
         workManager.enqueueWork(sport)
     }
@@ -30,19 +29,21 @@ open class RankingViewModel(
 
     private val updatedTimeMillis = repository.getUpdatedTimeMillis(sport)
 
-    private val _rankings = repository.loadRankings(sport)
-        .combine(updatedTimeMillis) { rankings, updatedTimeMillis ->
-            rankings to updatedTimeMillis
-        }
-        .combine(predictions) { pair, predictions ->
-            val rankings = RankingCalculator.allocatePointsForPredictions(pair.first, predictions)
-            val updatedTimeMillis = when {
-                pair.second == RankingDataStore.DEFAULT_UPDATED_TIME_MILLIS -> null
-                rankings.isEmpty() || predictions.isNotEmpty() -> null
-                else -> pair.second
+    private val _rankings =
+        repository.loadRankings(sport)
+            .combine(updatedTimeMillis) { rankings, updatedTimeMillis ->
+                rankings to updatedTimeMillis
             }
-            rankings to updatedTimeMillis
-        }
+            .combine(predictions) { pair, predictions ->
+                val rankings = RankingCalculator.allocatePointsForPredictions(pair.first, predictions)
+                val updatedTimeMillis =
+                    when {
+                        pair.second == RankingDataStore.DEFAULT_UPDATED_TIME_MILLIS -> null
+                        rankings.isEmpty() || predictions.isNotEmpty() -> null
+                        else -> pair.second
+                    }
+                rankings to updatedTimeMillis
+            }
     val rankings: LiveData<Pair<List<Ranking>, Long?>> = _rankings.asLiveData()
 
     private val _refreshingRankings = MutableStateFlow(false)

@@ -5,23 +5,29 @@ import java.util.Calendar
 import java.util.Locale
 
 object DateUtils {
-
     fun getCurrentDate(format: String) = getDate(format, System.currentTimeMillis())
 
     fun getDayAfterCurrentDate(format: String) = getDayAfterDate(format, System.currentTimeMillis())
 
-    fun getDate(format: String, millis: Long): String {
+    fun getDate(
+        format: String,
+        millis: Long,
+    ): String {
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
         val time = Calendar.getInstance().apply { timeInMillis = millis }.time
         return simpleDateFormat.format(time)
     }
 
-    private fun getDayAfterDate(format: String, millis: Long): String {
+    private fun getDayAfterDate(
+        format: String,
+        millis: Long,
+    ): String {
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
-        val time = Calendar.getInstance().apply {
-            timeInMillis = millis
-            add(Calendar.DATE, 1)
-        }.time
+        val time =
+            Calendar.getInstance().apply {
+                timeInMillis = millis
+                add(Calendar.DATE, 1)
+            }.time
         return simpleDateFormat.format(time)
     }
 

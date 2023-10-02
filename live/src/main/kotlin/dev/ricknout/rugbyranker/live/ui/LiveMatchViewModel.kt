@@ -22,7 +22,6 @@ open class LiveMatchViewModel(
     private val repository: MatchRepository,
     private val workManager: LiveMatchWorkManager,
 ) : ScrollableViewModel() {
-
     private val status = Status.LIVE
 
     private val _liveMatches = MutableStateFlow<List<Match>?>(null)
@@ -40,7 +39,10 @@ open class LiveMatchViewModel(
         startLiveMatchesRefreshJob()
     }
 
-    fun refreshLiveMatches(showRefresh: Boolean = true, onComplete: (success: Boolean) -> Unit) {
+    fun refreshLiveMatches(
+        showRefresh: Boolean = true,
+        onComplete: (success: Boolean) -> Unit,
+    ) {
         if (showRefresh) _refreshingLiveMatches.value = true
         repository.fetchLatestMatchesAsync(sport, status, viewModelScope) { success, matches ->
             if (success || _liveMatches.value == null) _liveMatches.value = matches
@@ -51,11 +53,12 @@ open class LiveMatchViewModel(
 
     private fun startLiveMatchesRefreshJob() {
         viewModelScope.launch {
-            val unplayedMatchesToday = unplayedMatchesToday ?: withContext(Dispatchers.IO) {
-                repository.hasUnplayedMatchesToday(sport).apply {
-                    unplayedMatchesToday = this
+            val unplayedMatchesToday =
+                unplayedMatchesToday ?: withContext(Dispatchers.IO) {
+                    repository.hasUnplayedMatchesToday(sport).apply {
+                        unplayedMatchesToday = this
+                    }
                 }
-            }
             val refreshedLiveMatchesOnce = liveMatches.value != null
             val ongoingLiveMatches = !liveMatches.value.isNullOrEmpty()
             if (!refreshedLiveMatchesOnce || ongoingLiveMatches || unplayedMatchesToday) {

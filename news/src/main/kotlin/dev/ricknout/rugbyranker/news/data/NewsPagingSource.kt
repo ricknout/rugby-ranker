@@ -9,7 +9,6 @@ class NewsPagingSource(
     private val type: Type,
     private val repository: NewsRepository,
 ) : PagingSource<Int, News>() {
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, News> {
         val page = params.key ?: 0
         val pageSize = params.loadSize

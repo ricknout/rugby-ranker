@@ -7,6 +7,8 @@ import dev.ricknout.rugbyranker.match.model.Status
 import javax.inject.Inject
 
 @HiltViewModel
-class WomensUnplayedMatchViewModel @Inject constructor(
-    repository: MatchRepository,
-) : MatchViewModel(Sport.WOMENS, Status.UNPLAYED, repository)
+class WomensUnplayedMatchViewModel
+    @Inject
+    constructor(
+        repository: MatchRepository,
+    ) : MatchViewModel(Sport.WOMENS, Status.UNPLAYED, repository)

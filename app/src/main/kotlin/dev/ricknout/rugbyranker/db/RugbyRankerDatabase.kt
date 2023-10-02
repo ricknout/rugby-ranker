@@ -12,7 +12,6 @@ import dev.ricknout.rugbyranker.core.model.Ranking
 )
 @TypeConverters(RugbyRankerTypeConverters::class)
 abstract class RugbyRankerDatabase : RoomDatabase() {
-
     abstract fun rankingDao(): RankingDao
 
     companion object {

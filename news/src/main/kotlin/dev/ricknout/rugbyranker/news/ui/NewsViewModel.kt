@@ -11,6 +11,5 @@ open class NewsViewModel(
     type: Type,
     repository: NewsRepository,
 ) : ViewModel() {
-
     val news = repository.loadNews(type).cachedIn(viewModelScope).asLiveData()
 }

@@ -11,15 +11,16 @@ import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.match.data.MatchRepository
 
 @HiltWorker
-class MensLiveMatchWorker @AssistedInject constructor(
-    @Assisted appContext: Context,
-    @Assisted params: WorkerParameters,
-    repository: MatchRepository,
-    workManager: WorkManager,
-    notificationManager: NotificationManagerCompat,
-) : LiveMatchWorker(appContext, params, Sport.MENS, repository, workManager, notificationManager) {
-
-    companion object {
-        fun getUniqueWorkName(matchId: String) = "live_match_worker_mens_$matchId"
+class MensLiveMatchWorker
+    @AssistedInject
+    constructor(
+        @Assisted appContext: Context,
+        @Assisted params: WorkerParameters,
+        repository: MatchRepository,
+        workManager: WorkManager,
+        notificationManager: NotificationManagerCompat,
+    ) : LiveMatchWorker(appContext, params, Sport.MENS, repository, workManager, notificationManager) {
+        companion object {
+            fun getUniqueWorkName(matchId: String) = "live_match_worker_mens_$matchId"
+        }
     }
-}

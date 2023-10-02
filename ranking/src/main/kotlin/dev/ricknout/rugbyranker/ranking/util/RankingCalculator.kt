@@ -8,22 +8,24 @@ import kotlin.math.max
 import kotlin.math.min
 
 object RankingCalculator {
-
     fun allocatePointsForPredictions(
         rankings: List<Ranking>,
         predictions: List<Prediction>,
     ): List<Ranking> {
         if (predictions.isEmpty()) return rankings
-        val mutableRankings = rankings.asSequence().map { ranking ->
-            ranking.resetPreviousPoints() // Reset previous points initially
-        }.toMutableList()
+        val mutableRankings =
+            rankings.asSequence().map { ranking ->
+                ranking.resetPreviousPoints() // Reset previous points initially
+            }.toMutableList()
         predictions.forEach { prediction ->
-            val homeRanking = mutableRankings.find { ranking ->
-                ranking.teamId == prediction.homeTeam.id
-            } ?: throw IllegalArgumentException("Cannot find home team with ID = ${prediction.homeTeam.id}")
-            val awayRanking = mutableRankings.find { ranking ->
-                ranking.teamId == prediction.awayTeam.id
-            } ?: throw IllegalArgumentException("Cannot find away team with ID = ${prediction.awayTeam.id}")
+            val homeRanking =
+                mutableRankings.find { ranking ->
+                    ranking.teamId == prediction.homeTeam.id
+                } ?: throw IllegalArgumentException("Cannot find home team with ID = ${prediction.homeTeam.id}")
+            val awayRanking =
+                mutableRankings.find { ranking ->
+                    ranking.teamId == prediction.awayTeam.id
+                } ?: throw IllegalArgumentException("Cannot find away team with ID = ${prediction.awayTeam.id}")
             val points = pointsForPrediction(homeRanking, awayRanking, prediction)
             mutableRankings[mutableRankings.indexOf(homeRanking)] = homeRanking.addPoints(points)
             mutableRankings[mutableRankings.indexOf(awayRanking)] = awayRanking.addPoints(-points)
@@ -63,6 +65,6 @@ object RankingCalculator {
                 prediction.awayScore > prediction.homeScore -> -1f
                 else -> 0f
             } - drawDifference
-            ) * multiplier
+        ) * multiplier
     }
 }

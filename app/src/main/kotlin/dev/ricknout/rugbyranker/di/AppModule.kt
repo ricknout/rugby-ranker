@@ -34,7 +34,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class AppModule {
-
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -62,7 +61,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): RugbyRankerDatabase {
+    fun provideDatabase(
+        @ApplicationContext context: Context,
+    ): RugbyRankerDatabase {
         return Room.databaseBuilder(
             context,
             RugbyRankerDatabase::class.java,
@@ -80,13 +81,17 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRankingDataStore(@ApplicationContext context: Context): RankingDataStore {
+    fun provideRankingDataStore(
+        @ApplicationContext context: Context,
+    ): RankingDataStore {
         return RankingDataStore(context.dataStore)
     }
 
     @Provides
     @Singleton
-    fun provideThemeDataStore(@ApplicationContext context: Context): ThemeDataStore {
+    fun provideThemeDataStore(
+        @ApplicationContext context: Context,
+    ): ThemeDataStore {
         return ThemeDataStore(context.dataStore)
     }
 
@@ -129,7 +134,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
+    fun provideWorkManager(
+        @ApplicationContext context: Context,
+    ): WorkManager {
         return WorkManager.getInstance(context)
     }
 
@@ -147,7 +154,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideNotificationManager(@ApplicationContext context: Context): NotificationManagerCompat {
+    fun provideNotificationManager(
+        @ApplicationContext context: Context,
+    ): NotificationManagerCompat {
         return NotificationManagerCompat.from(context)
     }
 

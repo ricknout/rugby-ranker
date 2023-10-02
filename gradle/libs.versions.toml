@@ -33,7 +33,7 @@ okHttp = "5.0.0-alpha.11"
 ossLicenses = "17.0.1"
 ossLicensesPlugin = "0.10.6"
 retrofit = "2.9.0"
-spotless = "6.21.0"
+spotless = "6.22.0"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }

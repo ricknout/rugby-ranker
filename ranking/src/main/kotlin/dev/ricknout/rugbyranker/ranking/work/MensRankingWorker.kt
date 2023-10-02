@@ -9,13 +9,14 @@ import dev.ricknout.rugbyranker.core.model.Sport
 import dev.ricknout.rugbyranker.ranking.data.RankingRepository
 
 @HiltWorker
-class MensRankingWorker @AssistedInject constructor(
-    @Assisted appContext: Context,
-    @Assisted params: WorkerParameters,
-    repository: RankingRepository,
-) : RankingWorker(appContext, params, Sport.MENS, repository) {
-
-    companion object {
-        const val UNIQUE_WORK_NAME = "ranking_worker_mens"
+class MensRankingWorker
+    @AssistedInject
+    constructor(
+        @Assisted appContext: Context,
+        @Assisted params: WorkerParameters,
+        repository: RankingRepository,
+    ) : RankingWorker(appContext, params, Sport.MENS, repository) {
+        companion object {
+            const val UNIQUE_WORK_NAME = "ranking_worker_mens"
+        }
     }
-}

@@ -7,6 +7,8 @@ import dev.ricknout.rugbyranker.match.model.Status
 import javax.inject.Inject
 
 @HiltViewModel
-class WomensCompleteMatchViewModel @Inject constructor(
-    repository: MatchRepository,
-) : MatchViewModel(Sport.WOMENS, Status.COMPLETE, repository)
+class WomensCompleteMatchViewModel
+    @Inject
+    constructor(
+        repository: MatchRepository,
+    ) : MatchViewModel(Sport.WOMENS, Status.COMPLETE, repository)

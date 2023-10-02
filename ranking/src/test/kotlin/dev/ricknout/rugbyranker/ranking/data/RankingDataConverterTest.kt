@@ -10,7 +10,6 @@ import org.junit.Before
 import org.junit.Test
 
 class RankingDataConverterTest {
-
     private lateinit var worldRugbyRankingsResponse: WorldRugbyRankingsResponse
 
     @Before
@@ -20,11 +19,12 @@ class RankingDataConverterTest {
         val entry1 = Entry(pos = 1, previousPos = 2, pts = 100f, previousPts = 90f, matches = 10, team = team1)
         val team2 = Team(id = "200", name = "Team 2", abbreviation = null, countryCode = "T2")
         val entry2 = Entry(pos = 2, previousPos = 3, pts = 90f, previousPts = 80f, matches = 10, team = team2)
-        worldRugbyRankingsResponse = WorldRugbyRankingsResponse(
-            effective = effective,
-            entries = listOf(entry1, entry2),
-            label = "Label",
-        )
+        worldRugbyRankingsResponse =
+            WorldRugbyRankingsResponse(
+                effective = effective,
+                entries = listOf(entry1, entry2),
+                label = "Label",
+            )
     }
 
     @Test

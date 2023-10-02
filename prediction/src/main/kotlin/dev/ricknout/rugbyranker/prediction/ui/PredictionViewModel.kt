@@ -15,14 +15,14 @@ open class PredictionViewModel(
     sport: Sport,
     repository: PredictionRepository,
 ) : ViewModel() {
-
-    val teams = repository.loadRankings(sport)
-        .map { rankings ->
-            rankings.map { ranking ->
-                Team(ranking.teamId, ranking.teamName, ranking.teamAbbreviation)
+    val teams =
+        repository.loadRankings(sport)
+            .map { rankings ->
+                rankings.map { ranking ->
+                    Team(ranking.teamId, ranking.teamName, ranking.teamAbbreviation)
+                }
             }
-        }
-        .asLiveData()
+            .asLiveData()
 
     private val _homeTeam = MutableStateFlow<Team?>(null)
     val homeTeam: LiveData<Team?> = _homeTeam.asLiveData()
@@ -37,14 +37,18 @@ open class PredictionViewModel(
     private val _noHomeAdvantage = MutableStateFlow(false)
     val noHomeAdvantage: LiveData<Boolean> = _noHomeAdvantage.asLiveData()
 
-    val inputValid = combine(_homeTeam, _awayTeam) { homeTeam, awayTeam ->
-        homeTeam != null && awayTeam != null
-    }.asLiveData()
+    val inputValid =
+        combine(_homeTeam, _awayTeam) { homeTeam, awayTeam ->
+            homeTeam != null && awayTeam != null
+        }.asLiveData()
 
     private val _predictions = MutableStateFlow<List<Prediction>>(emptyList())
     val predictions: LiveData<List<Prediction>> = _predictions.asLiveData()
 
-    fun submitPrediction(prediction: Prediction? = null, edit: Boolean) {
+    fun submitPrediction(
+        prediction: Prediction? = null,
+        edit: Boolean,
+    ) {
         val p = buildPrediction(prediction)
         if (edit) editPrediction(prediction = p) else addPrediction(prediction = p)
     }
@@ -81,25 +85,27 @@ open class PredictionViewModel(
         _noHomeAdvantage.value = noHomeAdvantage
     }
 
-    fun setInput(prediction: Prediction) = setInput(
-        homeTeam = prediction.homeTeam,
-        awayTeam = prediction.awayTeam,
-        homeScore = prediction.homeScore,
-        awayScore = prediction.awayScore,
-        rugbyWorldCup = prediction.rugbyWorldCup,
-        noHomeAdvantage = prediction.noHomeAdvantage,
-        validateTeams = false,
-    )
+    fun setInput(prediction: Prediction) =
+        setInput(
+            homeTeam = prediction.homeTeam,
+            awayTeam = prediction.awayTeam,
+            homeScore = prediction.homeScore,
+            awayScore = prediction.awayScore,
+            rugbyWorldCup = prediction.rugbyWorldCup,
+            noHomeAdvantage = prediction.noHomeAdvantage,
+            validateTeams = false,
+        )
 
-    fun resetInput() = setInput(
-        homeTeam = null,
-        awayTeam = null,
-        homeScore = 0,
-        awayScore = 0,
-        rugbyWorldCup = false,
-        noHomeAdvantage = false,
-        validateTeams = false,
-    )
+    fun resetInput() =
+        setInput(
+            homeTeam = null,
+            awayTeam = null,
+            homeScore = 0,
+            awayScore = 0,
+            rugbyWorldCup = false,
+            noHomeAdvantage = false,
+            validateTeams = false,
+        )
 
     fun incrementHomeScore() {
         val score = _homeScore.value.inc().coerceIn(MIN_SCORE, MAX_SCORE)
@@ -128,13 +134,14 @@ open class PredictionViewModel(
     }
 
     private fun editPrediction(prediction: Prediction) {
-        val predictions = _predictions.value.map {
-            if (it.id == prediction.id) {
-                prediction
-            } else {
-                it
+        val predictions =
+            _predictions.value.map {
+                if (it.id == prediction.id) {
+                    prediction
+                } else {
+                    it
+                }
             }
-        }
         _predictions.value = predictions
     }
 

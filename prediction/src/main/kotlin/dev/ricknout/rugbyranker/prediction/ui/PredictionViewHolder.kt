@@ -6,16 +6,20 @@ import dev.ricknout.rugbyranker.prediction.databinding.ListItemPredictionBinding
 import dev.ricknout.rugbyranker.prediction.model.Prediction
 
 class PredictionViewHolder(private val binding: ListItemPredictionBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(prediction: Prediction, onClick: (prediction: Prediction) -> Unit, onCloseIconClick: (prediction: Prediction) -> Unit) {
+    fun bind(
+        prediction: Prediction,
+        onClick: (prediction: Prediction) -> Unit,
+        onCloseIconClick: (prediction: Prediction) -> Unit,
+    ) {
         binding.chip.apply {
-            text = context.getString(
-                R.string.prediction,
-                prediction.homeTeam.abbreviation,
-                prediction.homeScore,
-                prediction.awayScore,
-                prediction.awayTeam.abbreviation,
-            )
+            text =
+                context.getString(
+                    R.string.prediction,
+                    prediction.homeTeam.abbreviation,
+                    prediction.homeScore,
+                    prediction.awayScore,
+                    prediction.awayTeam.abbreviation,
+                )
             when {
                 prediction.rugbyWorldCup -> setChipIconResource(R.drawable.ic_rwc_24dp)
                 prediction.noHomeAdvantage -> setChipIconResource(R.drawable.ic_nha_24dp)

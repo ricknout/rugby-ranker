@@ -8,11 +8,12 @@ import dev.ricknout.rugbyranker.theme.model.Theme
 import javax.inject.Inject
 
 @HiltViewModel
-class ThemeViewModel @Inject constructor(private val repository: ThemeRepository) : ViewModel() {
+class ThemeViewModel
+    @Inject
+    constructor(private val repository: ThemeRepository) : ViewModel() {
+        val theme = repository.getTheme()
 
-    val theme = repository.getTheme()
+        fun getThemes() = repository.getThemes()
 
-    fun getThemes() = repository.getThemes()
-
-    fun setTheme(theme: Theme) = repository.setTheme(theme, viewModelScope)
-}
+        fun setTheme(theme: Theme) = repository.setTheme(theme, viewModelScope)
+    }

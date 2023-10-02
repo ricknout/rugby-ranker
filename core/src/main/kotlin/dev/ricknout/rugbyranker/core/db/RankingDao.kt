@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RankingDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(rankings: List<Ranking>)
 

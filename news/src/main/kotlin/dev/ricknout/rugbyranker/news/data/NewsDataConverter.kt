@@ -7,7 +7,6 @@ import dev.ricknout.rugbyranker.news.model.News
 import dev.ricknout.rugbyranker.news.model.Type
 
 object NewsDataConverter {
-
     fun getNewsFromResponse(response: WorldRugbyNewsResponse): List<News> {
         return response.content.map { article ->
             News(
@@ -15,16 +14,18 @@ object NewsDataConverter {
                 type = getTypeFromResponse(article),
                 title = article.title,
                 subtitle = article.subtitle,
-                summary = when {
-                    !article.description.isNullOrEmpty() -> article.description!!
-                    !article.summary.isNullOrEmpty() -> article.summary!!
-                    else -> article.title
-                },
-                imageUrl = if (!article.onDemandUrl.isNullOrEmpty()) {
-                    "${article.onDemandUrl}?width=$WIDTH_IMAGE"
-                } else {
-                    article.imageUrl
-                },
+                summary =
+                    when {
+                        !article.description.isNullOrEmpty() -> article.description!!
+                        !article.summary.isNullOrEmpty() -> article.summary!!
+                        else -> article.title
+                    },
+                imageUrl =
+                    if (!article.onDemandUrl.isNullOrEmpty()) {
+                        "${article.onDemandUrl}?width=$WIDTH_IMAGE"
+                    } else {
+                        article.imageUrl
+                    },
                 articleUrl = article.canonicalUrl,
                 timeMillis = article.publishFrom,
                 language = article.language,

@@ -4,7 +4,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class FlagUtilsTest {
-
     @Test
     fun getFlagEmojiForTeamAbbreviation_Valid() {
         assertEquals(FlagUtils.getFlagEmojiForTeamAbbreviation("NZL"), "\uD83C\uDDF3\uD83C\uDDFF")

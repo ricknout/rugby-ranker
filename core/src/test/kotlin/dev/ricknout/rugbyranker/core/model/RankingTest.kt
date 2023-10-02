@@ -4,18 +4,18 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RankingTest {
-
-    private val worldRugbyRanking = Ranking(
-        "1",
-        "Team 1",
-        "T1",
-        1,
-        2,
-        100f,
-        90f,
-        10,
-        Sport.MENS,
-    )
+    private val worldRugbyRanking =
+        Ranking(
+            "1",
+            "Team 1",
+            "T1",
+            1,
+            2,
+            100f,
+            90f,
+            10,
+            Sport.MENS,
+        )
 
     @Test
     fun resetPreviousPoints() {

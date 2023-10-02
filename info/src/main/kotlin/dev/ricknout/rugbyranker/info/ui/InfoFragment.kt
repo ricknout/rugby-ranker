@@ -28,7 +28,6 @@ import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class InfoFragment : Fragment() {
-
     private val infoViewModel: InfoViewModel by activityViewModels()
 
     private val themeViewModel: ThemeViewModel by activityViewModels()
@@ -55,7 +54,10 @@ class InfoFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
@@ -97,11 +99,12 @@ class InfoFragment : Fragment() {
         }
         binding.shareThisApp.setOnClickListener {
             val appName = getString(R.string.app_name)
-            val intent = Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_SUBJECT, requireContext().getString(R.string.share_subject, appName))
-                putExtra(Intent.EXTRA_TEXT, requireContext().getString(R.string.share_text, appName, GOOGLE_PLAY_URL))
-                type = "text/plain"
-            }
+            val intent =
+                Intent(Intent.ACTION_SEND).apply {
+                    putExtra(Intent.EXTRA_SUBJECT, requireContext().getString(R.string.share_subject, appName))
+                    putExtra(Intent.EXTRA_TEXT, requireContext().getString(R.string.share_text, appName, GOOGLE_PLAY_URL))
+                    type = "text/plain"
+                }
             startActivity(Intent.createChooser(intent, requireContext().getString(R.string.share_title, appName)))
         }
         binding.viewOnGooglePlay.setOnClickListener {

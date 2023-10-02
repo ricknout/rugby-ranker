@@ -14,12 +14,12 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 
 object NotificationUtils {
-
     @SuppressLint("InlinedApi")
-    fun areNotificationsEnabled(context: Context) = ContextCompat.checkSelfPermission(
-        context,
-        Manifest.permission.POST_NOTIFICATIONS,
-    ) == PackageManager.PERMISSION_GRANTED
+    fun areNotificationsEnabled(context: Context) =
+        ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.POST_NOTIFICATIONS,
+        ) == PackageManager.PERMISSION_GRANTED
 
     @TargetApi(Build.VERSION_CODES.O)
     fun createNotificationChannel(
@@ -50,17 +50,18 @@ object NotificationUtils {
     }
 
     fun showNotificationSettings(context: Context) {
-        val intent = Intent().apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
-                putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-            } else {
-                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                val uri = Uri.fromParts("package", context.packageName, null)
-                data = uri
+        val intent =
+            Intent().apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                    putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                } else {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    val uri = Uri.fromParts("package", context.packageName, null)
+                    data = uri
+                }
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
         context.startActivity(intent)
     }
 

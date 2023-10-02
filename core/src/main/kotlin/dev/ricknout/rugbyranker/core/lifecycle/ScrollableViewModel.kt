@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.MutableStateFlow
 
 open class ScrollableViewModel : ViewModel() {
-
     private val _scrollToTop = MutableStateFlow(false)
     val scrollToTop: LiveData<Boolean> = _scrollToTop.asLiveData()
 

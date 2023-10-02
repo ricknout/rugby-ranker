@@ -36,13 +36,13 @@ open class LiveMatchWorker(
     private val workManager: WorkManager,
     private val notificationManager: NotificationManagerCompat,
 ) : CoroutineWorker(appContext, params) {
-
-    private val emojiCompat = try {
-        EmojiCompat.get()
-    } catch (e: Exception) {
-        Log.e(TAG, e.toString())
-        null
-    }
+    private val emojiCompat =
+        try {
+            EmojiCompat.get()
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+            null
+        }
 
     @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
@@ -77,14 +77,16 @@ open class LiveMatchWorker(
 
     private fun areNotificationsFullyEnabled(): Boolean {
         val notificationsEnabled = NotificationUtils.areNotificationsEnabled(applicationContext)
-        val liveNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
-            notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
-        )
-        val resultNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
-            notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
-        )
+        val liveNotificationChannelEnabled =
+            NotificationUtils.isNotificationChannelEnabled(
+                notificationManager = notificationManager,
+                channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
+            )
+        val resultNotificationChannelEnabled =
+            NotificationUtils.isNotificationChannelEnabled(
+                notificationManager = notificationManager,
+                channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
+            )
         return notificationsEnabled && liveNotificationChannelEnabled && resultNotificationChannelEnabled
     }
 
@@ -98,13 +100,14 @@ open class LiveMatchWorker(
         val cancelTitle = applicationContext.getString(R.string.unpin)
         val openPendingIntent = createOpenPendingIntent()
         val cancelPendingIntent = createCancelPendingIntent()
-        val builder = NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE)
-            .setContentTitle(title)
-            .setTicker(title)
-            .setContentIntent(openPendingIntent)
-            .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
-            .setOngoing(true)
-            .addAction(R.drawable.ic_close_24dp, cancelTitle, cancelPendingIntent)
+        val builder =
+            NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE)
+                .setContentTitle(title)
+                .setTicker(title)
+                .setContentIntent(openPendingIntent)
+                .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
+                .setOngoing(true)
+                .addAction(R.drawable.ic_close_24dp, cancelTitle, cancelPendingIntent)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = createLiveNotificationChannel()
             builder.setChannelId(notificationChannel.id)
@@ -112,7 +115,10 @@ open class LiveMatchWorker(
         return builder.build()
     }
 
-    private fun createLiveForegroundInfo(notificationId: Int, match: Match): ForegroundInfo {
+    private fun createLiveForegroundInfo(
+        notificationId: Int,
+        match: Match,
+    ): ForegroundInfo {
         val notification = createLiveNotification(match)
         return ForegroundInfo(notificationId, notification)
     }
@@ -120,43 +126,48 @@ open class LiveMatchWorker(
     private fun createLiveNotification(match: Match): Notification {
         val homeFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(match.firstTeamAbbreviation)
         val awayFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(match.secondTeamAbbreviation)
-        val title = applicationContext.getString(
-            R.string.match,
-            homeFlag,
-            match.firstTeamName,
-            match.firstTeamScore,
-            match.secondTeamScore,
-            match.secondTeamName,
-            awayFlag,
-        ).run {
-            emojiCompat?.process(this) ?: this
-        }
-        val half = when (match.half) {
-            Half.FIRST -> applicationContext.getString(R.string.first_half)
-            Half.SECOND -> applicationContext.getString(R.string.second_half)
-            Half.HALF_TIME -> applicationContext.getString(R.string.half_time)
-            else -> null
-        }
-        val sport = when (match.sport) {
-            Sport.MENS -> applicationContext.getString(R.string.mens)
-            Sport.WOMENS -> applicationContext.getString(R.string.womens)
-        }
-        val text = if (match.minute != null && half != null) {
-            applicationContext.getString(R.string.live_half_minute_sport, half, match.minute, sport)
-        } else {
-            null
-        }
+        val title =
+            applicationContext.getString(
+                R.string.match,
+                homeFlag,
+                match.firstTeamName,
+                match.firstTeamScore,
+                match.secondTeamScore,
+                match.secondTeamName,
+                awayFlag,
+            ).run {
+                emojiCompat?.process(this) ?: this
+            }
+        val half =
+            when (match.half) {
+                Half.FIRST -> applicationContext.getString(R.string.first_half)
+                Half.SECOND -> applicationContext.getString(R.string.second_half)
+                Half.HALF_TIME -> applicationContext.getString(R.string.half_time)
+                else -> null
+            }
+        val sport =
+            when (match.sport) {
+                Sport.MENS -> applicationContext.getString(R.string.mens)
+                Sport.WOMENS -> applicationContext.getString(R.string.womens)
+            }
+        val text =
+            if (match.minute != null && half != null) {
+                applicationContext.getString(R.string.live_half_minute_sport, half, match.minute, sport)
+            } else {
+                null
+            }
         val cancelTitle = applicationContext.getString(R.string.unpin)
         val openPendingIntent = createOpenPendingIntent()
         val cancelPendingIntent = createCancelPendingIntent()
-        val builder = NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE)
-            .setContentTitle(title)
-            .setTicker(title)
-            .setContentText(text)
-            .setContentIntent(openPendingIntent)
-            .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
-            .setOngoing(true)
-            .addAction(R.drawable.ic_close_24dp, cancelTitle, cancelPendingIntent)
+        val builder =
+            NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE)
+                .setContentTitle(title)
+                .setTicker(title)
+                .setContentText(text)
+                .setContentIntent(openPendingIntent)
+                .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
+                .setOngoing(true)
+                .addAction(R.drawable.ic_close_24dp, cancelTitle, cancelPendingIntent)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = createLiveNotificationChannel()
             builder.setChannelId(notificationChannel.id)
@@ -167,30 +178,33 @@ open class LiveMatchWorker(
     private fun createResultNotification(match: Match): Notification {
         val homeFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(match.firstTeamAbbreviation)
         val awayFlag = FlagUtils.getFlagEmojiForTeamAbbreviation(match.secondTeamAbbreviation)
-        val title = applicationContext.getString(
-            R.string.match,
-            homeFlag,
-            match.firstTeamName,
-            match.firstTeamScore,
-            match.secondTeamScore,
-            match.secondTeamName,
-            awayFlag,
-        ).run {
-            emojiCompat?.process(this) ?: this
-        }
+        val title =
+            applicationContext.getString(
+                R.string.match,
+                homeFlag,
+                match.firstTeamName,
+                match.firstTeamScore,
+                match.secondTeamScore,
+                match.secondTeamName,
+                awayFlag,
+            ).run {
+                emojiCompat?.process(this) ?: this
+            }
         val half = applicationContext.getString(R.string.full_time)
-        val sport = when (match.sport) {
-            Sport.MENS -> applicationContext.getString(R.string.mens)
-            Sport.WOMENS -> applicationContext.getString(R.string.womens)
-        }
+        val sport =
+            when (match.sport) {
+                Sport.MENS -> applicationContext.getString(R.string.mens)
+                Sport.WOMENS -> applicationContext.getString(R.string.womens)
+            }
         val text = applicationContext.getString(R.string.half_sport, half, sport)
         val openPendingIntent = createOpenPendingIntent()
-        val builder = NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT)
-            .setContentTitle(title)
-            .setTicker(title)
-            .setContentText(text)
-            .setContentIntent(openPendingIntent)
-            .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
+        val builder =
+            NotificationCompat.Builder(applicationContext, NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT)
+                .setContentTitle(title)
+                .setTicker(title)
+                .setContentText(text)
+                .setContentIntent(openPendingIntent)
+                .setSmallIcon(R.drawable.ic_rugby_ranker_24dp)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = createResultNotificationChannel()
             builder.setChannelId(notificationChannel.id)

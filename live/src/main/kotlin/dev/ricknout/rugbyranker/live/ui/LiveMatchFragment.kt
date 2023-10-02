@@ -29,7 +29,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LiveMatchFragment : Fragment() {
-
     private val args: LiveMatchFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
@@ -41,31 +40,33 @@ class LiveMatchFragment : Fragment() {
         }
     }
 
-    private val adapter = LiveMatchAdapter(
-        { match ->
-            val prediction = match.toPrediction()
-            liveMatchViewModel.predict(prediction)
-        },
-        { match ->
-            pin(match.id)
-        },
-    )
+    private val adapter =
+        LiveMatchAdapter(
+            { match ->
+                val prediction = match.toPrediction()
+                liveMatchViewModel.predict(prediction)
+            },
+            { match ->
+                pin(match.id)
+            },
+        )
 
     private var pinMatchId: String? = null
 
     @Inject
     lateinit var notificationManager: NotificationManagerCompat
 
-    private val notificationsRequestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { granted: Boolean ->
-        if (granted) {
-            if (pinMatchId == null) throw RuntimeException("Pin match ID is null")
-            liveMatchViewModel.pin(matchId = pinMatchId!!)
-        } else {
-            showNotificationSettingsSnackbar()
+    private val notificationsRequestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { granted: Boolean ->
+            if (granted) {
+                if (pinMatchId == null) throw RuntimeException("Pin match ID is null")
+                liveMatchViewModel.pin(matchId = pinMatchId!!)
+            } else {
+                showNotificationSettingsSnackbar()
+            }
         }
-    }
 
     private val coordinatorLayout: CoordinatorLayout
         get() = ActivityCompat.requireViewById(requireActivity(), R.id.coordinatorLayout)
@@ -86,7 +87,10 @@ class LiveMatchFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         setupSwipeRefresh()
@@ -127,9 +131,10 @@ class LiveMatchFragment : Fragment() {
         binding.swipeRefreshLayout.isNestedScrollingEnabled = false
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, dev.ricknout.rugbyranker.match.R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
-        val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(dev.ricknout.rugbyranker.match.R.dimen.elevation_swipe_refresh_layout),
-        )
+        val surfaceColor =
+            elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
+                resources.getDimension(dev.ricknout.rugbyranker.match.R.dimen.elevation_swipe_refresh_layout),
+            )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
@@ -167,14 +172,16 @@ class LiveMatchFragment : Fragment() {
 
     private fun pin(matchId: String) {
         val notificationsEnabled = NotificationUtils.areNotificationsEnabled(requireContext())
-        val liveNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
-            notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
-        )
-        val resultNotificationChannelEnabled = NotificationUtils.isNotificationChannelEnabled(
-            notificationManager = notificationManager,
-            channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
-        )
+        val liveNotificationChannelEnabled =
+            NotificationUtils.isNotificationChannelEnabled(
+                notificationManager = notificationManager,
+                channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_LIVE,
+            )
+        val resultNotificationChannelEnabled =
+            NotificationUtils.isNotificationChannelEnabled(
+                notificationManager = notificationManager,
+                channelId = NotificationUtils.NOTIFICATION_CHANNEL_ID_RESULT,
+            )
         when {
             !notificationsEnabled -> {
                 if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
@@ -234,6 +241,7 @@ class LiveMatchFragment : Fragment() {
 
     companion object {
         private const val KEY_PIN_MATCH_ID = "pin_match_id"
+
         fun newInstance(sport: Sport): LiveMatchFragment {
             val liveMatchFragment = LiveMatchFragment()
             liveMatchFragment.arguments = LiveMatchFragmentDirections.liveMatchAction(sport).arguments

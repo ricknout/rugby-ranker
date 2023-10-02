@@ -8,12 +8,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class InfoViewModel @Inject constructor() : ViewModel() {
+class InfoViewModel
+    @Inject
+    constructor() : ViewModel() {
+        private val _version = MutableStateFlow<String?>(null)
+        val version: LiveData<String?> = _version.asLiveData()
 
-    private val _version = MutableStateFlow<String?>(null)
-    val version: LiveData<String?> = _version.asLiveData()
-
-    fun setVersion(version: String) {
-        _version.value = version
+        fun setVersion(version: String) {
+            _version.value = version
+        }
     }
-}

@@ -7,7 +7,9 @@ import dev.ricknout.rugbyranker.ranking.work.RankingWorkManager
 import javax.inject.Inject
 
 @HiltViewModel
-class WomensRankingViewModel @Inject constructor(
-    repository: RankingRepository,
-    workManager: RankingWorkManager,
-) : RankingViewModel(Sport.WOMENS, repository, workManager)
+class WomensRankingViewModel
+    @Inject
+    constructor(
+        repository: RankingRepository,
+        workManager: RankingWorkManager,
+    ) : RankingViewModel(Sport.WOMENS, repository, workManager)

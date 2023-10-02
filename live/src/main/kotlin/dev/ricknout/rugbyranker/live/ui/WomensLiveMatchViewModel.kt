@@ -7,7 +7,9 @@ import dev.ricknout.rugbyranker.match.data.MatchRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class WomensLiveMatchViewModel @Inject constructor(
-    repository: MatchRepository,
-    workManager: LiveMatchWorkManager,
-) : LiveMatchViewModel(Sport.WOMENS, repository, workManager)
+class WomensLiveMatchViewModel
+    @Inject
+    constructor(
+        repository: MatchRepository,
+        workManager: LiveMatchWorkManager,
+    ) : LiveMatchViewModel(Sport.WOMENS, repository, workManager)

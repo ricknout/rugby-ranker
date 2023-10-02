@@ -5,7 +5,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface WorldRugbyService {
-
     @GET("rugby/v3/rankings/{sport}")
     suspend fun getRankings(
         @Path("sport") sport: String,

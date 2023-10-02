@@ -52,7 +52,6 @@ import dev.ricknout.rugbyranker.ranking.ui.WomensRankingViewModel
 
 @AndroidEntryPoint
 class SportFragment : Fragment() {
-
     private val args: SportFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
@@ -99,11 +98,12 @@ class SportFragment : Fragment() {
         resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
     }
 
-    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {
-            binding.viewPager.currentItem = POSITION_RANKINGS
+    private val onBackPressedCallback =
+        object : OnBackPressedCallback(false) {
+            override fun handleOnBackPressed() {
+                binding.viewPager.currentItem = POSITION_RANKINGS
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,7 +120,10 @@ class SportFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
@@ -144,20 +147,22 @@ class SportFragment : Fragment() {
             rankingViewModel.setPredictions(predictions)
             val currentPredictions = binding.predictionBar.getPredictions()
             binding.predictionBar.setPredictions(predictions)
-            val shouldTransition = when {
-                currentPredictions.isEmpty() && !predictions.isNullOrEmpty() -> true
-                currentPredictions.isNotEmpty() && predictions.isNullOrEmpty() -> true
-                else -> false
-            }
+            val shouldTransition =
+                when {
+                    currentPredictions.isEmpty() && !predictions.isNullOrEmpty() -> true
+                    currentPredictions.isNotEmpty() && predictions.isNullOrEmpty() -> true
+                    else -> false
+                }
             val shouldShowRankings = currentPredictions != predictions
             if (shouldShowRankings) binding.viewPager.currentItem = POSITION_RANKINGS
             if (!shouldTransition) return@observe
-            val transition = MaterialContainerTransform().apply {
-                duration = transitionDuration
-                interpolator = FastOutSlowInInterpolator()
-                scrimColor = Color.TRANSPARENT
-                fadeMode = MaterialContainerTransform.FADE_MODE_OUT
-            }
+            val transition =
+                MaterialContainerTransform().apply {
+                    duration = transitionDuration
+                    interpolator = FastOutSlowInInterpolator()
+                    scrimColor = Color.TRANSPARENT
+                    fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+                }
             transition.addTarget(binding.fab)
             if (predictions.isNullOrEmpty()) {
                 transition.startView = binding.predictionBar
@@ -233,7 +238,6 @@ class SportFragment : Fragment() {
         }.attach()
         binding.appBar.tabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
-
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     onBackPressedCallback.isEnabled = tab?.position != POSITION_RANKINGS
                 }
@@ -262,20 +266,20 @@ class SportFragment : Fragment() {
     }
 
     private fun setupPredictionBar() {
-        binding.predictionBar.listener = object : PredictionBar.PredictionBarListener {
+        binding.predictionBar.listener =
+            object : PredictionBar.PredictionBarListener {
+                override fun onAddPredictionClick() {
+                    findNavController().navigate(SportFragmentDirections.sportToPrediction(sport))
+                }
 
-            override fun onAddPredictionClick() {
-                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport))
-            }
+                override fun onPredictionClick(prediction: Prediction) {
+                    findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit = true))
+                }
 
-            override fun onPredictionClick(prediction: Prediction) {
-                findNavController().navigate(SportFragmentDirections.sportToPrediction(sport, prediction, edit = true))
+                override fun onRemovePredictionClick(prediction: Prediction) {
+                    predictionViewModel.removePrediction(prediction)
+                }
             }
-
-            override fun onRemovePredictionClick(prediction: Prediction) {
-                predictionViewModel.removePrediction(prediction)
-            }
-        }
     }
 
     private fun toggleLiveMatchTabIcon(show: Boolean) {
@@ -312,14 +316,14 @@ class SportFragment : Fragment() {
     }
 
     inner class SportAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-
-        override fun createFragment(position: Int) = when (position) {
-            POSITION_RANKINGS -> RankingFragment.newInstance(sport)
-            POSITION_MATCHES_UNPLAYED -> MatchFragment.newInstance(sport, Status.UNPLAYED)
-            POSITION_MATCHES_COMPLETE -> MatchFragment.newInstance(sport, Status.COMPLETE)
-            POSITION_MATCHES_LIVE -> LiveMatchFragment.newInstance(sport)
-            else -> throw IllegalArgumentException("Position $position exceeds SportAdapter count")
-        }
+        override fun createFragment(position: Int) =
+            when (position) {
+                POSITION_RANKINGS -> RankingFragment.newInstance(sport)
+                POSITION_MATCHES_UNPLAYED -> MatchFragment.newInstance(sport, Status.UNPLAYED)
+                POSITION_MATCHES_COMPLETE -> MatchFragment.newInstance(sport, Status.COMPLETE)
+                POSITION_MATCHES_LIVE -> LiveMatchFragment.newInstance(sport)
+                else -> throw IllegalArgumentException("Position $position exceeds SportAdapter count")
+            }
 
         override fun getItemCount() = 4
     }

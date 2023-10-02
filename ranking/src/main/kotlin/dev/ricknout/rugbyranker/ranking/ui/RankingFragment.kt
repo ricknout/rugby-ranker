@@ -27,7 +27,6 @@ import dev.ricknout.rugbyranker.ranking.databinding.FragmentRankingBinding
 
 @AndroidEntryPoint
 class RankingFragment : Fragment() {
-
     private val args: RankingFragmentArgs by navArgs()
 
     private val sport: Sport by lazy { args.sport }
@@ -68,7 +67,10 @@ class RankingFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         setupSwipeRefresh()
@@ -118,9 +120,10 @@ class RankingFragment : Fragment() {
         binding.swipeRefreshLayout.isNestedScrollingEnabled = false
         val primaryColor = MaterialColors.getColor(binding.swipeRefreshLayout, R.attr.colorPrimary)
         val elevationOverlayProvider = ElevationOverlayProvider(requireContext())
-        val surfaceColor = elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
-            resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
-        )
+        val surfaceColor =
+            elevationOverlayProvider.compositeOverlayWithThemeSurfaceColorIfNeeded(
+                resources.getDimension(R.dimen.elevation_swipe_refresh_layout),
+            )
         binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(surfaceColor)
         binding.swipeRefreshLayout.setColorSchemeColors(primaryColor)
         binding.swipeRefreshLayout.setProgressViewOffset(
@@ -152,11 +155,12 @@ class RankingFragment : Fragment() {
         when {
             updatedTimeMillis != null -> {
                 val isCurrentDay = DateUtils.isDayCurrentDay(updatedTimeMillis)
-                val updatedTime = if (isCurrentDay) {
-                    getString(R.string.today)
-                } else {
-                    DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, updatedTimeMillis)
-                }
+                val updatedTime =
+                    if (isCurrentDay) {
+                        getString(R.string.today)
+                    } else {
+                        DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, updatedTimeMillis)
+                    }
                 labelAdapter.submitList(listOf(getString(R.string.updated, updatedTime)))
             }
             predictionViewModel.hasPredictions() -> {

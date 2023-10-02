@@ -19,7 +19,6 @@ import dev.ricknout.rugbyranker.info.ui.InfoViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private val infoViewModel: InfoViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding

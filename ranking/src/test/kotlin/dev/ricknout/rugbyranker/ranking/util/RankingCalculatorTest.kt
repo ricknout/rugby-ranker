@@ -8,87 +8,96 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RankingCalculatorTest {
-
     @Test
     fun allocatePointsForPrediction() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 95f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 95f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team3 = Ranking(
-            teamId = "3",
-            teamName = "Team 3",
-            teamAbbreviation = "T3",
-            position = 3,
-            previousPosition = 4,
-            points = 90f,
-            previousPoints = 85f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team4 = Ranking(
-            teamId = "4",
-            teamName = "Team 4",
-            teamAbbreviation = "T4",
-            position = 4,
-            previousPosition = 5,
-            points = 85f,
-            previousPoints = 80f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val prediction1 = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 10,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 30,
-            noHomeAdvantage = true,
-            rugbyWorldCup = false,
-        )
-        val prediction2 = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team3.teamId,
-                name = team3.teamName,
-                abbreviation = team3.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team4.teamId,
-                name = team4.teamName,
-                abbreviation = team4.teamAbbreviation,
-            ),
-            awayScore = 5,
-            noHomeAdvantage = false,
-            rugbyWorldCup = true,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 95f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 95f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team3 =
+            Ranking(
+                teamId = "3",
+                teamName = "Team 3",
+                teamAbbreviation = "T3",
+                position = 3,
+                previousPosition = 4,
+                points = 90f,
+                previousPoints = 85f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team4 =
+            Ranking(
+                teamId = "4",
+                teamName = "Team 4",
+                teamAbbreviation = "T4",
+                position = 4,
+                previousPosition = 5,
+                points = 85f,
+                previousPoints = 80f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val prediction1 =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 10,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 30,
+                noHomeAdvantage = true,
+                rugbyWorldCup = false,
+            )
+        val prediction2 =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team3.teamId,
+                        name = team3.teamName,
+                        abbreviation = team3.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team4.teamId,
+                        name = team4.teamName,
+                        abbreviation = team4.teamAbbreviation,
+                    ),
+                awayScore = 5,
+                noHomeAdvantage = false,
+                rugbyWorldCup = true,
+            )
         val teams = listOf(team1, team2, team3, team4)
         val predictions = listOf(prediction1, prediction2)
         val expectedTeam1 = team1.copy(points = 97.75f, previousPoints = 100f, position = 1, previousPosition = 1)
@@ -101,45 +110,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsEqual() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = false,
-            rugbyWorldCup = false,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = false,
+                rugbyWorldCup = false,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -164,45 +178,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsEqual_NHA() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = true,
-            rugbyWorldCup = false,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = true,
+                rugbyWorldCup = false,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -227,45 +246,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsEqual_RWC() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = false,
-            rugbyWorldCup = true,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = false,
+                rugbyWorldCup = true,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -290,45 +314,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsNotEqual() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 95f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = false,
-            rugbyWorldCup = false,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 95f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = false,
+                rugbyWorldCup = false,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -353,45 +382,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsNotEqual_NHA() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 95f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = true,
-            rugbyWorldCup = false,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 95f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = true,
+                rugbyWorldCup = false,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -416,45 +450,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsNotEqual_RWC() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 95f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = false,
-            rugbyWorldCup = true,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 95f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = false,
+                rugbyWorldCup = true,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -479,45 +518,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsMoreThan10() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 80f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = false,
-            rugbyWorldCup = false,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 80f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = false,
+                rugbyWorldCup = false,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -542,45 +586,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsMoreThan10_NHA() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 80f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = true,
-            rugbyWorldCup = false,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 80f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = true,
+                rugbyWorldCup = false,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
@@ -605,45 +654,50 @@ class RankingCalculatorTest {
 
     @Test
     fun pointsForPrediction_TeamsPointsMoreThan10_RWC() {
-        val team1 = Ranking(
-            teamId = "1",
-            teamName = "Team 1",
-            teamAbbreviation = "T1",
-            position = 1,
-            previousPosition = 2,
-            points = 100f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val team2 = Ranking(
-            teamId = "2",
-            teamName = "Team 2",
-            teamAbbreviation = "T2",
-            position = 2,
-            previousPosition = 3,
-            points = 80f,
-            previousPoints = 90f,
-            matches = 10,
-            sport = Sport.MENS,
-        )
-        val basePrediction = Prediction(
-            id = Prediction.generateId(),
-            homeTeam = Team(
-                id = team1.teamId,
-                name = team1.teamName,
-                abbreviation = team1.teamAbbreviation,
-            ),
-            homeScore = 0,
-            awayTeam = Team(
-                id = team2.teamId,
-                name = team2.teamName,
-                abbreviation = team2.teamAbbreviation,
-            ),
-            awayScore = 0,
-            noHomeAdvantage = false,
-            rugbyWorldCup = true,
-        )
+        val team1 =
+            Ranking(
+                teamId = "1",
+                teamName = "Team 1",
+                teamAbbreviation = "T1",
+                position = 1,
+                previousPosition = 2,
+                points = 100f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val team2 =
+            Ranking(
+                teamId = "2",
+                teamName = "Team 2",
+                teamAbbreviation = "T2",
+                position = 2,
+                previousPosition = 3,
+                points = 80f,
+                previousPoints = 90f,
+                matches = 10,
+                sport = Sport.MENS,
+            )
+        val basePrediction =
+            Prediction(
+                id = Prediction.generateId(),
+                homeTeam =
+                    Team(
+                        id = team1.teamId,
+                        name = team1.teamName,
+                        abbreviation = team1.teamAbbreviation,
+                    ),
+                homeScore = 0,
+                awayTeam =
+                    Team(
+                        id = team2.teamId,
+                        name = team2.teamName,
+                        abbreviation = team2.teamAbbreviation,
+                    ),
+                awayScore = 0,
+                noHomeAdvantage = false,
+                rugbyWorldCup = true,
+            )
         // Draw
         val drawPrediction = basePrediction.copy(homeScore = 50, awayScore = 50)
         val pointsForDrawPrediction = RankingCalculator.pointsForPrediction(team1, team2, drawPrediction)
