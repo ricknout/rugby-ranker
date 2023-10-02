@@ -11,7 +11,7 @@ object RankingDataConverter {
             Ranking(
                 teamId = entry.team.id,
                 teamName = entry.team.name,
-                teamAbbreviation = entry.team.abbreviation!!,
+                teamAbbreviation = entry.team.abbreviation ?: entry.team.countryCode,
                 position = entry.pos,
                 previousPosition = entry.previousPos,
                 points = entry.pts,

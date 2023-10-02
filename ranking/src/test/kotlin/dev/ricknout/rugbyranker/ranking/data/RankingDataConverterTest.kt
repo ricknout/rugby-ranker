@@ -16,9 +16,9 @@ class RankingDataConverterTest {
     @Before
     fun setup() {
         val effective = Effective(label = "2018-10-29", millis = 1540771200000L, gmtOffset = 0f)
-        val team1 = Team(id = "100", name = "Team 1", abbreviation = "T1")
+        val team1 = Team(id = "100", name = "Team 1", abbreviation = "T1", countryCode = "T1")
         val entry1 = Entry(pos = 1, previousPos = 2, pts = 100f, previousPts = 90f, matches = 10, team = team1)
-        val team2 = Team(id = "200", name = "Team 2", abbreviation = "T2")
+        val team2 = Team(id = "200", name = "Team 2", abbreviation = null, countryCode = "T2")
         val entry2 = Entry(pos = 2, previousPos = 3, pts = 90f, previousPts = 80f, matches = 10, team = team2)
         worldRugbyRankingsResponse = WorldRugbyRankingsResponse(
             effective = effective,
@@ -35,7 +35,7 @@ class RankingDataConverterTest {
             val entry = worldRugbyRankingsResponse.entries[index]
             assertEquals(mensWorldRugbyRanking.teamId, entry.team.id)
             assertEquals(mensWorldRugbyRanking.teamName, entry.team.name)
-            assertEquals(mensWorldRugbyRanking.teamAbbreviation, entry.team.abbreviation)
+            assertEquals(mensWorldRugbyRanking.teamAbbreviation, entry.team.abbreviation ?: entry.team.countryCode)
             assertEquals(mensWorldRugbyRanking.position, entry.pos)
             assertEquals(mensWorldRugbyRanking.previousPosition, entry.previousPos)
             assertEquals(mensWorldRugbyRanking.points, entry.pts)
@@ -53,7 +53,7 @@ class RankingDataConverterTest {
             val entry = worldRugbyRankingsResponse.entries[index]
             assertEquals(womensWorldRugbyRanking.teamId, entry.team.id)
             assertEquals(womensWorldRugbyRanking.teamName, entry.team.name)
-            assertEquals(womensWorldRugbyRanking.teamAbbreviation, entry.team.abbreviation)
+            assertEquals(womensWorldRugbyRanking.teamAbbreviation, entry.team.abbreviation ?: entry.team.countryCode)
             assertEquals(womensWorldRugbyRanking.position, entry.pos)
             assertEquals(womensWorldRugbyRanking.previousPosition, entry.previousPos)
             assertEquals(womensWorldRugbyRanking.points, entry.pts)

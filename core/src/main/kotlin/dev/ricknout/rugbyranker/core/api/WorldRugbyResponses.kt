@@ -10,9 +10,10 @@ data class Team(
     val id: String,
     val name: String,
     val abbreviation: String?,
+    val countryCode: String,
 )
 
-val tbc = Team(id = "TBC", name = "TBC", abbreviation = "TBC")
+val tbc = Team(id = "TBC", name = "TBC", abbreviation = "TBC", countryCode = "TBC")
 
 data class Entry(
     val pos: Int,
