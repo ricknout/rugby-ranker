@@ -38,8 +38,6 @@ data class Match(
     val half: Half?,
     val minute: Int?,
 ) {
-    val displayable: Boolean
-        get() = numberOfRankedTeams >= 1
     val predictable: Boolean
         get() = numberOfRankedTeams == 2
 

@@ -66,7 +66,6 @@ class MatchRepository(
             val response = service.getMatches(sports, states, startDate, endDate, sort, page, pageSize)
             val teamIds = dao.loadTeamIds(sport)
             val matches = MatchDataConverter.getMatchesFromResponse(response, sport, teamIds)
-                .filter { match -> match.displayable }
                 .map { match ->
                     when (match.status) {
                         Status.LIVE -> {
@@ -98,7 +97,7 @@ class MatchRepository(
             val response = service.getMatchSummary(id)
             val teamIds = dao.loadTeamIds(sport)
             val match = MatchDataConverter.getMatchFromResponse(response, sport, teamIds)
-            match.displayable to match
+            true to match
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
             false to null
