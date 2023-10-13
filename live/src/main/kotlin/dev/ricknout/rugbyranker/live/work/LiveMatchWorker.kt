@@ -5,6 +5,7 @@ import android.annotation.TargetApi
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationChannelCompat
@@ -92,7 +93,7 @@ open class LiveMatchWorker(
 
     private fun createInitialForegroundInfo(notificationId: Int): ForegroundInfo {
         val notification = createInitialNotification()
-        return ForegroundInfo(notificationId, notification)
+        return createForegroundInfo(notificationId, notification)
     }
 
     private fun createInitialNotification(): Notification {
@@ -120,7 +121,7 @@ open class LiveMatchWorker(
         match: Match,
     ): ForegroundInfo {
         val notification = createLiveNotification(match)
-        return ForegroundInfo(notificationId, notification)
+        return createForegroundInfo(notificationId, notification)
     }
 
     private fun createLiveNotification(match: Match): Notification {
@@ -242,6 +243,14 @@ open class LiveMatchWorker(
     }
 
     private fun createCancelPendingIntent() = workManager.createCancelPendingIntent(id)
+
+    private fun createForegroundInfo(notificationId: Int, notification: Notification): ForegroundInfo {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ForegroundInfo(notificationId, notification, FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        } else {
+            ForegroundInfo(notificationId, notification)
+        }
+    }
 
     companion object {
         private const val TAG = "LiveMatchWorker"
