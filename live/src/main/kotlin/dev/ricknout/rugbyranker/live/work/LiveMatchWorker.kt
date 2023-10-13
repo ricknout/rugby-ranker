@@ -244,7 +244,10 @@ open class LiveMatchWorker(
 
     private fun createCancelPendingIntent() = workManager.createCancelPendingIntent(id)
 
-    private fun createForegroundInfo(notificationId: Int, notification: Notification): ForegroundInfo {
+    private fun createForegroundInfo(
+        notificationId: Int,
+        notification: Notification,
+    ): ForegroundInfo {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ForegroundInfo(notificationId, notification, FOREGROUND_SERVICE_TYPE_DATA_SYNC)
         } else {
