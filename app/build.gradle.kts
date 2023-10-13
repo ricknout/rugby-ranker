@@ -15,8 +15,8 @@ android {
         applicationId = "com.ricknout.rugbyranker"
         minSdk = 24
         targetSdk = 34
-        versionCode = 2112
-        versionName = "2.1.12"
+        versionCode = 2113
+        versionName = "2.1.13"
         setProperty("archivesBaseName", "$applicationId-v$versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
