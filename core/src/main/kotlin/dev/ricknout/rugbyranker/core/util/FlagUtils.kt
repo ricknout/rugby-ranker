@@ -120,6 +120,7 @@ object FlagUtils {
 
             "NAM" -> "\uD83C\uDDF3\uD83C\uDDE6" // Namibia
             "NRU" -> "\uD83C\uDDF3\uD83C\uDDF7" // Nauru
+            "NPL" -> "\uD83C\uDDF3\uD83C\uDDF5" // Nepal
             "NIG" -> "\uD83C\uDDF3\uD83C\uDDEA" // Niger
             "NGA", "NGR" -> "\uD83C\uDDF3\uD83C\uDDEC" // Nigeria
             "NIU" -> "\uD83C\uDDF3\uD83C\uDDFA" // Niue Island
