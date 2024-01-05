@@ -20,7 +20,7 @@ subprojects {
         kotlin {
             target("**/*.kt")
             targetExclude("${layout.buildDirectory}/**/*.kt")
-            ktlint(libs.versions.ktlint.get())
+            ktlint()
         }
     }
 }

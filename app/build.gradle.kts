@@ -70,6 +70,8 @@ dependencies {
     implementation(libs.androidx.drawerlayout)
     implementation(libs.androidx.viewpager2)
     implementation(libs.dagger.hilt.android)
+    // TODO: Workaround for https://issuetracker.google.com/issues/295909826, remove when fixed
+    api(libs.androidx.compose.ui)
     ksp(libs.androidx.room.compiler)
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)

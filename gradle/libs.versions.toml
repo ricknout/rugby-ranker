@@ -1,45 +1,53 @@
 [versions]
-androidGradlePlugin = "8.3.0-alpha12"
-androidxActivity = "1.8.0"
+androidGradlePlugin = "8.4.0-alpha02"
+androidxActivity = "1.9.0-alpha01"
 androidxAppCompat = "1.7.0-alpha03"
-androidxBrowser = "1.7.0-rc01"
+androidxBrowser = "1.8.0-beta01"
+androidxCompose = "1.6.0-beta03"
+androidxComposeCompiler = "1.5.7"
+androidxComposeMaterial3 = "1.2.0-beta01"
 androidxConstraintLayout = "2.2.0-alpha13"
-androidxCore = "1.13.0-alpha01"
+androidxCore = "1.13.0-alpha02"
 androidxCoreSplashScreen = "1.1.0-alpha02"
-androidxDataStore = "1.1.0-alpha06"
+androidxDataStore = "1.1.0-alpha07"
 androidxDrawerLayout = "1.2.0"
-androidxEmoji2 = "1.4.0"
-androidxFragment = "1.7.0-alpha06"
-androidxHilt = "1.1.0"
-androidxLifecycle = "2.7.0-beta01"
-androidxNavigation = "2.7.5"
+androidxEmoji2 = "1.5.0-alpha01"
+androidxFragment = "1.7.0-alpha07"
+androidxHilt = "1.2.0-alpha01"
+androidxLifecycle = "2.7.0-rc02"
+androidxNavigation = "2.7.6"
 androidxRecyclerView = "1.4.0-alpha01"
-androidxRoom = "2.6.0"
+androidxRoom = "2.6.1"
 androidxPaging = "3.3.0-alpha02"
 androidxSwipeRefreshLayout = "1.2.0-alpha01"
-androidxTestCore = "1.6.0-alpha02"
-androidxTestExtJunit = "1.2.0-alpha01"
-androidxTestRunner = "1.6.0-alpha04"
+androidxTestCore = "1.6.0-alpha04"
+androidxTestExtJunit = "1.2.0-alpha02"
+androidxTestRunner = "1.6.0-alpha05"
 androidxViewPager2 = "1.1.0-beta02"
-androidxWork = "2.9.0-rc01"
+androidxWork = "2.9.0"
 coil = "2.5.0"
-daggerHilt = "2.48.1"
+daggerHilt = "2.50"
 insetter = "0.6.1"
-kotlin = "1.9.10"
+kotlin = "1.9.21"
 kotlinCoroutines = "1.7.3"
-ksp = "1.9.10-1.0.13"
-ktlint = "1.0.1"
-material = "1.11.0-beta01"
-okHttp = "5.0.0-alpha.11"
+ksp = "1.9.21-1.0.16"
+material = "1.12.0-alpha02"
+okHttp = "5.0.0-alpha.12"
 ossLicenses = "17.0.1"
 ossLicensesPlugin = "0.10.6"
 retrofit = "2.9.0"
-spotless = "6.22.0"
+spotless = "6.23.3"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
+androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "androidxCompose" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxCompose" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashScreen" }
@@ -58,6 +66,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidxRoom" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidxPaging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxPaging" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidxSwipeRefreshLayout" }
 androidx-test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "androidxTestCore" }
 androidx-test-ext-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExtJunit" }
@@ -65,6 +74,7 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "androidxViewPager2" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "daggerHilt" }
 insetter = { group = "dev.chrisbanes.insetter", name = "insetter", version.ref = "insetter" }
