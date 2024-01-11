@@ -10,8 +10,7 @@
     <fragment
         android:id="@+id/info"
         android:name="dev.ricknout.rugbyranker.info.ui.InfoFragment"
-        android:label="InfoFragment"
-        tools:layout="@layout/fragment_info">
+        android:label="InfoFragment">
 
         <action
             android:id="@+id/infoToThemeAction"

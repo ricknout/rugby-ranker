@@ -21,17 +21,25 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 }
 
 dependencies {
     implementation(project(":core"))
     implementation(project(":theme"))
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui)
     implementation(libs.oss.licenses)
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.tooling.preview)
     testImplementation(libs.androidx.test.ext.junit.ktx)
     androidTestImplementation(libs.androidx.test.core.ktx)
     androidTestImplementation(libs.androidx.test.runner)
