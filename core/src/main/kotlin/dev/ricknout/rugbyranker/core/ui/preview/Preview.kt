@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package dev.ricknout.rugbyranker.core.ui.preview
 
 import android.content.res.Configuration

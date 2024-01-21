@@ -34,14 +34,16 @@ fun RugbyRankerTopAppBar(
         tonalElevation = elevation,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .windowInsetsPadding(insets = TopAppBarDefaults.windowInsets)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .windowInsetsPadding(insets = TopAppBarDefaults.windowInsets),
         ) {
             Box(
-                modifier = Modifier
-                    .size(size = 56.dp)
-                    .clickable(onClick = onNavigationClick),
+                modifier =
+                    Modifier
+                        .size(size = 56.dp)
+                        .clickable(onClick = onNavigationClick),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(

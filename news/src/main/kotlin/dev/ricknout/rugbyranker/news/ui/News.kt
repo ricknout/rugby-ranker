@@ -38,17 +38,17 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
+import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerButton
 import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerCard
+import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerCircularProgressIndicator
+import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerSnackbar
+import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerTopAppBar
 import dev.ricknout.rugbyranker.core.ui.preview.UIModePreviews
 import dev.ricknout.rugbyranker.core.ui.theme.RugbyRankerTheme
 import dev.ricknout.rugbyranker.core.util.DateUtils
 import dev.ricknout.rugbyranker.news.R
 import dev.ricknout.rugbyranker.news.model.News
 import dev.ricknout.rugbyranker.news.model.Type
-import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerButton
-import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerCircularProgressIndicator
-import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerSnackbar
-import dev.ricknout.rugbyranker.core.ui.component.RugbyRankerTopAppBar
 import kotlin.math.floor
 
 @Composable
@@ -77,9 +77,9 @@ fun News(
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
-                snackbar = { snackbarData ->  
+                snackbar = { snackbarData ->
                     RugbyRankerSnackbar(snackbarData = snackbarData)
-                }
+                },
             )
         },
     ) { contentPadding ->
@@ -142,11 +142,12 @@ private fun NewsContent(
             val evenIndex = index % 2 == 0
             val alternate =
                 ((!evenSpanCount || evenRow) && evenIndex) || ((evenSpanCount && !evenRow) && !evenIndex)
-            val containerColor = if (alternate) {
-                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f)
-            } else {
-                MaterialTheme.colorScheme.surface
-            }
+            val containerColor =
+                if (alternate) {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f)
+                } else {
+                    MaterialTheme.colorScheme.surface
+                }
             val item = news[index]
             if (item != null) {
                 NewsItem(
@@ -162,9 +163,10 @@ private fun NewsContent(
 @Composable
 private fun NewsProgress(contentPadding: PaddingValues) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues = contentPadding),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(paddingValues = contentPadding),
         contentAlignment = Alignment.Center,
     ) {
         RugbyRankerCircularProgressIndicator()
@@ -174,13 +176,14 @@ private fun NewsProgress(contentPadding: PaddingValues) {
 @Composable
 private fun NewsError(
     contentPadding: PaddingValues,
-    onRetryClick: () -> Unit
+    onRetryClick: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues = contentPadding)
-            .padding(all = 16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(paddingValues = contentPadding)
+                .padding(all = 16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -206,7 +209,7 @@ private fun NewsItem(
     RugbyRankerCard(
         onClick = onClick,
         modifier = modifier,
-        containerColor = containerColor
+        containerColor = containerColor,
     ) {
         Box(contentAlignment = Alignment.Center) {
             Icon(
@@ -217,9 +220,10 @@ private fun NewsItem(
             AsyncImage(
                 model = news.imageUrl,
                 contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(height = 224.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(height = 224.dp),
                 contentScale = ContentScale.Crop,
             )
         }
@@ -243,11 +247,12 @@ private fun NewsItem(
                 style = MaterialTheme.typography.bodyLarge,
             )
             val isCurrentDay = DateUtils.isDayCurrentDay(news.timeMillis)
-            val label = if (isCurrentDay) {
-                stringResource(id = R.string.today)
-            } else {
-                DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, news.timeMillis)
-            }
+            val label =
+                if (isCurrentDay) {
+                    stringResource(id = R.string.today)
+                } else {
+                    DateUtils.getDate(DateUtils.DATE_FORMAT_D_MMM_YYYY, news.timeMillis)
+                }
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodyLarge,
@@ -260,17 +265,20 @@ private fun NewsItem(
 @Composable
 @UIModePreviews
 private fun NewsItemPreview() {
-    val news = News(
-        id = "123",
-        type = Type.TEXT,
-        title = "News title",
-        subtitle = "News subtitle",
-        summary = "News summary",
-        imageUrl = "https://resources.world.rugby/photo-resources/2020/05/13/89d97b1c-cc16-4b90-9814-1138a3921fce/2020-WR_mark_generic.jpg?width=1000",
-        articleUrl = "https://world.rugby/news",
-        timeMillis = 1699635600000,
-        language = "en",
-    )
+    val news =
+        News(
+            id = "123",
+            type = Type.TEXT,
+            title = "News title",
+            subtitle = "News subtitle",
+            summary = "News summary",
+            imageUrl =
+                "https://resources.world.rugby/photo-resources/2020/05/13/" +
+                    "89d97b1c-cc16-4b90-9814-1138a3921fce/2020-WR_mark_generic.jpg?width=1000",
+            articleUrl = "https://world.rugby/news",
+            timeMillis = 1699635600000,
+            language = "en",
+        )
     RugbyRankerTheme {
         NewsItem(
             news = news,

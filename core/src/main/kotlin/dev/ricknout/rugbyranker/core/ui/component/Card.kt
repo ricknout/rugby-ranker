@@ -20,10 +20,11 @@ fun RugbyRankerCard(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        colors = CardDefaults.cardColors(
-            containerColor = containerColor,
-            disabledContainerColor = containerColor,
-        ),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = containerColor,
+                disabledContainerColor = containerColor,
+            ),
         content = content,
     )
 }

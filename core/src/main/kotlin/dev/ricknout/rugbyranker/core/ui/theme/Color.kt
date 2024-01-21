@@ -12,38 +12,40 @@ private val Blue = Color(0xFF0000AC)
 private val LightRed = Color(0xFFFF5C44)
 private val Red = Color(0xFFE51A19)
 
-internal val LightRugbyRankerColorScheme = lightColorScheme(
-    primary = Green,
-    onPrimary = Color.White,
-    secondary = DarkGreen,
-    onSecondary = Color.White,
-    tertiary = Blue,
-    onTertiary = Color.Black,
-    background = Color.White,
-    onBackground = Color.Black,
-    surface = Color.White,
-    surfaceTint = Color.White,
-    onSurface = Color.Black,
-    inverseSurface = Color.Black,
-    inverseOnSurface = Color.White,
-    error = Red,
-    onError = Color.White,
-)
+internal val LightRugbyRankerColorScheme =
+    lightColorScheme(
+        primary = Green,
+        onPrimary = Color.White,
+        secondary = DarkGreen,
+        onSecondary = Color.White,
+        tertiary = Blue,
+        onTertiary = Color.Black,
+        background = Color.White,
+        onBackground = Color.Black,
+        surface = Color.White,
+        surfaceTint = Color.White,
+        onSurface = Color.Black,
+        inverseSurface = Color.Black,
+        inverseOnSurface = Color.White,
+        error = Red,
+        onError = Color.White,
+    )
 
-internal val DarkRugbyRankerColorScheme = darkColorScheme(
-    primary = LightGreen,
-    onPrimary = Color.Black,
-    secondary = Green,
-    onSecondary = Color.Black,
-    tertiary = LightBlue,
-    onTertiary = Color.Black,
-    background = Color.Black,
-    onBackground = Color.White,
-    surface = Color.Black,
-    surfaceTint = Color.White,
-    onSurface = Color.White,
-    inverseSurface = Color.White,
-    inverseOnSurface = Color.Black,
-    error = LightRed,
-    onError = Color.Black,
-)
+internal val DarkRugbyRankerColorScheme =
+    darkColorScheme(
+        primary = LightGreen,
+        onPrimary = Color.Black,
+        secondary = Green,
+        onSecondary = Color.Black,
+        tertiary = LightBlue,
+        onTertiary = Color.Black,
+        background = Color.Black,
+        onBackground = Color.White,
+        surface = Color.Black,
+        surfaceTint = Color.White,
+        onSurface = Color.White,
+        inverseSurface = Color.White,
+        inverseOnSurface = Color.Black,
+        error = LightRed,
+        onError = Color.Black,
+    )

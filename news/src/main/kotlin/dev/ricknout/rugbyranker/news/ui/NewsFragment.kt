@@ -15,9 +15,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ricknout.rugbyranker.core.ui.openDrawer
+import dev.ricknout.rugbyranker.core.ui.theme.RugbyRankerTheme
 import dev.ricknout.rugbyranker.core.util.CustomTabUtils
 import dev.ricknout.rugbyranker.news.model.Type
-import dev.ricknout.rugbyranker.core.ui.theme.RugbyRankerTheme
 import dev.ricknout.rugbyranker.theme.ui.ThemeViewModel
 import dev.ricknout.rugbyranker.theme.util.getCustomTabsIntentColorScheme
 import kotlinx.coroutines.Dispatchers
@@ -74,7 +74,7 @@ class NewsFragment : Fragment() {
                     },
                     onNavigationClick = {
                         openDrawer()
-                    }
+                    },
                 )
             }
         }

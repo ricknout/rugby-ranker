@@ -125,7 +125,7 @@ private fun InfoContent(
         item {
             InfoVersion(
                 version = version,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
@@ -154,9 +154,10 @@ private fun InfoVersion(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .sizeIn(minWidth = 56.dp, minHeight = 56.dp)
-            .padding(horizontal = 16.dp),
+        modifier =
+            modifier
+                .sizeIn(minWidth = 56.dp, minHeight = 56.dp)
+                .padding(horizontal = 16.dp),
         contentAlignment = Alignment.CenterStart,
     ) {
         Text(
