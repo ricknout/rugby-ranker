@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.4.0-alpha03"
+androidGradlePlugin = "8.4.0-alpha04"
 androidxActivity = "1.9.0-alpha01"
 androidxAppCompat = "1.7.0-alpha03"
 androidxBrowser = "1.8.0-beta01"
@@ -30,13 +30,13 @@ daggerHilt = "2.50"
 insetter = "0.6.1"
 kotlin = "1.9.22"
 kotlinCoroutines = "1.7.3"
-ksp = "1.9.22-1.0.16"
+ksp = "1.9.22-1.0.17"
 material = "1.12.0-alpha03"
 okHttp = "5.0.0-alpha.12"
 ossLicenses = "17.0.1"
 ossLicensesPlugin = "0.10.6"
 retrofit = "2.9.0"
-spotless = "6.23.3"
+spotless = "6.24.0"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
