@@ -1,21 +1,21 @@
 [versions]
-androidGradlePlugin = "8.4.0-alpha04"
-androidxActivity = "1.9.0-alpha01"
+androidGradlePlugin = "8.4.0-alpha06"
+androidxActivity = "1.9.0-alpha02"
 androidxAppCompat = "1.7.0-alpha03"
 androidxBrowser = "1.8.0-beta01"
-androidxCompose = "1.6.0-rc01"
+androidxCompose = "1.7.0-alpha01"
 androidxComposeCompiler = "1.5.8"
-androidxComposeMaterial3 = "1.2.0-beta02"
+androidxComposeMaterial3 = "1.2.0-rc01"
 androidxConstraintLayout = "2.2.0-alpha13"
-androidxCore = "1.13.0-alpha03"
+androidxCore = "1.13.0-alpha04"
 androidxCoreSplashScreen = "1.1.0-alpha02"
 androidxDataStore = "1.1.0-beta01"
 androidxDrawerLayout = "1.2.0"
 androidxEmoji2 = "1.5.0-alpha01"
-androidxFragment = "1.7.0-alpha08"
-androidxHilt = "1.2.0-alpha01"
-androidxLifecycle = "2.7.0"
-androidxNavigation = "2.7.6"
+androidxFragment = "1.7.0-alpha09"
+androidxHilt = "1.2.0-beta01"
+androidxLifecycle = "2.8.0-alpha01"
+androidxNavigation = "2.8.0-alpha01"
 androidxRecyclerView = "1.4.0-alpha01"
 androidxRoom = "2.6.1"
 androidxPaging = "3.3.0-alpha02"
@@ -24,7 +24,7 @@ androidxTestCore = "1.6.0-alpha04"
 androidxTestExtJunit = "1.2.0-alpha02"
 androidxTestRunner = "1.6.0-alpha05"
 androidxViewPager2 = "1.1.0-beta02"
-androidxWork = "2.9.0"
+androidxWork = "2.10.0-alpha01"
 coil = "2.5.0"
 daggerHilt = "2.50"
 insetter = "0.6.1"
@@ -36,7 +36,7 @@ okHttp = "5.0.0-alpha.12"
 ossLicenses = "17.0.1"
 ossLicensesPlugin = "0.10.6"
 retrofit = "2.9.0"
-spotless = "6.24.0"
+spotless = "6.25.0"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
@@ -55,6 +55,7 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 androidx-drawerlayout = { group = "androidx.drawerlayout", name = "drawerlayout", version.ref = "androidxDrawerLayout" }
 androidx-emoji2 = { group = "androidx.emoji2", name = "emoji2", version.ref = "androidxEmoji2" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
+androidx-fragment-compose = { group = "androidx.fragment", name = "fragment-compose", version.ref = "androidxFragment" }
 androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "androidxHilt" }
 androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "androidxHilt" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }

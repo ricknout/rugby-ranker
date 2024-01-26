@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.fragment.compose)
     implementation(libs.oss.licenses)
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)

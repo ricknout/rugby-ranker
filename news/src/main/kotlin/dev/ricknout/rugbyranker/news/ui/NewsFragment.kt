@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.compose.content
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -53,30 +52,27 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ) = ComposeView(requireContext()).apply {
-        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        setContent {
-            RugbyRankerTheme {
-                val news = newsViewModel.news.collectAsLazyPagingItems()
-                News(
-                    news = news,
-                    onItemClick = { item ->
-                        lifecycleScope.launch {
-                            val theme = themeViewModel.theme.first()
-                            withContext(Dispatchers.Main) {
-                                CustomTabUtils.launchCustomTab(
-                                    requireContext(),
-                                    item.articleUrl,
-                                    theme.getCustomTabsIntentColorScheme(),
-                                )
-                            }
+    ) = content {
+        RugbyRankerTheme {
+            val news = newsViewModel.news.collectAsLazyPagingItems()
+            News(
+                news = news,
+                onItemClick = { item ->
+                    lifecycleScope.launch {
+                        val theme = themeViewModel.theme.first()
+                        withContext(Dispatchers.Main) {
+                            CustomTabUtils.launchCustomTab(
+                                requireContext(),
+                                item.articleUrl,
+                                theme.getCustomTabsIntentColorScheme(),
+                            )
                         }
-                    },
-                    onNavigationClick = {
-                        openDrawer()
-                    },
-                )
-            }
+                    }
+                },
+                onNavigationClick = {
+                    openDrawer()
+                },
+            )
         }
     }
 

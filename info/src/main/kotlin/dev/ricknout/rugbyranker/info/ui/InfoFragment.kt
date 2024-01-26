@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.compose.content
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -50,68 +49,65 @@ class InfoFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ) = ComposeView(requireContext()).apply {
-        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        setContent {
-            RugbyRankerTheme {
-                val version by infoViewModel.version.collectAsState()
-                Info(
-                    version = version?.let { stringResource(id = R.string.version, it) } ?: "",
-                    onHowAreRankingsCalculatedClick = {
-                        lifecycleScope.launch {
-                            val theme = themeViewModel.theme.first()
-                            withContext(Dispatchers.Main) {
-                                CustomTabUtils.launchCustomTab(
-                                    requireContext(),
-                                    RANKINGS_EXPLANATION_URL,
-                                    theme.getCustomTabsIntentColorScheme(),
-                                )
-                            }
+    ) = content {
+        RugbyRankerTheme {
+            val version by infoViewModel.version.collectAsState()
+            Info(
+                version = version?.let { stringResource(id = R.string.version, it) } ?: "",
+                onHowAreRankingsCalculatedClick = {
+                    lifecycleScope.launch {
+                        val theme = themeViewModel.theme.first()
+                        withContext(Dispatchers.Main) {
+                            CustomTabUtils.launchCustomTab(
+                                requireContext(),
+                                RANKINGS_EXPLANATION_URL,
+                                theme.getCustomTabsIntentColorScheme(),
+                            )
                         }
-                    },
-                    onShareThisAppClick = {
-                        val appName = getString(R.string.app_name)
-                        val intent =
-                            Intent(Intent.ACTION_SEND).apply {
-                                putExtra(Intent.EXTRA_SUBJECT, requireContext().getString(R.string.share_subject, appName))
-                                putExtra(Intent.EXTRA_TEXT, requireContext().getString(R.string.share_text, appName, GOOGLE_PLAY_URL))
-                                type = "text/plain"
-                            }
-                        startActivity(Intent.createChooser(intent, requireContext().getString(R.string.share_title, appName)))
-                    },
-                    onViewOnGooglePlayClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_URL))
-                        startActivity(intent)
-                    },
-                    onViewSourceCodeClick = {
-                        lifecycleScope.launch {
-                            val theme = themeViewModel.theme.first()
-                            withContext(Dispatchers.Main) {
-                                CustomTabUtils.launchCustomTab(
-                                    requireContext(),
-                                    GITHUB_URL,
-                                    theme.getCustomTabsIntentColorScheme(),
-                                )
-                            }
+                    }
+                },
+                onShareThisAppClick = {
+                    val appName = getString(R.string.app_name)
+                    val intent =
+                        Intent(Intent.ACTION_SEND).apply {
+                            putExtra(Intent.EXTRA_SUBJECT, requireContext().getString(R.string.share_subject, appName))
+                            putExtra(Intent.EXTRA_TEXT, requireContext().getString(R.string.share_text, appName, GOOGLE_PLAY_URL))
+                            type = "text/plain"
                         }
-                    },
-                    onOpenSourceLicensesClick = {
-                        val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
-                        startActivity(intent)
-                    },
-                    onChooseThemeClick = {
-                        lifecycleScope.launch {
-                            val theme = themeViewModel.theme.first()
-                            withContext(Dispatchers.Main) {
-                                findNavController().navigate(InfoFragmentDirections.infoToTheme(theme))
-                            }
+                    startActivity(Intent.createChooser(intent, requireContext().getString(R.string.share_title, appName)))
+                },
+                onViewOnGooglePlayClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_URL))
+                    startActivity(intent)
+                },
+                onViewSourceCodeClick = {
+                    lifecycleScope.launch {
+                        val theme = themeViewModel.theme.first()
+                        withContext(Dispatchers.Main) {
+                            CustomTabUtils.launchCustomTab(
+                                requireContext(),
+                                GITHUB_URL,
+                                theme.getCustomTabsIntentColorScheme(),
+                            )
                         }
-                    },
-                    onNavigationClick = {
-                        openDrawer()
-                    },
-                )
-            }
+                    }
+                },
+                onOpenSourceLicensesClick = {
+                    val intent = Intent(requireContext(), OssLicensesMenuActivity::class.java)
+                    startActivity(intent)
+                },
+                onChooseThemeClick = {
+                    lifecycleScope.launch {
+                        val theme = themeViewModel.theme.first()
+                        withContext(Dispatchers.Main) {
+                            findNavController().navigate(InfoFragmentDirections.infoToTheme(theme))
+                        }
+                    }
+                },
+                onNavigationClick = {
+                    openDrawer()
+                },
+            )
         }
     }
 

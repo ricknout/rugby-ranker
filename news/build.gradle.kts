@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.fragment.compose)
     implementation(libs.coil)
     implementation(libs.coil.compose)
     implementation(libs.androidx.paging.runtime)
