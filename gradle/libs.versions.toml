@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.4.0-alpha06"
+androidGradlePlugin = "8.4.0-alpha07"
 androidxActivity = "1.9.0-alpha02"
 androidxAppCompat = "1.7.0-alpha03"
 androidxBrowser = "1.8.0-beta01"
